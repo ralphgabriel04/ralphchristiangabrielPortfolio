@@ -143,7 +143,7 @@ export function Header() {
 
       {/* Mobile drawer */}
       <div
-        className={`fixed inset-0 z-[100] flex flex-col bg-background p-6 transition-transform duration-[220ms] ease-out ${
+        className={`fixed inset-0 z-[100] flex flex-col overflow-x-hidden overflow-y-auto bg-background p-6 transition-transform duration-[220ms] ease-out ${
           drawerOpen ? "translate-x-0" : "translate-x-full"
         }`}
         aria-hidden={!drawerOpen}

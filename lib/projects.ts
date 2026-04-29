@@ -82,4 +82,19 @@ export const projects: Project[] = [
   }
 ]
 
-export const caseStudyIds = new Set(["the-mad-space"])
+export const caseStudyIds = new Set([
+  "the-mad-space",
+  "the-project",
+  "fastercom-tms",
+  "dpm-calendar",
+  "financej",
+])
+
+/** Role per project, used in project detail meta strip */
+export const projectRoles: Record<string, { fr: string; en: string }> = {
+  "the-mad-space": { fr: "Ingénieur Full-Stack (Contractuel)", en: "Full-Stack Engineer (Contract)" },
+  "the-project": { fr: "Fondateur & Développeur", en: "Founder & Developer" },
+  "fastercom-tms": { fr: "Développeur Intégrateur de Solutions", en: "Solutions Integration Developer" },
+  "dpm-calendar": { fr: "Fondateur & Développeur", en: "Founder & Developer" },
+  "financej": { fr: "Développeur (Projet académique)", en: "Developer (Academic Project)" },
+}

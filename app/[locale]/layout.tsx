@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { ThemeProvider } from "next-themes";
+import { Providers } from "@/components/providers";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { routing } from "@/i18n/routing";
@@ -44,13 +44,13 @@ export default async function LocaleLayout({
       <body
         className={`${GeistSans.variable} ${GeistMono.variable} font-sans antialiased`}
       >
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+        <Providers>
           <NextIntlClientProvider>
             <Header />
             <main className="min-h-screen">{children}</main>
             <Footer />
           </NextIntlClientProvider>
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );

@@ -38,57 +38,60 @@ function ProjectsContent() {
       <div className="grid gap-6">
         {projects.map((project, i) => (
           <Reveal key={project.id} delay={i * 80}>
-            <Card className="p-6 md:p-8">
-              <div className="flex flex-col gap-4">
-                <div className="flex flex-wrap items-center gap-3">
-                  <span className="font-mono text-xs text-muted-foreground">
-                    {project.year}
-                  </span>
-                  <Badge>
-                    <PulseDot />
-                    {project.status[locale]}
-                  </Badge>
-                </div>
-
-                <h2 className="text-xl font-medium tracking-[-0.01em] md:text-2xl">
-                  {project.name}
-                </h2>
-
-                <p className="text-sm text-muted-foreground">
-                  {project.tag[locale]}
-                </p>
-
-                <p className="max-w-[65ch] text-sm leading-relaxed text-muted-foreground">
-                  {project.summary[locale]}
-                </p>
-
-                <div className="flex flex-wrap gap-1">
-                  {project.stack.map((tech) => (
-                    <Tag key={tech}>{tech}</Tag>
-                  ))}
-                </div>
-
-                <div className="flex flex-wrap items-center gap-4 pt-1">
-                  {project.metrics[locale].map((m, j) => (
-                    <span
-                      key={j}
-                      className="font-mono text-xs text-muted-foreground"
-                    >
-                      {m}
+            <Link href={`/projects/${project.id}`} className="block group">
+              <Card className="p-6 md:p-8 transition-colors group-hover:border-accent/40">
+                <div className="flex flex-col gap-4">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="font-mono text-xs text-muted-foreground">
+                      {project.year}
                     </span>
-                  ))}
-                </div>
+                    <Badge>
+                      <PulseDot />
+                      {project.status[locale]}
+                    </Badge>
+                  </div>
 
-                {caseStudyIds.has(project.id) && (
-                  <Link
-                    href={`/projects/${project.id}`}
-                    className="inline-flex items-center gap-1 text-sm font-medium text-accent hover:underline"
-                  >
-                    {t("caseStudyLink")} <ArrowRight size={14} />
-                  </Link>
-                )}
-              </div>
-            </Card>
+                  <h2 className="text-xl font-medium tracking-[-0.01em] md:text-2xl group-hover:text-accent transition-colors">
+                    {project.name}
+                  </h2>
+
+                  <p className="text-sm text-muted-foreground">
+                    {project.tag[locale]}
+                  </p>
+
+                  <p className="max-w-[65ch] text-sm leading-relaxed text-muted-foreground">
+                    {project.summary[locale]}
+                  </p>
+
+                  <div className="flex flex-wrap gap-1">
+                    {project.stack.map((tech) => (
+                      <Tag key={tech}>{tech}</Tag>
+                    ))}
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-4 pt-1">
+                    {project.metrics[locale].map((m, j) => (
+                      <span
+                        key={j}
+                        className="font-mono text-xs text-muted-foreground"
+                      >
+                        {m}
+                      </span>
+                    ))}
+                  </div>
+
+                  <span className="inline-flex items-center gap-1 text-sm font-medium text-accent">
+                    {caseStudyIds.has(project.id)
+                      ? t("caseStudyLink")
+                      : t("viewProject")}{" "}
+                    <ArrowRight
+                      size={14}
+                      className="transition-transform group-hover:translate-x-1"
+                    />
+                  </span>
+                </div>
+              </Card>
+            </Link>
           </Reveal>
         ))}
       </div>

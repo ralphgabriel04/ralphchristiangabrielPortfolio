@@ -41,7 +41,11 @@
     "description": "Cinq projets qui montrent mon travail en production, en intégration enterprise, et en architecture académique.",
     "caseStudyLink": "Étude de cas",
     "allProjects": "Tous les projets",
-    "nextProject": "Projet suivant"
+    "nextProject": "Projet suivant",
+    "screenshotsCaption": "Captures d'écran du projet",
+    "screenshotPlaceholder": "Capture d'écran — à venir",
+    "caseStudyComingSoon": "Projet en développement — étude de cas à venir.",
+    "viewProject": "Voir le projet"
   },
   "about": {
     "title": "À propos",

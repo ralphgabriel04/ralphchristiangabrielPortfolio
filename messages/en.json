@@ -41,7 +41,11 @@
     "description": "Five projects spanning production work, enterprise integration, and academic architecture.",
     "caseStudyLink": "Case study",
     "allProjects": "All projects",
-    "nextProject": "Next project"
+    "nextProject": "Next project",
+    "screenshotsCaption": "Project screenshots",
+    "screenshotPlaceholder": "Screenshot — coming soon",
+    "caseStudyComingSoon": "Project in development — case study coming soon.",
+    "viewProject": "View project"
   },
   "about": {
     "title": "About",

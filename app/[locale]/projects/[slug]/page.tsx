@@ -2,21 +2,22 @@ import { notFound } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import { projects, caseStudyIds } from "@/lib/projects";
+import { ArrowLeft, ArrowRight, ImageIcon } from "lucide-react";
+import { projects, projectRoles } from "@/lib/projects";
 import { caseStudies } from "@/lib/case-studies";
-import { Button } from "@/components/ui/button";
 import { Tag } from "@/components/ui/tag";
 import { Badge } from "@/components/ui/badge";
 import { PulseDot } from "@/components/ui/pulse-dot";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
 
+const allSlugs = projects.map((p) => p.id);
+
 export function generateStaticParams() {
-  return Array.from(caseStudyIds).map((slug) => ({ slug }));
+  return allSlugs.map((slug) => ({ slug }));
 }
 
-export default async function CaseStudyPage({
+export default async function ProjectDetailPage({
   params,
 }: {
   params: Promise<{ locale: string; slug: string }>;
@@ -24,11 +25,11 @@ export default async function CaseStudyPage({
   const { locale, slug } = await params;
   setRequestLocale(locale);
 
-  if (!caseStudyIds.has(slug)) {
+  if (!allSlugs.includes(slug)) {
     notFound();
   }
 
-  return <CaseStudyContent slug={slug} />;
+  return <ProjectDetailContent slug={slug} />;
 }
 
 const sectionKeys = [
@@ -40,16 +41,19 @@ const sectionKeys = [
   "learnings",
 ] as const;
 
-function CaseStudyContent({ slug }: { slug: string }) {
+function ProjectDetailContent({ slug }: { slug: string }) {
   const t = useTranslations("projects");
   const tSec = useTranslations("sectionLabels");
   const locale = useLocale() as "fr" | "en";
 
-  const study = caseStudies[slug];
-  if (!study) return null;
-
-  const sections = study[locale];
   const project = projects.find((p) => p.id === slug);
+  if (!project) return null;
+
+  const study = caseStudies[slug];
+  const sections = study?.[locale];
+  const hasCaseStudy = !!sections;
+
+  const role = projectRoles[slug]?.[locale] ?? project.tag[locale];
 
   // Find next project for the "next project" button
   const projectIndex = projects.findIndex((p) => p.id === slug);
@@ -71,82 +75,121 @@ function CaseStudyContent({ slug }: { slug: string }) {
       <Reveal delay={60}>
         <div className="mb-12">
           <SectionHeading
-            kicker={tSec("caseStudy")}
-            title={project?.name ?? slug}
+            kicker={hasCaseStudy ? tSec("caseStudy") : tSec("overview")}
+            title={project.name}
           />
 
-          {project && (
-            <div className="mt-6 flex flex-wrap items-center gap-4">
-              <Badge>
-                <PulseDot />
-                {project.status[locale]}
-              </Badge>
-              <span className="font-mono text-xs text-muted-foreground">
-                {project.year}
-              </span>
-              <span className="text-sm text-muted-foreground">
-                {project.tag[locale]}
-              </span>
-            </div>
-          )}
+          <div className="mt-6 flex flex-wrap items-center gap-4">
+            <Badge>
+              <PulseDot />
+              {project.status[locale]}
+            </Badge>
+            <span className="font-mono text-xs text-muted-foreground">
+              {project.year}
+            </span>
+            <span className="text-sm text-muted-foreground">
+              {project.tag[locale]}
+            </span>
+          </div>
 
           {/* Meta strip */}
-          {project && (
-            <div className="mt-6 flex flex-wrap gap-1">
-              {project.stack.map((tech) => (
-                <Tag key={tech}>{tech}</Tag>
-              ))}
-            </div>
-          )}
+          <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+            <span className="font-medium text-foreground">{role}</span>
+          </div>
+
+          <div className="mt-4 flex flex-wrap gap-1">
+            {project.stack.map((tech) => (
+              <Tag key={tech}>{tech}</Tag>
+            ))}
+          </div>
+
+          {/* Summary */}
+          <p className="mt-6 max-w-[65ch] text-sm leading-relaxed text-muted-foreground">
+            {project.summary[locale]}
+          </p>
         </div>
       </Reveal>
 
-      {/* 6 sections: 01-06 */}
-      <div className="flex flex-col gap-16">
-        {sectionKeys.map((key, i) => {
-          const section = sections[key];
-          if (!section) return null;
-
-          return (
-            <Reveal key={key} delay={i * 60}>
-              <div className="grid gap-4 md:grid-cols-[80px_1fr]">
-                <span className="font-mono text-sm text-muted-foreground">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <div className="flex flex-col gap-3">
-                  <h3 className="text-lg font-medium tracking-[-0.01em]">
-                    {section.title}
-                  </h3>
-                  {section.type === "text" && section.body && (
-                    <p className="max-w-[65ch] text-sm leading-relaxed text-muted-foreground">
-                      {section.body}
-                    </p>
-                  )}
-                  {section.type === "list" && section.items && (
-                    <div className="flex flex-wrap gap-1">
-                      {section.items.map((item) => (
-                        <Tag key={item}>{item}</Tag>
-                      ))}
-                    </div>
-                  )}
-                </div>
+      {/* Media showcase */}
+      <Reveal delay={80}>
+        <div className="mb-16">
+          <div className="grid gap-3 md:grid-cols-2">
+            {/* Large image placeholder */}
+            <div className="md:row-span-2 flex flex-col items-center justify-center gap-2 rounded-lg border border-border-color bg-muted/30 text-muted-foreground"
+              style={{ aspectRatio: "16/9" }}
+            >
+              <ImageIcon size={32} strokeWidth={1.5} />
+              <span className="text-sm font-medium">{project.name}</span>
+              <span className="text-xs">{t("screenshotPlaceholder")}</span>
+            </div>
+            {/* Two smaller placeholders */}
+            {[1, 2].map((n) => (
+              <div
+                key={n}
+                className="flex flex-col items-center justify-center gap-2 rounded-lg border border-border-color bg-muted/30 text-muted-foreground"
+                style={{ aspectRatio: "16/9" }}
+              >
+                <ImageIcon size={24} strokeWidth={1.5} />
+                <span className="text-xs">{t("screenshotPlaceholder")}</span>
               </div>
-            </Reveal>
-          );
-        })}
-      </div>
+            ))}
+          </div>
+          <p className="mt-3 text-center text-xs text-muted-foreground">
+            {t("screenshotsCaption")}
+          </p>
+        </div>
+      </Reveal>
+
+      {/* Case study sections OR coming soon fallback */}
+      {hasCaseStudy ? (
+        <div className="flex flex-col gap-16">
+          {sectionKeys.map((key, i) => {
+            const section = sections[key];
+            if (!section) return null;
+
+            return (
+              <Reveal key={key} delay={i * 60}>
+                <div className="grid gap-4 md:grid-cols-[80px_1fr]">
+                  <span className="font-mono text-sm text-muted-foreground">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div className="flex flex-col gap-3">
+                    <h3 className="text-lg font-medium tracking-[-0.01em]">
+                      {section.title}
+                    </h3>
+                    {section.type === "text" && section.body && (
+                      <p className="max-w-[65ch] text-sm leading-relaxed text-muted-foreground">
+                        {section.body}
+                      </p>
+                    )}
+                    {section.type === "list" && section.items && (
+                      <div className="flex flex-wrap gap-1">
+                        {section.items.map((item) => (
+                          <Tag key={item}>{item}</Tag>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </Reveal>
+            );
+          })}
+        </div>
+      ) : (
+        <Reveal>
+          <div className="rounded-lg border border-border-color bg-muted/20 px-6 py-12 text-center">
+            <p className="text-sm text-muted-foreground">
+              {t("caseStudyComingSoon")}
+            </p>
+          </div>
+        </Reveal>
+      )}
 
       {/* Next project */}
       {nextProject && (
         <Reveal delay={100}>
           <div className="mt-20 border-t border-border-color pt-10">
-            <Link
-              href={
-                caseStudyIds.has(nextProject.id)
-                  ? `/projects/${nextProject.id}`
-                  : "/projects"
-              }
-            >
+            <Link href={`/projects/${nextProject.id}`}>
               <div className="group flex items-center justify-between">
                 <div>
                   <span className="text-sm text-muted-foreground">

@@ -1,11 +1,12 @@
 import type { NextConfig } from "next";
+import { resolve } from "path";
 import createMDX from "@next/mdx";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "md", "mdx"],
   turbopack: {
-    root: ".",
+    root: resolve(__dirname),
   },
 };
 
