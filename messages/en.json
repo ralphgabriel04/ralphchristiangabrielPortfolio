@@ -1,0 +1,121 @@
+{
+  "nav": {
+    "projects": "Projects",
+    "about": "About",
+    "experience": "Experience",
+    "contact": "Contact",
+    "book": "Book a call",
+    "available": "Available"
+  },
+  "hero": {
+    "kicker": "Ralph Christian Gabriel",
+    "title": ["Full-Stack Engineer", "Bilingual FR/EN", "Montréal"],
+    "pitch": "I build systems that work — e-commerce, TMS integrations, automation.",
+    "ctaPrimary": "View projects",
+    "ctaSecondary": "Download CV (EN)",
+    "metrics": [
+      { "num": "~15,000", "label": "LOC in production" },
+      { "num": "20+", "label": "REST APIs" },
+      { "num": "2,000+", "label": "tickets resolved · 94% sat." }
+    ]
+  },
+  "sectionLabels": {
+    "selected": "Selected projects",
+    "stack": "Tech stack",
+    "about": "About",
+    "experience": "Experience",
+    "contact": "Contact",
+    "caseStudy": "Case study",
+    "overview": "Overview",
+    "testimonials": "Testimonials"
+  },
+  "home": {
+    "projectsHeading": "Recent production work.",
+    "seeAll": "See all",
+    "testimonialsHeading": "What people say.",
+    "stackHeading": "Tools I use day to day.",
+    "toConfirm": "To be confirmed"
+  },
+  "projects": {
+    "heading": "Selected projects.",
+    "description": "Five projects spanning production work, enterprise integration, and academic architecture.",
+    "caseStudyLink": "Case study",
+    "allProjects": "All projects",
+    "nextProject": "Next project"
+  },
+  "about": {
+    "title": "About",
+    "heading": "I build systems that hold up.",
+    "paragraphs": [
+      "Full-stack software engineer based in Repentigny, Greater Montréal. Bilingual EN/FR, currently studying B.Eng. in Software Engineering at ÉTS, I have been shipping web products since 2022.",
+      "My approach: ship to production, not just demos. The Mad Space runs today with ~15,000 LOC, 20+ REST APIs, multi-currency Stripe payments (4 currencies), and 4 business workflows that cut order processing by 10–15 minutes.",
+      "Before product development, I resolved 2,000+ tickets at Vidéotron with 94% customer satisfaction (NPS 9.6/10) and automated ~50% of tasks via Power Automate. I learned to listen before coding, and to diagnose before proposing."
+    ],
+    "caption": "Ralph Christian Gabriel — Repentigny, QC",
+    "seeExperience": "See experience",
+    "getInTouch": "Get in touch"
+  },
+  "experience": {
+    "heading": "Career and education.",
+    "proTitle": "Professional experience",
+    "eduTitle": "Education",
+    "certTitle": "Certifications",
+    "items": [
+      {
+        "date": "2025-12 — 2026-03",
+        "role": "Solutions Integration Developer",
+        "org": "Fastercom — Montréal",
+        "desc": "Configuration and integration of TMS solutions via database setup. Google Maps integration (geocoding). Structured Test → Dev → Production deployment with GitLab CI/CD Pipelines. Stack: Spring Boot, Angular."
+      },
+      {
+        "date": "2025 — present",
+        "role": "Full-Stack Software Engineer (Contract)",
+        "org": "The Mad Space",
+        "desc": "Designed and shipped a full-stack e-commerce platform (~15,000 LOC, 20+ REST APIs). 10 Prisma/PostgreSQL models, multi-role auth, i18n (2 languages), multi-currency (4 currencies). 4 business workflows integrating Stripe, Gelato, Google Merchant Center. Vercel/Supabase deployment, advanced security (rate limiting, webhook signature, HttpOnly cookies, audit logs)."
+      },
+      {
+        "date": "2022-01 — 2025-10",
+        "role": "IT Automation & Support Technician",
+        "org": "Vidéotron — Montréal",
+        "desc": "2,000+ tickets handled (AHT 11:18, 94% sat., NPS 9.6/10). Automated ~50% of tasks via Power Automate (HR/IT/Finance). Documented procedures and runbooks to stabilize deployments."
+      }
+    ],
+    "education": [
+      { "date": "2024-10 — present", "title": "B.Eng. Software Engineering", "org": "ÉTS — École de technologie supérieure, Montréal" },
+      { "date": "2022-01 — 2024-01", "title": "DEC, Application Development Techniques", "org": "Collège Rosemont, Montréal" },
+      { "date": "2019-09 — 2022-02", "title": "DEP, IT Support", "org": "CFP des Riverains" }
+    ],
+    "certifications": [
+      { "title": "Responsive Web Design (300h)", "org": "freeCodeCamp" },
+      { "title": "Intro to AI Strategy", "org": "Codecademy" },
+      { "title": "Learn Python 3", "org": "Codecademy" }
+    ]
+  },
+  "contact": {
+    "title": "Let's work together.",
+    "lede": "Available for Junior/Intermediate Full-Stack roles in Greater Montréal (remote OK). 24h response.",
+    "noFormNote": "No contact form — direct email or Cal.com slot converts better.",
+    "email": "Email",
+    "bookCall": "Book a 15-min call",
+    "cvFr": "CV PDF (FR)",
+    "cvEn": "CV PDF (EN)",
+    "download": "Download"
+  },
+  "footer": {
+    "location": "Repentigny, QC · Available"
+  },
+  "stack": [
+    { "cat": "Languages", "items": ["TypeScript", "JavaScript", "Java", "C#", "Python"] },
+    { "cat": "Frontend", "items": ["React", "Next.js", "Tailwind CSS", "Angular"] },
+    { "cat": "Backend", "items": ["Node.js", "Express", "Spring Boot", ".NET"] },
+    { "cat": "Database", "items": ["PostgreSQL", "Prisma", "MySQL", "Supabase", "SQLite"] },
+    { "cat": "DevOps", "items": ["Docker", "GitHub Actions", "GitLab CI/CD", "Vercel"] },
+    { "cat": "Testing", "items": ["JUnit", "Jest", "TDD"] },
+    { "cat": "Architecture", "items": ["MVC", "REST", "Observer", "Strategy", "Template Method", "DDD", "GRASP"] }
+  ],
+  "testimonials": [
+    { "quote": "[To be confirmed — quote from Vidéotron Manager on NPS 9.6/10 and reliability]", "author": "Manager", "role": "Vidéotron · 2022-2025", "placeholder": true },
+    { "quote": "[To be confirmed — quote from The Mad Space founder on shipping the e-commerce platform]", "author": "Founder", "role": "The Mad Space · 2025-present", "placeholder": true },
+    { "quote": "[To be confirmed — quote from a Fastercom colleague, mind the NDA]", "author": "Colleague", "role": "Fastercom · Dec 2025-Mar 2026", "placeholder": true }
+  ]
+}

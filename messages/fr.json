@@ -1,0 +1,121 @@
+{
+  "nav": {
+    "projects": "Projets",
+    "about": "À propos",
+    "experience": "Expérience",
+    "contact": "Contact",
+    "book": "Réserver un appel",
+    "available": "Disponible"
+  },
+  "hero": {
+    "kicker": "Ralph Christian Gabriel",
+    "title": ["Full-Stack Engineer", "Bilingue FR/EN", "Montréal"],
+    "pitch": "Je construis des systèmes qui fonctionnent — e-commerce, intégrations TMS, automatisation.",
+    "ctaPrimary": "Voir mes projets",
+    "ctaSecondary": "Télécharger CV (FR)",
+    "metrics": [
+      { "num": "~15 000", "label": "LOC en production" },
+      { "num": "20+", "label": "APIs REST" },
+      { "num": "2 000+", "label": "tickets résolus · 94% sat." }
+    ]
+  },
+  "sectionLabels": {
+    "selected": "Projets sélectionnés",
+    "stack": "Stack technique",
+    "about": "À propos",
+    "experience": "Expérience",
+    "contact": "Contact",
+    "caseStudy": "Étude de cas",
+    "overview": "Aperçu",
+    "testimonials": "Témoignages"
+  },
+  "home": {
+    "projectsHeading": "Travail récent en production.",
+    "seeAll": "Tout voir",
+    "testimonialsHeading": "Ce qu'on dit de mon travail.",
+    "stackHeading": "Outils que j'utilise au quotidien.",
+    "toConfirm": "À confirmer"
+  },
+  "projects": {
+    "heading": "Projets sélectionnés.",
+    "description": "Cinq projets qui montrent mon travail en production, en intégration enterprise, et en architecture académique.",
+    "caseStudyLink": "Étude de cas",
+    "allProjects": "Tous les projets",
+    "nextProject": "Projet suivant"
+  },
+  "about": {
+    "title": "À propos",
+    "heading": "Je construis des systèmes qui tiennent le coup.",
+    "paragraphs": [
+      "Ingénieur logiciel full-stack basé à Repentigny, dans le Grand Montréal. Bilingue FR/EN, étudiant au B. Ing. en génie logiciel à l'ÉTS, je construis des produits web depuis 2022.",
+      "Mon approche : livrer en production, pas seulement en démo. The Mad Space tourne aujourd'hui avec ~15 000 LOC, 20+ APIs REST, des paiements Stripe en multi-devises (4), et 4 workflows métier qui ont raccourci le traitement des commandes de 10 à 15 minutes.",
+      "Avant le développement produit, j'ai résolu plus de 2 000 tickets chez Vidéotron avec 94% de satisfaction client (NPS 9,6/10) et automatisé ~50% des tâches via Power Automate. J'ai appris à écouter avant de coder, et à diagnostiquer avant de proposer."
+    ],
+    "caption": "Ralph Christian Gabriel — Repentigny, QC",
+    "seeExperience": "Voir l'expérience",
+    "getInTouch": "Me contacter"
+  },
+  "experience": {
+    "heading": "Parcours et formation.",
+    "proTitle": "Expérience professionnelle",
+    "eduTitle": "Éducation",
+    "certTitle": "Certifications",
+    "items": [
+      {
+        "date": "2025-12 — 2026-03",
+        "role": "Développeur Intégrateur de Solutions",
+        "org": "Fastercom — Montréal",
+        "desc": "Paramétrage et intégration de solutions TMS via configuration en base de données. Intégration Google Maps (géocodage). Déploiement structuré Test → Dev → Production avec GitLab et CI/CD Pipelines. Stack : Spring Boot, Angular."
+      },
+      {
+        "date": "2025 — présent",
+        "role": "Ingénieur logiciel Full-Stack (Contractuel)",
+        "org": "The Mad Space",
+        "desc": "Conception et développement complet d'une plateforme e-commerce full-stack (~15 000 LOC, 20+ APIs REST). 10 modèles Prisma/PostgreSQL, multi-rôles, i18n (2 langues), multi-devises (4 devises). 4 workflows métier intégrant Stripe, Gelato, Google Merchant Center. Déploiement Vercel/Supabase, sécurité avancée (rate limiting, signature webhook, cookies HttpOnly, audit logs)."
+      },
+      {
+        "date": "2022-01 — 2025-10",
+        "role": "Technicien en Automatisation & Support TI",
+        "org": "Vidéotron — Montréal",
+        "desc": "2 000+ tickets traités (AHT 11:18, 94% sat., NPS 9,6/10). Automatisation ~50% des tâches via Power Automate (RH/TI/Finances). Documentation procédures et runbooks pour stabiliser les déploiements."
+      }
+    ],
+    "education": [
+      { "date": "2024-10 — présent", "title": "B. Ing. Génie logiciel", "org": "ÉTS — École de technologie supérieure, Montréal" },
+      { "date": "2022-01 — 2024-01", "title": "DEC Techniques de Développement d'Applications", "org": "Collège Rosemont, Montréal" },
+      { "date": "2019-09 — 2022-02", "title": "DEP Soutien informatique", "org": "CFP des Riverains" }
+    ],
+    "certifications": [
+      { "title": "Responsive Web Design (300h)", "org": "freeCodeCamp" },
+      { "title": "Intro to AI Strategy", "org": "Codecademy" },
+      { "title": "Learn Python 3", "org": "Codecademy" }
+    ]
+  },
+  "contact": {
+    "title": "Travaillons ensemble.",
+    "lede": "Disponible pour des postes Full-Stack Junior/Intermediate dans le Grand Montréal (remote acceptable). Réponse sous 24h.",
+    "noFormNote": "Pas de formulaire — un courriel direct ou un créneau Cal.com convertit mieux.",
+    "email": "Courriel",
+    "bookCall": "Réserver un appel (15 min)",
+    "cvFr": "CV PDF (FR)",
+    "cvEn": "CV PDF (EN)",
+    "download": "Télécharger"
+  },
+  "footer": {
+    "location": "Repentigny, QC · Disponible"
+  },
+  "stack": [
+    { "cat": "Languages", "items": ["TypeScript", "JavaScript", "Java", "C#", "Python"] },
+    { "cat": "Frontend", "items": ["React", "Next.js", "Tailwind CSS", "Angular"] },
+    { "cat": "Backend", "items": ["Node.js", "Express", "Spring Boot", ".NET"] },
+    { "cat": "Database", "items": ["PostgreSQL", "Prisma", "MySQL", "Supabase", "SQLite"] },
+    { "cat": "DevOps", "items": ["Docker", "GitHub Actions", "GitLab CI/CD", "Vercel"] },
+    { "cat": "Testing", "items": ["JUnit", "Jest", "TDD"] },
+    { "cat": "Architecture", "items": ["MVC", "REST", "Observer", "Strategy", "Template Method", "DDD", "GRASP"] }
+  ],
+  "testimonials": [
+    { "quote": "[À confirmer — quote de Manager Vidéotron sur le NPS 9,6/10 et la fiabilité]", "author": "Manager", "role": "Vidéotron · 2022-2025", "placeholder": true },
+    { "quote": "[À confirmer — quote du fondateur The Mad Space sur la livraison de la plateforme e-commerce]", "author": "Fondateur", "role": "The Mad Space · 2025-présent", "placeholder": true },
+    { "quote": "[À confirmer — quote d'un collègue Fastercom, attention NDA]", "author": "Collègue", "role": "Fastercom · déc 2025-mars 2026", "placeholder": true }
+  ]
+}
