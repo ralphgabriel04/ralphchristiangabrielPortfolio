@@ -10,16 +10,32 @@ interface RevealProps {
 
 export function Reveal({ children, delay = 0, className = "" }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [shown, setShown] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [shown, setShown] = useState(true); // SSR: visible by default
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
     if (typeof IntersectionObserver === "undefined") {
-      setShown(true);
+      return; // keep shown = true
+    }
+
+    // Check if element is already in viewport
+    const rect = el.getBoundingClientRect();
+    const inViewport = rect.top < window.innerHeight && rect.bottom > 0;
+
+    if (inViewport) {
+      // Already visible — animate in with delay
+      setMounted(true);
+      setShown(false);
+      setTimeout(() => setShown(true), delay + 50);
       return;
     }
+
+    // Below fold — hide and observe
+    setMounted(true);
+    setShown(false);
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -30,7 +46,7 @@ export function Reveal({ children, delay = 0, className = "" }: RevealProps) {
           }
         });
       },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0.1, rootMargin: "0px 0px -20px 0px" }
     );
 
     observer.observe(el);
@@ -40,8 +56,12 @@ export function Reveal({ children, delay = 0, className = "" }: RevealProps) {
   return (
     <div
       ref={ref}
-      className={`transition-all duration-400 ease-out motion-reduce:opacity-100 motion-reduce:translate-y-0 motion-reduce:transition-none ${
-        shown ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+      className={`${
+        mounted
+          ? `transition-all duration-400 ease-out motion-reduce:opacity-100 motion-reduce:translate-y-0 motion-reduce:transition-none ${
+              shown ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+            }`
+          : "" // no classes during SSR — content is visible
       } ${className}`}
     >
       {children}
