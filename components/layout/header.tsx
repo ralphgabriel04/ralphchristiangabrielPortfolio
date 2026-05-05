@@ -8,6 +8,7 @@ import { Sun, Moon, Menu, X, Calendar } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { PulseDot } from "@/components/ui/pulse-dot";
 import { Button } from "@/components/ui/button";
+import { trackEvent } from "@/lib/analytics";
 
 export function Header() {
   const t = useTranslations("nav");
@@ -43,6 +44,14 @@ export function Header() {
   };
 
   return (
+    <>
+      {/* Skip link */}
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[200] focus:rounded-md focus:bg-background focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-foreground focus:shadow-md focus:outline-2 focus:outline-ring"
+      >
+        Skip to content
+      </a>
     <header
       className={`sticky top-0 z-50 w-full transition-[border-color,background-color] duration-200 ${
         scrolled ? "border-b border-border-color" : "border-b border-transparent"
@@ -93,14 +102,18 @@ export function Header() {
               onClick={switchLocale}
               className="cursor-pointer border-0 bg-transparent px-1.5 py-1 font-mono text-xs"
               style={{ color: locale === "fr" ? "var(--foreground)" : "var(--muted-foreground)", fontWeight: locale === "fr" ? 600 : 400 }}
+              aria-label="Passer en français"
+              aria-current={locale === "fr" ? "true" : undefined}
             >
               FR
             </button>
-            <span className="text-[11px] text-muted-foreground">/</span>
+            <span className="text-[11px] text-muted-foreground" aria-hidden="true">/</span>
             <button
               onClick={switchLocale}
               className="cursor-pointer border-0 bg-transparent px-1.5 py-1 font-mono text-xs"
               style={{ color: locale === "en" ? "var(--foreground)" : "var(--muted-foreground)", fontWeight: locale === "en" ? 600 : 400 }}
+              aria-label="Switch to English"
+              aria-current={locale === "en" ? "true" : undefined}
             >
               EN
             </button>
@@ -121,7 +134,7 @@ export function Header() {
             variant="secondary"
             size="sm"
             className="hidden md:inline-flex"
-            onClick={() => window.open("#", "_blank")}
+            onClick={() => { trackEvent("book_call_click"); window.open("https://cal.com/ralphchristiangabriel/15min", "_blank"); }}
             aria-label={t("book")}
           >
             <Calendar size={16} />
@@ -141,12 +154,13 @@ export function Header() {
         </div>
       </div>
 
-      {/* Mobile drawer */}
+      {/* Mobile drawer — w-full + translate avoids widening document scroll width */}
       <div
-        className={`fixed inset-0 z-[100] flex flex-col overflow-x-hidden overflow-y-auto bg-background p-6 transition-transform duration-[220ms] ease-out ${
-          drawerOpen ? "translate-x-0" : "translate-x-full"
+        className={`fixed inset-y-0 right-0 z-[100] flex w-full max-w-full flex-col overflow-x-hidden overflow-y-auto bg-background p-6 transition-transform duration-[220ms] ease-out motion-reduce:transition-none ${
+          drawerOpen ? "translate-x-0" : "translate-x-full pointer-events-none"
         }`}
         aria-hidden={!drawerOpen}
+        inert={!drawerOpen ? true : undefined}
       >
         <div className="mb-8 flex items-center justify-between">
           <Link href="/" className="inline-flex items-center gap-2.5" aria-label="Home" onClick={() => setDrawerOpen(false)}>
@@ -177,15 +191,16 @@ export function Header() {
             <span>{t("available")}</span>
           </Badge>
           <div className="flex items-center gap-1">
-            <button onClick={switchLocale} className="cursor-pointer border-0 bg-transparent px-1.5 py-1 font-mono text-xs" style={{ color: locale === "fr" ? "var(--foreground)" : "var(--muted-foreground)", fontWeight: locale === "fr" ? 600 : 400 }}>FR</button>
-            <span className="text-[11px] text-muted-foreground">/</span>
-            <button onClick={switchLocale} className="cursor-pointer border-0 bg-transparent px-1.5 py-1 font-mono text-xs" style={{ color: locale === "en" ? "var(--foreground)" : "var(--muted-foreground)", fontWeight: locale === "en" ? 600 : 400 }}>EN</button>
+            <button onClick={switchLocale} className="cursor-pointer border-0 bg-transparent px-1.5 py-1 font-mono text-xs" style={{ color: locale === "fr" ? "var(--foreground)" : "var(--muted-foreground)", fontWeight: locale === "fr" ? 600 : 400 }} aria-label="Passer en français" aria-current={locale === "fr" ? "true" : undefined}>FR</button>
+            <span className="text-[11px] text-muted-foreground" aria-hidden="true">/</span>
+            <button onClick={switchLocale} className="cursor-pointer border-0 bg-transparent px-1.5 py-1 font-mono text-xs" style={{ color: locale === "en" ? "var(--foreground)" : "var(--muted-foreground)", fontWeight: locale === "en" ? 600 : 400 }} aria-label="Switch to English" aria-current={locale === "en" ? "true" : undefined}>EN</button>
           </div>
-          <Button variant="secondary" onClick={() => window.open("#", "_blank")}>
+          <Button variant="secondary" onClick={() => { trackEvent("book_call_click"); window.open("https://cal.com/ralphchristiangabriel/15min", "_blank"); }}>
             <Calendar size={16} /> {t("book")}
           </Button>
         </div>
       </div>
     </header>
+    </>
   );
 }

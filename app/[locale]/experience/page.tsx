@@ -1,8 +1,31 @@
+import type { Metadata } from "next";
+import Image from "next/image";
 import { useTranslations, useLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Briefcase, GraduationCap, Award } from "lucide-react";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const isFr = locale === "fr";
+  return {
+    title: isFr ? "Expérience" : "Experience",
+    description: isFr
+      ? "Parcours professionnel et formation. Fastercom, The Mad Space, Vidéotron. B. Ing. génie logiciel ÉTS."
+      : "Career and education. Fastercom, The Mad Space, Vidéotron. B.Eng. Software Engineering ÉTS.",
+    alternates: {
+      languages: { fr: "/fr/experience", en: "/en/experience" },
+    },
+  };
+}
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
+
+const certImages = [
+  "/images/certs/responsive-web-design.png",
+  "/images/certs/learn-html.png",
+  "/images/certs/learn-python-3.png",
+  "/images/certs/intro-ai-strategy.png",
+];
 
 export default async function ExperiencePage({
   params,
@@ -21,7 +44,7 @@ function ExperienceContent() {
 
   const proCount = 3;
   const eduCount = 3;
-  const certCount = 3;
+  const certCount = 4;
 
   return (
     <section className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] py-20">
@@ -99,17 +122,31 @@ function ExperienceContent() {
           </div>
         </Reveal>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2">
           {Array.from({ length: certCount }, (_, i) => (
             <Reveal key={i} delay={80 + i * 60}>
-              <div className="rounded-lg border border-border-color bg-muted p-4">
-                <h4 className="text-sm font-medium">
-                  {t(`certifications.${i}.title`)}
-                </h4>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  {t(`certifications.${i}.org`)}
-                </p>
-              </div>
+              <a
+                href={certImages[i]}
+                target="_blank"
+                rel="noreferrer"
+                className="group block rounded-lg border border-border-color bg-muted overflow-hidden transition-colors hover:border-border-strong"
+              >
+                <Image
+                  src={certImages[i]!}
+                  alt={t(`certifications.${i}.title`)}
+                  width={600}
+                  height={400}
+                  className="w-full object-cover"
+                />
+                <div className="p-4">
+                  <h4 className="text-sm font-medium group-hover:text-accent transition-colors">
+                    {t(`certifications.${i}.title`)}
+                  </h4>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    {t(`certifications.${i}.org`)}
+                  </p>
+                </div>
+              </a>
             </Reveal>
           ))}
         </div>

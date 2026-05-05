@@ -1,14 +1,30 @@
+import type { Metadata } from "next";
 import { useTranslations, useLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { ArrowRight } from "lucide-react";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const isFr = locale === "fr";
+  return {
+    title: isFr ? "Projets" : "Projects",
+    description: isFr
+      ? "Cinq projets : e-commerce, app mobile, intégration TMS, SaaS et architecture académique."
+      : "Five projects: e-commerce, mobile app, TMS integration, SaaS and academic architecture.",
+    alternates: {
+      languages: { fr: "/fr/projects", en: "/en/projects" },
+    },
+  };
+}
 import { projects, caseStudyIds } from "@/lib/projects";
-import { Card } from "@/components/ui/card";
+import { SpotlightCard } from "@/components/ui/spotlight-card";
 import { Badge } from "@/components/ui/badge";
 import { PulseDot } from "@/components/ui/pulse-dot";
 import { Tag } from "@/components/ui/tag";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
+import { ProjectPlaceholder } from "@/components/ui/project-placeholder";
 
 export default async function ProjectsPage({
   params,
@@ -36,64 +52,87 @@ function ProjectsContent() {
       </Reveal>
 
       <div className="grid gap-6">
-        {projects.map((project, i) => (
-          <Reveal key={project.id} delay={i * 80}>
-            <Link href={`/projects/${project.id}`} className="block group">
-              <Card className="p-6 md:p-8 transition-colors group-hover:border-accent/40">
-                <div className="flex flex-col gap-4">
-                  <div className="flex flex-wrap items-center gap-3">
-                    <span className="font-mono text-xs text-muted-foreground">
-                      {project.year}
-                    </span>
-                    <Badge>
-                      <PulseDot />
-                      {project.status[locale]}
-                    </Badge>
-                  </div>
+        {projects.map((project, i) => {
+          const hasMedia = project.media?.enabled ?? false;
 
-                  <h2 className="text-xl font-medium tracking-[-0.01em] md:text-2xl group-hover:text-accent transition-colors">
-                    {project.name}
-                  </h2>
+          return (
+            <Reveal key={project.id} delay={i * 80}>
+              <Link href={`/projects/${project.id}`} className="block group">
+                <SpotlightCard className="p-6 md:p-8 transition-colors group-hover:border-accent/40">
+                  <div
+                    className={
+                      hasMedia
+                        ? "grid gap-6 md:grid-cols-[1fr_1fr]"
+                        : "flex flex-col gap-4"
+                    }
+                  >
+                    {hasMedia && project.media && (
+                      <ProjectPlaceholder
+                        type={project.media.type}
+                        label={project.id}
+                        src={project.media.src}
+                      />
+                    )}
 
-                  <p className="text-sm text-muted-foreground">
-                    {project.tag[locale]}
-                  </p>
+                    <div className="flex flex-col gap-4 justify-center">
+                      <div className="flex flex-wrap items-center gap-3">
+                        <span className="font-mono text-xs text-muted-foreground/40 tabular-nums">
+                          {String(i + 1).padStart(2, "0")}.
+                        </span>
+                        <span className="font-mono text-xs text-muted-foreground">
+                          {project.year}
+                        </span>
+                        <Badge>
+                          <PulseDot />
+                          {project.status[locale]}
+                        </Badge>
+                      </div>
 
-                  <p className="max-w-[65ch] text-sm leading-relaxed text-muted-foreground">
-                    {project.summary[locale]}
-                  </p>
+                      <h2 className="text-xl font-medium tracking-[-0.01em] md:text-2xl group-hover:text-accent transition-colors">
+                        {project.name}
+                      </h2>
 
-                  <div className="flex flex-wrap gap-1">
-                    {project.stack.map((tech) => (
-                      <Tag key={tech}>{tech}</Tag>
-                    ))}
-                  </div>
+                      <p className="text-sm text-muted-foreground">
+                        {project.tag[locale]}
+                      </p>
 
-                  <div className="flex flex-wrap items-center gap-4 pt-1">
-                    {project.metrics[locale].map((m, j) => (
-                      <span
-                        key={j}
-                        className="font-mono text-xs text-muted-foreground"
-                      >
-                        {m}
+                      <p className="max-w-[65ch] text-sm leading-relaxed text-muted-foreground">
+                        {project.summary[locale]}
+                      </p>
+
+                      <div className="flex flex-wrap gap-1">
+                        {project.stack.map((tech) => (
+                          <Tag key={tech}>{tech}</Tag>
+                        ))}
+                      </div>
+
+                      <div className="flex flex-wrap items-center gap-4 pt-1">
+                        {project.metrics[locale].map((m, j) => (
+                          <span
+                            key={j}
+                            className="font-mono text-xs text-muted-foreground"
+                          >
+                            {m}
+                          </span>
+                        ))}
+                      </div>
+
+                      <span className="inline-flex items-center gap-1 text-sm font-medium text-accent">
+                        {caseStudyIds.has(project.id)
+                          ? t("caseStudyLink")
+                          : t("viewProject")}{" "}
+                        <ArrowRight
+                          size={14}
+                          className="transition-transform group-hover:translate-x-1"
+                        />
                       </span>
-                    ))}
+                    </div>
                   </div>
-
-                  <span className="inline-flex items-center gap-1 text-sm font-medium text-accent">
-                    {caseStudyIds.has(project.id)
-                      ? t("caseStudyLink")
-                      : t("viewProject")}{" "}
-                    <ArrowRight
-                      size={14}
-                      className="transition-transform group-hover:translate-x-1"
-                    />
-                  </span>
-                </div>
-              </Card>
-            </Link>
-          </Reveal>
-        ))}
+                </SpotlightCard>
+              </Link>
+            </Reveal>
+          );
+        })}
       </div>
     </section>
   );

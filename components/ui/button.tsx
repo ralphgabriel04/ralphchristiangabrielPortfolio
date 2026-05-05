@@ -18,7 +18,7 @@ const variantStyles: Record<Variant, string> = {
 const sizeStyles: Record<Size, string> = {
   default: "px-5 py-2.5 min-h-[44px] text-sm",
   sm: "px-3 py-1.5 min-h-[32px] text-[13px]",
-  icon: "w-9 min-h-[36px] p-0",
+  icon: "w-11 min-h-[44px] p-0",
 };
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(

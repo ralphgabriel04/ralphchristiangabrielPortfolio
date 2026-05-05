@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import {
@@ -8,9 +9,25 @@ import {
 } from "lucide-react";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/icons";
 import { Card } from "@/components/ui/card";
+import { SpotlightCard } from "@/components/ui/spotlight-card";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
+import { TrackedLink } from "@/components/ui/tracked-link";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const isFr = locale === "fr";
+  return {
+    title: "Contact",
+    description: isFr
+      ? "Disponible pour des postes Full-Stack Junior/Intermediate dans le Grand Montréal. Email, LinkedIn, Cal.com."
+      : "Available for Junior/Intermediate Full-Stack roles in Greater Montréal. Email, LinkedIn, Cal.com.",
+    alternates: {
+      languages: { fr: "/fr/contact", en: "/en/contact" },
+    },
+  };
+}
 
 export default async function ContactPage({
   params,
@@ -42,25 +59,28 @@ function ContactContent({ locale }: { locale: string }) {
       <div className="grid gap-6 md:grid-cols-2">
         {/* Cal.com — prominent card */}
         <Reveal delay={60} className="md:col-span-2">
-          <Card className="p-8 flex flex-col items-center text-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent text-accent-foreground">
-              <Calendar size={24} />
+          <SpotlightCard className="p-8" radius={450} opacity={0.1}>
+            <div className="flex flex-col items-center gap-4 text-center">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent text-accent-foreground">
+                <Calendar size={24} />
+              </div>
+              <h3 className="text-lg font-medium">{t("bookCall")}</h3>
+              <p className="max-w-[40ch] text-sm text-muted-foreground">
+                {t("lede")}
+              </p>
+              <TrackedLink
+                href="https://cal.com/ralphchristiangabriel/15min"
+                target="_blank"
+                rel="noreferrer"
+                event="book_call_click"
+              >
+                <Button>
+                  <Calendar size={16} /> {t("bookCall")}{" "}
+                  <ExternalLink size={14} />
+                </Button>
+              </TrackedLink>
             </div>
-            <h3 className="text-lg font-medium">{t("bookCall")}</h3>
-            <p className="max-w-[40ch] text-sm text-muted-foreground">
-              {t("lede")}
-            </p>
-            <a
-              href="https://cal.com/ralphgabriel/15min"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <Button>
-                <Calendar size={16} /> {t("bookCall")}{" "}
-                <ExternalLink size={14} />
-              </Button>
-            </a>
-          </Card>
+          </SpotlightCard>
         </Reveal>
 
         {/* Email */}

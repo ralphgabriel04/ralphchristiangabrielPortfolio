@@ -9,14 +9,14 @@
   },
   "hero": {
     "kicker": "Ralph Christian Gabriel",
-    "title": ["Full-Stack Engineer", "Bilingue FR/EN", "Montréal"],
-    "pitch": "Je construis des systèmes qui fonctionnent — e-commerce, intégrations TMS, automatisation.",
+    "title": ["Développeur Full-Stack", "ÉTS · Génie Logiciel", "Montréal"],
+    "pitch": "Je livre des systèmes en production sur lesquels les entreprises comptent. Plateformes e-commerce, intégrations B2B et automatisation de workflows.",
     "ctaPrimary": "Voir mes projets",
     "ctaSecondary": "Télécharger CV (FR)",
     "metrics": [
       { "num": "~15 000", "label": "LOC en production" },
-      { "num": "20+", "label": "APIs REST" },
-      { "num": "2 000+", "label": "tickets résolus · 94% sat." }
+      { "num": "30+", "label": "endpoints API" },
+      { "num": "5", "label": "projets livrés en production" }
     ]
   },
   "sectionLabels": {
@@ -34,30 +34,83 @@
     "seeAll": "Tout voir",
     "testimonialsHeading": "Ce qu'on dit de mon travail.",
     "stackHeading": "Outils que j'utilise au quotidien.",
+    "contactHeading": "Vous avez un poste à pourvoir ou un projet en tête ?",
+    "contactLede": "Disponible pour des postes Full-Stack Junior/Intermediate dans le Grand Montréal. Réponse sous 24h.",
+    "contactCta": "Me contacter",
     "toConfirm": "À confirmer"
+  },
+  "now": {
+    "kicker": "En ce moment",
+    "body": "Je travaille sur Cadence, une app mobile coach ↔ athlète que je co-fonde avec Alexandre. On est en développement actif après 13 sprints planifiés et 169+ issues structurées. Landing page en ligne sur cadence-web-fawn.vercel.app, code source sur GitHub. En parallèle, je poursuis mon B. Ing. en génie logiciel à l'ÉTS et je cherche un poste Full-Stack Junior ou Intermédiaire dans le Grand Montréal.",
+    "updated": "Mis à jour : 2026-05-01"
   },
   "projects": {
     "heading": "Projets sélectionnés.",
     "description": "Cinq projets qui montrent mon travail en production, en intégration enterprise, et en architecture académique.",
     "caseStudyLink": "Étude de cas",
     "allProjects": "Tous les projets",
+    "previousProject": "Projet précédent",
     "nextProject": "Projet suivant",
     "screenshotsCaption": "Captures d'écran du projet",
-    "screenshotPlaceholder": "Capture d'écran — à venir",
-    "caseStudyComingSoon": "Projet en développement — étude de cas à venir.",
+    "screenshotPlaceholder": "Capture d'écran · à venir",
+    "caseStudyComingSoon": "Projet en développement. Étude de cas à venir.",
     "viewProject": "Voir le projet"
   },
   "about": {
     "title": "À propos",
     "heading": "Je construis des systèmes qui tiennent le coup.",
     "paragraphs": [
-      "Ingénieur logiciel full-stack basé à Repentigny, dans le Grand Montréal. Bilingue FR/EN, étudiant au B. Ing. en génie logiciel à l'ÉTS, je construis des produits web depuis 2022.",
-      "Mon approche : livrer en production, pas seulement en démo. The Mad Space tourne aujourd'hui avec ~15 000 LOC, 20+ APIs REST, des paiements Stripe en multi-devises (4), et 4 workflows métier qui ont raccourci le traitement des commandes de 10 à 15 minutes.",
+      "Développeur full-stack basé à Repentigny, dans le Grand Montréal. Bilingue FR/EN, étudiant au B. Ing. en génie logiciel à l'ÉTS, je construis des produits web depuis 2022.",
+      "Mon approche : livrer en production, pas seulement en démo. The Mad Space tourne aujourd'hui avec ~15 000 LOC, 30+ endpoints API, des paiements Stripe en multi-devises (4), 7+ intégrations B2B et 4 workflows métier qui ont raccourci le traitement des commandes de 10 à 15 minutes.",
       "Avant le développement produit, j'ai résolu plus de 2 000 tickets chez Vidéotron avec 94% de satisfaction client (NPS 9,6/10) et automatisé ~50% des tâches via Power Automate. J'ai appris à écouter avant de coder, et à diagnostiquer avant de proposer."
     ],
-    "caption": "Ralph Christian Gabriel — Repentigny, QC",
+    "caption": "Ralph Christian Gabriel · Repentigny, QC",
     "seeExperience": "Voir l'expérience",
-    "getInTouch": "Me contacter"
+    "getInTouch": "Me contacter",
+    "github": {
+      "heading": "Activité GitHub.",
+      "sub": "Des commits réguliers, des projets concrets, des contributions open source.",
+      "streakAlt": "Série de contributions GitHub",
+      "statsAlt": "Statistiques GitHub",
+      "languagesAlt": "Langages de programmation les plus utilisés",
+      "highlights": [
+        "Je développe actuellement une plateforme SaaS de coaching (Next.js 16, React 19, TypeScript, Supabase) et je maintiens une plateforme e-commerce full-stack de 15 000+ lignes de code.",
+        "Ouvert à collaborer sur des apps web full-stack, des outils open source pour développeurs et des produits propulsés par l'IA.",
+        "Discutons de Next.js, React, TypeScript, design d'API REST, intégrations e-commerce (Stripe, Gelato) ou pipelines CI/CD."
+      ],
+      "cta": "Voir le profil complet sur GitHub"
+    },
+    "beyondCode": "Au-delà du code.",
+    "beyondCodeSub": "Quelques traits qui influencent ma manière de penser et de travailler.",
+    "marathon": {
+      "title": "Finisher demi-marathon",
+      "event": "Course des pompiers de Laval",
+      "date": "4 juin 2023",
+      "distance": "21,1 km",
+      "time": "1:56:23",
+      "pace": "5:31 min/km",
+      "rank": "511e / 1 354 au classement général",
+      "desc": "J'ai couru 21,1 km pour soutenir les pompiers de Laval. Les mois d'entraînement m'ont appris ce que je retrouve chaque jour en développement : la constance, la confiance dans le processus et l'importance de finir ce qu'on commence."
+    },
+    "chess": {
+      "title": "Joueur d'échecs",
+      "desc": "Les échecs m'obligent à anticiper, à lire les patterns et à penser plusieurs coups d'avance. C'est exactement ce que je fais quand je conçois l'architecture d'un système."
+    },
+    "skiing": {
+      "title": "Skieur",
+      "desc": "Le ski, c'est mon reset. Ça me force à lire le terrain, à réagir vite et à m'engager pleinement dans chaque virage."
+    },
+    "personality": {
+      "title": "INTJ-A, Architecte",
+      "desc": "Je suis un penseur stratégique. J'aime aborder les problèmes avec un plan clair, aller en profondeur plutôt qu'en surface, et optimiser ce qui peut l'être. En code comme dans la vie.",
+      "traits": [
+        { "label": "Introverti", "value": 76 },
+        { "label": "Intuitif", "value": 70 },
+        { "label": "Rationnel", "value": 83 },
+        { "label": "Organisé", "value": 78 },
+        { "label": "Sûr de soi", "value": 58 }
+      ]
+    }
   },
   "experience": {
     "heading": "Parcours et formation.",
@@ -66,44 +119,59 @@
     "certTitle": "Certifications",
     "items": [
       {
-        "date": "2025-12 — 2026-03",
+        "date": "Déc. 2025 · Mars 2026",
         "role": "Développeur Intégrateur de Solutions",
-        "org": "Fastercom — Montréal",
+        "org": "Fastercom, Montréal",
         "desc": "Paramétrage et intégration de solutions TMS via configuration en base de données. Intégration Google Maps (géocodage). Déploiement structuré Test → Dev → Production avec GitLab et CI/CD Pipelines. Stack : Spring Boot, Angular."
       },
       {
-        "date": "2025 — présent",
+        "date": "2025 · présent",
         "role": "Ingénieur logiciel Full-Stack (Contractuel)",
         "org": "The Mad Space",
-        "desc": "Conception et développement complet d'une plateforme e-commerce full-stack (~15 000 LOC, 20+ APIs REST). 10 modèles Prisma/PostgreSQL, multi-rôles, i18n (2 langues), multi-devises (4 devises). 4 workflows métier intégrant Stripe, Gelato, Google Merchant Center. Déploiement Vercel/Supabase, sécurité avancée (rate limiting, signature webhook, cookies HttpOnly, audit logs)."
+        "desc": "Conception et développement complet d'une marketplace e-commerce print-on-demand (~15 000 LOC, 30+ endpoints API). 10+ modèles Prisma/PostgreSQL, auth custom session-based, OAuth 2.0 Google, i18n (2 langues), multi-devises (4). 7+ intégrations B2B (Stripe, Gelato, Google Merchant Center, GA4, Google Ads). Conformité GDPR/Loi 25. Déploiement Vercel/Supabase, Edge Functions Deno."
       },
       {
-        "date": "2022-01 — 2025-10",
+        "date": "Jan. 2022 · Oct. 2025",
         "role": "Technicien en Automatisation & Support TI",
-        "org": "Vidéotron — Montréal",
+        "org": "Vidéotron, Montréal",
         "desc": "2 000+ tickets traités (AHT 11:18, 94% sat., NPS 9,6/10). Automatisation ~50% des tâches via Power Automate (RH/TI/Finances). Documentation procédures et runbooks pour stabiliser les déploiements."
       }
     ],
     "education": [
-      { "date": "2024-10 — présent", "title": "B. Ing. Génie logiciel", "org": "ÉTS — École de technologie supérieure, Montréal" },
-      { "date": "2022-01 — 2024-01", "title": "DEC Techniques de Développement d'Applications", "org": "Collège Rosemont, Montréal" },
-      { "date": "2019-09 — 2022-02", "title": "DEP Soutien informatique", "org": "CFP des Riverains" }
+      { "date": "Oct. 2024 · présent", "title": "B. Ing. Génie logiciel", "org": "ÉTS, École de technologie supérieure, Montréal" },
+      { "date": "Jan. 2022 · Jan. 2024", "title": "DEC Techniques de Développement d'Applications", "org": "Collège Rosemont, Montréal" },
+      { "date": "Sep. 2019 · Fév. 2022", "title": "DEP Soutien informatique", "org": "CFP des Riverains" }
     ],
     "certifications": [
-      { "title": "Responsive Web Design (300h)", "org": "freeCodeCamp" },
-      { "title": "Intro to AI Strategy", "org": "Codecademy" },
-      { "title": "Learn Python 3", "org": "Codecademy" }
+      { "title": "Responsive Web Design (300h)", "org": "freeCodeCamp", "image": "/images/certs/responsive-web-design.png" },
+      { "title": "Learn HTML", "org": "Codecademy", "image": "/images/certs/learn-html.png" },
+      { "title": "Learn Python 3", "org": "Codecademy", "image": "/images/certs/learn-python-3.png" },
+      { "title": "Intro to AI Strategy", "org": "Codecademy", "image": "/images/certs/intro-ai-strategy.png" }
     ]
   },
   "contact": {
     "title": "Travaillons ensemble.",
     "lede": "Disponible pour des postes Full-Stack Junior/Intermediate dans le Grand Montréal (remote acceptable). Réponse sous 24h.",
-    "noFormNote": "Pas de formulaire — un courriel direct ou un créneau Cal.com convertit mieux.",
+    "noFormNote": "Pas de formulaire. Un courriel direct ou un créneau Cal.com convertit mieux.",
     "email": "Courriel",
     "bookCall": "Réserver un appel (15 min)",
     "cvFr": "CV PDF (FR)",
     "cvEn": "CV PDF (EN)",
     "download": "Télécharger"
+  },
+  "error": {
+    "kicker": "Erreur",
+    "heading": "Quelque chose s'est mal passé",
+    "body": "Une erreur inattendue est survenue. Vous pouvez réessayer ou retourner à l'accueil.",
+    "retry": "Réessayer",
+    "home": "Accueil"
+  },
+  "notFound": {
+    "heading": "Page introuvable",
+    "body": "Cette page n'existe pas ou a été déplacée. Voici quelques liens utiles pour continuer.",
+    "home": "Accueil",
+    "projects": "Voir mes projets",
+    "contact": "Me contacter"
   },
   "footer": {
     "location": "Repentigny, QC · Disponible"
@@ -118,8 +186,6 @@
     { "cat": "Architecture", "items": ["MVC", "REST", "Observer", "Strategy", "Template Method", "DDD", "GRASP"] }
   ],
   "testimonials": [
-    { "quote": "[À confirmer — quote de Manager Vidéotron sur le NPS 9,6/10 et la fiabilité]", "author": "Manager", "role": "Vidéotron · 2022-2025", "placeholder": true },
-    { "quote": "[À confirmer — quote du fondateur The Mad Space sur la livraison de la plateforme e-commerce]", "author": "Fondateur", "role": "The Mad Space · 2025-présent", "placeholder": true },
-    { "quote": "[À confirmer — quote d'un collègue Fastercom, attention NDA]", "author": "Collègue", "role": "Fastercom · déc 2025-mars 2026", "placeholder": true }
+    { "quote": "Christian a créé un site web professionnel, moderne et parfaitement adapté à mes besoins. Sa rigueur, sa créativité et sa capacité à communiquer clairement tout au long du projet ont grandement facilité la collaboration.", "author": "Fondateur", "role": "The Mad Space · 2025-présent", "image": "/images/testimonial-madspace.jpg" }
   ]
 }

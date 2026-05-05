@@ -11,68 +11,68 @@ export interface CaseStudy {
 }
 
 export const caseStudies: Record<string, CaseStudy> = {
-  "the-project": {
+  "cadence": {
     fr: {
       problem: {
         title: "Le problème",
-        body: "Le coaching sportif manque d'outils numériques modernes pour la planification d'entraînements et le suivi de performance. Les solutions existantes sont souvent rigides, mal adaptées au mobile, et ne répondent pas aux besoins spécifiques des coachs indépendants.",
+        body: "Les solutions de coaching sportif existantes (TrueCoach, Trainerize, Everfit) sont anglophones avec des traductions françaises approximatives. Les coachs de musculation francophones perdent du temps à naviguer dans des interfaces pensées en anglais. Côté athlète, l'expérience mobile est souvent cassée : pas de readiness check intégré, pas de PRs auto-détectés, pas de timer de repos natif. L'engagement chute après 30 jours dans 80% des solutions du marché.",
         type: "text"
       },
       constraints: {
         title: "Les contraintes",
-        body: "L'application doit fonctionner sur mobile (cibles App Store et Play Store), avec un design mobile-first dès le jour 1. Stack moderne requise pour assurer la maintenabilité à long terme et la performance sur appareils mobiles.",
+        body: "Bilatéralité mobile native : coach ET athlète doivent avoir une expérience complète sur mobile, pas de \"use desktop for programming\". Français natif, pas un filtre i18n appliqué après coup. UI conçue en français québécois. Sécurité non-négociable dès le Sprint 1 : données de santé (readiness, blessures, poids) soumises à Loi 25 + PIPEDA + GDPR-ready. Bootstrap sans financement externe. Beachhead strict : 50 coachs payants + NPS > 40 + rétention M3 > 70% avant d'élargir.",
         type: "text"
       },
       approach: {
         title: "La solution",
-        body: "Architecture mobile-first avec Next.js 16 et React 19 pour un rendu performant, Supabase pour l'authentification et la base de données temps réel, et Tailwind v4 pour un design system cohérent. L'approche itérative en sprints permet de valider chaque fonctionnalité avec des utilisateurs cibles avant de passer à la suivante.",
+        body: "Architecture mobile-first avec Expo SDK 52+ (React Native), TypeScript strict et NativeWind. Supabase pour l'auth, la base de données Postgres et le RLS sur 100% des tables dès le Sprint 1. Landing page Next.js avec waitlist active. Audit concurrentiel exhaustif de 8+ apps (TrueCoach, Trainerize, TrainHeroic, Everfit, Hevy, CoachNow, TeamBuildr, PT Distinction) pour identifier les gaps. 169+ issues GitHub structurées avec critères d'acceptation détaillés et user flows écran par écran. Alexandre (co-fondateur design) travaille toujours 1 sprint en avance sur les maquettes Figma. Tests utilisateurs planifiés aux Sprints 3, 5, 7, 9.",
         type: "text"
       },
       stack: {
         title: "Stack technique",
-        items: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS v4", "Supabase (auth + DB)"],
+        items: ["Expo SDK 52+ (React Native)", "TypeScript strict", "NativeWind", "EAS Build", "Supabase (auth + DB + RLS)", "Next.js (landing page)", "Sentry", "PostHog", "Detox/Maestro (E2E)"],
         type: "list"
       },
       outcomes: {
         title: "Résultats",
-        body: "MVP en cours de développement, Sprint 6 ciblé pour la livraison. Design mobile-first validé avec des utilisateurs cibles. Architecture modulaire permettant l'ajout progressif de fonctionnalités sans refactoring majeur.",
+        body: "169+ issues GitHub structurées sur 2 repos (41 cadence-mobile + 128+ the-project). 13 sprints planifiés avec versioning rigoureux (alpha → beta → RC → prod). 74/74 features marché couvertes après audit (100% coverage sur 7 piliers fonctionnels). 36 issues feature avec user flows complets écran par écran. 10 principes fondamentaux documentés comme filtres de décision. Sécurité by design : RLS Sprint 1, chiffrement AES-256 at-rest, TLS 1.3, JWT short-lived, audit OWASP Mobile Top 10 planifié pré-beta.",
         type: "text"
       },
       learnings: {
         title: "Apprentissages",
-        body: "Construire mobile-first dès le jour 1 est fondamentalement différent de retrofitter une app desktop pour le mobile. Les décisions d'architecture prises tôt (taille des composants, navigation tactile, gestion du state offline) évitent des refactorings coûteux plus tard.",
+        body: "Planifier comme Tech Lead change tout. Faire 90% de la planification AVANT le code donne moins de surprises, un scope plus clair et de la dette technique évitée. La discipline \"si c'est pas MVP, c'est plus tard\" a réduit le scope de ~40 features à ~25 features chirurgicales. Le co-fondateur design en avance d'un sprint élimine les blocages : les maquettes Figma sont prêtes quand le dev arrive. Les 10 principes fondamentaux (Athlete-First, Ship > Perfect, Data > Opinions) servent de filtres de décision qui évitent les débats stériles.",
         type: "text"
       }
     },
     en: {
       problem: {
         title: "The problem",
-        body: "Sports coaching lacks modern digital tools for workout planning and performance tracking. Existing solutions are often rigid, poorly suited to mobile, and fail to meet the specific needs of independent coaches.",
+        body: "Existing sports coaching solutions (TrueCoach, Trainerize, Everfit) are English-first with approximate French translations. Francophone gym coaches waste time navigating interfaces designed in English. On the athlete side, the mobile experience is often broken: no integrated readiness check, no auto-detected PRs, no native rest timer. Engagement drops after 30 days in 80% of market solutions.",
         type: "text"
       },
       constraints: {
         title: "Constraints",
-        body: "The app must work on mobile (App Store and Play Store targets), with a mobile-first design from day 1. A modern stack is required to ensure long-term maintainability and performance on mobile devices.",
+        body: "Native mobile bilaterality: both coach AND athlete must have a complete mobile experience, no \"use desktop for programming\". Native French, not an i18n filter applied after the fact. UI designed in Quebec French. Non-negotiable security from Sprint 1: health data (readiness, injuries, weight) subject to Loi 25 + PIPEDA + GDPR-ready. Bootstrap with no external funding. Strict beachhead: 50 paying coaches + NPS > 40 + M3 retention > 70% before expanding.",
         type: "text"
       },
       approach: {
         title: "The solution",
-        body: "Mobile-first architecture with Next.js 16 and React 19 for performant rendering, Supabase for auth and real-time database, and Tailwind v4 for a cohesive design system. The iterative sprint approach validates each feature with target users before moving on.",
+        body: "Mobile-first architecture with Expo SDK 52+ (React Native), strict TypeScript and NativeWind. Supabase for auth, Postgres database and RLS on 100% of tables from Sprint 1. Next.js landing page with active waitlist. Exhaustive competitive audit of 8+ apps (TrueCoach, Trainerize, TrainHeroic, Everfit, Hevy, CoachNow, TeamBuildr, PT Distinction) to identify gaps. 169+ structured GitHub issues with detailed acceptance criteria and screen-by-screen user flows. Alexandre (design co-founder) always works 1 sprint ahead on Figma mockups. User testing planned at Sprints 3, 5, 7, 9.",
         type: "text"
       },
       stack: {
         title: "Tech stack",
-        items: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS v4", "Supabase (auth + DB)"],
+        items: ["Expo SDK 52+ (React Native)", "TypeScript strict", "NativeWind", "EAS Build", "Supabase (auth + DB + RLS)", "Next.js (landing page)", "Sentry", "PostHog", "Detox/Maestro (E2E)"],
         type: "list"
       },
       outcomes: {
         title: "Outcomes",
-        body: "MVP in active development, Sprint 6 targeted for delivery. Mobile-first design validated with target users. Modular architecture enables progressive feature additions without major refactoring.",
+        body: "169+ GitHub issues structured across 2 repos (41 cadence-mobile + 128+ the-project). 13 sprints planned with rigorous versioning (alpha → beta → RC → prod). 74/74 market features covered after audit (100% coverage across 7 functional pillars). 36 feature issues with complete screen-by-screen user flows. 10 foundational principles documented as decision filters. Security by design: Sprint 1 RLS, AES-256 encryption at-rest, TLS 1.3, short-lived JWTs, OWASP Mobile Top 10 audit planned pre-beta.",
         type: "text"
       },
       learnings: {
         title: "Learnings",
-        body: "Building mobile-first from day 1 is fundamentally different from retrofitting a desktop app for mobile. Early architecture decisions (component sizing, touch navigation, offline state management) prevent costly refactors down the line.",
+        body: "Planning as a Tech Lead changes everything. Doing 90% of planning BEFORE code means fewer surprises, clearer scope and avoided tech debt. The discipline of \"if it's not MVP, it's later\" reduced scope from ~40 features to ~25 surgical ones. Having the design co-founder one sprint ahead eliminates blockers: Figma mockups are ready when dev arrives. The 10 foundational principles (Athlete-First, Ship > Perfect, Data > Opinions) serve as decision filters that prevent unproductive debates.",
         type: "text"
       }
     }
@@ -213,64 +213,64 @@ export const caseStudies: Record<string, CaseStudy> = {
     fr: {
       problem: {
         title: "Le problème",
-        body: "Une application Java desktop legacy nécessitait une modernisation et l'ajout d'outils de qualité. Le code existant manquait de séparation des responsabilités, rendant les modifications risquées et les tests difficiles.",
+        body: "Dans le cadre du cours LOG240 (Tests et Maintenance) à l'ÉTS, notre équipe de 6 développeurs devait concevoir une application desktop Java permettant aux utilisateurs de suivre leurs revenus et dépenses par rapport à un budget, sans nécessiter de connaissances en comptabilité. Le défi : livrer une application fiable avec couverture de test complète en ~3,5 mois (janvier – avril 2026).",
         type: "text"
       },
       constraints: {
         title: "Les contraintes",
-        body: "Projet académique à l'ÉTS avec architecture MVC requise. Migration vers Java 21 obligatoire. Pipeline Maven avec portes de qualité (quality gates) à mettre en place. Respect des standards de code imposés par l'établissement.",
+        body: "Architecture MVC imposée avec Java Swing. Base de données embarquée Apache Derby (pas de serveur externe). Pipeline Maven avec portes de qualité obligatoires (Checkstyle, PMD, JaCoCo). Objectif de 100% de couverture de code. Tests d'intégration GUI avec AssertJ Swing (tests boîte noire). Documentation structurée avec classes d'équivalence et défauts identifiés. Git Flow avec branches par développeur/fonctionnalité.",
         type: "text"
       },
       approach: {
         title: "La solution",
-        body: "Refactorisation MVC avec le pattern Observer et AbstractTableModel pour découpler les mises à jour de l'interface utilisateur de la logique métier. Pipeline Maven complet avec JUnit pour les tests unitaires, Checkstyle et PMD pour l'analyse statique, et QALab pour le suivi de la qualité dans le temps.",
+        body: "Architecture MVC avec Java Swing, structurée autour de 4 modules fonctionnels : comptes (CRUD + solde et valeur nette en temps réel), catégories/budgets, grand livre de transactions (revenus/dépenses avec association aux comptes, catégories et bénéficiaires), et rapports financiers HTML (sommaire et détaillé). Patrons de conception : Singleton (DerbyUtils — connexion BD), DAO (AccountDAO, CategoryDAO — abstraction d'accès aux données), MVC (Model-View-Controller avec Swing), TableModel (AbstractTableModel pour le binding de données). Pipeline Maven complet avec JUnit 4 pour les tests unitaires, AssertJ Swing pour les tests d'intégration GUI, JaCoCo pour la couverture, et Checkstyle/PMD/QALab pour l'analyse statique et le suivi de qualité.",
         type: "text"
       },
       stack: {
         title: "Stack technique",
-        items: ["Java 21", "Maven", "JUnit", "Checkstyle", "PMD", "QALab"],
+        items: ["Java 21", "Maven 3.x", "Java Swing (MVC)", "Apache Derby (embarquée)", "JUnit 4 + AssertJ Swing", "JaCoCo", "Checkstyle", "PMD", "QALab"],
         type: "list"
       },
       outcomes: {
         title: "Résultats",
-        body: "Pipeline de qualité complet opérationnel. Migration Java 21 complétée avec succès. Architecture MVC propre avec Observer pattern permettant des extensions sans régression.",
+        body: "5 250+ lignes de code total (13 classes production + 9 classes tests). Ratio test/code de 61% (1 981 / 3 269 LOC). 133 tests unitaires et d'intégration avec objectif de 100% couverture atteint. 85 commits sur le projet, 6 développeurs contributeurs. 4 tables BD (account, category, ledger, beneficiary). Rapports financiers HTML générés (sommaire et détaillé). Git Flow avec branches par développeur/fonctionnalité (ralph/lab4-account, jeremy/lab4-infrastructure, etc.).",
         type: "text"
       },
       learnings: {
-        title: "Apprentissages",
-        body: "Le pattern Observer découple efficacement les mises à jour de l'UI, permettant d'ajouter de nouvelles vues sans modifier la logique métier. L'analyse statique (Checkstyle, PMD) détecte les problèmes tôt dans le cycle de développement, avant même l'exécution des tests — un filet de sécurité précieux pour du code legacy.",
+        title: "Ma contribution & apprentissages",
+        body: "28 commits — contributeur le plus actif du projet. Développement du module Account complet (DAO, TableModel, tests). Intégration des tests pour atteindre 100% de couverture (133/133). Résolution de conflits de fusion et consolidation finale sur main. Apprentissage clé : l'investissement dans les tests d'intégration GUI (AssertJ Swing) capture des bugs que les tests unitaires seuls ne détectent pas — les interactions entre composants Swing révèlent des problèmes de threading et de binding de données invisibles en isolation. L'analyse statique (Checkstyle, PMD) combinée à JaCoCo crée un filet de sécurité complet qui donne confiance pour refactorer sans régression.",
         type: "text"
       }
     },
     en: {
       problem: {
         title: "The problem",
-        body: "A legacy Java desktop application needed modernization and quality tooling. The existing code lacked separation of concerns, making changes risky and testing difficult.",
+        body: "As part of the LOG240 course (Testing & Maintenance) at ÉTS, our team of 6 developers had to build a Java desktop application allowing users to track income and expenses against a budget, without requiring accounting knowledge. The challenge: deliver a reliable application with complete test coverage in ~3.5 months (January – April 2026).",
         type: "text"
       },
       constraints: {
         title: "Constraints",
-        body: "Academic project at ÉTS with required MVC architecture. Mandatory Java 21 migration. Maven pipeline with quality gates to implement. Code standards imposed by the institution.",
+        body: "Imposed MVC architecture with Java Swing. Embedded Apache Derby database (no external server). Maven pipeline with mandatory quality gates (Checkstyle, PMD, JaCoCo). 100% code coverage target. GUI integration tests with AssertJ Swing (black-box testing). Structured documentation with equivalence classes and identified defects. Git Flow with per-developer/feature branches.",
         type: "text"
       },
       approach: {
         title: "The solution",
-        body: "MVC refactoring with Observer pattern and AbstractTableModel to decouple UI updates from business logic. Full Maven pipeline with JUnit for unit testing, Checkstyle and PMD for static analysis, and QALab for quality tracking over time.",
+        body: "MVC architecture with Java Swing, structured around 4 functional modules: accounts (CRUD + real-time balance and net worth), categories/budgets, transaction ledger (income/expenses with account, category and beneficiary associations), and HTML financial reports (summary and detailed). Design patterns: Singleton (DerbyUtils — DB connection), DAO (AccountDAO, CategoryDAO — data access abstraction), MVC (Model-View-Controller with Swing), TableModel (AbstractTableModel for data binding). Full Maven pipeline with JUnit 4 for unit testing, AssertJ Swing for GUI integration tests, JaCoCo for coverage, and Checkstyle/PMD/QALab for static analysis and quality tracking.",
         type: "text"
       },
       stack: {
         title: "Tech stack",
-        items: ["Java 21", "Maven", "JUnit", "Checkstyle", "PMD", "QALab"],
+        items: ["Java 21", "Maven 3.x", "Java Swing (MVC)", "Apache Derby (embedded)", "JUnit 4 + AssertJ Swing", "JaCoCo", "Checkstyle", "PMD", "QALab"],
         type: "list"
       },
       outcomes: {
         title: "Outcomes",
-        body: "Full quality pipeline operational. Java 21 migration completed successfully. Clean MVC architecture with Observer pattern enabling extensions without regressions.",
+        body: "5,250+ total lines of code (13 production classes + 9 test classes). Test/code ratio of 61% (1,981 / 3,269 LOC). 133 unit and integration tests with 100% coverage target achieved. 85 commits across the project, 6 contributing developers. 4 DB tables (account, category, ledger, beneficiary). Generated HTML financial reports (summary and detailed). Git Flow with per-developer/feature branches (ralph/lab4-account, jeremy/lab4-infrastructure, etc.).",
         type: "text"
       },
       learnings: {
-        title: "Learnings",
-        body: "The Observer pattern decouples UI updates effectively, allowing new views to be added without touching business logic. Static analysis (Checkstyle, PMD) catches issues early in the development cycle, before tests even run — a valuable safety net for legacy code.",
+        title: "My contribution & learnings",
+        body: "28 commits — most active contributor on the project. Developed the complete Account module (DAO, TableModel, tests). Integrated tests to reach 100% coverage (133/133). Resolved merge conflicts and final consolidation on main. Key learning: investing in GUI integration tests (AssertJ Swing) catches bugs that unit tests alone miss — interactions between Swing components reveal threading and data binding issues invisible in isolation. Static analysis (Checkstyle, PMD) combined with JaCoCo creates a comprehensive safety net that gives confidence to refactor without regressions.",
         type: "text"
       }
     }
@@ -279,64 +279,64 @@ export const caseStudies: Record<string, CaseStudy> = {
     fr: {
       problem: {
         title: "Le problème",
-        body: "Le client avait besoin d'une plateforme e-commerce capable de gérer 3 rôles utilisateurs (admin, vendeur, client), 4 devises (CAD, USD, EUR, GBP), 2 langues (FR, EN) et plusieurs intégrations externes (Stripe, Gelato, Google Merchant Center) — sans devenir un cauchemar de maintenance pour une équipe d'une seule personne en charge.",
+        body: "Le fondateur voulait créer une marketplace où les idées créatives sont valorisées, les artistes vivent de leurs designs, et le partage de profits est transparent (10-20% donneurs d'idées, 20-35% designers). Il fallait gérer 3 rôles utilisateurs (admin, créateur, client), 4 devises (CAD, USD, EUR, GBP), 2 langues (FR, EN) et 7+ intégrations externes, le tout maintenu par un seul ingénieur. La demande initiale était WordPress. J'ai recommandé une stack custom Next.js, justifiée par les besoins en workflows complexes, Edge Functions et multi-devises.",
         type: "text"
       },
       constraints: {
         title: "Les contraintes",
-        body: "Stack imposée : Next.js / Vercel / Supabase pour rester aligné avec le reste de l'écosystème. Délais serrés (~3 mois pour le MVP). Sécurité non négociable (paiements en production). Documentation à fournir en parallèle pour permettre un onboarding rapide d'un futur 2e dev.",
+        body: "Délais serrés (~3 mois pour le MVP). Paiements en production dès le lancement : sécurité non négociable. Conformité GDPR, Loi 25 Québec et Loi 96 (bilinguisme) requise dès le jour 1. Documentation en parallèle pour permettre l'onboarding d'un futur 2e développeur. Le client n'avait aucune expertise technique : chaque décision d'architecture devait être expliquée et défendue.",
         type: "text"
       },
       approach: {
         title: "La solution",
-        body: "Architecture en couches : Next.js App Router côté front (Server Components par défaut), Prisma comme couche d'accès avec 10 modèles relationnels, et des modules métier isolés pour chaque workflow (commande, retour, inventaire, fidélité). Stripe pour le paiement avec signature webhook HMAC, Gelato pour le print-on-demand via webhooks 300-500 ms, Google Merchant Center pour la diffusion catalogue. Sécurité : rate limiting, cookies HttpOnly, audit logs centralisés.",
+        body: "Architecture en couches avec Next.js 16 App Router (Server Components par défaut), Prisma comme couche d'accès avec 10+ modèles relationnels, et des modules métier isolés par workflow. Auth custom session-based avec vérification email 6-digit (rate limiting 3/h, expiration 15 min, max 5 tentatives) et OAuth 2.0 Google avec rotation de refresh token. Stripe Checkout multi-devises avec signature webhook HMAC, Gelato pour le fulfillment automatisé (mockups live, templates, expédition), Google Merchant Center synchronisé via Supabase Edge Functions Deno avec pagination 5/batch. Cookie consent multi-catégories avec chargement conditionnel de GA4 et Google Ads selon consentement. Auto-détection devise par géolocation Vercel/Cloudflare. Bulk upload admin avec color detection intelligente sur pattern de fichiers ZIP (gco_COLORNAME).",
         type: "text"
       },
       stack: {
         title: "Stack technique",
-        items: ["Next.js (App Router)", "TypeScript strict", "Prisma + PostgreSQL", "Tailwind CSS", "Stripe (paiements)", "Gelato (print-on-demand)", "Google Merchant Center", "Vercel (hébergement)", "Supabase (auth + DB)"],
+        items: ["Next.js 16 (App Router)", "TypeScript strict", "Prisma + PostgreSQL", "Tailwind CSS 4", "Stripe Checkout", "Gelato (print-on-demand)", "Google Merchant Center (OAuth 2.0)", "GA4 + Google Ads", "Supabase (DB + Storage + Edge Functions Deno)", "Vercel", "Framer Motion"],
         type: "list"
       },
       outcomes: {
         title: "Résultats",
-        body: "~15 000 LOC TypeScript en production. 20+ APIs REST exposées. 4 workflows métier livrés (commande, retour, inventaire, fidélité). 20-30 déploiements CI/CD réussis. Latence API 150-300 ms, traitement des webhooks 300-500 ms. Le traitement d'une commande complexe est passé de ~25 min à ~10 min — soit une réduction de 10-15 minutes par commande traitée.",
+        body: "~15 000 LOC TypeScript en production. 30+ endpoints API REST. 10+ modèles Prisma/PostgreSQL. 17+ pages bilingues complètes. 5 contextes React globaux (theme, cart, currency, cookie consent, auth). 4 workflows métier livrés (commande, retour, inventaire, fidélité) avec 5-7 étapes automatisées par workflow. 20-30 déploiements CI/CD réussis sur Vercel. Latence API 150-300 ms, traitement webhook Stripe→Gelato 300-500 ms. Le traitement d'une commande complexe est passé de ~25 min à ~10 min. Marketplace live sur 2 marchés (Canada + USA) avec profit-sharing fonctionnel.",
         type: "text"
       },
       learnings: {
         title: "Apprentissages",
-        body: "L'over-engineering est tentant en e-commerce, mais l'architecture la plus simple qui satisfait les contraintes survit le mieux. La séparation stricte des workflows métier dans des modules isolés a permis d'ajouter le 4e workflow (fidélité) en quelques jours sans toucher aux 3 premiers. À refaire : j'aurais investi plus tôt dans des tests d'intégration sur les chemins de paiement — j'ai appris à mes dépens qu'un mock Stripe ne capture pas tous les edge cases.",
+        body: "Choisir Next.js custom plutôt que WordPress a rendu possible tout le reste : Edge Functions, Server Components, multi-devises complexe. La séparation stricte des workflows métier en modules isolés a permis d'ajouter le 4e workflow (fidélité) en quelques jours sans toucher aux 3 premiers. Sécuriser un système de paiement en production change la mentalité : passer de \"ça marche en local\" à \"ça résiste à 100 tentatives en 1 minute\". À refaire : j'aurais investi plus tôt dans des tests d'intégration Playwright + Stripe test mode sur les chemins de paiement. Les mocks Stripe ne capturent pas tous les edge cases (cartes refusées, webhooks dupliqués).",
         type: "text"
       }
     },
     en: {
       problem: {
         title: "The problem",
-        body: "The client needed an e-commerce platform that could handle 3 user roles (admin, seller, customer), 4 currencies (CAD, USD, EUR, GBP), 2 languages (FR, EN) and several external integrations (Stripe, Gelato, Google Merchant Center) — without becoming a maintenance nightmare for a single-person engineering team.",
+        body: "The founder wanted to build a marketplace where creative ideas are valued, artists earn from their designs, and profit-sharing is transparent (10-20% for idea contributors, 20-35% for designers). The platform needed to handle 3 user roles (admin, creator, customer), 4 currencies (CAD, USD, EUR, GBP), 2 languages (FR, EN) and 7+ external integrations, all maintained by a single engineer. The initial request was WordPress. I recommended a custom Next.js stack, justified by the need for complex workflows, Edge Functions and multi-currency support.",
         type: "text"
       },
       constraints: {
         title: "Constraints",
-        body: "Mandatory stack: Next.js / Vercel / Supabase to stay aligned with the broader ecosystem. Tight deadlines (~3 months for MVP). Non-negotiable security (production payments). Documentation required in parallel to enable quick onboarding of a future second dev.",
+        body: "Tight deadlines (~3 months for MVP). Production payments from day one: security non-negotiable. GDPR, Quebec Loi 25 and Loi 96 (bilingualism) compliance required from the start. Documentation in parallel to enable onboarding of a future second developer. The client had no technical expertise: every architecture decision had to be explained and defended.",
         type: "text"
       },
       approach: {
         title: "The solution",
-        body: "Layered architecture: Next.js App Router on the front-end (Server Components by default), Prisma as the data layer with 10 relational models, and isolated business modules per workflow (order, return, inventory, loyalty). Stripe for payments with HMAC webhook signatures, Gelato for print-on-demand via webhooks at 300-500 ms, Google Merchant Center for catalog distribution. Security: rate limiting, HttpOnly cookies, centralized audit logs.",
+        body: "Layered architecture with Next.js 16 App Router (Server Components by default), Prisma as the data layer with 10+ relational models, and isolated business modules per workflow. Custom session-based auth with 6-digit email verification (rate limiting 3/h, 15 min expiry, max 5 attempts) and Google OAuth 2.0 with refresh token rotation. Multi-currency Stripe Checkout with HMAC webhook signatures, Gelato for automated fulfillment (live mockups, templates, shipping), Google Merchant Center synced via Supabase Edge Functions Deno with 5/batch pagination. Multi-category cookie consent with conditional GA4 and Google Ads loading based on consent. Auto-currency detection via Vercel/Cloudflare geolocation headers. Admin bulk upload with intelligent color detection on ZIP file patterns (gco_COLORNAME).",
         type: "text"
       },
       stack: {
         title: "Tech stack",
-        items: ["Next.js (App Router)", "TypeScript strict", "Prisma + PostgreSQL", "Tailwind CSS", "Stripe (payments)", "Gelato (print-on-demand)", "Google Merchant Center", "Vercel (hosting)", "Supabase (auth + DB)"],
+        items: ["Next.js 16 (App Router)", "TypeScript strict", "Prisma + PostgreSQL", "Tailwind CSS 4", "Stripe Checkout", "Gelato (print-on-demand)", "Google Merchant Center (OAuth 2.0)", "GA4 + Google Ads", "Supabase (DB + Storage + Edge Functions Deno)", "Vercel", "Framer Motion"],
         type: "list"
       },
       outcomes: {
         title: "Outcomes",
-        body: "~15,000 lines of production TypeScript. 20+ exposed REST APIs. 4 business workflows shipped (order, return, inventory, loyalty). 20-30 successful CI/CD deployments. API latency 150-300 ms, webhook processing 300-500 ms. Complex-order processing dropped from ~25 min to ~10 min — a 10-15 minute reduction per order.",
+        body: "~15,000 LOC of production TypeScript. 30+ REST API endpoints. 10+ Prisma/PostgreSQL models. 17+ fully bilingual pages. 5 global React contexts (theme, cart, currency, cookie consent, auth). 4 business workflows shipped (order, return, inventory, loyalty) with 5-7 automated steps per workflow. 20-30 successful CI/CD deployments on Vercel. API latency 150-300 ms, Stripe→Gelato webhook processing 300-500 ms. Complex-order processing dropped from ~25 min to ~10 min. Marketplace live in 2 markets (Canada + USA) with functional profit-sharing.",
         type: "text"
       },
       learnings: {
         title: "Learnings",
-        body: "Over-engineering is tempting in e-commerce, but the simplest architecture that satisfies the constraints survives best. Strict separation of business workflows into isolated modules let me add the 4th workflow (loyalty) in a few days without touching the first 3. What I'd do differently: invest earlier in integration tests on payment paths — I learned the hard way that a Stripe mock doesn't capture every edge case.",
+        body: "Choosing custom Next.js over WordPress made everything else possible: Edge Functions, Server Components, complex multi-currency. Strict separation of business workflows into isolated modules let me add the 4th workflow (loyalty) in a few days without touching the first 3. Securing a production payment system changes your mindset: going from \"it works locally\" to \"it withstands 100 attempts in 1 minute\". What I'd do differently: invest earlier in Playwright + Stripe test mode integration tests on payment paths. Stripe mocks don't capture every edge case (declined cards, duplicate webhooks).",
         type: "text"
       }
     }
