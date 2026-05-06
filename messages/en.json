@@ -186,6 +186,7 @@
     { "cat": "Architecture", "items": ["MVC", "REST", "Observer", "Strategy", "Template Method", "DDD", "GRASP"] }
   ],
   "testimonials": [
-    { "quote": "Christian created a professional, modern website perfectly suited to my needs. His professionalism, creativity, and clear communication made the entire process smooth and efficient.", "author": "Founder", "role": "The Mad Space · 2025-present", "image": "/images/testimonial-madspace.jpg" }
+    { "quote": "Christian created a professional, modern website perfectly suited to my needs. His professionalism, creativity, and clear communication made the entire process smooth and efficient.", "author": "Founder", "role": "The Mad Space · 2025-present", "image": "/images/testimonial-madspace.jpg" },
+    { "quote": "Ralph took charge of the team during our Testing and Maintenance course projects. He got to know each team member to assign tasks that suited them best, always keeping things fair and balanced. He was always available to answer questions, patient, and ready to help. He's someone who constantly works to improve himself and bring out the best in his teammates. Simply put, he's an excellent leader.", "author": "Jonathan Euclide Marc", "role": "Peer · ÉTS · 2026", "image": "/images/testimonial-jonathan.png" }
   ]
 }

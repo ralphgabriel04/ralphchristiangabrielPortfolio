@@ -240,7 +240,7 @@ function TestimonialsSection() {
   const tTest = useTranslations("testimonials");
 
   // Only render testimonials that are not placeholders
-  const testimonialCount = 1;
+  const testimonialCount = 2;
   const activeIndices: number[] = [];
   for (let i = 0; i < testimonialCount; i++) {
     const quote = tTest(`${i}.quote`);
