@@ -261,35 +261,46 @@ function TestimonialsSection() {
           />
         </Reveal>
 
-        <div className={`mt-10 grid gap-6 ${activeIndices.length === 1 ? "max-w-lg" : activeIndices.length === 2 ? "sm:grid-cols-2" : "sm:grid-cols-2 lg:grid-cols-3"}`}>
-          {activeIndices.map((i, idx) => (
-            <Reveal key={i} delay={idx * 80}>
-              <Card className="p-6 flex flex-col gap-4 h-full">
-                <p className="flex-1 text-sm leading-relaxed text-muted-foreground italic">
-                  &ldquo;{tTest(`${i}.quote`)}&rdquo;
-                </p>
-                <div className="flex items-center gap-3 pt-2 border-t border-border-color">
-                  {(() => {
-                    try {
-                      const img = tTest(`${i}.image`);
-                      if (img && img.startsWith("/")) return (
-                        <img src={img} alt={tTest(`${i}.author`)} width={32} height={32} className="h-8 w-8 rounded-full object-cover border border-border-color shrink-0" />
-                      );
-                    } catch {}
-                    return <div className="h-8 w-8 rounded-full bg-muted-2 border border-border-color shrink-0" aria-hidden="true" />;
-                  })()}
-                  <div>
-                    <p className="text-sm font-medium">
-                      {tTest(`${i}.author`)}
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {tTest(`${i}.role`)}
-                    </p>
+        <div className={`mt-10 grid gap-6 ${activeIndices.length === 1 ? "max-w-lg" : activeIndices.length === 2 ? "sm:grid-cols-2" : "sm:grid-cols-2 lg:grid-cols-4"}`}>
+          {activeIndices.map((i, idx) => {
+            const hasLink = tTest.has(`${i}.link`);
+            const link = hasLink ? tTest(`${i}.link`) : null;
+
+            return (
+              <Reveal key={i} delay={idx * 80}>
+                <Card className="p-6 flex flex-col gap-4 h-full">
+                  <p className="flex-1 text-sm leading-relaxed text-muted-foreground italic">
+                    &ldquo;{tTest(`${i}.quote`)}&rdquo;
+                  </p>
+                  <div className="flex items-center gap-3 pt-2 border-t border-border-color">
+                    {(() => {
+                      try {
+                        const img = tTest(`${i}.image`);
+                        if (img && img.startsWith("/")) return (
+                          <img src={img} alt={tTest(`${i}.author`)} width={32} height={32} className="h-8 w-8 rounded-full object-cover border border-border-color shrink-0" />
+                        );
+                      } catch {}
+                      return <div className="h-8 w-8 rounded-full bg-muted-2 border border-border-color shrink-0" aria-hidden="true" />;
+                    })()}
+                    <div>
+                      <p className="text-sm font-medium">
+                        {tTest(`${i}.author`)}
+                      </p>
+                      {link ? (
+                        <Link href={`/projects/${link}`} className="text-xs text-accent hover:underline">
+                          {tTest(`${i}.role`)}
+                        </Link>
+                      ) : (
+                        <p className="text-xs text-muted-foreground">
+                          {tTest(`${i}.role`)}
+                        </p>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </Card>
-            </Reveal>
-          ))}
+                </Card>
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>
