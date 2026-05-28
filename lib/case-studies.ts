@@ -147,64 +147,64 @@ export const caseStudies: Record<string, CaseStudy> = {
     fr: {
       problem: {
         title: "Le problème",
-        body: "Les outils de calendrier existants manquent de fonctionnalités de planification intelligente. Les utilisateurs jonglent entre plusieurs applications pour gérer leur temps, sans avoir de vue unifiée ni d'aide à la prise de décision sur l'allocation de leur temps.",
+        body: "Les outils de productivité existants sont fragmentés : un calendrier ici, un gestionnaire de tâches là, un tracker d'habitudes ailleurs. Les utilisateurs jonglent entre 4-5 applications sans vue unifiée de leur journée. Aucune solution ne combine planification quotidienne, énergie/bien-être, habitudes, objectifs SMART et automatisation dans une interface bilingue cohérente. Avant de coder un backend complet, il fallait valider l'UX et les workflows sur un prototype haute-fidélité interactif.",
         type: "text"
       },
       constraints: {
         title: "Les contraintes",
-        body: "L'application doit fonctionner en cross-platform (web + cibles mobiles). La gestion des fuseaux horaires et la détection de conflits doivent être fiables dès le départ. Approche progressive web app pour maximiser la portée sans les contraintes des app stores.",
+        body: "Prototype sans build system : React 18 + Babel en browser (CDN) pour une itération ultra-rapide sans configuration. Bilingue natif FR/EN dès le jour 1, pas un filtre i18n ajouté après coup (~130 clés de traduction). Double viewport desktop + mobile (390×844px simulé) dans la même app. Accessibilité WCAG AA non négociable : contrastes vérifiés, prefers-reduced-motion respecté, focus ring. Design system complet avant les pages, pas l'inverse. Tout l'état en mémoire (pas de persistance) — le prototype est jetable, seuls les apprentissages UX comptent.",
         type: "text"
       },
       approach: {
         title: "La solution",
-        body: "Architecture Next.js avec TypeScript pour un typage strict sur la logique de dates et d'événements. Supabase pour la synchronisation temps réel des calendriers entre appareils. Approche progressive web app pour une expérience native sur mobile et desktop sans déploiement via app store.",
+        body: "Architecture de prototype avec React 18 (CDN UMD), Babel Standalone pour la transpilation en browser, et Tailwind CSS CDN. State management maison via pattern pub/sub : window.* comme source de vérité + CustomEvent pour la notification + hooks React pour l'abonnement, le tout factorisé via une factory makeStore(). 14 fichiers source structurés par domaine : ui.jsx (design system — 20+ composants), i18n.jsx (système de traduction), stores.jsx (CRUD Habits/Goals/Rules/Notes/Events), modals.jsx + modals-extra.jsx, shell.jsx (layout), et 5 fichiers de pages couvrant auth, dashboard, calendrier, tâches et tracking. Tweaks Panel flottant draggable pour naviguer les 14 pages, changer thème/langue/viewport et tester les empty states.",
         type: "text"
       },
       stack: {
         title: "Stack technique",
-        items: ["Next.js", "TypeScript", "Supabase (auth + DB)", "Tailwind CSS"],
+        items: ["React 18.3.1 (CDN UMD)", "Babel Standalone 7.29 (transpilation browser)", "Tailwind CSS (CDN)", "CSS Custom Properties (design tokens)", "Inter + JetBrains Mono + Instrument Serif", "Pattern pub/sub maison (window.* + CustomEvent)", "Protocole postMessage (communication hôte)"],
         type: "list"
       },
       outcomes: {
         title: "Résultats",
-        body: "Application live sur dpm-calendar.vercel.app. Développement actif avec itérations régulières. Synchronisation temps réel fonctionnelle entre appareils.",
+        body: "14 écrans fonctionnels couvrant tout le cycle de productivité : landing page marketing, login (OAuth mock), onboarding 4 étapes, dashboard avec check-in énergie et log de sommeil, planification quotidienne (wizard 6 étapes), focus Pomodoro avec timer circulaire, calendrier semaine multi-vues avec arbre de calendriers 2 niveaux, tâches en 5 vues (Liste/Kanban/Gantt/Calendrier/Stats), matrice Eisenhower avec drag & drop, habitudes avec heatmap et streaks, objectifs SMART avec progression, règles d'automatisation (4 déclencheurs × 5 actions), analytics avec heatmap de contribution 6 mois, et paramètres complets. Design system cohérent : 20+ composants réutilisables (Button 6 variantes × 5 tailles, Card, Badge 7 variantes, Input, Switch, Avatar, Ring SVG, etc.), 40+ icônes SVG intégrées, palette de 12 couleurs calibrées dark mode. Prototype live sur dpm-calendar.vercel.app avec changement de langue instantané et basculement desktop/mobile.",
         type: "text"
       },
       learnings: {
         title: "Apprentissages",
-        body: "L'UX de calendrier exige une gestion minutieuse des fuseaux horaires et de la détection de conflits. Les edge cases liés aux dates (changements d'heure, événements récurrents traversant les fuseaux) sont plus complexes qu'ils n'y paraissent et justifient un investissement précoce dans des tests exhaustifs.",
+        body: "Prototyper en haute-fidélité avant de coder le backend a validé des choix UX critiques : le wizard de planification quotidienne en 6 étapes, le check-in énergie avec conseils contextuels, et l'arbre de calendriers 2 niveaux. Le pattern pub/sub maison (window.* + CustomEvent) s'est révélé suffisant pour un prototype complexe — mais ses limites (globals partout, pas de modules) confirment le besoin d'une vraie architecture pour la production. Construire le design system AVANT les pages (tokens CSS, composants, palette) a accéléré le développement des 14 écrans : chaque nouvelle page réutilise les mêmes briques. Le Tweaks Panel (navigation + thème + langue + viewport + empty states) est un investissement qui se rentabilise immédiatement pour le dogfooding et les démos.",
         type: "text"
       }
     },
     en: {
       problem: {
         title: "The problem",
-        body: "Existing calendar tools lack intelligent scheduling features. Users juggle multiple apps to manage their time without a unified view or decision support for time allocation.",
+        body: "Existing productivity tools are fragmented: a calendar here, a task manager there, a habit tracker elsewhere. Users juggle 4-5 apps without a unified view of their day. No solution combines daily planning, energy/wellness, habits, SMART goals and automation in a cohesive bilingual interface. Before coding a full backend, the UX and workflows needed validation through a high-fidelity interactive prototype.",
         type: "text"
       },
       constraints: {
         title: "Constraints",
-        body: "The app must work cross-platform (web + mobile targets). Timezone handling and conflict detection must be reliable from the start. Progressive web app approach to maximize reach without app store constraints.",
+        body: "Prototype without build system: React 18 + Babel in-browser (CDN) for ultra-fast iteration with zero configuration. Native bilingual FR/EN from day 1, not an i18n filter added after the fact (~130 translation keys). Dual viewport desktop + mobile (simulated 390×844px) in the same app. WCAG AA accessibility non-negotiable: verified contrasts, prefers-reduced-motion respected, focus ring. Complete design system before pages, not the other way around. All state in memory (no persistence) — the prototype is disposable, only UX learnings matter.",
         type: "text"
       },
       approach: {
         title: "The solution",
-        body: "Next.js architecture with TypeScript for strict typing on date and event logic. Supabase for real-time calendar sync across devices. Progressive web app approach for a native-like experience on mobile and desktop without app store deployment.",
+        body: "Prototype architecture with React 18 (CDN UMD), Babel Standalone for in-browser transpilation, and Tailwind CSS CDN. Custom pub/sub state management: window.* as source of truth + CustomEvent for notification + React hooks for subscription, all factored through a makeStore() factory. 14 source files structured by domain: ui.jsx (design system — 20+ components), i18n.jsx (translation system), stores.jsx (CRUD for Habits/Goals/Rules/Notes/Events), modals.jsx + modals-extra.jsx, shell.jsx (layout), and 5 page files covering auth, dashboard, calendar, tasks and tracking. Floating draggable Tweaks Panel to navigate all 14 pages, change theme/language/viewport and test empty states.",
         type: "text"
       },
       stack: {
         title: "Tech stack",
-        items: ["Next.js", "TypeScript", "Supabase (auth + DB)", "Tailwind CSS"],
+        items: ["React 18.3.1 (CDN UMD)", "Babel Standalone 7.29 (in-browser transpilation)", "Tailwind CSS (CDN)", "CSS Custom Properties (design tokens)", "Inter + JetBrains Mono + Instrument Serif", "Custom pub/sub pattern (window.* + CustomEvent)", "postMessage protocol (host communication)"],
         type: "list"
       },
       outcomes: {
         title: "Outcomes",
-        body: "App live at dpm-calendar.vercel.app. Active development with regular iterations. Real-time sync working across devices.",
+        body: "14 functional screens covering the full productivity cycle: marketing landing page, login (mock OAuth), 4-step onboarding, dashboard with energy check-in and sleep log, daily planning (6-step wizard), Pomodoro focus with circular timer, multi-view week calendar with 2-level calendar tree, tasks in 5 views (List/Kanban/Gantt/Calendar/Stats), Eisenhower matrix with drag & drop, habits with heatmap and streaks, SMART goals with progress tracking, automation rules (4 triggers × 5 actions), analytics with 6-month contribution heatmap, and full settings. Cohesive design system: 20+ reusable components (Button 6 variants × 5 sizes, Card, Badge 7 variants, Input, Switch, Avatar, SVG Ring, etc.), 40+ inline SVG icons, 12-color palette calibrated for dark mode. Live prototype at dpm-calendar.vercel.app with instant language switching and desktop/mobile toggle.",
         type: "text"
       },
       learnings: {
         title: "Learnings",
-        body: "Calendar UX requires careful timezone handling and conflict detection. Date-related edge cases (daylight saving changes, recurring events crossing timezones) are more complex than they appear and justify early investment in comprehensive testing.",
+        body: "High-fidelity prototyping before coding the backend validated critical UX decisions: the 6-step daily planning wizard, energy check-in with contextual advice, and the 2-level calendar tree. The custom pub/sub pattern (window.* + CustomEvent) proved sufficient for a complex prototype — but its limitations (globals everywhere, no modules) confirm the need for proper architecture in production. Building the design system BEFORE pages (CSS tokens, components, palette) accelerated development of all 14 screens: each new page reuses the same building blocks. The Tweaks Panel (navigation + theme + language + viewport + empty states) is an investment that pays off immediately for dogfooding and demos.",
         type: "text"
       }
     }

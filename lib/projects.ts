@@ -67,15 +67,18 @@ export const projects: Project[] = [
   {
     id: "dpm-calendar",
     year: "2025 · présent",
-    status: { fr: "En développement", en: "In development" },
+    status: { fr: "En développement actif", en: "Actively in development" },
     name: "DPM Calendar",
-    tag: { fr: "SaaS productivité", en: "Productivity SaaS" },
-    stack: ["Next.js", "TypeScript", "Supabase"],
+    tag: { fr: "Planification holistique · Prototype haute-fidélité", en: "Holistic planning · High-fidelity prototype" },
+    stack: ["React 18", "Tailwind CSS", "Babel", "i18n FR/EN", "CSS Custom Properties"],
     summary: {
-      fr: "SaaS de calendrier intelligent ciblant App Store et Play Store.",
-      en: "Smart calendar SaaS targeting App Store and Play Store."
+      fr: "Prototype interactif haute-fidélité d'une application de planification holistique. 14 écrans couvrant tout le cycle de productivité : dashboard, planification quotidienne, Pomodoro, calendrier multi-vues, tâches (Liste/Kanban/Gantt/Stats), matrice Eisenhower, habitudes, objectifs SMART, règles d'automatisation et analytics. Bilingue FR/EN, dark/light mode, responsive desktop + mobile, design system complet avec 20+ composants réutilisables et WCAG AA.",
+      en: "High-fidelity interactive prototype of a holistic planning application. 14 screens covering the full productivity cycle: dashboard, daily planning, Pomodoro, multi-view calendar, tasks (List/Kanban/Gantt/Stats), Eisenhower matrix, habits, SMART goals, automation rules and analytics. Bilingual FR/EN, dark/light mode, responsive desktop + mobile, complete design system with 20+ reusable components and WCAG AA."
     },
-    metrics: { fr: ["Live: dpm-calendar.vercel.app"], en: ["Live: dpm-calendar.vercel.app"] },
+    metrics: {
+      fr: ["14 écrans complets", "20+ composants UI", "~130 clés i18n FR/EN", "WCAG AA conforme"],
+      en: ["14 complete screens", "20+ UI components", "~130 i18n keys FR/EN", "WCAG AA compliant"]
+    },
     media: { enabled: true, type: "image", src: "/media/dpm-calendar.gif" }
   },
   {
@@ -110,7 +113,7 @@ export const projectRoles: Record<string, { fr: string; en: string }> = {
   "the-mad-space": { fr: "Ingénieur Full-Stack (Contractuel)", en: "Full-Stack Engineer (Contract)" },
   "cadence": { fr: "Co-fondateur · Tech Lead", en: "Co-founder · Tech Lead" },
   "fastercom-tms": { fr: "Développeur Intégrateur de Solutions", en: "Solutions Integration Developer" },
-  "dpm-calendar": { fr: "Fondateur & Développeur", en: "Founder & Developer" },
+  "dpm-calendar": { fr: "Fondateur · Design & Prototypage", en: "Founder · Design & Prototyping" },
   "financej": { fr: "Développeur · Top contributeur (Projet académique — LOG240)", en: "Developer · Top contributor (Academic Project — LOG240)" },
 }
 
