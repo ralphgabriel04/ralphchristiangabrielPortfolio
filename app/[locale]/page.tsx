@@ -14,6 +14,8 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
 import { ProjectPlaceholder } from "@/components/ui/project-placeholder";
 import { TrackedLink } from "@/components/ui/tracked-link";
+import { TestimonialsCarousel } from "@/components/ui/testimonials-carousel";
+import { testimonials } from "@/lib/testimonials";
 
 export default async function HomePage({
   params,
@@ -235,73 +237,75 @@ function HomeContent() {
 }
 
 function TestimonialsSection() {
-  const tSec = useTranslations("sectionLabels");
   const tHome = useTranslations("home");
-  const tTest = useTranslations("testimonials");
-
-  // Only render testimonials that are not placeholders
-  const testimonialCount = 4;
-  const activeIndices: number[] = [];
-  for (let i = 0; i < testimonialCount; i++) {
-    const quote = tTest(`${i}.quote`);
-    if (!quote.startsWith("[")) {
-      activeIndices.push(i);
-    }
-  }
-
-  if (activeIndices.length === 0) return null;
+  const locale = useLocale() as "fr" | "en";
 
   return (
     <section className="border-t border-border-color">
-      <div className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] py-20">
+      <div className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] py-24 md:py-32">
+        {/* Centered header with decorative eyebrow */}
         <Reveal>
-          <SectionHeading
-            kicker={tSec("testimonials")}
-            title={tHome("testimonialsHeading")}
-          />
+          <div className="mx-auto max-w-2xl text-center">
+            <div className="inline-flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+              <span className="h-px w-6 bg-border-strong" />
+              {tHome("testimonialsKicker")}
+              <span className="h-px w-6 bg-border-strong" />
+            </div>
+            <h2 className="mt-6 text-[34px] font-medium leading-[1.1] tracking-tight md:text-[44px]">
+              {tHome("testimonialsHeadingPre")}
+              <span
+                className="italic"
+                style={{ fontFamily: "'Instrument Serif', 'Georgia', serif", fontWeight: 400 }}
+              >
+                {tHome("testimonialsHeadingItalic")}
+              </span>
+            </h2>
+            <p className="mx-auto mt-5 max-w-xl text-[15px] leading-relaxed text-muted-foreground md:text-[16px]">
+              {tHome("testimonialsSubtitle")}
+            </p>
+          </div>
         </Reveal>
 
-        <div className={`mt-10 grid gap-6 ${activeIndices.length === 1 ? "max-w-lg" : activeIndices.length === 2 ? "sm:grid-cols-2" : "sm:grid-cols-2 lg:grid-cols-4"}`}>
-          {activeIndices.map((i, idx) => {
-            const hasLink = tTest.has(`${i}.link`);
-            const link = hasLink ? tTest(`${i}.link`) : null;
-
-            return (
-              <Reveal key={i} delay={idx * 80}>
-                <Card className="p-6 flex flex-col gap-4 h-full">
-                  <p className="flex-1 text-sm leading-relaxed text-muted-foreground italic">
-                    &ldquo;{tTest(`${i}.quote`)}&rdquo;
-                  </p>
-                  <div className="flex items-center gap-3 pt-2 border-t border-border-color">
-                    {(() => {
-                      try {
-                        const img = tTest(`${i}.image`);
-                        if (img && img.startsWith("/")) return (
-                          <img src={img} alt={tTest(`${i}.author`)} width={32} height={32} className="h-8 w-8 rounded-full object-cover border border-border-color shrink-0" />
-                        );
-                      } catch {}
-                      return <div className="h-8 w-8 rounded-full bg-muted-2 border border-border-color shrink-0" aria-hidden="true" />;
-                    })()}
-                    <div>
-                      <p className="text-sm font-medium">
-                        {tTest(`${i}.author`)}
-                      </p>
-                      {link ? (
-                        <Link href={`/projects/${link}`} className="text-xs text-accent hover:underline">
-                          {tTest(`${i}.role`)}
-                        </Link>
-                      ) : (
-                        <p className="text-xs text-muted-foreground">
-                          {tTest(`${i}.role`)}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </Card>
-              </Reveal>
-            );
-          })}
+        {/* Carousel — all testimonials, auto-rotates every 5s */}
+        <div className="mt-14">
+          <Reveal delay={80}>
+            <TestimonialsCarousel testimonials={testimonials} locale={locale} autoPlayInterval={5000} />
+          </Reveal>
         </div>
+
+        {/* CTA + stats */}
+        <Reveal delay={120}>
+          <div className="mt-12 flex flex-col items-center md:mt-14">
+            {/* Rounded-full CTA button */}
+            <Link
+              href="/temoignages"
+              className="group inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-3 text-[13.5px] font-medium text-background shadow-sm transition-all duration-200 hover:opacity-90 hover:shadow-md active:scale-[0.98]"
+            >
+              {tHome("testimonialsViewAll")}
+              <span className="transition-transform group-hover:translate-x-0.5">→</span>
+            </Link>
+
+            {/* Stats card */}
+            <div className="mt-10 flex w-full max-w-3xl flex-col items-center divide-y divide-border-color rounded-2xl border border-border-color bg-muted/50 md:flex-row md:divide-x md:divide-y-0">
+              <div className="flex w-full items-center justify-center gap-2 px-6 py-5 text-center md:flex-1">
+                <span className="text-[15px] font-semibold tracking-tight text-accent">{testimonials.length}</span>
+                <span className="text-[13.5px] text-muted-foreground">{tHome("statCollaborations")}</span>
+              </div>
+              <div className="flex w-full items-center justify-center gap-2 px-6 py-5 text-center md:flex-1">
+                <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-accent/10 text-accent">
+                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                    <path d="M2.5 6.2l2.3 2.3L9.5 3.8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+                <span className="text-[13.5px] text-muted-foreground">{tHome("statVerified")}</span>
+              </div>
+              <div className="flex w-full items-center justify-center gap-2 px-6 py-5 text-center md:flex-1">
+                <span className="text-[15px] font-semibold tracking-tight text-accent">100%</span>
+                <span className="text-[13.5px] text-muted-foreground">{tHome("statSatisfaction")}</span>
+              </div>
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -397,12 +401,12 @@ function ContactSection() {
               </Button>
             </Link>
             <TrackedLink
-              href="mailto:christian8339@hotmail.com"
+              href="mailto:ralph.c.gabriel@proton.me"
               className="inline-flex items-center gap-2 rounded-md border border-border-color px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:border-border-strong transition-colors"
               event="email_click"
             >
               <Mail size={14} />
-              christian8339@hotmail.com
+              ralph.c.gabriel@proton.me
             </TrackedLink>
           </div>
         </Reveal>

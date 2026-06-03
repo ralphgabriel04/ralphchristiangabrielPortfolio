@@ -21,7 +21,7 @@ const links = [
     event: "linkedin_click",
   },
   {
-    href: "mailto:christian8339@hotmail.com",
+    href: "mailto:ralph.c.gabriel@proton.me",
     label: "Email",
     icon: Mail,
     external: false,

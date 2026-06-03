@@ -91,10 +91,10 @@ function ContactContent({ locale }: { locale: string }) {
               <h3 className="text-sm font-medium">{t("email")}</h3>
             </div>
             <a
-              href="mailto:christian8339@hotmail.com"
+              href="mailto:ralph.c.gabriel@proton.me"
               className="text-sm text-accent hover:underline break-all"
             >
-              christian8339@hotmail.com
+              ralph.c.gabriel@proton.me
             </a>
           </Card>
         </Reveal>

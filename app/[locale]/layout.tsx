@@ -71,7 +71,7 @@ const jsonLd = {
   name: "Ralph Christian Gabriel",
   jobTitle: "Full-Stack Developer",
   url: BASE_URL,
-  email: "christian8339@hotmail.com",
+  email: "ralph.c.gabriel@proton.me",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Repentigny",
@@ -109,6 +109,9 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

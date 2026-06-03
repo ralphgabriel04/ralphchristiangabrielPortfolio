@@ -35,6 +35,7 @@ export function Header() {
     { href: "/projects" as const, label: t("projects") },
     { href: "/about" as const, label: t("about") },
     { href: "/experience" as const, label: t("experience") },
+    { href: "/temoignages" as const, label: t("testimonials") },
     { href: "/contact" as const, label: t("contact") },
   ];
 

@@ -6,7 +6,7 @@ const projects = [
   "the-mad-space",
   "cadence",
   "fastercom-tms",
-  "dpm-calendar",
+  "dpm-elevate",
   "financej",
 ];
 

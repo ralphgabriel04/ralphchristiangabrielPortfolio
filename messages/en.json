@@ -4,6 +4,7 @@
     "about": "About",
     "experience": "Experience",
     "contact": "Contact",
+    "testimonials": "Testimonials",
     "book": "Book a call",
     "available": "Available"
   },
@@ -32,7 +33,15 @@
   "home": {
     "projectsHeading": "Recent production work.",
     "seeAll": "See all",
+    "testimonialsKicker": "Testimonials",
     "testimonialsHeading": "What people say.",
+    "testimonialsHeadingPre": "What people say about my ",
+    "testimonialsHeadingItalic": "work.",
+    "testimonialsSubtitle": "Feedback from people I've collaborated with on technical, academic, and professional projects.",
+    "testimonialsViewAll": "See all testimonials",
+    "statCollaborations": "successful collaborations",
+    "statVerified": "Verified and authentic testimonials",
+    "statSatisfaction": "Recommended without hesitation",
     "stackHeading": "Tools I use day to day.",
     "contactHeading": "Have a role to fill or a project in mind?",
     "contactLede": "Available for Junior/Intermediate Full-Stack roles in Greater Montréal. 24h response.",
@@ -185,10 +194,26 @@
     { "cat": "Testing", "items": ["JUnit", "Jest", "TDD"] },
     { "cat": "Architecture", "items": ["MVC", "REST", "Observer", "Strategy", "Template Method", "DDD", "GRASP"] }
   ],
+  "testimonialsPage": {
+    "breadcrumbHome": "Home",
+    "breadcrumbCurrent": "Testimonials",
+    "headingPre": "All ",
+    "headingItalic": "testimonials.",
+    "subtitle": "Discover feedback from people I've had the pleasure of collaborating with on various projects.",
+    "resultLabel": "testimonial shown",
+    "resultLabelPlural": "testimonials shown",
+    "emptyLabel": "No testimonials in this category yet.",
+    "addTestimonial": "Add a testimonial",
+    "addHref": "mailto:ralph.c.gabriel@proton.me?subject=Testimonial for Ralph",
+    "addCtaBadge": "We worked together?",
+    "addCtaTitle": "Share your feedback.",
+    "addCtaSubtitle": "A testimonial takes two minutes and helps me tremendously in presenting my projects to future readers."
+  },
   "testimonials": [
     { "quote": "Christian created a professional, modern website perfectly suited to my needs. His professionalism, creativity, and clear communication made the entire process smooth and efficient.", "author": "Founder", "role": "The Mad Space · 2025-present", "image": "/images/testimonial-madspace.jpg", "link": "the-mad-space" },
     { "quote": "Ralph took charge of the team during our Testing and Maintenance course projects. He got to know each team member to assign tasks that suited them best, always keeping things fair and balanced. He was always available to answer questions, patient, and ready to help. He's someone who constantly works to improve himself and bring out the best in his teammates. Simply put, he's an excellent leader.", "author": "Jonathan Euclide Marc", "role": "Peer · ÉTS · 2026", "image": "/images/testimonial-jonathan.png", "link": "financej" },
     { "quote": "Ralph stood out through his professionalism and team spirit. He was always there to support me when I was struggling, and what struck me most was his patience. No matter how complex the situation, he took the time to explain, guide, and make sure everything was properly resolved. I recommend him without hesitation.", "author": "Sunny Mélissa Gabriel", "role": "Logistics Coordinator · Groupe Contex", "image": "/images/testimonial-sunny.png" },
-    { "quote": "Ralph Christian Gabriel is an expert in his field! He helped me on numerous occasions with my computer technical issues. He is reliable and always perseveres to find solutions to problems. I greatly appreciated that he always took the time to explain the reasoning behind his plan of action. This demonstrated, in my opinion, his thoroughness but also his dedication to the satisfaction of the people he helps.", "author": "Anne Sofie Laurent", "role": "Coordinator · Canada Summer Jobs", "image": "/images/testimonial-annesofie.png" }
+    { "quote": "Ralph Christian Gabriel is an expert in his field! He helped me on numerous occasions with my computer technical issues. He is reliable and always perseveres to find solutions to problems. I greatly appreciated that he always took the time to explain the reasoning behind his plan of action. This demonstrated, in my opinion, his thoroughness but also his dedication to the satisfaction of the people he helps.", "author": "Anne Sofie Laurent", "role": "Coordinator · Canada Summer Jobs", "image": "/images/testimonial-annesofie.png" },
+    { "quote": "When I wanted to bring the idea of Cadence to life, Ralph was the first person I thought of to join me on this adventure. A former classmate, Ralph has always shown exceptional rigor. He quickly demonstrated the same rigor and expertise as a business partner. He approaches every problem with genuine deep thinking — he considers the architecture, anticipates issues, and delivers clean, maintainable work. What particularly impressed me is his ability to learn fast and adapt to the real constraints of a project under construction. He took on complex technical challenges autonomously while remaining a reliable thinking partner. I would recommend Ralph at any time without the slightest hesitation.", "author": "Alexandre Boisvert", "role": "Rowing Coach · Cadence Co-founder", "image": "/images/testimonial-alexandre.png" }
   ]
 }

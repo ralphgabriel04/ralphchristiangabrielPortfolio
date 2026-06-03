@@ -65,21 +65,21 @@ export const projects: Project[] = [
     media: { enabled: true, type: "image", src: "/media/fastercom-tms.webp" }
   },
   {
-    id: "dpm-calendar",
+    id: "dpm-elevate",
     year: "2025 · présent",
     status: { fr: "En développement actif", en: "Actively in development" },
-    name: "DPM Calendar",
+    name: "DPM Elevate",
     tag: { fr: "Planification holistique · Prototype haute-fidélité", en: "Holistic planning · High-fidelity prototype" },
-    stack: ["React 18", "Tailwind CSS", "Babel", "i18n FR/EN", "CSS Custom Properties"],
+    stack: ["React 18", "Tailwind CSS", "Babel", "i18n FR/EN", "CSS Custom Properties", "WCAG AA"],
     summary: {
-      fr: "Prototype interactif haute-fidélité d'une application de planification holistique. 14 écrans couvrant tout le cycle de productivité : dashboard, planification quotidienne, Pomodoro, calendrier multi-vues, tâches (Liste/Kanban/Gantt/Stats), matrice Eisenhower, habitudes, objectifs SMART, règles d'automatisation et analytics. Bilingue FR/EN, dark/light mode, responsive desktop + mobile, design system complet avec 20+ composants réutilisables et WCAG AA.",
-      en: "High-fidelity interactive prototype of a holistic planning application. 14 screens covering the full productivity cycle: dashboard, daily planning, Pomodoro, multi-view calendar, tasks (List/Kanban/Gantt/Stats), Eisenhower matrix, habits, SMART goals, automation rules and analytics. Bilingual FR/EN, dark/light mode, responsive desktop + mobile, complete design system with 20+ reusable components and WCAG AA."
+      fr: "Prototype interactif haute-fidélité d'une application de planification holistique — tout le cycle de productivité dans un seul produit cohérent. 14 écrans couvrant landing, onboarding, dashboard, planification quotidienne, focus Pomodoro, calendrier multi-vues, tâches (5 vues), matrice Eisenhower, habitudes, objectifs SMART, règles d'automatisation et analytics. Nativement bilingue FR/EN, dark/light mode, responsive desktop + mobile, sur un design system complet WCAG AA, avec un moteur de science comportementale (chronotype, MCII, anti-procrastination CBT) intégré au flux de planification.",
+      en: "High-fidelity interactive prototype of a holistic planning application — the entire productivity cycle in one coherent product. 14 screens spanning landing, onboarding, dashboard, daily planning, Pomodoro focus, multi-view calendar, tasks (5 views), Eisenhower matrix, habits, SMART goals, automation rules and analytics. Natively bilingual FR/EN, dark/light mode, responsive desktop + mobile, on a complete WCAG AA design system, with a behavioural-science engine (chronotype, MCII, CBT anti-procrastination) wired into the planning flow."
     },
     metrics: {
-      fr: ["14 écrans complets", "20+ composants UI", "~130 clés i18n FR/EN", "WCAG AA conforme"],
-      en: ["14 complete screens", "20+ UI components", "~130 i18n keys FR/EN", "WCAG AA compliant"]
+      fr: ["14 écrans · 20+ composants", "Tâches en 5 vues", "~130 clés i18n FR/EN", "WCAG AA conforme"],
+      en: ["14 screens · 20+ components", "Tasks across 5 views", "~130 i18n keys FR/EN", "WCAG AA compliant"]
     },
-    media: { enabled: true, type: "image", src: "/media/dpm-calendar.gif" }
+    media: { enabled: true, type: "image", src: "/media/dpm-elevate.gif" }
   },
   {
     id: "financej",
@@ -104,7 +104,7 @@ export const caseStudyIds = new Set([
   "the-mad-space",
   "cadence",
   "fastercom-tms",
-  "dpm-calendar",
+  "dpm-elevate",
   "financej",
 ])
 
@@ -113,7 +113,7 @@ export const projectRoles: Record<string, { fr: string; en: string }> = {
   "the-mad-space": { fr: "Ingénieur Full-Stack (Contractuel)", en: "Full-Stack Engineer (Contract)" },
   "cadence": { fr: "Co-fondateur · Tech Lead", en: "Co-founder · Tech Lead" },
   "fastercom-tms": { fr: "Développeur Intégrateur de Solutions", en: "Solutions Integration Developer" },
-  "dpm-calendar": { fr: "Fondateur · Design & Prototypage", en: "Founder · Design & Prototyping" },
+  "dpm-elevate": { fr: "Fondateur · Design & Prototypage", en: "Founder · Design & Prototyping" },
   "financej": { fr: "Développeur · Top contributeur (Projet académique — LOG240)", en: "Developer · Top contributor (Academic Project — LOG240)" },
 }
 
@@ -126,7 +126,7 @@ export const projectLinks: Record<string, { label: string; url: string; type: "g
     { label: "Landing page", url: "https://cadence-web-fawn.vercel.app", type: "live" },
     { label: "GitHub", url: "https://github.com/ralphgabriel04/cadence-mobile", type: "github" },
   ],
-  "dpm-calendar": [
-    { label: "Live", url: "https://dpm-calendar.vercel.app", type: "live" },
+  "dpm-elevate": [
+    { label: "Live", url: "/dpm-elevate/index.html", type: "live" },
   ],
 }

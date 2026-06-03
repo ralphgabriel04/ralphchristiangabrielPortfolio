@@ -40,3 +40,12 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+
+# testing artifacts
+/test-results/
+/playwright-report/
+
+# local tooling
+/.claude/
+/.cto-toolkit/
+/.remember/

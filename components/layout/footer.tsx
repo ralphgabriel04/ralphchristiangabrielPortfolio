@@ -32,6 +32,9 @@ export function Footer() {
             <Link href="/experience" className="text-muted-foreground hover:text-foreground transition-colors">
               {locale === "fr" ? "Expérience" : "Experience"}
             </Link>
+            <Link href="/temoignages" className="text-muted-foreground hover:text-foreground transition-colors">
+              {locale === "fr" ? "Témoignages" : "Testimonials"}
+            </Link>
             <Link href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">
               Contact
             </Link>
@@ -46,7 +49,7 @@ export function Footer() {
             <a href="https://linkedin.com/in/ralph-christian-gabriel-45092021b" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors" target="_blank" rel="noreferrer">
               <LinkedInIcon size={14} /> LinkedIn
             </a>
-            <a href="mailto:christian8339@hotmail.com" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
+            <a href="mailto:ralph.c.gabriel@proton.me" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
               <Mail size={14} /> Email
             </a>
             <a href="https://cal.com/ralphchristiangabriel/15min" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors" target="_blank" rel="noreferrer">

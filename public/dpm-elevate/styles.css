@@ -1,0 +1,642 @@
+/* ============================================================
+   DPM ELEVATE — Design tokens (mirror of design system)
+   Dark-first; light is a fallback.
+============================================================ */
+
+:root.dark, :root {
+  --background: 222.2 84% 4.9%;       /* #020817 */
+  --card:       222.2 84% 6%;         /* #0a0f1e */
+  --popover:    222.2 84% 6%;
+  --muted:      217.2 32.6% 17.5%;    /* #1e293b */
+  --secondary:  217.2 32.6% 17.5%;
+  --accent:     217.2 32.6% 17.5%;
+  --border:     217.2 32.6% 17.5%;
+  --input:      217.2 32.6% 17.5%;
+  --foreground: 210 40% 98%;          /* #f8fafc */
+  --card-foreground: 210 40% 98%;
+  --muted-foreground: 215 20.2% 65.1%; /* #94a3b8 */
+  --primary:    263.4 70% 60%;        /* #8b5cf6 — brand violet: text, icons, borders, accents */
+  --primary-foreground: 210 40% 98%;
+  /* P21 — AA contrast: a darker violet ONLY for SOLID fills that carry white text
+     (filled buttons, active nav). Brand --primary stays #8b5cf6 everywhere else. */
+  --primary-solid: 263 72% 52%;        /* ~#7c3aed — white text ≈ 5.7:1 ✅ */
+  --primary-solid-hover: 263 72% 46%;  /* darker press/hover feedback */
+  --ring:       263.4 70% 60%;
+  --space-accent: 263.4 72% 52%;   /* P20 — Espace accent (ambient + active nav, AA-safe with white text) */
+  --success:    142.1 70% 45%;
+  --warning:    38 92% 50%;
+  --destructive: 0 84% 60%;
+  --info:       217.2 91% 60%;
+  --radius:     0.75rem;
+}
+
+:root.light {
+  --background: 0 0% 100%;
+  --card: 0 0% 100%;
+  --popover: 0 0% 100%;
+  --muted: 210 40% 96.1%;
+  --secondary: 210 40% 96.1%;
+  --accent: 210 40% 96.1%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --foreground: 222.2 84% 4.9%;
+  --card-foreground: 222.2 84% 4.9%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --primary: 263.4 70% 50%;
+  --primary-foreground: 210 40% 98%;
+  --primary-solid: 263 70% 47%;        /* white text ≈ 6:1 ✅ */
+  --primary-solid-hover: 263 70% 41%;
+  --ring: 263.4 70% 50%;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button { font-family: inherit; }
+
+/* Custom scrollbar — subtle */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted));
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-foreground) / 0.4); }
+
+/* Selection */
+::selection { background: hsl(var(--primary) / 0.3); }
+
+/* Gradient signature */
+.gradient-violet {
+  background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 50%, #ec4899 100%);
+}
+.gradient-text {
+  background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 50%, #ec4899 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* ============================================================
+   P21 — AA contrast: redirect SOLID-fill primary buttons (white text)
+   to the darker --primary-solid. Targets only full-opacity primary
+   fills on interactive elements; tinted backgrounds like
+   bg-[hsl(var(--primary)/0.15)] are a different class string and are
+   left untouched (their text is colored, not white). Brand violet for
+   icons / borders / text stays #8b5cf6.
+============================================================ */
+button[class~="bg-[hsl(var(--primary))]"],
+a[class~="bg-[hsl(var(--primary))]"],
+label[class~="bg-[hsl(var(--primary))]"] {
+  background-color: hsl(var(--primary-solid)) !important;
+}
+button[class~="bg-[hsl(var(--primary))]"]:hover,
+a[class~="bg-[hsl(var(--primary))]"]:hover,
+label[class~="bg-[hsl(var(--primary))]"]:hover {
+  background-color: hsl(var(--primary-solid-hover)) !important;
+}
+
+/* Welcome banner — theme-aware tint (dark gradient washes out in light mode) */
+.welcome-banner {
+  background-image: linear-gradient(
+    to bottom right,
+    hsl(263 70% 18% / 0.55),
+    hsl(330 70% 14% / 0.35)
+  );
+}
+.welcome-banner__title { color: hsl(263 85% 82%); }
+
+:root.light .welcome-banner {
+  background-image: linear-gradient(
+    to bottom right,
+    hsl(263 90% 96%),
+    hsl(330 90% 97%)
+  );
+}
+:root.light .welcome-banner__title { color: hsl(263 60% 42%); }
+
+/* Mesh-like ambient glow for landing */
+.ambient-glow {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.4;
+}
+
+/* Numeric figures aligned */
+.tabular-nums { font-variant-numeric: tabular-nums; }
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* Animations — animate transform only (never opacity), so a frozen/disabled
+   animation frame can never leave a popover or modal invisible. */
+@keyframes scaleIn {
+  from { transform: scale(0.97); }
+  to   { transform: scale(1); }
+}
+@keyframes fadeIn {
+  from { transform: translateY(4px); }
+  to   { transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg,
+    hsl(var(--muted)) 0%,
+    hsl(var(--muted-foreground) / 0.1) 50%,
+    hsl(var(--muted)) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+  border-radius: 6px;
+}
+
+.anim-scale-in { animation: scaleIn 200ms cubic-bezier(0.33, 1, 0.68, 1); }
+.anim-fade-in  { animation: fadeIn 200ms cubic-bezier(0.33, 1, 0.68, 1); }
+@media (prefers-reduced-motion: reduce) {
+  .anim-scale-in, .anim-fade-in { animation: none !important; }
+}
+
+/* Now-playing equalizer bars (P23). Scale only; height animated via transform
+   origin bottom. Frozen on reduced-motion (bars stay mid-height, still legible). */
+@keyframes musicEq {
+  0%, 100% { transform: scaleY(0.35); }
+  50%      { transform: scaleY(1); }
+}
+.music-eq-bar {
+  transform-origin: bottom;
+  animation: musicEq 0.9s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .music-eq-bar { animation: none !important; transform: scaleY(0.7); }
+}
+
+/* ============================================================
+   KANBAN COLUMN DELIGHT (P29) — per-column arrival animations.
+   Purely decorative, non-blocking overlays. Every effect is GATED:
+   `html.kfx-off` (motion mode "off" OR prefers-reduced-motion) kills them,
+   `html.kfx-subtle` swaps the loud ones for a single soft pulse.
+   Effects use --kc (the column's designated HSL color) for tint.
+============================================================ */
+/* Confetti — reserved for the user's completion column. ~1s burst. */
+@keyframes kfxConfettiFall {
+  0%   { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+  100% { transform: translate(var(--dx), var(--dy)) rotate(var(--dr)); opacity: 0; }
+}
+.kfx-confetti-piece {
+  position: absolute; top: 18%; left: 50%;
+  width: 8px; height: 8px; border-radius: 2px;
+  animation: kfxConfettiFall 1000ms cubic-bezier(0.2, 0.6, 0.3, 1) forwards;
+}
+/* Glow — soft colored radial pulse over the column. */
+@keyframes kfxGlow {
+  0%   { opacity: 0; transform: scale(0.6); }
+  35%  { opacity: 0.9; }
+  100% { opacity: 0; transform: scale(1.15); }
+}
+.kfx-glow {
+  position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: radial-gradient(circle at 50% 42%, hsl(var(--kc) / 0.42), transparent 68%);
+  animation: kfxGlow 850ms cubic-bezier(0.33, 1, 0.68, 1) forwards;
+}
+/* Check — a colored tick badge pops in the column center. */
+@keyframes kfxCheckPop {
+  0%   { transform: scale(0.3); opacity: 0; }
+  45%  { transform: scale(1.12); opacity: 1; }
+  70%  { transform: scale(0.96); }
+  100% { transform: scale(1); opacity: 0; }
+}
+.kfx-check { animation: kfxCheckPop 950ms cubic-bezier(0.33, 1, 0.68, 1) forwards; }
+/* Bounce — an upward nudge glyph. */
+@keyframes kfxBounce {
+  0%   { transform: translateY(14px); opacity: 0; }
+  40%  { transform: translateY(-10px); opacity: 1; }
+  65%  { transform: translateY(2px); }
+  80%  { transform: translateY(-4px); }
+  100% { transform: translateY(0); opacity: 0; }
+}
+.kfx-bounce { animation: kfxBounce 900ms cubic-bezier(0.33, 1, 0.68, 1) forwards; }
+/* Subtle mode — one gentle pulse standing in for every loud effect. */
+@keyframes kfxSubtle {
+  0%   { opacity: 0; }
+  40%  { opacity: 0.6; }
+  100% { opacity: 0; }
+}
+.kfx-subtle-pulse {
+  position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: radial-gradient(circle at 50% 42%, hsl(var(--kc) / 0.30), transparent 70%);
+  animation: kfxSubtle 600ms ease-out forwards;
+}
+/* Global kill-switch: motion "off" or reduced-motion. */
+html.kfx-off .kfx-confetti-piece,
+html.kfx-off .kfx-glow,
+html.kfx-off .kfx-check,
+html.kfx-off .kfx-bounce,
+html.kfx-off .kfx-subtle-pulse { animation: none !important; display: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  .kfx-confetti-piece, .kfx-glow, .kfx-check, .kfx-bounce, .kfx-subtle-pulse {
+    animation: none !important; display: none !important;
+  }
+}
+
+/* Volume range thumb (P23) */
+.music-range { outline: none; }
+.music-range::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 13px; height: 13px; border-radius: 9999px;
+  background: hsl(var(--primary)); cursor: pointer;
+  border: 2px solid hsl(var(--card));
+}
+.music-range::-moz-range-thumb {
+  width: 13px; height: 13px; border-radius: 9999px;
+  background: hsl(var(--primary)); cursor: pointer; border: 2px solid hsl(var(--card));
+}
+.music-range:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 3px hsl(var(--ring) / 0.4); }
+
+/* Focus ring */
+.focus-ring:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+/* Striped placeholder for image slots */
+.striped {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    hsl(var(--muted)) 0,
+    hsl(var(--muted)) 6px,
+    hsl(var(--muted-foreground) / 0.06) 6px,
+    hsl(var(--muted-foreground) / 0.06) 12px
+  );
+}
+
+/* Dotted grid for empty calendar slots */
+.dotted-grid {
+  background-image: radial-gradient(circle, hsl(var(--muted-foreground) / 0.18) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Resize handle */
+.resize-handle {
+  width: 1px;
+  background: hsl(var(--border));
+  cursor: col-resize;
+  position: relative;
+  flex-shrink: 0;
+}
+.resize-handle::after {
+  content: "";
+  position: absolute;
+  inset: 0 -3px;
+}
+.resize-handle:hover { background: hsl(var(--primary) / 0.5); }
+
+/* Drag preview placeholder */
+.drag-ghost {
+  outline: 2px dashed hsl(var(--primary) / 0.5);
+  background: hsl(var(--primary) / 0.06);
+}
+
+/* ============================================================
+   P25 — AFFICHAGE VIF (accessibility emphasis layer)
+
+   A display-only mode that boosts saturation of the SEMANTIC palette
+   (so urgent/important/success pop everywhere they use a token),
+   strengthens borders, lifts foreground contrast and recedes the
+   secondary text. It COMPLEMENTS the AA contrast work (P21) — base
+   readability is unchanged; this only adds emphasis for fast spotting
+   and low-vision users. Scoped to html.vif so OFF (default) is intact.
+   Honors prefers-reduced-motion for the transition.
+============================================================ */
+:root.vif {
+  --destructive: 0 92% 63%;     /* urgent red — punchier */
+  --warning:     38 98% 56%;    /* important amber */
+  --success:     142 78% 50%;   /* done / on-track green */
+  --info:        217 96% 64%;   /* meetings / info blue */
+  --primary:     263 85% 68%;   /* brand violet — brighter accents */
+  --muted-foreground: 215 22% 56%;  /* secondary recedes a touch */
+  --border:      217 33% 30%;   /* structure becomes legible */
+  --foreground:  210 40% 99%;
+}
+/* Smooth, non-jarring switch (frozen on reduced-motion via the global rule). */
+html, body { transition: background-color 240ms ease; }
+:root.vif .gradient-violet { filter: saturate(1.12); }
+/* Punch the content colors so priorities/badges pop even where they use
+   literal hsl() values (not just tokens). Scoped to the page content area —
+   overlays (modals, tweaks, tour, sidebars) live outside <main>, so their
+   stacking is untouched. */
+:root.vif main { filter: saturate(1.38) contrast(1.05) brightness(1.02); }
+:root.vif main { transition: filter 240ms ease; }
+/* Solid semantic fills gain a hairline ring so they read as "promoted". */
+:root.vif [class*="bg-[hsl(0_84"],
+:root.vif [class*="bg-[hsl(var(--destructive)"] { box-shadow: 0 0 0 1px hsl(0 92% 63% / 0.55); }
+
+/* ============================================================
+   LANDING PAGE (lp-) — premium marketing surface.
+   All landing-only styling is namespaced `lp-` so it never leaks
+   into the product UI. Honors the global prefers-reduced-motion rule.
+============================================================ */
+
+/* Scroll-reveal: elements start lifted + invisible, then animate in when
+   an IntersectionObserver adds .is-visible. Curve = expo-out for "premium". */
+.lp-reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--lp-delay, 0ms);
+  will-change: opacity, transform;
+}
+.lp-reveal.is-visible { opacity: 1; transform: translateY(0); }
+.lp-reveal-scale { transform: translateY(26px) scale(0.98); }
+.lp-reveal-scale.is-visible { transform: translateY(0) scale(1); }
+@media (prefers-reduced-motion: reduce) {
+  .lp-reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
+
+/* Hero headline — animated gradient wash that slowly breathes. */
+.lp-gradient-text {
+  background: linear-gradient(110deg,
+    hsl(263 70% 68%) 0%, hsl(286 72% 70%) 35%, hsl(330 80% 68%) 70%, hsl(263 70% 68%) 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: lpGradientShift 9s ease-in-out infinite;
+}
+:root.light .lp-gradient-text {
+  background: linear-gradient(110deg,
+    hsl(263 70% 48%) 0%, hsl(286 70% 50%) 38%, hsl(330 75% 52%) 72%, hsl(263 70% 48%) 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  animation: lpGradientShift 9s ease-in-out infinite;
+}
+@keyframes lpGradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+/* Ambient mesh glow — large, very blurred color fields drifting behind hero. */
+.lp-glow {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 9999px;
+  filter: blur(90px);
+  opacity: 0.55;
+  animation: lpDrift 22s ease-in-out infinite;
+}
+:root.light .lp-glow { opacity: 0.30; filter: blur(80px); }
+@keyframes lpDrift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33%      { transform: translate3d(3%, -4%, 0) scale(1.06); }
+  66%      { transform: translate3d(-3%, 3%, 0) scale(0.97); }
+}
+
+/* Gentle float for floating chips / cards in the hero. */
+.lp-float { animation: lpFloat 7s ease-in-out infinite; }
+.lp-float-slow { animation: lpFloat 11s ease-in-out infinite; }
+@keyframes lpFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+
+/* Soft pulse for "live" dots / status pips. */
+.lp-pulse { animation: lpPulse 2.4s ease-in-out infinite; }
+@keyframes lpPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.45; transform: scale(0.82); }
+}
+
+/* Marquee track for the integrations strip (duplicated content, -50%). */
+.lp-marquee { display: flex; width: max-content; animation: lpMarquee 32s linear infinite; }
+.lp-marquee-host:hover .lp-marquee { animation-play-state: paused; }
+@keyframes lpMarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* Fine dotted grid backdrop used inside dark stage panels. */
+.lp-dotgrid {
+  background-image: radial-gradient(circle, hsl(var(--foreground) / 0.10) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Subtle top-lit panel sheen for the hero "stage". */
+.lp-stage {
+  background:
+    radial-gradient(120% 80% at 50% -10%, hsl(263 70% 60% / 0.14), transparent 60%),
+    hsl(var(--card));
+}
+
+/* Hairline conic border for premium cards (violet glint top-left). */
+.lp-ring {
+  position: relative;
+}
+.lp-ring::before {
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, hsl(263 70% 65% / 0.55), hsl(var(--border) / 0.2) 40%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Animated progress sweep used in the goal / focus demos. */
+@keyframes lpSweep { 0% { transform: translateX(-100%); } 100% { transform: translateX(220%); } }
+.lp-sweep::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, hsl(0 0% 100% / 0.18), transparent);
+  transform: translateX(-100%);
+  animation: lpSweep 2.6s ease-in-out infinite;
+}
+
+/* Ticking conic ring fill (focus timer) — driven by --lp-pct (0..1). */
+.lp-conic {
+  background: conic-gradient(hsl(var(--primary)) calc(var(--lp-pct, 0) * 360deg), hsl(var(--muted) / 0.5) 0);
+}
+
+/* Calendar event block hover lift inside demos. */
+.lp-evt { transition: transform 0.2s cubic-bezier(0.16,1,0.3,1), box-shadow 0.2s ease; }
+.lp-evt:hover { transform: translateY(-2px) scale(1.015); box-shadow: 0 8px 22px -8px rgba(0,0,0,0.5); }
+
+/* Nav glass on scroll. */
+.lp-nav { transition: background-color 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease; }
+
+/* Completion celebration — confetti burst + check pop. Spawned in JS by
+   appending pieces into a relatively-positioned host. Gated for reduced-motion. */
+@keyframes lpConfetti {
+  0%   { transform: translate(0,0) rotate(0deg); opacity: 1; }
+  100% { transform: translate(var(--dx), var(--dy)) rotate(var(--dr)); opacity: 0; }
+}
+.lp-confetti-piece {
+  position: absolute; top: 50%; left: 50%;
+  width: 7px; height: 7px; border-radius: 1.5px;
+  pointer-events: none; z-index: 5;
+  animation: lpConfetti 850ms cubic-bezier(0.2,0.6,0.3,1) forwards;
+}
+@keyframes lpCheckPop {
+  0%   { transform: scale(0.3); opacity: 0; }
+  45%  { transform: scale(1.15); opacity: 1; }
+  70%  { transform: scale(0.94); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.lp-check-pop { animation: lpCheckPop 480ms cubic-bezier(0.33,1,0.68,1); }
+@keyframes lpStrike { from { width: 0; } to { width: 100%; } }
+.lp-strike { position: relative; }
+.lp-strike::after {
+  content: ""; position: absolute; left: 0; top: 50%; height: 1.5px;
+  background: currentColor; width: 0; animation: lpStrike 320ms ease-out forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .lp-confetti-piece { display: none !important; }
+  .lp-check-pop, .lp-strike::after { animation: none !important; }
+  .lp-strike::after { width: 100%; }
+}
+
+/* Drag affordance for DnD demos. */
+.lp-draggable { cursor: grab; touch-action: none; transition: box-shadow 0.15s ease, transform 0.05s ease; }
+.lp-draggable:active { cursor: grabbing; }
+.lp-dragging { z-index: 30; box-shadow: 0 16px 40px -12px rgba(0,0,0,0.6); cursor: grabbing; }
+.lp-dropzone { transition: background-color 0.18s ease, border-color 0.18s ease; }
+.lp-dropzone.lp-drop-hot { background: hsl(var(--primary) / 0.10); border-color: hsl(var(--primary) / 0.55); }
+
+/* ============================================================
+   FEATURE TRAIL (P30) — decorative scroll-drawn line that links the
+   alternating feature rows in a zig-zag. Bright orange so it reads
+   against the brand violet on the dark surface. Purely decorative:
+   the SVG is aria-hidden + pointer-events:none and never blocks
+   scroll or interaction. Honors prefers-reduced-motion (full static).
+   --lp-trail: 24 95% 56% ≈ #ef8324 — high contrast on #020817.
+============================================================ */
+.lp-trail-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 5;
+}
+/* faint full-length ghost so the path reads as a route even undrawn */
+.lp-trail-base {
+  fill: none;
+  stroke: hsl(24 95% 56% / 0.12);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* the drawn, glowing stroke (dashoffset driven by scroll progress) */
+.lp-trail-path {
+  fill: none;
+  stroke: hsl(24 95% 56%);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 5px hsl(24 95% 56% / 0.5));
+  transition: none;
+}
+/* head dot riding the tip + soft pulsing halo */
+.lp-trail-head {
+  fill: hsl(28 100% 64%);
+  filter: drop-shadow(0 0 6px hsl(28 100% 60% / 0.95));
+}
+.lp-trail-halo {
+  fill: hsl(28 100% 60% / 0.22);
+  animation: lpTrailPulse 1.8s ease-in-out infinite;
+}
+.lp-trail-head-g { transition: opacity 0.25s ease; }
+@keyframes lpTrailPulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50%      { transform: scale(1.35); opacity: 0.15; }
+}
+:root.light .lp-trail-base   { stroke: hsl(24 90% 45% / 0.16); }
+:root.light .lp-trail-path   { stroke: hsl(24 90% 45%); filter: drop-shadow(0 0 4px hsl(24 90% 45% / 0.45)); }
+:root.light .lp-trail-head   { fill: hsl(22 90% 48%); }
+:root.light .lp-trail-halo   { fill: hsl(22 90% 48% / 0.22); }
+@media (prefers-reduced-motion: reduce) {
+  .lp-trail-halo { animation: none !important; }
+  .lp-trail-head-g { display: none !important; }   /* static full path, no head */
+}
+
+/* ============================================================
+   MOBILE FRAME (.dpm-mobile) — phone-frame reflow layer.
+   The app renders pages inside a fixed 390px phone frame while the
+   real browser window stays wide, so Tailwind's viewport-based
+   sm:/md:/lg: breakpoints all MISFIRE (they react to the window,
+   not the 390px frame) and force desktop multi-column layouts into
+   a phone. This layer neutralizes those breakpoints INSIDE the frame
+   so each component falls back to a phone-appropriate layout, and
+   adds touch-friendly ergonomics. Scoped under .dpm-mobile only —
+   desktop is untouched.
+============================================================ */
+
+/* Never let content spill horizontally out of the frame. */
+.dpm-mobile { overflow-x: hidden; }
+.dpm-mobile * { min-width: 0; }
+
+/* --- Responsive flex direction: stack on phone --- */
+.dpm-mobile .sm\:flex-row,
+.dpm-mobile .md\:flex-row,
+.dpm-mobile .lg\:flex-row { flex-direction: column !important; }
+
+/* --- Responsive grids: collapse to phone-appropriate column counts.
+   Dense KPI/stat strips (4 / 5 up) become 2-up; richer 2 / 3-up grids
+   that wrap full cards become a single column. --- */
+.dpm-mobile .sm\:grid-cols-4, .dpm-mobile .md\:grid-cols-4, .dpm-mobile .lg\:grid-cols-4,
+.dpm-mobile .sm\:grid-cols-5, .dpm-mobile .md\:grid-cols-5, .dpm-mobile .lg\:grid-cols-5 {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+.dpm-mobile .sm\:grid-cols-2, .dpm-mobile .md\:grid-cols-2, .dpm-mobile .lg\:grid-cols-2,
+.dpm-mobile .sm\:grid-cols-3, .dpm-mobile .md\:grid-cols-3, .dpm-mobile .lg\:grid-cols-3 {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+/* Arbitrary grid templates (e.g. md:grid-cols-[auto_1fr]) → single column */
+.dpm-mobile [class*="sm:grid-cols-["],
+.dpm-mobile [class*="md:grid-cols-["],
+.dpm-mobile [class*="lg:grid-cols-["] { grid-template-columns: minmax(0, 1fr) !important; }
+
+/* Column spans collapse to full width */
+.dpm-mobile .sm\:col-span-2, .dpm-mobile .md\:col-span-2, .dpm-mobile .lg\:col-span-2,
+.dpm-mobile .sm\:col-span-3, .dpm-mobile .md\:col-span-3, .dpm-mobile .lg\:col-span-3 { grid-column: auto !important; }
+
+/* Responsive dividers that assume a row layout — drop the vertical rule */
+.dpm-mobile .lg\:divide-x > * + * { border-left-width: 0 !important; }
+
+/* --- Segmented controls / tab strips: never overflow; scroll instead --- */
+.dpm-mobile .dpm-segment { display: flex !important; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.dpm-mobile .dpm-segment::-webkit-scrollbar { display: none; }
+/* Span-wrapped segmented controls (e.g. Tasks view switcher) take a full row so they can scroll */
+.dpm-mobile [data-tour="feat-tasks-views"] { display: block; flex: 1 1 100%; min-width: 0; }
+
+/* --- Touch ergonomics: comfortable hit targets for thumbs --- */
+.dpm-mobile button,
+.dpm-mobile [role="button"],
+.dpm-mobile a[href] { touch-action: manipulation; }
+
+

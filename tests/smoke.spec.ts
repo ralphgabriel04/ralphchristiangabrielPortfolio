@@ -25,7 +25,7 @@ for (const locale of LOCALES) {
     });
 
     test("project detail pages load", async ({ page }) => {
-      const slugs = ["the-mad-space", "cadence", "fastercom-tms", "dpm-calendar", "financej"];
+      const slugs = ["the-mad-space", "cadence", "fastercom-tms", "dpm-elevate", "financej"];
       for (const slug of slugs) {
         const res = await page.goto(`/${locale}/projects/${slug}`);
         expect(res?.status()).toBe(200);
@@ -94,7 +94,7 @@ for (const locale of LOCALES) {
 
     test("email link exists", async ({ page }) => {
       await page.goto(`/${locale}`);
-      const email = page.locator('a[href="mailto:christian8339@hotmail.com"]');
+      const email = page.locator('a[href="mailto:ralph.c.gabriel@proton.me"]');
       await expect(email.first()).toBeVisible();
     });
 
