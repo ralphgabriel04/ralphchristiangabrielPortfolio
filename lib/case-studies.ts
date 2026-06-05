@@ -209,6 +209,72 @@ export const caseStudies: Record<string, CaseStudy> = {
       }
     }
   },
+  "kim-dubois": {
+    fr: {
+      problem: {
+        title: "Le problème",
+        body: "Kim Dubois — photographe animalière primée à l'international (TIPPA 2024-2025), référée par Matis — avait commencé elle-même son site sur Wix, mais il était resté inachevé (mention « en construction », bandeau publicitaire Wix, plan gratuit) et ne reflétait ni la qualité de son travail ni son statut de photographe primée. Je l'ai contactée pour lui offrir mon assistance : reprendre le site qu'elle avait amorcé, le finaliser et le remodeler, en concevoir une nouvelle version sous forme de prototype (via un outil de design), puis la lui présenter pour recueillir ses réactions et orienter la suite. Comme c'est mon premier vrai client payant, l'enjeu est de livrer un travail impeccable et de décrocher un témoignage concret pour mon portfolio.",
+        type: "text"
+      },
+      constraints: {
+        title: "Les contraintes",
+        body: "Premier client payant : zéro droit à l'erreur sur la qualité comme sur la relation. La photo doit primer — le site est un aperçu émotionnel, pas un catalogue. Bilingue FR/EN et thème clair/sombre dès le départ. Identité éditoriale haut de gamme fidèle au travail d'une primée (tokens dorés, Cormorant Garamond + Mulish). La question d'autonomie de la cliente (gère-t-elle elle-même son contenu ?) est le vrai pivot : elle décide la plateforme et le budget. Tout le contenu doit rester centralisé et éditable, car il changera dès les premiers retours de Kim. Côté budget : différer le prix jusqu'au cadrage de la portée, donner une fourchette, garder domaine/hébergement au nom de la cliente, et proposer un tarif premier-client en échange d'un témoignage.",
+        type: "text"
+      },
+      approach: {
+        title: "La solution",
+        body: "Une démarche en plusieurs livrables cohérents partageant la même palette, la même typo et le même ton : (1) un formulaire de découverte Word de 60 questions, adapté du formulaire de Matis et habillé aux couleurs KD ; (2) un PowerPoint de 9 diapos comme colonne vertébrale de l'appel (écouter > parler, le prototype comme pièce maîtresse) ; (3) un brief Claude Design structuré séparant le contenu des décisions de structure/design pour générer la maquette ; (4) la maquette générée puis implémentée ici en page d'accueil autonome (HTML/CSS/JS, tokens dorés, i18n FR/EN, thème clair/sombre, apparitions au scroll via IntersectionObserver) ; (5) des messages clients (confirmation, rappel) en québécois ; (6) une stratégie de budget (fourchette + report du prix après cadrage, récurrents au nom de Kim, tarif premier-client contre témoignage). Le déck guide la conversation, le prototype crée le « wow », le formulaire devient un devoir post-appel — jamais rempli en direct.",
+        type: "text"
+      },
+      stack: {
+        title: "Stack technique",
+        items: ["Maquette : HTML/CSS/JS (React + Babel côté Claude Design)", "Implémentée en page d'accueil autonome HTML/CSS/JS", "CSS Custom Properties (tokens dorés)", "Cormorant Garamond + Mulish", "i18n FR/EN", "Thème clair/sombre", "IntersectionObserver (apparitions au scroll)", "Production visée : Next.js (App Router) + TypeScript + Tailwind", "Composants : Header, Hero, Awards, PortfolioGrid…", "Contenu centralisé en fichiers de données", "Outils : Word/PowerPoint générés, Claude Design → Claude Code"],
+        type: "list"
+      },
+      outcomes: {
+        title: "Résultats",
+        body: "Un kit de rencontre complet et cohérent (même palette, typo et ton partout) : formulaire de découverte 60 questions, deck 9 diapos, brief de design et messages clients. Une maquette bilingue clair/sombre fonctionnelle et présentable, implémentée en page d'accueil autonome accessible. Des messages envoyés et une cliente engagée — Kim a confirmé l'appel (17 h) avec un ❤️. Résultat humain : je suis arrivé à l'appel outillé et crédible, avec le prototype comme pièce maîtresse plutôt qu'un simple discours.",
+        type: "text"
+      },
+      learnings: {
+        title: "Apprentissages",
+        body: "Séparer le brief de contenu des décisions de structure/design donne de meilleurs résultats avec Claude Design. Ne pas remplir le formulaire en direct : le déck guide la conversation, le prototype crée le « wow », le formulaire est un devoir post-appel. La question d'autonomie de la cliente est le vrai pivot : elle décide la plateforme et le budget. Différer le prix jusqu'au cadrage de la portée ; donner une fourchette, garder domaine/hébergement au nom de la cliente, tarif premier-client en échange d'un témoignage. La maquette doit rester un aperçu émotionnel (la photo prime), pas un catalogue ; et tout le contenu centralisé/éditable, car il changera dès les premiers retours de Kim.",
+        type: "text"
+      }
+    },
+    en: {
+      problem: {
+        title: "The problem",
+        body: "Kim Dubois — an internationally awarded pet photographer (TIPPA 2024-2025), referred by Matis — had started her own site on Wix, but it had been left unfinished (an \"under construction\" notice, a Wix ad banner, the free plan) and reflected neither the quality of her work nor her status as an awarded photographer. I reached out to offer my help: take over the site she had started, finish and reshape it, design a new version as a prototype (via a design tool), then present it to her to gather her reactions and steer what comes next. As this is my first real paying client, the stakes are to deliver impeccable work and earn a concrete testimonial for my portfolio.",
+        type: "text"
+      },
+      constraints: {
+        title: "Constraints",
+        body: "First paying client: no room for error on quality or on the relationship. Photography must come first — the site is an emotional preview, not a catalogue. Bilingual FR/EN and a light/dark theme from the start. A high-end editorial identity faithful to an award-winner's work (gold tokens, Cormorant Garamond + Mulish). The client's autonomy question (does she manage her own content?) is the real pivot: it decides the platform and the budget. All content must stay centralised and editable, since it will change with Kim's first feedback. On budget: defer pricing until scope is framed, give a range, keep domain/hosting in the client's name, and offer a first-client rate in exchange for a testimonial.",
+        type: "text"
+      },
+      approach: {
+        title: "The solution",
+        body: "A process of several coherent deliverables sharing the same palette, typography and tone: (1) a 60-question Word discovery form, adapted from Matis's form and dressed in KD colours; (2) a 9-slide PowerPoint as the backbone of the call (listen > talk, the prototype as the centrepiece); (3) a structured Claude Design brief separating content from structure/design decisions to generate the mockup; (4) the generated mockup, then implemented here as a standalone home page (HTML/CSS/JS, gold tokens, FR/EN i18n, light/dark theme, scroll reveals via IntersectionObserver); (5) client messages (confirmation, reminder) in Quebec French; (6) a budget strategy (range + deferred price after scoping, recurring costs in Kim's name, first-client rate for a testimonial). The deck guides the conversation, the prototype creates the \"wow\", the form becomes post-call homework — never filled in live.",
+        type: "text"
+      },
+      stack: {
+        title: "Tech stack",
+        items: ["Mockup: HTML/CSS/JS (React + Babel on the Claude Design side)", "Implemented as a standalone HTML/CSS/JS home page", "CSS Custom Properties (gold tokens)", "Cormorant Garamond + Mulish", "FR/EN i18n", "Light/dark theme", "IntersectionObserver (scroll reveals)", "Target production: Next.js (App Router) + TypeScript + Tailwind", "Components: Header, Hero, Awards, PortfolioGrid…", "Content centralised in data files", "Tools: generated Word/PowerPoint, Claude Design → Claude Code"],
+        type: "list"
+      },
+      outcomes: {
+        title: "Outcomes",
+        body: "A complete, coherent meeting kit (same palette, type and tone throughout): 60-question discovery form, 9-slide deck, design brief and client messages. A functional, presentable bilingual light/dark mockup, implemented as an accessible standalone home page. Messages sent and an engaged client — Kim confirmed the call (5 p.m.) with a ❤️. The human result: I showed up to the call equipped and credible, with the prototype as the centrepiece rather than just a pitch.",
+        type: "text"
+      },
+      learnings: {
+        title: "Learnings",
+        body: "Separating the content brief from structure/design decisions yields better results with Claude Design. Don't fill the form in live: the deck guides the conversation, the prototype creates the \"wow\", the form is post-call homework. The client's autonomy question is the real pivot: it decides the platform and the budget. Defer pricing until scope is framed; give a range, keep domain/hosting in the client's name, first-client rate in exchange for a testimonial. The mockup must stay an emotional preview (photography first), not a catalogue; and keep all content centralised/editable, since it will change with Kim's first feedback.",
+        type: "text"
+      }
+    }
+  },
   "crcc": {
     fr: {
       problem: {

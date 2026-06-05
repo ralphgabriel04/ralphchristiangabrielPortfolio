@@ -82,6 +82,23 @@ export const projects: Project[] = [
     media: { enabled: true, type: "image", src: "/media/dpm-elevate.gif" }
   },
   {
+    id: "kim-dubois",
+    year: "2026",
+    status: { fr: "Prototype client · Premier client payant", en: "Client prototype · First paying client" },
+    name: "Kim Dubois Photographe",
+    tag: { fr: "Site vitrine photographe animalière · Prototype", en: "Pet photographer portfolio site · Prototype" },
+    stack: ["Claude Design → Claude Code", "HTML/CSS/JS (React + Babel)", "CSS Custom Properties (tokens dorés)", "Cormorant Garamond + Mulish", "i18n FR/EN", "Thème clair/sombre", "IntersectionObserver", "Next.js + TS + Tailwind (visé)"],
+    summary: {
+      fr: "Reprise et refonte du site d'une photographe animalière primée à l'international (TIPPA 2024-2025, Bronze), dont le site Wix était resté inachevé. Démarche complète orientée premier client payant : formulaire de découverte Word de 60 questions, deck PowerPoint de 9 diapos pour cadrer l'appel, brief Claude Design structuré, puis maquette générée et implémentée en page d'accueil autonome — bilingue FR/EN, thème clair/sombre, identité éditoriale dorée (Cormorant Garamond + Mulish), apparitions au scroll via IntersectionObserver. La photo prime : un aperçu émotionnel, pas un catalogue, avec tout le contenu centralisé et éditable pour absorber les premiers retours de la cliente.",
+      en: "Takeover and redesign of the site of an internationally awarded pet photographer (TIPPA 2024-2025, Bronze) whose Wix site had been left unfinished. A complete first-paying-client process: a 60-question Word discovery form, a 9-slide PowerPoint deck to frame the call, a structured Claude Design brief, then a generated mockup implemented as a standalone home page — bilingual FR/EN, light/dark theme, an editorial gold identity (Cormorant Garamond + Mulish), scroll reveals via IntersectionObserver. Photography first: an emotional preview, not a catalogue, with all content centralised and editable to absorb the client's first feedback."
+    },
+    metrics: {
+      fr: ["Maquette bilingue · clair/sombre", "Kit de rencontre (Word 60Q + PPT 9 slides)", "Photographe primée (TIPPA 2024-2025)", "Production visée : Next.js + TS"],
+      en: ["Bilingual mockup · light/dark", "Meeting kit (60Q Word + 9-slide PPT)", "Awarded photographer (TIPPA 2024-2025)", "Target production: Next.js + TS"]
+    },
+    media: { enabled: true, type: "image", src: "/media/kim-dubois.webp" }
+  },
+  {
     id: "crcc",
     year: "2026",
     status: { fr: "Maquette de refonte livrée", en: "Redesign mockup delivered" },
@@ -122,6 +139,7 @@ export const caseStudyIds = new Set([
   "cadence",
   "fastercom-tms",
   "dpm-elevate",
+  "kim-dubois",
   "crcc",
   "financej",
 ])
@@ -132,6 +150,7 @@ export const projectRoles: Record<string, { fr: string; en: string }> = {
   "cadence": { fr: "Co-fondateur · Tech Lead", en: "Co-founder · Tech Lead" },
   "fastercom-tms": { fr: "Développeur Intégrateur de Solutions", en: "Solutions Integration Developer" },
   "dpm-elevate": { fr: "Fondateur · Design & Prototypage", en: "Founder · Design & Prototyping" },
+  "kim-dubois": { fr: "Freelance · Design, Prototypage & Relation client", en: "Freelance · Design, Prototyping & Client Relations" },
   "crcc": { fr: "Design & Prototypage (Refonte)", en: "Design & Prototyping (Redesign)" },
   "financej": { fr: "Développeur · Top contributeur (Projet académique — LOG240)", en: "Developer · Top contributor (Academic Project — LOG240)" },
 }
@@ -151,5 +170,9 @@ export const projectLinks: Record<string, { label: string; url: string; type: "g
   "crcc": [
     { label: "Maquette live", url: "/crcc/index.html", type: "live" },
     { label: "Site actuel", url: "https://club-crcc.ca", type: "demo" },
+  ],
+  "kim-dubois": [
+    { label: "Maquette live", url: "/kim-dubois/index.html", type: "live" },
+    { label: "Instagram", url: "https://www.instagram.com/kimduboisphotographeanimaliere/", type: "demo" },
   ],
 }
