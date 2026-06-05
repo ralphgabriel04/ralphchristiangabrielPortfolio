@@ -209,6 +209,72 @@ export const caseStudies: Record<string, CaseStudy> = {
       }
     }
   },
+  "crcc": {
+    fr: {
+      problem: {
+        title: "Le problème",
+        body: "Le Club du Rex de Cornouailles du Canada (OSBL bilingue, petite communauté d'éleveurs) disposait d'un site WordPress vieillissant, peu optimisé et difficile à naviguer. Le contenu (éleveurs, codes, standard, règlements, ressources) existait mais était dispersé, et l'expérience ne servait pas clairement ses trois publics : adopter un chaton, devenir éleveur membre, et soutenir le club. Objectif : une maquette de refonte moderne, claire et digne de confiance, fidèle au contenu réel, sans reconstruire le backend.",
+        type: "text"
+      },
+      constraints: {
+        title: "Les contraintes",
+        body: "Bilingue FR/EN sur tout le contenu, bascule instantanée. Fidélité au site d'origine (vraies coordonnées d'éleveurs, codes, standard, règlements, partenaires, liens) — sans inventer de données ni surpromettre (pas de « portées » fictives, pas de certifications non confirmées). Accessibilité WCAG 2.2 AA, navigation clavier, prefers-reduced-motion. Mobile-first (de 375px au bureau) + thème clair et sombre. Sans backend : maquette statique, données câblées côté client. Respect de l'identité (logo officiel) → palette Rouge & Blanc dérivée du logo, avec contraintes de contraste AA.",
+        type: "text"
+      },
+      approach: {
+        title: "La solution",
+        body: "Une maquette statique complète, construite dans Claude Design, organisée autour des trois parcours. Pages : Accueil, La race (avec explorateur d'anatomie interactif), Annuaire des éleveurs (coordonnées réelles, badges de confiance, recherche/filtres, carte de répartition), Codes & éthique, Règlements, Publications, Adhésion (Zeffy), Administrateurs & comités, Contact. Éléments distinctifs : système de design en tokens basculé vers une identité Rouge & Blanc + Montserrat ; explorateur d'anatomie bidirectionnel (10 parties du standard) ; carte/tuiles de répartition synchronisées aux filtres ; typologie d'éleveurs + certifications (Anima-Québec réel) ; animation de chargement de marque (le logo se compose puis la feuille d'érable s'illumine) ; version mobile avec menu hamburger accessible. Méthode : audit du site réel (extraction page par page + PDF) → masterprompts ciblés (fidélité/données, anatomie, répartition, identité Rouge & Blanc + Montserrat + spécialités, mobile), avec maquettes intermédiaires validées avant chaque prompt.",
+        type: "text"
+      },
+      stack: {
+        title: "Stack technique",
+        items: ["Claude Design (génération à partir de masterprompts)", "HTML / CSS / JS statiques, multi-pages", "CSS Custom Properties (design tokens) + thème clair/sombre via [data-theme]", "i18n maison (data-fr/data-en + CRCC.setLang / onLangChange)", "JavaScript vanilla (explorateur anat.js, menu mobile, filtres annuaire, chrome crcc.js)", "Montserrat (Google Fonts + fallback)", "ARIA (aria-expanded, aria-pressed/current)", "Animation de chargement CSS (clip-path + keyframes)", "Liens officiels câblés : Zeffy, PDF (standard, codes), 7 associations félines, ressources (SOQUIJ/MAPAQ/Anima-Québec/labgenvet/UC Davis/Éducaloi/IDENTRAC/SPCA), 2 groupes Facebook"],
+        type: "list"
+      },
+      outcomes: {
+        title: "Résultats",
+        body: "Maquette complète, bilingue, responsive, clair/sombre, avec l'identité Rouge & Blanc et Montserrat appliquées. Données réelles intégrées : 11 chatteries, badges Anima-Québec, partenaires, standards, ressources, 2 groupes FB. Fonctionnalités phares livrées : explorateur d'anatomie, carte de répartition filtrable, typologie/certifications d'éleveurs, animation de chargement, mention « spécialisé dans… ». Accessibilité AA + reduced-motion. Évaluation interne ≈ 8,5/10 — forces : fidélité des données, design/marque, accessibilité, parcours ; à compléter : articles individualisés, règlements intégraux + version EN, vraies photos, recherche globale. Livrables annexes : masterprompts réutilisables + présentation PPTX/PDF pour le club.",
+        type: "text"
+      },
+      learnings: {
+        title: "Apprentissages",
+        body: "Séparer le brief de contenu des décisions de design dans les prompts donne de meilleurs résultats (laisser Claude Design choisir layout/composants). Une intention par prompt (passes ciblées) bat un méga-prompt fourre-tout. Ancrer dans le contenu réel (audit page par page, PDF) évite les fausses données et la surpromesse. Valider des maquettes intermédiaires (palette, cartes) avant de lancer un prompt réduit les allers-retours. Accessibilité + bilinguisme dès le départ (tokens, i18n, ARIA, reduced-motion), pas après coup. En passant à une couleur vive, garder le corps de texte en presque-noir et réserver le rouge aux accents (rouge foncé pour les petits liens) pour rester AA. Le dernier pas vers un « vrai site » reste le contenu éditorial + la photographie réelle.",
+        type: "text"
+      }
+    },
+    en: {
+      problem: {
+        title: "The problem",
+        body: "The Cornwall Rex Club of Canada (a bilingual nonprofit, a small breeder community) had an ageing WordPress site that was poorly optimised and hard to navigate. The content (breeders, codes, breed standard, by-laws, resources) existed but was scattered, and the experience didn't clearly serve its three audiences: adopt a kitten, become a member breeder, and support the club. Goal: a modern, clear, trustworthy redesign mockup, faithful to the real content, without rebuilding the backend.",
+        type: "text"
+      },
+      constraints: {
+        title: "Constraints",
+        body: "Bilingual FR/EN across all content, with instant toggle. Fidelity to the original site (real breeder contact details, codes, standard, by-laws, partners, links) — without inventing data or overpromising (no fictional \"litters\", no unconfirmed certifications). WCAG 2.2 AA accessibility, keyboard navigation, prefers-reduced-motion. Mobile-first (from 375px to desktop) + light and dark themes. No backend: static mockup, data wired client-side. Respect for the identity (official logo) → a Red & White palette derived from the logo, under AA contrast constraints.",
+        type: "text"
+      },
+      approach: {
+        title: "The solution",
+        body: "A complete static mockup, built in Claude Design, organised around the three journeys. Pages: Home, The Breed (with an interactive anatomy explorer), Breeder Directory (real contacts, trust badges, search/filters, distribution map), Codes & Ethics, By-laws, Publications, Membership (Zeffy), Board & Committees, Contact. Distinctive elements: a token-based design system flipped to a Red & White + Montserrat identity; a bidirectional anatomy explorer (10 parts of the standard); distribution map/tiles synced to the filters; breeder typology + certifications (real Anima-Québec); a brand loading animation (the logo assembles, then the maple leaf lights up); a mobile version with an accessible hamburger menu. Method: audit of the real site (page-by-page extraction + PDF) → targeted masterprompts (fidelity/data, anatomy, distribution, Red & White + Montserrat + specialties identity, mobile), with intermediate mockups validated before each prompt.",
+        type: "text"
+      },
+      stack: {
+        title: "Tech stack",
+        items: ["Claude Design (generation from masterprompts)", "Static HTML / CSS / JS, multi-page", "CSS Custom Properties (design tokens) + light/dark theme via [data-theme]", "Home-grown i18n (data-fr/data-en + CRCC.setLang / onLangChange)", "Vanilla JavaScript (anatomy explorer anat.js, mobile menu, directory filters, chrome crcc.js)", "Montserrat (Google Fonts + fallback)", "ARIA (aria-expanded, aria-pressed/current)", "CSS loading animation (clip-path + keyframes)", "Wired official links: Zeffy, PDFs (standard, codes), 7 feline associations, resources (SOQUIJ/MAPAQ/Anima-Québec/labgenvet/UC Davis/Éducaloi/IDENTRAC/SPCA), 2 Facebook groups"],
+        type: "list"
+      },
+      outcomes: {
+        title: "Outcomes",
+        body: "A complete mockup — bilingual, responsive, light/dark — with the Red & White identity and Montserrat applied. Real data integrated: 11 catteries, Anima-Québec badges, partners, standards, resources, 2 FB groups. Flagship features delivered: anatomy explorer, filterable distribution map, breeder typology/certifications, loading animation, \"specialised in…\" mention. AA accessibility + reduced-motion. Internal rating ≈ 8.5/10 — strengths: data fidelity, design/brand, accessibility, journeys; to complete: individualised articles, full by-laws + EN version, real photos, global search. Side deliverables: reusable masterprompts + a PPTX/PDF presentation for the club.",
+        type: "text"
+      },
+      learnings: {
+        title: "Learnings",
+        body: "Separating the content brief from design decisions in prompts yields better results (let Claude Design choose layout/components). One intent per prompt (focused passes) beats a catch-all mega-prompt. Anchoring in real content (page-by-page audit, PDFs) avoids fake data and overpromising. Validating intermediate mockups (palette, cards) before launching a prompt reduces back-and-forth. Accessibility + bilingualism from the start (tokens, i18n, ARIA, reduced-motion), not as an afterthought. When switching to a vivid colour, keep body text near-black and reserve red for accents (dark red for small links) to stay AA. The final step toward a \"real site\" remains editorial content + real photography.",
+        type: "text"
+      }
+    }
+  },
   "financej": {
     fr: {
       problem: {

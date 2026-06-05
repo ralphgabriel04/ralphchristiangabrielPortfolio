@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CRCC · Club du Rex de Cornouailles du Canada</title>
+<meta name="description" content="Organisme à but non lucratif fondé en 2017 : protéger, faire reconnaître et développer le Rex de Cornouailles au Canada.">
+<link rel="stylesheet" href="assets/crcc.css">
+<style>
+/* ---------- Hero ---------- */
+.hero { position: relative; padding-top: clamp(40px, 6vw, 76px); padding-bottom: clamp(40px, 6vw, 70px); overflow: hidden; }
+.hero::before {
+  content:""; position:absolute; inset:0; z-index:-2;
+  background:
+    radial-gradient(70% 60% at 88% 12%, var(--forest-100) 0%, transparent 60%),
+    radial-gradient(50% 50% at 6% 90%, var(--accent-soft) 0%, transparent 55%);
+  opacity:.7;
+}
+[data-theme="dark"] .hero::before { background: radial-gradient(70% 60% at 88% 12%, #232c16 0%, transparent 60%), radial-gradient(50% 50% at 6% 90%, #2c2510 0%, transparent 55%); opacity:.6; }
+.hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(28px, 4vw, 60px); align-items: center; }
+.hero h1 { margin-top: 18px; line-height: 1.08; }
+.hero h1 .ln { display: block; }
+.hero h1 .swash { font-style: italic; color: var(--primary); }
+[data-theme="dark"] .hero h1 .swash { color: var(--forest-200); }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.hero-trust { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 34px; padding-top: 26px; border-top: 1px solid var(--border); }
+.hero-trust .lbl { font-size: .76rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); }
+.assoc-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.assoc-tag { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; letter-spacing: .04em; color: var(--text-soft); padding: 4px 12px; border: 1.5px solid var(--border-strong); border-radius: var(--r-sm); }
+
+.hero-media { position: relative; }
+.hero-photo { border-radius: var(--r-xl); box-shadow: var(--shadow-lg); }
+.hero-photo .ph-icon { width: 64px; height: 64px; }
+.hero-badge-float {
+  position: absolute; left: -14px; bottom: 26px; background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-md); box-shadow: var(--shadow-lg); padding: 14px 18px; display: flex; align-items: center; gap: 12px; max-width: 240px;
+}
+.hero-badge-float .stat-num { font-size: 2.3rem; }
+.hero-badge-float small { color: var(--text-muted); font-size: .82rem; line-height: 1.3; display: block; }
+
+/* ---------- Parcours (3 portes) ---------- */
+.parcours { margin-top: -10px; position: relative; z-index: 2; }
+.door {
+  position: relative; display: flex; flex-direction: column; min-height: 290px;
+  padding: 30px 28px; border-radius: var(--r-lg); overflow: hidden; text-decoration: none; color: inherit;
+  border: 1px solid var(--border); box-shadow: var(--shadow-md);
+  transition: transform .24s var(--ease), box-shadow .24s var(--ease);
+}
+.door:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+.door .door-ic { width: 54px; height: 54px; border-radius: var(--r-md); display: grid; place-items: center; margin-bottom: auto; }
+.door .door-ic svg { width: 28px; height: 28px; }
+.door h3 { margin-top: 22px; }
+.door p { margin-top: 8px; font-size: .96rem; }
+.door .door-go { margin-top: 18px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; }
+.door .door-go svg { width: 18px; height: 18px; transition: transform .2s var(--ease); }
+.door:hover .door-go svg { transform: translateX(4px); }
+.door--adopt { background: linear-gradient(160deg, var(--forest-700), var(--forest-800)); color: var(--cream-50); border-color: transparent; }
+.door--adopt h3 { color: #fff; } .door--adopt p { color: #f4d6d6; } .door--adopt .door-ic { background: rgba(255,255,255,.14); color: var(--gold-300); }
+.door--join { background: var(--surface); } .door--join .door-ic { background: var(--accent-soft); color: var(--gold-700); }
+.door--give { background: var(--surface); } .door--give .door-ic { background: var(--forest-100); color: var(--forest-700); }
+[data-theme="dark"] .door--join .door-ic { color: var(--gold-300); }
+[data-theme="dark"] .door--give .door-ic { color: var(--forest-200); }
+.door--join .door-go, .door--give .door-go { color: var(--link); }
+.door .door-tagnum { position: absolute; right: 18px; top: 16px; font-family: var(--font-display); font-size: 2.4rem; opacity: .18; font-weight: 700; }
+
+/* ---------- Mission 3 volets ---------- */
+.volet { padding: 26px; border-radius: var(--r-lg); background: var(--surface); border: 1px solid var(--border); height: 100%; }
+.volet .v-num { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--accent); }
+.volet h4 { margin: 8px 0; }
+
+/* ---------- Breed preview ---------- */
+.breed-feat { display: flex; gap: 14px; align-items: flex-start; }
+.breed-feat .bf-ic { width: 44px; height: 44px; border-radius: var(--r-sm); background: var(--primary-soft); color: var(--primary); display: grid; place-items: center; flex: none; }
+.breed-feat .bf-ic svg { width: 22px; height: 22px; }
+[data-theme="dark"] .breed-feat .bf-ic { color: var(--forest-200); }
+
+/* ---------- Article cards ---------- */
+.art-card .ph { border-radius: 0; }
+.art-meta { display: flex; align-items: center; gap: 10px; font-size: .8rem; color: var(--text-muted); margin-bottom: 8px; }
+
+/* ---------- Partners ---------- */
+.partner-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+@media (max-width: 900px) { .partner-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 460px) { .partner-grid { grid-template-columns: repeat(2, 1fr); } }
+
+/* ---------- CTA band ---------- */
+.cta-band { border-radius: var(--r-xl); padding: clamp(32px, 5vw, 60px); background: linear-gradient(140deg, var(--forest-700), var(--forest-900)); color: #fff; position: relative; overflow: hidden; }
+.cta-band::after { content:""; position:absolute; right:-60px; top:-60px; width:280px; height:280px; border-radius:50%; background: radial-gradient(circle, rgba(201,162,74,.3), transparent 70%); }
+
+@media (max-width: 860px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-media { order: -1; }
+  .hero-badge-float { left: auto; right: 14px; }
+}
+@media (max-width: 430px) {
+  .hero-badge-float { left: auto; right: 10px; bottom: 10px; max-width: 196px; padding: 10px 13px; gap: 9px; }
+  .hero-badge-float .stat-num { font-size: 1.8rem; }
+  .hero-badge-float small { font-size: .74rem; }
+}
+</style>
+</head>
+<body>
+<main id="main" data-screen-label="Accueil">
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="reveal in">
+        <span class="eyebrow" data-fr="Organisme à but non lucratif · depuis 2017" data-en="Non-profit organization · since 2017">Organisme à but non lucratif · depuis 2017</span>
+        <h1 data-i18n-html data-fr="<span class='ln'>Le chat qui a</span><span class='ln'>du <span class='swash'>chien.</span></span>" data-en="<span class='ln'>The cat with</span><span class='ln'><span class='swash'>dog-like</span> charm.</span>"><span class="ln">Le chat qui a</span><span class="ln">du <span class="swash">chien.</span></span></h1>
+        <p class="lead mt-2 measure" data-fr="Le Club du Rex de Cornouailles du Canada protège, fait reconnaître et développe cette race élégante et espiègle, en accompagnant adoptants et éleveurs avec rigueur et bienveillance." data-en="The Cornish Rex Club of Canada protects, champions and develops this elegant, playful breed, guiding adopters and breeders with rigour and care.">Le Club du Rex de Cornouailles du Canada protège, fait reconnaître et développe cette race élégante et espiègle, en accompagnant adoptants et éleveurs avec rigueur et bienveillance.</p>
+        <div class="hero-cta">
+          <a class="btn btn-lg" href="annuaire.html" data-i18n="cta.adopt">Adopter un Rex</a>
+          <a class="btn btn-ghost btn-lg" href="race.html" data-fr="Découvrir la race" data-en="Discover the breed">Découvrir la race</a>
+        </div>
+        <div class="hero-trust">
+          <span class="lbl" data-fr="Race reconnue par" data-en="Recognized by">Race reconnue par</span>
+          <div class="assoc-row">
+            <span class="assoc-tag">CCC</span><span class="assoc-tag">CCA-AFC</span><span class="assoc-tag">TICA</span><span class="assoc-tag">CFA</span><span class="assoc-tag">FIFe</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-media reveal in">
+        <div class="ph ratio-4-3 hero-photo">
+          <div style="text-align:center">
+            <svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 11c0-4 .3-6 .3-6S8 6.4 9.5 8.5M19 11c0-4-.3-6-.3-6S16 6.4 14.5 8.5"/><path d="M5.5 12c-.6 3 0 6 2 8s5 2 7 0 2.6-5 2-8c-.7-3.5-4-5.5-6.5-5.5S6.2 8.5 5.5 12Z"/></svg>
+            <div class="ph-label" data-fr="Photo héros, Rex en pied" data-en="Hero photo, full-body Rex">Photo héros, Rex en pied</div>
+          </div>
+        </div>
+        <div class="hero-badge-float">
+          <span class="stat-num">11</span>
+          <small data-fr="chatteries membres à travers le Québec et le Canada" data-en="member catteries across Québec and Canada">chatteries membres à travers le Québec et le Canada</small>
+        </div>
+        <span class="annot" style="right:30px; top:18px">
+          <span class="annot-dot">1</span>
+          <span class="annot-pop"><b>Refonte</b>La mission se comprend en quelques secondes : un titre fort, une phrase claire, et les associations reconnues affichées d'emblée, contre un hero générique et un mur de texte sur le site actuel.</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 3 PARCOURS ===================== -->
+  <section class="wrap parcours">
+    <div class="grid cols-3" style="position:relative">
+      <span class="annot" style="left:-6px; top:-40px">
+        <span class="annot-dot">2</span>
+        <span class="annot-pop"><b>Refonte</b>Trois portes d'entrée assumées dès l'accueil pour les trois publics du club. Le site actuel noie ces parcours dans des menus profonds.</span>
+      </span>
+      <a class="door door--adopt reveal" href="annuaire.html">
+        <span class="door-tagnum">01</span>
+        <span class="door-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.5-7-9.5A4 4 0 0 1 12 8a4 4 0 0 1 7 3.5C19 16.5 12 21 12 21Z"/></svg></span>
+        <h3 data-fr="Adopter un Rex" data-en="Adopt a Rex">Adopter un Rex</h3>
+        <p data-fr="Trouvez un éleveur fiable dans notre annuaire filtrable, avec badges de confiance et conseils pour bien choisir." data-en="Find a trusted breeder in our filterable directory, with trust badges and guidance to choose well.">Trouvez un éleveur fiable dans notre annuaire filtrable, avec badges de confiance et conseils pour bien choisir.</p>
+        <span class="door-go" data-fr="Voir l'annuaire" data-en="Browse breeders">Voir l'annuaire <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="door door--join reveal" href="adhesion.html">
+        <span class="door-tagnum">02</span>
+        <span class="door-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 11a4 4 0 1 0-4-4M3 21a6 6 0 0 1 12 0M17 14a6 6 0 0 1 4 7"/></svg></span>
+        <h3 data-fr="Devenir membre / éleveur" data-en="Become a member / breeder">Devenir membre / éleveur</h3>
+        <p data-fr="Adhérez, accédez aux ressources, au code d'éthique et au réseau d'éleveurs expérimentés." data-en="Join, access resources, the code of ethics and a network of experienced breeders.">Adhérez, accédez aux ressources, au code d'éthique et au réseau d'éleveurs expérimentés.</p>
+        <span class="door-go" data-fr="Comparer les adhésions" data-en="Compare memberships">Comparer les adhésions <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="door door--give reveal" href="adhesion.html#don">
+        <span class="door-tagnum">03</span>
+        <span class="door-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.5-7-9.5A4 4 0 0 1 12 8a4 4 0 0 1 7 3.5C19 16.5 12 21 12 21Z"/><path d="M9 12h6M12 9v6" stroke-linecap="round"/></svg></span>
+        <h3 data-fr="Soutenir le club" data-en="Support the club">Soutenir le club</h3>
+        <p data-fr="Un don ou une adhésion régulière (10 $) finance la reconnaissance de la race et nos ressources éducatives." data-en="A gift or regular membership ($10) funds breed recognition and our educational resources.">Un don ou une adhésion régulière (10 $) finance la reconnaissance de la race et nos ressources éducatives.</p>
+        <span class="door-go" data-fr="Faire un don" data-en="Donate">Faire un don <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===================== MISSION ===================== -->
+  <section class="section">
+    <div class="wrap">
+      <div class="text-center narrow reveal">
+        <span class="eyebrow" style="justify-content:center" data-fr="Notre mission" data-en="Our mission">Notre mission</span>
+        <h2 class="mt-2" data-fr="Trois engagements, un même cap" data-en="Three commitments, one direction">Trois engagements, un même cap</h2>
+        <p class="lead mt-2" data-fr="Depuis 2017, le CRCC agit sur trois fronts pour la race au Canada." data-en="Since 2017, the CRCC has worked on three fronts for the breed in Canada.">Depuis 2017, le CRCC agit sur trois fronts pour la race au Canada.</p>
+      </div>
+      <div class="grid cols-3 mt-5">
+        <div class="volet reveal">
+          <span class="v-num">01</span>
+          <h4 data-fr="Informer juste" data-en="Inform accurately">Informer juste</h4>
+          <p data-fr="Diffuser une information fiable sur le standard, la santé et les bonnes pratiques d'élevage." data-en="Share reliable information on the standard, health and good breeding practices.">Diffuser une information fiable sur le standard, la santé et les bonnes pratiques d'élevage.</p>
+        </div>
+        <div class="volet reveal">
+          <span class="v-num">02</span>
+          <h4 data-fr="Faire reconnaître" data-en="Win recognition">Faire reconnaître</h4>
+          <p data-fr="Constituer un dossier complet pour faire reconnaître officiellement la race devant le gouvernement du Canada." data-en="Build a complete case to have the breed officially recognized by the Government of Canada.">Constituer un dossier complet pour faire reconnaître officiellement la race devant le gouvernement du Canada.</p>
+        </div>
+        <div class="volet reveal">
+          <span class="v-num">03</span>
+          <h4 data-fr="Rassembler les éleveurs" data-en="Unite breeders">Rassembler les éleveurs</h4>
+          <p data-fr="Regrouper éleveurs expérimentés et nouveaux venus, et favoriser l'échange de savoir-faire." data-en="Bring together experienced and new breeders, and foster knowledge sharing.">Regrouper éleveurs expérimentés et nouveaux venus, et favoriser l'échange de savoir-faire.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== APERÇU RACE ===================== -->
+  <section class="section flow-bg" style="position:relative">
+    <span class="annot" style="left:var(--gutter); top:24px">
+      <span class="annot-dot">3</span>
+      <span class="annot-pop"><b>Refonte</b>Un aperçu de la race scannable (4 traits clés) plutôt qu'un long pavé. Le détail vit sur la page « La race ».</span>
+    </span>
+    <div class="wrap">
+      <div class="hero-grid" style="align-items:center">
+        <div class="reveal">
+          <div class="ph ratio-3-2" style="border-radius:var(--r-xl)">
+            <div style="text-align:center"><div class="ph-label" data-fr="Portrait, texture du poil ondulé" data-en="Portrait, wavy coat texture">Portrait, texture du poil ondulé</div></div>
+          </div>
+        </div>
+        <div class="reveal">
+          <span class="eyebrow" data-fr="La race" data-en="The breed">La race</span>
+          <h2 class="mt-2" data-fr="Élégant comme un lévrier, collant comme une ombre" data-en="Sleek as a greyhound, devoted as a shadow">Élégant comme un lévrier, collant comme une ombre</h2>
+          <div class="grid cols-2 mt-4" style="gap:22px">
+            <div class="breed-feat"><span class="bf-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 14c0-3 8-3 8 0M20 14c0-3-8-3-8 0M6 9l-2-2M18 9l2-2"/></svg></span><div><h4 data-fr="Poil ondulé, sans poil de garde" data-en="Wavy coat, no guard hairs">Poil ondulé, sans poil de garde</h4><p style="font-size:.92rem" data-fr="Doux comme du velours, aucun brossage requis." data-en="Velvet-soft, no brushing required.">Doux comme du velours, aucun brossage requis.</p></div></div>
+            <div class="breed-feat"><span class="bf-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.5-7-9.5A4 4 0 0 1 12 8a4 4 0 0 1 7 3.5C19 16.5 12 21 12 21Z"/></svg></span><div><h4 data-fr="« Pot de colle » sociable" data-en="Sociable velcro-cat">« Pot de colle » sociable</h4><p style="font-size:.92rem" data-fr="Joueur, curieux, profondément attaché à l'humain." data-en="Playful, curious, deeply bonded to people.">Joueur, curieux, profondément attaché à l'humain.</p></div></div>
+            <div class="breed-feat"><span class="bf-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v4M5 8l3 2M19 8l-3 2M12 21a6 6 0 0 0 6-6c0-4-6-8-6-8s-6 4-6 8a6 6 0 0 0 6 6Z"/></svg></span><div><h4 data-fr="Origine : Cornouailles, 1950" data-en="Origin: Cornwall, 1950s">Origine : Cornouailles, 1950</h4><p style="font-size:.92rem" data-fr="Mutation naturelle ; chat fondateur Kallibunker." data-en="Natural mutation; founding cat Kallibunker.">Mutation naturelle ; chat fondateur Kallibunker.</p></div></div>
+            <div class="breed-feat"><span class="bf-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2" stroke-linecap="round"/></svg></span><div><h4 data-fr="À considérer allergène" data-en="Still an allergen">À considérer allergène</h4><p style="font-size:.92rem" data-fr="Comme tout chat, malgré l'absence de mue visible." data-en="Like any cat, despite minimal shedding.">Comme tout chat, malgré l'absence de mue visible.</p></div></div>
+          </div>
+          <a class="textlink mt-4" href="race.html" data-fr="Tout savoir sur le Rex de Cornouailles" data-en="Everything about the Cornish Rex">Tout savoir sur le Rex de Cornouailles <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ANNUAIRE TEASER ===================== -->
+  <section class="section forest-bg">
+    <div class="wrap text-center narrow reveal">
+      <span class="eyebrow" style="justify-content:center" data-fr="Chantier phare" data-en="Flagship feature">Chantier phare</span>
+      <h2 class="mt-2" style="color:#fff" data-fr="Un annuaire d'éleveurs digne de confiance" data-en="A breeder directory you can trust">Un annuaire d'éleveurs digne de confiance</h2>
+      <p class="lead mt-2" data-fr="Filtrez par région, statut et certification. Repérez d'un coup d'œil les badges de confiance, et gardez toujours en tête la vérification diligente." data-en="Filter by region, status and certification. Spot trust badges at a glance, and always keep due diligence in mind.">Filtrez par région, statut et certification. Repérez d'un coup d'œil les badges de confiance, et gardez toujours en tête la vérification diligente.</p>
+      <div class="pill-row justify-center mt-4" style="justify-content:center">
+        <span class="badge badge-trust"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 5 5.5.6-4.1 3.7 1.2 5.4L12 19l-5 2.7 1.2-5.4L4 12.6l5.5-.6L12 2z"/></svg> Membre CRCC</span>
+        <span class="badge badge-assoc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg> Enregistré CCC / CCA-AFC</span>
+        <span class="badge badge-anima"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 5 5.5.6-4.1 3.7 1.2 5.4L12 19l-5 2.7 1.2-5.4L4 12.6l5.5-.6L12 2z"/></svg> Certifié Anima-Québec</span>
+      </div>
+      <a class="btn btn-accent btn-lg mt-4" href="annuaire.html" data-fr="Explorer l'annuaire" data-en="Explore the directory">Explorer l'annuaire</a>
+    </div>
+  </section>
+
+  <!-- ===================== DERNIERS ARTICLES ===================== -->
+  <section class="section">
+    <div class="wrap">
+      <div class="flex items-center" style="justify-content:space-between; flex-wrap:wrap; gap:14px">
+        <div>
+          <span class="eyebrow" data-fr="Base de connaissances" data-en="Knowledge base">Base de connaissances</span>
+          <h2 class="mt-2" data-fr="Derniers articles" data-en="Latest articles">Derniers articles</h2>
+        </div>
+        <a class="btn btn-ghost" href="publications.html" data-fr="Toutes les publications" data-en="All articles">Toutes les publications</a>
+      </div>
+      <div class="grid cols-3 mt-4">
+        <a class="card card-link art-card reveal" href="article.html">
+          <div class="ph ratio-16-9"><div class="ph-label" data-fr="Image article" data-en="Article image">Image article</div></div>
+          <div class="card-pad">
+            <div class="art-meta"><span class="tag">Infos générales</span><span>·</span><span data-fr="6 min" data-en="6 min">6 min</span></div>
+            <h4 data-fr="Comment choisir son éleveur" data-en="How to choose your breeder">Comment choisir son éleveur</h4>
+            <p style="font-size:.92rem" class="mt-1" data-fr="Race pure, enregistrement, garanties de santé : la checklist pour adopter en confiance." data-en="Purebred status, registration, health guarantees: the checklist to adopt with confidence.">Race pure, enregistrement, garanties de santé : la checklist pour adopter en confiance.</p>
+          </div>
+        </a>
+        <a class="card card-link art-card reveal" href="article.html">
+          <div class="ph ratio-16-9"><div class="ph-label" data-fr="Image article" data-en="Article image">Image article</div></div>
+          <div class="card-pad">
+            <div class="art-meta"><span class="tag">Infos santé</span><span>·</span><span data-fr="5 min" data-en="5 min">5 min</span></div>
+            <h4 data-fr="La cardiomyopathie hypertrophique (CMH)" data-en="Hypertrophic cardiomyopathy (HCM)">La cardiomyopathie hypertrophique (CMH)</h4>
+            <p style="font-size:.92rem" class="mt-1" data-fr="Comprendre cette maladie cardiaque, le dépistage et ce qu'il faut demander à l'éleveur." data-en="Understanding this heart disease, screening, and what to ask the breeder.">Comprendre cette maladie cardiaque, le dépistage et ce qu'il faut demander à l'éleveur.</p>
+          </div>
+        </a>
+        <a class="card card-link art-card reveal" href="article.html">
+          <div class="ph ratio-16-9"><div class="ph-label" data-fr="Image article" data-en="Article image">Image article</div></div>
+          <div class="card-pad">
+            <div class="art-meta"><span class="tag">Infos générales</span><span>·</span><span data-fr="4 min" data-en="4 min">4 min</span></div>
+            <h4 data-fr="Les 10 premiers jours" data-en="The first 10 days">Les 10 premiers jours</h4>
+            <p style="font-size:.92rem" class="mt-1" data-fr="Accueillir son chaton sereinement : espace, alimentation, repères et patience." data-en="Welcoming your kitten calmly: space, food, routine and patience.">Accueillir son chaton sereinement : espace, alimentation, repères et patience.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PARTENAIRES ===================== -->
+  <section class="section-sm sunken-bg">
+    <div class="wrap text-center">
+      <span class="eyebrow" style="justify-content:center" data-fr="Ils nous soutiennent" data-en="Our partners">Ils nous soutiennent</span>
+      <div class="partner-grid mt-4">
+        <a class="partner" href="https://boutiqueanimali.com/" target="_blank" rel="noopener" title="Boutique Animali"><img src="https://club-crcc.ca/wp-content/uploads/2025/08/th.jpg" alt="Boutique Animali" loading="lazy" onerror="this.closest('.partner').classList.add('noimg');this.remove();"><span class="pname">Boutique Animali</span></a>
+        <a class="partner" href="https://servicesfelinplus.com/" target="_blank" rel="noopener" title="Services Félin Plus"><img src="https://club-crcc.ca/wp-content/uploads/2025/08/ServicesFelinPlus-300x177.png" alt="Services Félin Plus" loading="lazy" onerror="this.closest('.partner').classList.add('noimg');this.remove();"><span class="pname">Services Félin Plus</span></a>
+        <a class="partner" href="https://polocats.com/" target="_blank" rel="noopener" title="Polo Cats"><img src="https://club-crcc.ca/wp-content/uploads/2025/08/BKRPEzs8Ptdq73iz80o00L8DiOtNIesOknjkNJTP.png" alt="Polo Cats" loading="lazy" onerror="this.closest('.partner').classList.add('noimg');this.remove();"><span class="pname">Polo Cats</span></a>
+        <a class="partner" href="https://www.tipiettralala.com/" target="_blank" rel="noopener" title="Tipi et Tralala"><img src="https://club-crcc.ca/wp-content/uploads/2025/08/logo_-_tipi_et_tralala-removebg-preview-300x251.png" alt="Tipi et Tralala" loading="lazy" onerror="this.closest('.partner').classList.add('noimg');this.remove();"><span class="pname">Tipi et Tralala</span></a>
+        <a class="partner" href="https://www.hotel4.ca/" target="_blank" rel="noopener" title="Hôtel 4 Pattes"><img src="https://club-crcc.ca/wp-content/uploads/2025/08/H4_pattesCat-logo-officiel.avif" alt="Hôtel 4 Pattes" loading="lazy" onerror="this.closest('.partner').classList.add('noimg');this.remove();"><span class="pname">Hôtel 4 Pattes</span></a>
+        <a class="partner" href="https://linktr.ee/kimduboisphotographeanimaliere" target="_blank" rel="noopener" title="Kim Dubois Photographe animalière"><img src="https://club-crcc.ca/wp-content/uploads/2025/08/kim-logo-300x207.jpg" alt="Kim Dubois Photographe animalière" loading="lazy" onerror="this.closest('.partner').classList.add('noimg');this.remove();"><span class="pname">Kim Dubois Photo</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CTA ===================== -->
+  <section class="section">
+    <div class="wrap">
+      <div class="cta-band reveal">
+        <div class="hero-grid" style="align-items:center; position:relative; z-index:1">
+          <div>
+            <h2 style="color:#fff" data-fr="Une race rare a besoin d'allié·e·s" data-en="A rare breed needs allies">Une race rare a besoin d'allié·e·s</h2>
+            <p class="lead mt-2" style="color:#f4d6d6" data-fr="Membre régulier à 10 $, éleveur engagé ou simple donateur : chaque appui compte pour faire reconnaître le Rex de Cornouailles au Canada." data-en="Regular member at $10, committed breeder or one-time donor: every contribution helps recognize the Cornish Rex in Canada.">Membre régulier à 10 $, éleveur engagé ou simple donateur : chaque appui compte pour faire reconnaître le Rex de Cornouailles au Canada.</p>
+          </div>
+          <div class="flex" style="flex-direction:column; gap:12px">
+            <a class="btn btn-accent btn-lg btn-block" href="adhesion.html" data-i18n="cta.join">Devenir membre</a>
+            <a class="btn btn-on-dark btn-lg btn-block" href="adhesion.html#don" data-i18n="cta.donate">Faire un don</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+<script src="assets/crcc.js"></script>
+</body>
+</html>

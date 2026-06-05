@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Annuaire d'éleveurs · CRCC</title>
+<meta name="description" content="Annuaire filtrable des éleveurs membres du Club du Rex de Cornouailles du Canada : région, statut, certification, badges de confiance.">
+<link rel="stylesheet" href="assets/crcc.css">
+<style>
+.dir-hero { padding-block: clamp(34px,5vw,60px) 0; }
+.dir-layout { display: grid; grid-template-columns: 300px 1fr; gap: clamp(20px,3vw,40px); align-items: start; }
+.dir-aside { position: sticky; top: calc(var(--nav-h) + 16px); display: flex; flex-direction: column; gap: 18px; }
+.panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 20px; box-shadow: var(--shadow-sm); }
+.panel h4 { margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; }
+.panel .clear { font-size: .8rem; font-weight: 700; color: var(--link); background: none; border: 0; cursor: pointer; }
+.filter-group { margin-bottom: 20px; }
+.filter-group:last-child { margin-bottom: 0; }
+.filter-group > .fg-label { font-size: .76rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; display:block; }
+.search-wrap { position: relative; }
+.search-wrap svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--text-muted); }
+.search-wrap .input { padding-left: 42px; }
+.m-search { display: none; margin-bottom: 16px; }
+@media (max-width: 880px) { .m-search { display: block; } }
+.opt-list { display: flex; flex-direction: column; gap: 6px; }
+.opt {
+  display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: var(--r-sm);
+  cursor: pointer; border: 1.5px solid transparent; font-size: .92rem; font-weight: 500; color: var(--text-soft);
+  transition: background .15s var(--ease), border-color .15s;
+}
+.opt:hover { background: var(--surface-2); }
+.opt input { appearance: none; width: 19px; height: 19px; border: 2px solid var(--border-strong); border-radius: 5px; flex: none; cursor: pointer; position: relative; transition: all .15s; }
+.opt input[type=radio] { border-radius: 50%; }
+.opt input:checked { background: var(--primary); border-color: var(--primary); }
+.opt input:checked::after { content: ""; position: absolute; inset: 0; background: no-repeat center/13px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 24 24'%3E%3Cpath d='M5 13l4 4L19 7'/%3E%3C/svg%3E"); }
+.opt input[type=radio]:checked::after { background: #fff; border-radius: 50%; inset: 4px; }
+.opt .count { margin-left: auto; font-size: .8rem; color: var(--text-muted); font-weight: 600; }
+.opt:has(input:checked) { color: var(--text); font-weight: 600; }
+
+/* Distribution viz — schematic St-Laurent map (B) + density tiles (C) */
+.rviz-sub { font-size:.82rem; color:var(--text-muted); margin:-4px 0 14px; }
+.regionmap { position:relative; border:1px solid var(--border); border-radius:var(--r-md);
+  background:var(--surface-2); padding:2px; overflow:visible; }
+.regionmap svg { width:100%; height:auto; display:block; border-radius:calc(var(--r-md) - 2px); }
+.land { fill: var(--surface); stroke: var(--border-strong); stroke-width:.8; }
+.river { fill:none; stroke: color-mix(in srgb, var(--primary) 22%, var(--surface)); stroke-width:7; stroke-linecap:round; }
+.river-label { fill: var(--text-muted); font-size:4.6px; font-weight:700; letter-spacing:.08em; }
+.rmarkers { position:absolute; inset:2px; }
+.rmarker { position:absolute; transform:translate(-50%,-50%); display:grid; place-items:center; padding:0;
+  border-radius:50%; cursor:pointer; border:2px solid var(--surface);
+  background: var(--primary); color: var(--text-onbrand);
+  font-weight:800; font-variant-numeric:tabular-nums; line-height:1;
+  box-shadow: var(--shadow-sm);
+  transition: transform .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease), box-shadow .18s var(--ease), opacity .18s var(--ease); }
+.rmarker:hover, .rmarker.hover { box-shadow: var(--shadow-md); transform:translate(-50%,-50%) scale(1.06); }
+.rmarker.is-on { background: var(--accent); color: #fff; border-color: var(--gold-700);
+  transform:translate(-50%,-50%) scale(1.1); z-index:3; box-shadow: var(--shadow-md); }
+[data-theme="dark"] .rmarker.is-on { border-color: var(--gold-300); }
+.rmarker.dim { opacity:.42; }
+.rmarker-label { position:absolute; left:50%; top:-7px; transform:translate(-50%,-100%); white-space:nowrap;
+  background: var(--ink-900); color: var(--cream-50); font-size:.72rem; font-weight:600; padding:4px 9px; border-radius:6px;
+  opacity:0; visibility:hidden; transition:opacity .15s var(--ease); pointer-events:none; box-shadow:var(--shadow-md); z-index:6; }
+.rmarker:hover .rmarker-label, .rmarker:focus-visible .rmarker-label, .rmarker.hover .rmarker-label { opacity:1; visibility:visible; }
+.map-note, .tiles-note { font-size:.8rem; color:var(--text-muted); margin-top:10px; }
+
+.rtiles { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:16px; }
+.rtile { text-align:left; cursor:pointer; border:1.5px solid var(--border); border-radius:var(--r-sm);
+  padding:10px 12px; min-height:54px; display:flex; flex-direction:column; gap:3px; justify-content:center;
+  transition: box-shadow .15s var(--ease), border-color .15s var(--ease), opacity .15s var(--ease); }
+.rtile-name { font-weight:700; font-size:.82rem; line-height:1.15; }
+.rtile-count { font-size:.74rem; font-weight:600; opacity:.9; }
+.rtile.is-on { box-shadow: 0 0 0 2.5px var(--accent); border-color: var(--accent); }
+.rtile.hover { border-color: var(--border-strong); }
+.rtile.dim { opacity:.5; }
+.rtile[data-d="1"]{ background:var(--forest-100); color:var(--forest-900); }
+.rtile[data-d="2"]{ background:var(--forest-500); color:#fff; }
+.rtile[data-d="4"]{ background:var(--forest-700); color:#fff; }
+[data-theme="dark"] .rtile[data-d="1"]{ background:#3a181b; color:#fbe4e4; border-color:#4d2629; }
+[data-theme="dark"] .rtile[data-d="2"]{ background:#7a1216; color:#ffe9e9; border-color:#9e1109; }
+[data-theme="dark"] .rtile[data-d="4"]{ background:#b3141a; color:#fff; border-color:#c42a2f; }
+
+.rviz-reset { margin-top:14px; min-height:40px; padding:0 16px; border-radius:var(--r-pill);
+  border:1.5px solid var(--border-strong); background:var(--surface); color:var(--text-soft);
+  font-weight:700; font-size:.84rem; cursor:pointer; display:inline-flex; align-items:center; gap:7px; }
+.rviz-reset:hover { border-color:var(--primary); color:var(--primary); }
+.rviz-reset svg { width:15px; height:15px; }
+.rgen-note { font-size:.8rem; color:var(--text-muted); margin-top:14px; padding-top:14px; border-top:1px solid var(--border); }
+@media (prefers-reduced-motion: reduce){
+  .rmarker, .rtile { transition:none; }
+  .rmarker:hover, .rmarker.hover { transform:translate(-50%,-50%); }
+}
+
+/* results */
+.results-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 18px; }
+.results-count { font-weight: 700; }
+.results-count b { color: var(--primary); }
+.diligence {
+  display: flex; gap: 12px; align-items: flex-start; padding: 16px 18px; border-radius: var(--r-md);
+  background: var(--accent-soft); border: 1px solid var(--gold-300); margin-bottom: 22px;
+}
+.diligence svg { width: 22px; height: 22px; color: var(--gold-700); flex: none; margin-top: 2px; }
+.diligence p { font-size: .9rem; color: var(--ink-700); margin: 0; }
+[data-theme="dark"] .diligence { background: #34191b; border-color: #4d2c2e; }
+[data-theme="dark"] .diligence p { color: var(--gold-200); }
+[data-theme="dark"] .diligence svg { color: var(--gold-300); }
+
+.cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 20px; }
+.cat-card { display: flex; flex-direction: column; }
+.cat-top { display: flex; gap: 14px; padding: 18px 18px 0; }
+.cat-logo { width: 60px; height: 60px; border-radius: var(--r-md); flex: none; display: grid; place-items: center; background: var(--primary-soft); color: var(--primary); font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; border: 1px solid var(--border); }
+[data-theme="dark"] .cat-logo { color: var(--forest-200); }
+.cat-id h4 { font-size: 1.15rem; line-height: 1.15; }
+.cat-id .breeder { font-size: .9rem; color: var(--text-muted); margin-top: 2px; }
+.cat-loc { display: flex; align-items: center; gap: 6px; font-size: .88rem; color: var(--text-soft); padding: 14px 18px 0; }
+.cat-loc svg { width: 15px; height: 15px; color: var(--accent); flex: none; }
+.cat-badges { display: flex; flex-wrap: wrap; gap: 6px; padding: 14px 18px; }
+.cat-foot { margin-top: auto; display: flex; gap: 8px; padding: 0 18px 18px; }
+.cat-links { display: flex; gap: 6px; }
+.link-ic { width: 40px; height: 40px; border-radius: var(--r-sm); border: 1.5px solid var(--border-strong); display: grid; place-items: center; color: var(--text-soft); transition: all .15s; }
+.link-ic:hover { border-color: var(--primary); color: var(--primary); }
+.link-ic svg { width: 17px; height: 17px; }
+
+.empty { text-align: center; padding: 60px 20px; color: var(--text-muted); }
+
+/* modal */
+.modal-overlay { position: fixed; inset: 0; z-index: 170; background: rgba(20,24,15,.55); backdrop-filter: blur(3px); display: grid; place-items: center; padding: 20px; opacity: 0; visibility: hidden; transition: opacity .25s var(--ease), visibility .25s; }
+.modal-overlay.open { opacity: 1; visibility: visible; }
+.modal { width: min(820px, 100%); max-height: 90vh; overflow-y: auto; background: var(--bg-elevated); border-radius: var(--r-xl); box-shadow: var(--shadow-lg); transform: translateY(16px) scale(.98); transition: transform .28s var(--ease); }
+.modal-overlay.open .modal { transform: none; }
+.modal-hero { position: relative; }
+.modal-hero .ph { border-radius: 0; }
+.modal-close { position: absolute; top: 14px; right: 14px; z-index: 2; background: var(--surface); }
+.modal-body { padding: clamp(20px, 3vw, 34px); }
+.modal-head { display: flex; gap: 16px; align-items: flex-start; margin-top: -52px; position: relative; z-index: 1; }
+.modal-head .cat-logo { width: 84px; height: 84px; font-size: 2rem; box-shadow: var(--shadow-md); }
+.gallery { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+.spec-list { list-style: none; padding: 0; display: grid; gap: 0; }
+.spec-list li { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: .94rem; }
+.spec-list li:last-child { border-bottom: 0; }
+.spec-list .k { width: 130px; flex: none; color: var(--text-muted); font-weight: 600; }
+.spec-list .v { color: var(--text); font-weight: 500; }
+
+/* Spécialisation / certifications (couche additive) */
+.cat-spec { padding: 0 18px 14px; }
+.cat-spec .spec-label { font-size:.68rem; font-weight:800; letter-spacing:.09em; text-transform:uppercase; color:var(--text-muted); display:block; margin-bottom:5px; }
+.cat-spec .spec-val { font-size:.9rem; color:var(--text-soft); font-weight:600; }
+.cat-spec .spec-val.is-ph { color:var(--text-muted); font-weight:500; font-style:italic; }
+.cert-chips { display:flex; flex-wrap:wrap; gap:6px; margin-top:9px; }
+.cert-chip { display:inline-flex; align-items:center; gap:6px; font-size:.74rem; font-weight:700; padding:5px 10px; border-radius:var(--r-pill); border:1px solid color-mix(in srgb, var(--primary) 30%, transparent); background:var(--primary-soft); color:var(--primary); }
+.cert-chip svg { width:13px; height:13px; flex:none; }
+[data-theme="dark"] .cert-chip { color:var(--forest-200); }
+/* modal spec checklist */
+.spec-axes { list-style:none; padding:0; display:grid; gap:0; }
+.spec-axes li { display:flex; align-items:center; gap:12px; padding:11px 0; border-bottom:1px solid var(--border); font-size:.92rem; }
+.spec-axes li:last-child { border-bottom:0; }
+.spec-axes .ax-ic { width:36px; height:36px; border-radius:var(--r-sm); display:grid; place-items:center; flex:none; background:var(--surface-2); color:var(--text-muted); }
+.spec-axes .ax-ic svg { width:18px; height:18px; }
+.spec-axes li.on .ax-ic { background:var(--primary-soft); color:var(--primary); }
+[data-theme="dark"] .spec-axes li.on .ax-ic { color:var(--forest-200); }
+.spec-axes .ax-name { font-weight:600; color:var(--text); flex:1; }
+.spec-axes .ax-state { font-size:.8rem; font-weight:700; color:var(--text-muted); display:inline-flex; align-items:center; gap:5px; white-space:nowrap; }
+.spec-axes .ax-state svg { width:14px; height:14px; }
+.spec-axes li.on .ax-state { color:var(--primary); }
+[data-theme="dark"] .spec-axes li.on .ax-state { color:var(--forest-200); }
+
+@media (max-width: 880px) {
+  .dir-layout { grid-template-columns: 1fr; }
+  .dir-aside { position: static; }
+  .filters-toggle { display: inline-flex; }
+}
+.filters-toggle { display: none; }
+@media (max-width: 880px) {
+  .dir-aside.collapsed .panel { display: none; }
+}
+</style>
+</head>
+<body>
+<main id="main" data-screen-label="Annuaire">
+
+  <section class="wrap dir-hero">
+    <div style="max-width:680px">
+      <span class="eyebrow" data-fr="Annuaire d'éleveurs" data-en="Breeder directory">Annuaire d'éleveurs</span>
+      <h1 class="mt-2" data-fr="Trouvez une chatterie de confiance" data-en="Find a trusted cattery">Trouvez une chatterie de confiance</h1>
+      <p class="lead mt-2" data-fr="Tous nos membres adhèrent au code d'éthique du CRCC. Filtrez par région, statut et certification, puis vérifiez par vous-même avant de vous engager." data-en="All our members adhere to the CRCC code of ethics. Filter by region, status and certification, then verify for yourself before committing.">Tous nos membres adhèrent au code d'éthique du CRCC. Filtrez par région, statut et certification, puis vérifiez par vous-même avant de vous engager.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:32px; position:relative">
+    <span class="annot" style="left:var(--gutter); top:8px">
+      <span class="annot-dot">1</span>
+      <span class="annot-pop"><b>Refonte</b>Le cœur du chantier : la liste en vrac du site actuel devient un annuaire filtrable (région, statut, certification) avec badges de confiance et carte indicative.</span>
+    </span>
+    <div class="wrap dir-layout">
+
+      <!-- ASIDE FILTERS -->
+      <aside class="dir-aside collapsed" id="aside">
+        <button class="btn btn-ghost filters-toggle" id="filtersToggle" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 5h18M6 12h12M10 19h4"/></svg>
+          <span data-fr="Filtres" data-en="Filters">Filtres</span>
+        </button>
+
+        <div class="panel">
+          <h4><span data-fr="Filtres" data-en="Filters">Filtres</span><button class="clear" id="clearFilters" data-fr="Réinitialiser" data-en="Reset">Réinitialiser</button></h4>
+
+          <div class="filter-group">
+            <div class="search-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4" stroke-linecap="round"/></svg>
+              <input class="input" id="searchInput" type="search" data-fr-ph="Nom, éleveur, ville…" data-en-ph="Name, breeder, city…" placeholder="Nom, éleveur, ville…" aria-label="Recherche">
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <span class="fg-label" data-fr="Statut" data-en="Status">Statut</span>
+            <div class="opt-list" id="statusOpts">
+              <label class="opt"><input type="radio" name="status" value="all" checked><span data-fr="Tous les éleveurs" data-en="All breeders">Tous les éleveurs</span><span class="count" data-count-status="all"></span></label>
+              <label class="opt"><input type="radio" name="status" value="regulier"><span data-fr="Membre régulier" data-en="Regular member">Membre régulier</span><span class="count" data-count-status="regulier"></span></label>
+              <label class="opt"><input type="radio" name="status" value="associe"><span data-fr="Associé (probation)" data-en="Associate (probation)">Associé (probation)</span><span class="count" data-count-status="associe"></span></label>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <span class="fg-label" data-fr="Certification & spécialisation" data-en="Certification & specialization">Certification & spécialisation</span>
+            <div class="opt-list" id="certOpts">
+              <label class="opt"><input type="checkbox" id="animaCheck"><span data-fr="Certifié Anima-Québec" data-en="Anima-Québec certified">Certifié Anima-Québec</span><span class="count" id="animaCount"></span></label>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <span class="fg-label" data-fr="Région (Québec)" data-en="Region (Québec)">Région (Québec)</span>
+            <select class="select" id="regionSelect" aria-label="Région">
+              <option value="all" data-fr="Toutes les régions" data-en="All regions">Toutes les régions</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <span class="fg-label" data-fr="Rabais offert aux adoptants" data-en="Discount offered to adopters">Rabais offert aux adoptants</span>
+            <select class="select" id="discountSelect" aria-label="Rabais">
+              <option value="all" data-fr="Indifférent" data-en="Any">Indifférent</option>
+              <option value="any" data-fr="Offre un rabais" data-en="Offers a discount">Offre un rabais</option>
+              <option value="5" data-fr="5 % et plus" data-en="5% and up">5 % et plus</option>
+              <option value="10" data-fr="10 % et plus" data-en="10% and up">10 % et plus</option>
+              <option value="15" data-fr="15 % et plus" data-en="15% and up">15 % et plus</option>
+              <option value="20" data-fr="20 % et plus" data-en="20% and up">20 % et plus</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- DISTRIBUTION VIZ — schematic map + density tiles -->
+        <div class="panel rviz" id="rviz">
+          <h4><span data-fr="Répartition" data-en="Distribution">Répartition</span></h4>
+          <p class="rviz-sub" data-fr="Où trouver nos éleveurs" data-en="Where to find our breeders">Où trouver nos éleveurs</p>
+          <div class="regionmap">
+            <svg viewBox="0 0 100 64" role="img" aria-labelledby="rmapTitle rmapDesc" preserveAspectRatio="xMidYMid meet">
+              <title id="rmapTitle" data-fr="Carte schématique du sud du Québec, le long du Saint-Laurent" data-en="Schematic map of southern Québec, along the St. Lawrence">Carte schématique du sud du Québec, le long du Saint-Laurent</title>
+              <desc id="rmapDesc" data-fr="Repères proportionnels par région : Lanaudière 4, Capitale-Nationale 2, Côte-Nord 1, Chaudière-Appalaches 1, Centre-du-Québec 1, Mauricie 1, Montréal 1. Carte indicative, non géographiquement exacte." data-en="Proportional markers by region: Lanaudière 4, Capitale-Nationale 2, Côte-Nord 1, Chaudière-Appalaches 1, Centre-du-Québec 1, Mauricie 1, Montréal 1. Indicative map, not geographically exact.">Repères proportionnels par région.</desc>
+              <path class="land" d="M6,40 C2,26 12,12 30,8 C52,3 74,4 90,12 C98,16 99,26 96,36 C93,48 80,58 60,60 C36,62 12,56 6,40 Z"/>
+              <path class="river" d="M13,55 C30,49 41,41 53,33 C66,25 79,19 93,15"/>
+              <text class="river-label" x="33" y="37" transform="rotate(-25 33 37)" data-fr="Saint-Laurent" data-en="St. Lawrence">Saint-Laurent</text>
+            </svg>
+            <div class="rmarkers" id="rmarkers"></div>
+          </div>
+          <p class="map-note" data-fr="Carte indicative (non géographiquement exacte) — la taille du repère reflète le nombre de chatteries." data-en="Schematic map (not geographically exact) — marker size reflects the number of catteries.">Carte indicative (non géographiquement exacte) — la taille du repère reflète le nombre de chatteries.</p>
+
+          <div class="rtiles" id="rtiles" role="group" aria-label="Régions par densité"></div>
+          <p class="tiles-note" data-fr="Teinte plus foncée = plus de chatteries." data-en="Darker tint = more catteries.">Teinte plus foncée = plus de chatteries.</p>
+
+          <button class="rviz-reset" id="rvizReset" hidden>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+            <span data-fr="Réinitialiser" data-en="Reset">Réinitialiser</span>
+          </button>
+
+          <p class="rgen-note" data-fr="11 chatteries membres, toutes au Québec actuellement — vocation pancanadienne." data-en="11 member catteries, currently all in Québec — with a Canada-wide mission.">11 chatteries membres, toutes au Québec actuellement — vocation pancanadienne.</p>
+        </div>
+      </aside>
+
+      <!-- RESULTS -->
+      <div>
+        <div class="m-search">
+          <div class="search-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4" stroke-linecap="round"/></svg>
+            <input class="input" id="mSearchInput" type="search" data-fr-ph="Nom, éleveur, ville…" data-en-ph="Name, breeder, city…" placeholder="Nom, éleveur, ville…" aria-label="Recherche">
+          </div>
+        </div>
+        <div class="diligence">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <p data-fr="<b>Vérification diligente.</b> Le CRCC encourage chaque adoptant à visiter l'environnement de vie, demander les preuves d'enregistrement et de dépistage, et vérifier les antécédents publics (<a href='https://www.mapaq.gouv.qc.ca/fr/Consommation/condamnations/Pages/Recherchecondamnations.aspx' target='_blank' rel='noopener'>MAPAQ</a>, <a href='http://citoyens.soquij.qc.ca/' target='_blank' rel='noopener'>SOQUIJ</a>) avant tout engagement." data-en="<b>Due diligence.</b> The CRCC encourages every adopter to visit the living environment, request proof of registration and health testing, and check public records (<a href='https://www.mapaq.gouv.qc.ca/fr/Consommation/condamnations/Pages/Recherchecondamnations.aspx' target='_blank' rel='noopener'>MAPAQ</a>, <a href='http://citoyens.soquij.qc.ca/' target='_blank' rel='noopener'>SOQUIJ</a>) before any commitment." data-i18n-html><b>Vérification diligente.</b> Le CRCC encourage chaque adoptant à visiter l'environnement de vie, demander les preuves d'enregistrement et de dépistage, et vérifier les antécédents publics (<a href="https://www.mapaq.gouv.qc.ca/fr/Consommation/condamnations/Pages/Recherchecondamnations.aspx" target="_blank" rel="noopener">MAPAQ</a>, <a href="http://citoyens.soquij.qc.ca/" target="_blank" rel="noopener">SOQUIJ</a>) avant tout engagement.</p>
+        </div>
+
+        <div class="results-head">
+          <span class="results-count" id="resultsCount"></span>
+          <div class="segmented" role="group" aria-label="Tri">
+            <button class="seg-btn is-active" data-sort="alpha" data-fr="A → Z" data-en="A → Z">A → Z</button>
+            <button class="seg-btn" data-sort="region" data-fr="Par région" data-en="By region">Par région</button>
+          </div>
+        </div>
+
+        <div class="cat-grid" id="catGrid"></div>
+        <div class="empty hidden" id="emptyState">
+          <p data-fr="Aucune chatterie ne correspond à ces filtres." data-en="No cattery matches these filters.">Aucune chatterie ne correspond à ces filtres.</p>
+          <button class="btn btn-ghost mt-3" onclick="document.getElementById('clearFilters').click()" data-fr="Réinitialiser les filtres" data-en="Reset filters">Réinitialiser les filtres</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-label="Fiche chatterie">
+    <div class="modal" id="modal"></div>
+  </div>
+
+</main>
+<script src="assets/crcc.js"></script>
+<script>
+(function () {
+  const T = (fr, en) => CRCC.lang === "en" ? en : fr;
+
+  const REGIONS = {
+    cotenord: { fr: "Côte-Nord", en: "Côte-Nord", x: 168, y: 48 },
+    chaudiere: { fr: "Chaudière-Appalaches", en: "Chaudière-Appalaches", x: 132, y: 92 },
+    capitale: { fr: "Capitale-Nationale", en: "Capitale-Nationale", x: 120, y: 70 },
+    centre: { fr: "Centre-du-Québec", en: "Centre-du-Québec", x: 104, y: 96 },
+    lanaudiere: { fr: "Lanaudière", en: "Lanaudière", x: 80, y: 84 },
+    mauricie: { fr: "Mauricie", en: "Mauricie", x: 96, y: 78 },
+    montreal: { fr: "Montréal", en: "Montréal", x: 70, y: 100 }
+  };
+
+  const BREEDERS = [
+    { name:"Boréalis Aurora", breeder:"Cynthia Lévesque", city:{fr:"Pointe-Lebel",en:"Pointe-Lebel"}, region:"cotenord", status:"regulier", anima:true, discount:15,
+      emails:["borealisaurora.rex@outlook.com","borealisaurora.rex@gmail.com"], phone:"418 295-6535", web:null, fb:"https://www.facebook.com/profile.php?id=100088044991759" },
+    { name:"JudyRex", breeder:"Judy Gormley", city:{fr:"Thetford Mines",en:"Thetford Mines"}, region:"chaudiere", status:"regulier", anima:false, discount:10,
+      emails:["judyrexcornish@gmail.com"], phone:null, web:"http://www.judyrex.ca", fb:"http://www.facebook.com/Judyrexcornish" },
+    { name:"Rex Cornu", breeder:"Karine Levasseur", city:{fr:"Duberger (Québec)",en:"Duberger (Québec)"}, region:"capitale", status:"regulier", anima:false, discount:null,
+      emails:["rexcornu.cornish@gmail.com"], phone:"418-933-7697", web:null, fb:"https://www.facebook.com/rexcornu/" },
+    { name:"KovaRex", breeder:"Pascale Therrien", city:{fr:"Ste-Clotilde-de-Horton",en:"Ste-Clotilde-de-Horton"}, region:"centre", status:"regulier", anima:false, discount:20,
+      emails:["kovarexchatterie@gmail.com"], phone:"819-990-0616", web:"https://kovarexchatterie.com", fb:"https://www.facebook.com/KovaRex" },
+    { name:"Manouche-Amourex", breeder:"Manon Beaudry", city:{fr:"Terrebonne",en:"Terrebonne"}, region:"lanaudiere", status:"regulier", anima:false, discount:5,
+      emails:["manouche-amourex@outlook.com"], phone:null, web:null, fb:"https://www.facebook.com/amourexcornish" },
+    { name:"Zéra", breeder:"Annie Desruisseaux", city:{fr:"Ste-Julienne",en:"Ste-Julienne"}, region:"lanaudiere", status:"regulier", anima:false, discount:null,
+      emails:["inouk08@hotmail.com"], phone:"514-771-2382", web:null, fb:"https://www.facebook.com/Chatterie-ZÉRA-184837848814847/" },
+    { name:"Félin Insolite", breeder:"Josée Charlebois", city:{fr:"St-Calixte",en:"St-Calixte"}, region:"lanaudiere", status:"regulier", anima:true, discount:25,
+      emails:["felin.insolite@hotmail.com"], phone:"514-291-4644", web:"http://www.chatteriefelininsolite.com", fb:"https://www.facebook.com/josee.felininsolite" },
+    { name:"Nether Realm", breeder:"Geneviève Côté", city:{fr:"Shannon",en:"Shannon"}, region:"capitale", status:"regulier", anima:false, discount:"tbd",
+      emails:["netherrealmrexcornish@outlook.com"], phone:null, web:"https://netherrealmrexcornish.com/", fb:"https://www.facebook.com/netherrealm.rexcornish" },
+    { name:"RexKatetCat", breeder:"Kathy Adam", city:{fr:"Trois-Rivières",en:"Trois-Rivières"}, region:"mauricie", status:"regulier", anima:false, discount:10,
+      emails:["kathy.adam1991@hotmail.com"], phone:"819-690-9844", web:null, fb:"https://www.facebook.com/chatterie.rex.kat.et.cat" },
+    { name:"Mes Fantaisies", breeder:"Nathalie Michaud", city:{fr:"Terrebonne",en:"Terrebonne"}, region:"lanaudiere", status:"regulier", anima:false, discount:15,
+      emails:["nalie.michaud@hotmail.com"], phone:"438-492-6971", web:"https://www.chatteriefantaisies.com", fb:null },
+    { name:"Prextiges", breeder:"Kim Dubois", city:{fr:"Montréal",en:"Montréal"}, region:"montreal", status:"associe", anima:false, discount:null,
+      emails:["prextiges@gmail.com"], phone:null, web:null, fb:"https://www.facebook.com/profile.php?id=61568786062309" }
+  ];
+  const EXT = 'target="_blank" rel="noopener"';
+  function webHost(u){ return u.replace(/^https?:\/\//,'').replace(/\/$/,''); }
+
+  let state = { q:"", status:"all", anima:false, flags:[], region:"all", discount:"all", sort:"alpha" };
+
+  // Injecte les axes de spécialisation (hors anima déjà présent) comme cases à cocher
+  function buildCertOpts(){
+    const box = document.getElementById("certOpts");
+    if(!box || box.dataset.built) return;
+    SPEC_AXES.filter(ax=>ax.key!=="anima").forEach(ax=>{
+      const lab = document.createElement("label");
+      lab.className = "opt";
+      lab.innerHTML = `<input type="checkbox" data-flag="${ax.key}"><span data-fr="${ax.fr}" data-en="${ax.en}">${T(ax.fr,ax.en)}</span><span class="count" data-count-flag="${ax.key}"></span>`;
+      box.appendChild(lab);
+    });
+    box.dataset.built = "1";
+  }
+
+  const ICON_PIN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="2.6"/></svg>';
+  const ICON_WEB = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18"/></svg>';
+  const ICON_FB = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V6h-3c-2 0-3.5 1.5-3.5 3.5V11H8v3h2.5v7h3v-7H16l.5-3h-3V9.5C13.5 9.2 13.7 9 14 9Z"/></svg>';
+  const ICON_MAIL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>';
+  const ICON_STAR = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 5 5.5.6-4.1 3.7 1.2 5.4L12 19l-5 2.7 1.2-5.4L4 12.6l5.5-.6L12 2z"/></svg>';
+  const ICON_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const ICON_TAG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.6 13.4 12 22l-9-9V3h10l7.6 7.6a2 2 0 0 1 0 2.8Z"/><circle cx="7.5" cy="7.5" r="1.4" fill="currentColor"/></svg>';
+  const ICON_SHIELD = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M9 12l2 2 4-4"/></svg>';
+  const ICON_DNA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4c0 4 10 6 10 10M17 4c0 4-10 6-10 10M7 20c0-4 10-6 10-10M17 20c0-4-10-6-10-10"/><path d="M8.5 7h7M9 17h6M10 10.5h4M10 13.5h4"/></svg>';
+  const ICON_DOC = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z"/><path d="M14 3v5h5"/><path d="M9 14l2 2 4-4"/></svg>';
+  const ICON_PAW = '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6.2" cy="11.5" r="1.9"/><circle cx="10" cy="6.8" r="1.9"/><circle cx="14" cy="6.8" r="1.9"/><circle cx="17.8" cy="11.5" r="1.9"/><path d="M12 12.4c-2.4 0-4.4 1.9-4.9 3.9-.4 1.6.8 2.9 2.4 2.9.9 0 1.6-.5 2.5-.5s1.6.5 2.5.5c1.6 0 2.8-1.3 2.4-2.9-.5-2-2.5-3.9-4.9-3.9Z"/></svg>';
+  const ICON_GUARANTEE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6a1 1 0 0 1 1 1v1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h1V5a1 1 0 0 1 1-1Z"/><path d="M9 14l2 2 4-4"/></svg>';
+  const ICON_VISIT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-9"/><circle cx="12" cy="14" r="2"/></svg>';
+
+  // Axes de « spécialisation / certification » (réf. page « Comment choisir son éleveur »).
+  // anima = donnée réelle (champ b.anima). Les autres = drapeaux par éleveur (b.flags),
+  // désactivés par défaut, à renseigner plus tard. Ne rien inventer.
+  const SPEC_AXES = [
+    { key:"anima",         icon:ICON_SHIELD,    fr:"Anima-Québec",             en:"Anima-Québec" },
+    { key:"genetic",       icon:ICON_DNA,       fr:"Tests génétiques",         en:"Genetic testing" },
+    { key:"registered",    icon:ICON_DOC,       fr:"Enregistrement / race pure", en:"Registered / purebred" },
+    { key:"socialization", icon:ICON_PAW,       fr:"Socialisation",            en:"Socialization" },
+    { key:"guarantee",     icon:ICON_GUARANTEE, fr:"Garantie & contrat",       en:"Guarantee & contract" },
+    { key:"visits",        icon:ICON_VISIT,     fr:"Visites possibles",        en:"Visits welcome" }
+  ];
+  // un axe est « confirmé » si réel (anima) ou si le drapeau de l'éleveur est activé
+  function axOn(b, key){ return key==="anima" ? !!b.anima : !!((b.flags||{})[key]); }
+  function specialtyOf(b){ return b.specialty || null; }
+
+  function discountLabel(b){
+    if(b.discount==="tbd") return T("Rabais à déterminer","Discount: TBD");
+    if(b.discount) return T(`Rabais ${b.discount} %`,`${b.discount}% discount`);
+    return null;
+  }
+
+  function initials(name){ return name.split(/[\s-]+/).slice(0,2).map(w=>w[0]).join("").toUpperCase(); }
+
+  function badgesFor(b){
+    let h = `<span class="badge badge-trust">${ICON_STAR}${T("Membre CRCC","CRCC member")}</span>`;
+    h += `<span class="badge badge-assoc">${ICON_CHECK}${T("Enregistré CCC/CCA","CCC/CCA registered")}</span>`;
+    if (b.anima) h += `<span class="badge badge-anima">${ICON_STAR}Anima-Québec</span>`;
+    if (b.status === "associe") h += `<span class="badge badge-probation">${T("Probation 12 mois","12-month probation")}</span>`;
+    const dl = discountLabel(b);
+    if (dl) h += `<span class="badge badge-discount">${ICON_TAG}${dl}</span>`;
+    return h;
+  }
+
+  function populateRegions(){
+    const sel = document.getElementById("regionSelect");
+    sel.querySelectorAll("option:not([value=all])").forEach(o=>o.remove());
+    Object.entries(REGIONS).forEach(([k,r])=>{
+      const n = BREEDERS.filter(b=>b.region===k).length;
+      const o = document.createElement("option");
+      o.value = k; o.textContent = `${T(r.fr,r.en)} (${n})`;
+      sel.appendChild(o);
+    });
+    sel.value = state.region;
+  }
+
+  // ---- Distribution viz: schematic map (B) + density tiles (C) ----
+  const POS = {
+    montreal:  { x: 17, y: 80 }, lanaudiere: { x: 31, y: 64 }, mauricie: { x: 48, y: 49 },
+    centre:    { x: 47, y: 75 }, capitale:   { x: 67, y: 39 }, chaudiere:{ x: 71, y: 62 },
+    cotenord:  { x: 86, y: 24 }
+  };
+  function regionCount(k){ return BREEDERS.filter(b=>b.region===k).length; }
+  function markerPx(n){ return 24 + n*6; }            // proportional diameter
+  function densityTier(n){ return n>=4 ? 4 : n>=2 ? 2 : 1; }
+  function regionLabel(k,n){
+    const name = T(REGIONS[k].fr, REGIONS[k].en);
+    return T(`${name} : ${n} ${n>1?"chatteries":"chatterie"}`, `${name}: ${n} ${n>1?"catteries":"cattery"}`);
+  }
+  function vizArrowNav(nodes){
+    nodes.forEach((node,i)=>node.addEventListener("keydown", e=>{
+      let j=-1;
+      if(e.key==="ArrowRight"||e.key==="ArrowDown") j=(i+1)%nodes.length;
+      else if(e.key==="ArrowLeft"||e.key==="ArrowUp") j=(i-1+nodes.length)%nodes.length;
+      else if(e.key==="Home") j=0; else if(e.key==="End") j=nodes.length-1;
+      if(j>=0){ e.preventDefault(); nodes[j].focus(); }
+    }));
+  }
+  function hoverRegion(k,on){
+    document.querySelectorAll('.rmarker[data-region="'+k+'"], .rtile[data-region="'+k+'"]').forEach(el=>el.classList.toggle("hover",on));
+  }
+  function selectRegion(k){
+    state.region = state.region===k ? "all" : k;
+    const sel = document.getElementById("regionSelect"); if(sel) sel.value = state.region;
+    render();
+  }
+  function drawViz(){
+    const mk = document.getElementById("rmarkers");
+    const tl = document.getElementById("rtiles");
+    if(!mk || !tl) return;
+    mk.innerHTML = ""; tl.innerHTML = "";
+    const sel = state.region;
+    const entries = Object.keys(REGIONS).map(k=>({ k, n: regionCount(k) })).filter(e=>e.n>0);
+
+    // (B) proportional markers, positioned along the schematic St-Laurent
+    entries.forEach(e=>{
+      const size = markerPx(e.n), lbl = regionLabel(e.k, e.n), on = sel===e.k;
+      const btn = document.createElement("button");
+      btn.type = "button"; btn.className = "rmarker"; btn.dataset.region = e.k;
+      btn.style.left = POS[e.k].x+"%"; btn.style.top = POS[e.k].y+"%";
+      btn.style.width = size+"px"; btn.style.height = size+"px";
+      btn.style.fontSize = size>=40 ? "1rem" : ".82rem";
+      if(on){ btn.classList.add("is-on"); btn.setAttribute("aria-current","true"); }
+      else if(sel!=="all"){ btn.classList.add("dim"); }
+      btn.setAttribute("aria-pressed", on ? "true":"false");
+      btn.setAttribute("aria-label", lbl);
+      btn.innerHTML = `<span class="rmarker-label">${lbl}</span>${e.n}`;
+      mk.appendChild(btn);
+    });
+
+    // (C) density tiles (labeled legend), sorted by count desc
+    entries.slice().sort((a,b)=> b.n-a.n || T(REGIONS[a.k].fr,REGIONS[a.k].en).localeCompare(T(REGIONS[b.k].fr,REGIONS[b.k].en)))
+      .forEach(e=>{
+        const name = T(REGIONS[e.k].fr, REGIONS[e.k].en), lbl = regionLabel(e.k, e.n), on = sel===e.k;
+        const cnt = T(`${e.n} chatterie${e.n>1?"s":""}`, `${e.n} ${e.n>1?"catteries":"cattery"}`);
+        const btn = document.createElement("button");
+        btn.type = "button"; btn.className = "rtile"; btn.dataset.region = e.k;
+        btn.dataset.d = densityTier(e.n);
+        if(on){ btn.classList.add("is-on"); btn.setAttribute("aria-current","true"); }
+        else if(sel!=="all"){ btn.classList.add("dim"); }
+        btn.setAttribute("aria-pressed", on ? "true":"false");
+        btn.setAttribute("aria-label", lbl);
+        btn.innerHTML = `<span class="rtile-name">${name}</span><span class="rtile-count">${cnt}</span>`;
+        tl.appendChild(btn);
+      });
+
+    // wire clicks + hover sync (B ↔ C)
+    [...mk.querySelectorAll(".rmarker"), ...tl.querySelectorAll(".rtile")].forEach(el=>{
+      el.addEventListener("click", ()=>selectRegion(el.dataset.region));
+      el.addEventListener("mouseenter", ()=>hoverRegion(el.dataset.region,true));
+      el.addEventListener("mouseleave", ()=>hoverRegion(el.dataset.region,false));
+    });
+    vizArrowNav([...mk.querySelectorAll(".rmarker")]);
+    vizArrowNav([...tl.querySelectorAll(".rtile")]);
+
+    const rst = document.getElementById("rvizReset");
+    if(rst) rst.hidden = (sel==="all");
+  }
+
+  function counts(){
+    document.querySelectorAll("[data-count-status]").forEach(el=>{
+      const v = el.getAttribute("data-count-status");
+      el.textContent = v==="all" ? BREEDERS.length : BREEDERS.filter(b=>b.status===v).length;
+    });
+    document.getElementById("animaCount").textContent = BREEDERS.filter(b=>b.anima).length;
+    document.querySelectorAll("[data-count-flag]").forEach(el=>{
+      const k = el.getAttribute("data-count-flag");
+      el.textContent = BREEDERS.filter(b=>axOn(b,k)).length;
+    });
+  }
+
+  function filtered(){
+    let list = BREEDERS.filter(b=>{
+      if(state.status!=="all" && b.status!==state.status) return false;
+      if(state.anima && !b.anima) return false;
+      if(state.flags.length && !state.flags.every(f=>axOn(b,f))) return false;
+      if(state.region!=="all" && b.region!==state.region) return false;
+      if(state.discount!=="all"){
+        if(state.discount==="any"){ if(!b.discount) return false; }
+        else { const min=+state.discount; if(b.discount==="tbd" || !b.discount || b.discount<min) return false; }
+      }
+      if(state.q){
+        const q = state.q.toLowerCase();
+        const hay = (b.name+" "+b.breeder+" "+b.city.fr+" "+b.city.en+" "+T(REGIONS[b.region].fr,REGIONS[b.region].en)).toLowerCase();
+        if(!hay.includes(q)) return false;
+      }
+      return true;
+    });
+    if(state.sort==="alpha") list.sort((a,b)=>a.name.localeCompare(b.name));
+    else list.sort((a,b)=>T(REGIONS[a.region].fr,REGIONS[a.region].en).localeCompare(T(REGIONS[b.region].fr,REGIONS[b.region].en)) || a.name.localeCompare(b.name));
+    return list;
+  }
+
+  function cardHTML(b, i){
+    const r = REGIONS[b.region];
+    const specialty = specialtyOf(b);
+    const activeCerts = SPEC_AXES.filter(ax=>axOn(b,ax.key));
+    let links = "";
+    if(b.web) links += `<a class="link-ic" href="${b.web}" ${EXT} title="${webHost(b.web)}" aria-label="Site web">${ICON_WEB}</a>`;
+    if(b.fb) links += `<a class="link-ic" href="${b.fb}" ${EXT} title="Facebook" aria-label="Facebook">${ICON_FB}</a>`;
+    links += `<a class="link-ic" href="mailto:${b.emails[0]}" title="${b.emails[0]}" aria-label="Courriel">${ICON_MAIL}</a>`;
+    return `<article class="card cat-card reveal in">
+      <div class="cat-top">
+        <div class="cat-logo" aria-hidden="true">${initials(b.name)}</div>
+        <div class="cat-id"><h4>${b.name}</h4><div class="breeder">${b.breeder}</div></div>
+      </div>
+      <div class="cat-loc">${ICON_PIN}${b.city[CRCC.lang]||b.city.fr} · ${T(r.fr,r.en)}</div>
+      <div class="cat-badges">${badgesFor(b)}</div>
+      <div class="cat-spec">
+        <span class="spec-label">${T("Spécialisé dans","Specializes in")}</span>
+        <span class="spec-val ${specialty?"":"is-ph"}">${specialty ? specialty : T("[spécialité]","[specialty]")}</span>
+        ${activeCerts.length ? `<div class="cert-chips">${activeCerts.map(ax=>`<span class="cert-chip">${ax.icon}${T(ax.fr,ax.en)}</span>`).join("")}</div>` : ""}
+      </div>
+      <div class="cat-foot">
+        <button class="btn btn-ghost btn-sm" data-open="${i}" style="flex:1">${T("Voir la fiche","View profile")}</button>
+        <div class="cat-links">${links}</div>
+      </div>
+    </article>`;
+  }
+
+  function render(){
+    buildCertOpts(); populateRegions(); drawViz(); counts();
+    const list = filtered();
+    const grid = document.getElementById("catGrid");
+    grid.innerHTML = list.map(b=>cardHTML(b, BREEDERS.indexOf(b))).join("");
+    document.getElementById("emptyState").classList.toggle("hidden", list.length>0);
+    const cnt = document.getElementById("resultsCount");
+    cnt.innerHTML = T(`<b>${list.length}</b> chatterie${list.length>1?"s":""} trouvée${list.length>1?"s":""}`, `<b>${list.length}</b> ${list.length>1?"catteries":"cattery"} found`);
+    grid.querySelectorAll("[data-open]").forEach(btn=>btn.addEventListener("click",()=>openModal(BREEDERS[+btn.dataset.open])));
+  }
+
+  function openModal(b){
+    const r = REGIONS[b.region];
+    const specialty = specialtyOf(b);
+    const m = document.getElementById("modal");
+    let linkRows = "";
+    if(b.web) linkRows += `<li><span class="k">${T("Site web","Website")}</span><span class="v"><a href="${b.web}" ${EXT}>${webHost(b.web)}</a></span></li>`;
+    if(b.fb) linkRows += `<li><span class="k">Facebook</span><span class="v"><a href="${b.fb}" ${EXT}>${T("Page de la chatterie","Cattery page")}</a></span></li>`;
+    if(b.phone) linkRows += `<li><span class="k">${T("Téléphone","Phone")}</span><span class="v"><a href="tel:${b.phone.replace(/[^0-9+]/g,'')}">${b.phone}</a></span></li>`;
+    const emailRows = b.emails.map(e=>`<li><span class="k">${T("Courriel","Email")}</span><span class="v"><a href="mailto:${e}">${e}</a></span></li>`).join("");
+    m.innerHTML = `
+      <div class="modal-hero">
+        <div class="ph ratio-16-9"><div class="ph-label">${T("Galerie, bannière chatterie","Gallery, cattery banner")}</div></div>
+        <button class="icon-btn modal-close" id="modalClose" aria-label="${T("Fermer","Close")}">${CRCC.ICON.close}</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-head">
+          <div class="cat-logo" aria-hidden="true">${initials(b.name)}</div>
+          <div style="flex:1; padding-top:54px">
+            <h2 style="font-size:2rem">${b.name}</h2>
+            <p style="margin-top:2px">${b.breeder} · ${b.city[CRCC.lang]||b.city.fr}, QC</p>
+          </div>
+        </div>
+        <div class="cat-badges" style="padding:18px 0 0">${badgesFor(b)}</div>
+        <hr class="divider" style="margin:22px 0">
+        <h4 style="margin-bottom:12px">${T("Chatons & reproducteurs","Kittens & breeding cats")}</h4>
+        <div class="gallery">
+          <div class="ph ratio-1-1" style="border-radius:var(--r-md)"><span class="ph-label" style="font-size:.72rem">${T("Photo","Photo")}</span></div>
+          <div class="ph ratio-1-1" style="border-radius:var(--r-md)"><span class="ph-label" style="font-size:.72rem">${T("Photo","Photo")}</span></div>
+          <div class="ph ratio-1-1" style="border-radius:var(--r-md)"><span class="ph-label" style="font-size:.72rem">${T("Photo","Photo")}</span></div>
+        </div>
+        <hr class="divider" style="margin:22px 0">
+        <hr class="divider" style="margin:22px 0">
+        <h4 style="margin-bottom:6px">${T("Spécialisé dans…","Specializes in…")}</h4>
+        <p style="margin-bottom:14px">${specialty ? specialty : `<span style="color:var(--text-muted); font-style:italic">${T("[spécialité]","[specialty]")}</span>`}</p>
+        <ul class="spec-axes">
+          ${SPEC_AXES.map(ax=>{ const on = axOn(b,ax.key); return `<li class="${on?"on":""}"><span class="ax-ic">${ax.icon}</span><span class="ax-name">${T(ax.fr,ax.en)}</span><span class="ax-state">${on ? ICON_CHECK+T("Confirmé","Confirmed") : T("Non renseigné","Not documented")}</span></li>`; }).join("")}
+        </ul>
+        <div class="grid cols-2" style="gap:30px">
+          <div>
+            <h4 style="margin-bottom:8px">${T("Informations","Details")}</h4>
+            <ul class="spec-list">
+              <li><span class="k">${T("Région","Region")}</span><span class="v">${T(r.fr,r.en)}</span></li>
+              <li><span class="k">${T("Statut","Status")}</span><span class="v">${b.status==="associe"?T("Associé (probation 12 mois)","Associate (12-month probation)"):T("Membre régulier","Regular member")}</span></li>
+              <li><span class="k">${T("Enregistrement","Registration")}</span><span class="v">CCC / CCA-AFC</span></li>
+              <li><span class="k">${T("Certification","Certification")}</span><span class="v">${b.anima?"Anima-Québec":T("Aucune","None")}</span></li>
+              <li><span class="k">${T("Rabais offert","Discount")}</span><span class="v">${b.discount==="tbd"?T("À déterminer","To be determined"):(b.discount?b.discount+" %":T("Aucun","None"))}</span></li>
+            </ul>
+          </div>
+          <div>
+            <h4 style="margin-bottom:8px">${T("Contact","Contact")}</h4>
+            <ul class="spec-list">${linkRows}${emailRows}</ul>
+          </div>
+        </div>
+        <div class="diligence" style="margin:24px 0 0">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <p>${T("Visitez l'élevage, demandez les certificats d'enregistrement et de dépistage (CMH, PKD, PRA), et un contrat avec garantie de santé. Vérifiez aussi les antécédents publics.","Visit the cattery, request registration and health-screening certificates (HCM, PKD, PRA), and a contract with health guarantee. Also check public records.")} <a href="http://citoyens.soquij.qc.ca/" ${EXT}>SOQUIJ</a> · <a href="https://www.mapaq.gouv.qc.ca/fr/Consommation/condamnations/Pages/Recherchecondamnations.aspx" ${EXT}>MAPAQ</a>.</p>
+        </div>
+        <div class="flex gap-md mt-4" style="flex-wrap:wrap">
+          <a class="btn" href="mailto:${b.emails[0]}">${ICON_MAIL}${T("Contacter la chatterie","Contact cattery")}</a>
+          <a class="btn btn-ghost" href="article.html">${T("Lire : comment choisir son éleveur","Read: how to choose a breeder")}</a>
+        </div>
+      </div>`;
+    const ov = document.getElementById("modalOverlay");
+    ov.classList.add("open"); document.body.style.overflow="hidden";
+    m.querySelector("#modalClose").addEventListener("click", closeModal);
+  }
+  function closeModal(){ document.getElementById("modalOverlay").classList.remove("open"); document.body.style.overflow=""; }
+  document.getElementById("modalOverlay").addEventListener("click", e=>{ if(e.target.id==="modalOverlay") closeModal(); });
+  document.addEventListener("keydown", e=>{ if(e.key==="Escape") closeModal(); });
+
+  // Bind controls
+  const _si=document.getElementById("searchInput"), _msi=document.getElementById("mSearchInput");
+  function syncSearch(val, src){ state.q=val; if(_si && src!==_si) _si.value=val; if(_msi && src!==_msi) _msi.value=val; render(); }
+  _si.addEventListener("input", e=>syncSearch(e.target.value, _si));
+  if(_msi) _msi.addEventListener("input", e=>syncSearch(e.target.value, _msi));
+  document.getElementById("statusOpts").addEventListener("change", e=>{ if(e.target.name==="status"){ state.status=e.target.value; render(); } });
+  document.getElementById("animaCheck").addEventListener("change", e=>{ state.anima=e.target.checked; render(); });
+  document.getElementById("certOpts").addEventListener("change", e=>{
+    const f = e.target.getAttribute("data-flag"); if(!f) return;
+    if(e.target.checked){ if(!state.flags.includes(f)) state.flags.push(f); }
+    else { state.flags = state.flags.filter(x=>x!==f); }
+    render();
+  });
+  document.getElementById("regionSelect").addEventListener("change", e=>{ state.region=e.target.value; render(); });
+  document.getElementById("discountSelect").addEventListener("change", e=>{ state.discount=e.target.value; render(); });
+  document.querySelectorAll("[data-sort]").forEach(b=>b.addEventListener("click",()=>{
+    document.querySelectorAll("[data-sort]").forEach(x=>x.classList.remove("is-active"));
+    b.classList.add("is-active"); state.sort=b.dataset.sort; render();
+  }));
+  document.getElementById("rvizReset").addEventListener("click", ()=>{
+    state.region="all"; document.getElementById("regionSelect").value="all"; render();
+  });
+  document.getElementById("clearFilters").addEventListener("click", ()=>{
+    state = { q:"", status:"all", anima:false, flags:[], region:"all", discount:"all", sort:state.sort };
+    document.getElementById("searchInput").value="";
+    var _m=document.getElementById("mSearchInput"); if(_m) _m.value="";
+    document.getElementById("animaCheck").checked=false;
+    document.querySelectorAll('#certOpts input[data-flag]').forEach(c=>c.checked=false);
+    document.getElementById("discountSelect").value="all";
+    document.querySelector('input[name=status][value=all]').checked=true;
+    render();
+  });
+  document.getElementById("filtersToggle").addEventListener("click", ()=>{
+    const a=document.getElementById("aside"); const open=a.classList.toggle("collapsed");
+    document.getElementById("filtersToggle").setAttribute("aria-expanded", (!open).toString());
+  });
+
+  CRCC.onLangChange.push(()=>render());
+  render();
+})();
+</script>
+</body>
+</html>

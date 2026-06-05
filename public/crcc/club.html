@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le club · Équipe & transparence · CRCC</title>
+<meta name="description" content="Le conseil d'administration, les comités, les experts et les partenaires du Club du Rex de Cornouailles du Canada.">
+<link rel="stylesheet" href="assets/crcc.css">
+<style>
+.club-hero{ padding-block:clamp(34px,5vw,56px); }
+.stat-strip{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:36px; }
+@media (max-width:620px){ .stat-strip{ grid-template-columns:1fr; gap:14px; } }
+.stat-card{ padding:24px; border-radius:var(--r-lg); background:var(--surface); border:1px solid var(--border); }
+.stat-card p{ font-size:.92rem; margin-top:4px; }
+.person-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:18px; }
+.person{ padding:20px; border-radius:var(--r-lg); border:1px solid var(--border); background:var(--surface); text-align:center; }
+.person .pavatar{ width:72px;height:72px;border-radius:50%; margin:0 auto 14px; background:var(--primary-soft); color:var(--primary); display:grid;place-items:center; font-family:var(--font-display); font-weight:700; font-size:1.5rem; }
+[data-theme="dark"] .person .pavatar{ color:var(--forest-200); }
+.person.vacant .pavatar{ background:var(--surface-2); color:var(--text-muted); border:2px dashed var(--border-strong); }
+.person .role{ font-size:.82rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--accent); margin-bottom:4px; }
+[data-theme="dark"] .person .role{ color:var(--gold-300); }
+.person h4{ font-size:1.05rem; }
+.committee-list{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+@media (max-width:620px){ .committee-list{ grid-template-columns:1fr; } }
+.committee{ display:flex; gap:14px; padding:18px; border-radius:var(--r-md); background:var(--surface); border:1px solid var(--border); }
+.committee .c-ic{ width:44px;height:44px;border-radius:var(--r-sm); background:var(--accent-soft); color:var(--gold-700); display:grid;place-items:center; flex:none; }
+[data-theme="dark"] .committee .c-ic{ color:var(--gold-300); }
+.committee .c-ic svg{ width:22px;height:22px; }
+.expert-list{ display:flex; flex-wrap:wrap; gap:10px; }
+.expert-cards{ display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:14px; }
+.xcard{ display:flex; gap:14px; align-items:flex-start; padding:18px; border-radius:var(--r-lg); background:var(--surface); border:1px solid var(--border); }
+.xcard .x-av{ width:46px;height:46px;border-radius:50%; background:var(--forest-100); color:var(--forest-700); display:grid;place-items:center; font-weight:700; font-size:.95rem; flex:none; }
+[data-theme="dark"] .xcard .x-av{ background:#3a1d1f; color:var(--forest-200); }
+.xcard h4{ font-size:1.05rem; line-height:1.2; }
+.xcard .x-role{ font-size:.86rem; color:var(--text-muted); margin-top:3px; line-height:1.4; }
+.xcard .x-role a{ font-weight:600; }
+.expert{ display:flex; align-items:center; gap:10px; padding:10px 16px 10px 10px; border-radius:var(--r-pill); background:var(--surface); border:1px solid var(--border); }
+.expert .e-av{ width:34px;height:34px;border-radius:50%; background:var(--forest-100); color:var(--forest-700); display:grid;place-items:center; font-weight:700; font-size:.82rem; flex:none; }
+[data-theme="dark"] .expert .e-av{ background:#3a1d1f; color:var(--forest-200); }
+.expert .e-meta b{ font-size:.92rem; display:block; line-height:1.1; }
+.expert .e-meta span{ font-size:.76rem; color:var(--text-muted); }
+.partner-grid2{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+@media (max-width:620px){ .partner-grid2{ grid-template-columns:1fr 1fr; } }
+.doc-row{ display:flex; gap:14px; align-items:center; padding:18px 20px; border-radius:var(--r-md); border:1px solid var(--border); background:var(--surface); text-decoration:none; color:inherit; transition:all .15s; }
+.doc-row:hover{ border-color:var(--primary); transform:translateX(4px); }
+.doc-row .d-ic{ width:42px;height:42px;border-radius:var(--r-sm); background:var(--primary-soft); color:var(--primary); display:grid;place-items:center; flex:none; }
+[data-theme="dark"] .doc-row .d-ic{ color:var(--forest-200); }
+</style>
+</head>
+<body>
+<main id="main" data-screen-label="Le club">
+
+  <section class="wrap club-hero">
+    <div style="max-width:720px">
+      <span class="eyebrow" data-fr="Le club" data-en="The club">Le club</span>
+      <h1 class="mt-2" data-fr="De vraies personnes, des rôles clairs" data-en="Real people, clear roles">De vraies personnes, des rôles clairs</h1>
+      <p class="lead mt-2" data-fr="La confiance se construit sur la transparence. Voici qui dirige le CRCC, comment nous sommes organisés, et les documents qui encadrent notre action." data-en="Trust is built on transparency. Here's who leads the CRCC, how we're organized, and the documents that govern our work.">La confiance se construit sur la transparence. Voici qui dirige le CRCC, comment nous sommes organisés, et les documents qui encadrent notre action.</p>
+    </div>
+    <div class="stat-strip">
+      <div class="stat-card"><div class="stat-num">2017</div><p class="muted" data-fr="Année de fondation comme OBNL" data-en="Year founded as a non-profit">Année de fondation comme OBNL</p></div>
+      <div class="stat-card"><div class="stat-num">11</div><p class="muted" data-fr="Chatteries membres" data-en="Member catteries">Chatteries membres</p></div>
+      <div class="stat-card"><div class="stat-num">7</div><p class="muted" data-fr="Associations félines reconnaissant la race" data-en="Feline associations recognizing the breed">Associations félines reconnaissant la race</p></div>
+    </div>
+  </section>
+
+  <!-- CA -->
+  <section class="section flow-bg" style="position:relative">
+    <span class="annot" style="left:var(--gutter); top:18px">
+      <span class="annot-dot">1</span>
+      <span class="annot-pop"><b>Refonte</b>Signal de confiance majeur : équipe nommée avec rôles, comités et experts, bien plus crédible qu'un simple « à propos » anonyme.</span>
+    </span>
+    <div class="wrap">
+      <span class="eyebrow" data-fr="Conseil d'administration" data-en="Board of directors">Conseil d'administration</span>
+      <h2 class="mt-2 mb-4" data-fr="Le conseil d'administration" data-en="The board">Le conseil d'administration</h2>
+      <div class="person-grid">
+        <div class="person"><div class="pavatar">GC</div><div class="role" data-fr="Présidente" data-en="President">Présidente</div><h4>Geneviève Côté</h4></div>
+        <div class="person"><div class="pavatar">PT</div><div class="role" data-fr="Vice-présidente" data-en="Vice-president">Vice-présidente</div><h4>Pascale Therrien</h4></div>
+        <div class="person"><div class="pavatar">MT</div><div class="role" data-fr="Trésorière" data-en="Treasurer">Trésorière</div><h4>Marie-Claude Tremblay</h4><p class="muted" style="font-size:.8rem">CPA, CGA</p></div>
+        <div class="person"><div class="pavatar">JG</div><div class="role" data-fr="Secrétaire" data-en="Secretary">Secrétaire</div><h4>Judy Gormley</h4></div>
+        <div class="person"><div class="pavatar">DR</div><div class="role" data-fr="Représentante du public" data-en="Public representative">Représentante du public</div><h4>Diane Racine</h4></div>
+      </div>
+
+      <h3 class="mt-5 mb-3" data-fr="Directeurs régionaux" data-en="Regional directors">Directeurs régionaux</h3>
+      <div class="person-grid">
+        <div class="person vacant"><div class="pavatar">?</div><div class="role" data-fr="Région Ouest" data-en="Western region">Région Ouest</div><h4 class="muted" data-fr="Poste vacant" data-en="Vacant">Poste vacant</h4><a class="btn btn-ghost btn-sm mt-2" href="contact.html" data-fr="Je veux aider" data-en="I want to help">Je veux aider</a></div>
+        <div class="person"><div class="pavatar">PT</div><div class="role" data-fr="Région Centrale" data-en="Central region">Région Centrale</div><h4>Pascale Therrien</h4></div>
+        <div class="person vacant"><div class="pavatar">?</div><div class="role" data-fr="Atlantique-Nord" data-en="Atlantic-North">Atlantique-Nord</div><h4 class="muted" data-fr="Poste vacant" data-en="Vacant">Poste vacant</h4><a class="btn btn-ghost btn-sm mt-2" href="contact.html" data-fr="Je veux aider" data-en="I want to help">Je veux aider</a></div>
+      </div>
+      <div class="flex items-center gap-md mt-4" style="flex-wrap:wrap">
+        <a class="btn" href="contact.html" data-fr="Je veux aider le club" data-en="I want to help the club">Je veux aider le club</a>
+        <a class="textlink" href="reglements.html" data-fr="Lire nos règlements administratifs" data-en="Read our by-laws">Lire nos règlements administratifs →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMITÉS -->
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow" data-fr="Organisation" data-en="Organization">Organisation</span>
+      <h2 class="mt-2 mb-4" data-fr="Comités de travail" data-en="Working committees">Comités de travail</h2>
+      <div class="committee-list">
+        <div class="committee"><span class="c-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l2.4 5 5.5.6-4.1 3.7 1.2 5.4L12 19l-5 2.7 1.2-5.4L4 12.6l5.5-.6L12 2z"/></svg></span><div><h4 data-fr="Race & Standard" data-en="Breed & Standard">Race & Standard</h4><p class="muted" style="font-size:.9rem">Josée Charlebois</p></div></div>
+        <div class="committee"><span class="c-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l18-5v12L3 14v-3zM11.6 16.8A3 3 0 0 1 6 16"/></svg></span><div><h4 data-fr="Relations publiques & Financement" data-en="PR & Fundraising">Relations publiques & Financement</h4><p class="muted" style="font-size:.9rem">Cynthia Lévesque</p></div></div>
+        <div class="committee"><span class="c-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 2v6l-5 9a2 2 0 0 0 1.8 3h12.4A2 2 0 0 0 20 17l-5-9V2"/><path d="M9 2h6"/></svg></span><div><h4 data-fr="Recherche & développement" data-en="Research & development">Recherche & développement</h4><p class="muted" style="font-size:.9rem">G. Côté · P. Therrien</p></div></div>
+        <div class="committee"><span class="c-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span><div><h4 data-fr="Conformité" data-en="Compliance">Conformité</h4><p class="muted" style="font-size:.9rem">Geneviève Côté</p></div></div>
+        <div class="committee"><span class="c-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg></span><div><h4 data-fr="Réseau Refuge" data-en="Shelter network">Réseau Refuge</h4><p class="muted" style="font-size:.9rem">Josée Charlebois</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERTS -->
+  <section class="section sunken-bg">
+    <div class="wrap">
+      <span class="eyebrow" data-fr="Experts & consultants" data-en="Experts & consultants">Experts & consultants</span>
+      <h2 class="mt-2 mb-4" data-fr="Celles et ceux qui nous conseillent" data-en="Those who advise us">Celles et ceux qui nous conseillent</h2>
+      <div class="expert-cards">
+        <div class="xcard"><span class="x-av">SN</span><div><h4>Sandra Nabeta</h4><div class="x-role" data-fr="Éleveuse de Rex de Cornouailles, résidente" data-en="Cornish Rex breeder, resident">Éleveuse de Rex de Cornouailles, résidente</div></div></div>
+        <div class="xcard"><span class="x-av">CM</span><div><h4>Cherryl McGee</h4><div class="x-role" data-fr="Éleveuse de Rex de Cornouailles, non-résidente" data-en="Cornish Rex breeder, non-resident">Éleveuse de Rex de Cornouailles, non-résidente</div></div></div>
+        <div class="xcard"><span class="x-av">FT</span><div><h4>Florence Toinet</h4><div class="x-role" data-fr="Éleveuse non-résidente · présidente du club français Passion Rex Cornish" data-en="Non-resident breeder · president of the French club Passion Rex Cornish">Éleveuse non-résidente · présidente du club français Passion Rex Cornish</div></div></div>
+        <div class="xcard"><span class="x-av">JF</span><div><h4>Jean-Pierre Fillipi</h4><div class="x-role" data-fr="Éleveur non-résident · vice-président de Passion Rex Cornish" data-en="Non-resident breeder · vice-president of Passion Rex Cornish">Éleveur non-résident · vice-président de Passion Rex Cornish</div></div></div>
+        <div class="xcard"><span class="x-av">SL</span><div><h4>Sylvie Lamoureux</h4><div class="x-role" data-fr="Juge LOOF · éleveuse de Sphynx et de Dachshund · zoothérapeute" data-en="LOOF judge · Sphynx and Dachshund breeder · animal therapist">Juge LOOF · éleveuse de Sphynx et de Dachshund · zoothérapeute</div></div></div>
+        <div class="xcard"><span class="x-av">MG</span><div><h4>Michelle Giguère</h4><div class="x-role" data-fr="Fondatrice du CRCC" data-en="Founder of the CRCC">Fondatrice du CRCC</div></div></div>
+        <div class="xcard"><span class="x-av">AB</span><div><h4>Alicia Bouthillette</h4><div class="x-role" data-i18n-html data-fr="Designer graphique · <a href='mailto:alicia.bouthillette@hotmail.com'>alicia.bouthillette@hotmail.com</a>" data-en="Graphic designer · <a href='mailto:alicia.bouthillette@hotmail.com'>alicia.bouthillette@hotmail.com</a>">Designer graphique · <a href="mailto:alicia.bouthillette@hotmail.com">alicia.bouthillette@hotmail.com</a></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTENAIRES + RÈGLEMENTS -->
+  <section class="section">
+    <div class="wrap grid cols-2" style="gap:clamp(30px,5vw,60px); align-items:start">
+      <div>
+        <span class="eyebrow" data-fr="Partenaires" data-en="Partners">Partenaires</span>
+        <h3 class="mt-2 mb-3" data-fr="Ils soutiennent le club" data-en="They support the club">Ils soutiennent le club</h3>
+        <div class="partner-grid2">
+          <a class="partner" href="https://boutiqueanimali.com/" target="_blank" rel="noopener" title="Boutique Animali"><img src="https://club-crcc.ca/wp-content/uploads/2025/08/th.jpg" alt="Boutique Animali" loading="lazy" onerror="this.closest('.partner').classList.add('noimg');this.remove();"><span class="pname">Boutique Animali</span></a>
+          <a class="partner" href="https://servicesfelinplus.com/" target="_blank" rel="noopener" title="Services Félin Plus"><img src="https://club-crcc.ca/wp-content/uploads/2025/08/ServicesFelinPlus-300x177.png" alt="Services Félin Plus" loading="lazy" onerror="this.closest('.partner').classList.add('noimg');this.remove();"><span class="pname">Services Félin Plus</span></a>
+          <a class="partner" href="https://polocats.com/" target="_blank" rel="noopener" title="Polo Cats"><img src="https://club-crcc.ca/wp-content/uploads/2025/08/BKRPEzs8Ptdq73iz80o00L8DiOtNIesOknjkNJTP.png" alt="Polo Cats" loading="lazy" onerror="this.closest('.partner').classList.add('noimg');this.remove();"><span class="pname">Polo Cats</span></a>
+          <a class="partner" href="https://www.tipiettralala.com/" target="_blank" rel="noopener" title="Tipi et Tralala"><img src="https://club-crcc.ca/wp-content/uploads/2025/08/logo_-_tipi_et_tralala-removebg-preview-300x251.png" alt="Tipi et Tralala" loading="lazy" onerror="this.closest('.partner').classList.add('noimg');this.remove();"><span class="pname">Tipi et Tralala</span></a>
+          <a class="partner" href="https://www.hotel4.ca/" target="_blank" rel="noopener" title="Hôtel 4 Pattes"><img src="https://club-crcc.ca/wp-content/uploads/2025/08/H4_pattesCat-logo-officiel.avif" alt="Hôtel 4 Pattes" loading="lazy" onerror="this.closest('.partner').classList.add('noimg');this.remove();"><span class="pname">Hôtel 4 Pattes</span></a>
+          <a class="partner" href="https://linktr.ee/kimduboisphotographeanimaliere" target="_blank" rel="noopener" title="Kim Dubois Photographe animalière"><img src="https://club-crcc.ca/wp-content/uploads/2025/08/kim-logo-300x207.jpg" alt="Kim Dubois Photographe animalière" loading="lazy" onerror="this.closest('.partner').classList.add('noimg');this.remove();"><span class="pname">Kim Dubois Photo</span></a>
+        </div>
+      </div>
+      <div id="reglements" style="scroll-margin-top:90px">
+        <span class="eyebrow" data-fr="Transparence" data-en="Transparency">Transparence</span>
+        <h3 class="mt-2 mb-3" data-fr="Documents officiels" data-en="Official documents">Documents officiels</h3>
+        <div class="stack" style="display:flex;flex-direction:column;gap:12px">
+          <a class="doc-row" href="reglements.html"><span class="d-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span><div style="flex:1"><b data-fr="Règlements administratifs" data-en="By-laws">Règlements administratifs</b><p class="muted" style="font-size:.85rem" data-fr="Statuts et fonctionnement de l'OBNL (39 articles)" data-en="Non-profit statutes and operation (39 articles)">Statuts et fonctionnement de l'OBNL (39 articles)</p></div></a>
+          <a class="doc-row" href="codes.html"><span class="d-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l2.4 5 5.5.6-4.1 3.7 1.2 5.4L12 19l-5 2.7 1.2-5.4L4 12.6l5.5-.6L12 2z"/></svg></span><div style="flex:1"><b data-fr="Code d'éthique & de pratiques" data-en="Codes of ethics & practices">Code d'éthique & de pratiques</b><p class="muted" style="font-size:.85rem" data-fr="Consultables en ligne et en PDF" data-en="Available online and as PDF">Consultables en ligne et en PDF</p></div></a>
+          <a class="doc-row" href="contact.html"><span class="d-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></span><div style="flex:1"><b data-fr="Procès-verbaux & rapports" data-en="Minutes & reports">Procès-verbaux & rapports</b><p class="muted" style="font-size:.85rem" data-fr="Sur demande à info@club-crcc.ca" data-en="On request at info@club-crcc.ca">Sur demande à info@club-crcc.ca</p></div></a>
+        </div>
+
+        <h3 class="mt-5 mb-3" data-fr="Communauté" data-en="Community">Communauté</h3>
+        <div class="stack" style="display:flex;flex-direction:column;gap:12px">
+          <a class="doc-row" href="https://www.facebook.com/groups/179824389290311/" target="_blank" rel="noopener"><span class="d-ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V6h-3c-2 0-3.5 1.5-3.5 3.5V11H8v3h2.5v7h3v-7H16l.5-3h-3V9.5C13.5 9.2 13.7 9 14 9Z"/></svg></span><div style="flex:1"><b data-fr="Groupe Facebook des membres" data-en="Members’ Facebook group">Groupe Facebook des membres</b><p class="muted" style="font-size:.85rem" data-fr="Espace d'échange de la communauté CRCC" data-en="CRCC community discussion space">Espace d'échange de la communauté CRCC</p></div></a>
+          <a class="doc-row" href="https://www.facebook.com/groups/1091303434214089/" target="_blank" rel="noopener"><span class="d-ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V6h-3c-2 0-3.5 1.5-3.5 3.5V11H8v3h2.5v7h3v-7H16l.5-3h-3V9.5C13.5 9.2 13.7 9 14 9Z"/></svg></span><div style="flex:1"><b data-fr="Groupe des membres réguliers" data-en="Regular members’ group">Groupe des membres réguliers</b><p class="muted" style="font-size:.85rem" data-fr="Réservé aux membres réguliers du club" data-en="For the club’s regular members">Réservé aux membres réguliers du club</p></div></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+<script src="assets/crcc.js"></script>
+</body>
+</html>

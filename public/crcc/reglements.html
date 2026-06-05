@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Règlements administratifs · CRCC</title>
+<meta name="description" content="Règlements généraux du Club du Rex de Cornouailles du Canada, OBNL régi par la Loi canadienne sur les organisations à but non lucratif.">
+<link rel="stylesheet" href="assets/crcc.css">
+<style>
+.reg-hero{ padding-block: clamp(34px,5vw,52px) 0; }
+.meta-strip{ display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; }
+.meta-pill{ display:inline-flex; align-items:center; gap:8px; padding:8px 14px; border-radius:var(--r-pill); background:var(--surface); border:1px solid var(--border); font-size:.86rem; font-weight:600; color:var(--text-soft); }
+.meta-pill svg{ width:15px;height:15px; color:var(--accent); }
+.reg-layout{ display:grid; grid-template-columns:260px 1fr; gap:clamp(24px,4vw,48px); align-items:start; }
+.toc{ position:sticky; top:calc(var(--nav-h) + 20px); }
+.toc h5{ font-size:.74rem; letter-spacing:.1em; text-transform:uppercase; color:var(--text-muted); margin-bottom:12px; }
+.toc ol{ list-style:none; padding:0; display:flex; flex-direction:column; gap:2px; }
+.toc a{ display:flex; gap:12px; padding:10px 12px; border-radius:var(--r-sm); text-decoration:none; color:var(--text-soft); font-size:.92rem; font-weight:500; transition:all .15s; align-items:baseline; }
+.toc a:hover{ background:var(--surface-2); color:var(--text); }
+.toc a .n{ font-family:var(--font-display); font-weight:700; color:var(--accent); flex:none; }
+.dl-box{ margin-top:22px; padding:18px; border-radius:var(--r-md); border:1px dashed var(--border-strong); text-align:center; }
+.dl-box svg{ width:30px;height:30px; color:var(--text-muted); margin:0 auto 8px; }
+.reg-acc{ border:1px solid var(--border); border-radius:var(--r-md); margin-bottom:14px; background:var(--surface); overflow:hidden; scroll-margin-top:calc(var(--nav-h) + 16px); }
+.reg-acc summary{ list-style:none; cursor:pointer; padding:20px 22px; display:flex; align-items:center; gap:16px; }
+.reg-acc summary::-webkit-details-marker{ display:none; }
+.reg-acc summary .num{ width:40px;height:40px;border-radius:var(--r-sm);background:var(--primary-soft);color:var(--primary);display:grid;place-items:center;font-family:var(--font-display);font-weight:700;font-size:1.2rem;flex:none; }
+[data-theme="dark"] .reg-acc summary .num{ color:var(--forest-200); }
+.reg-acc summary .t{ flex:1; font-family:var(--font-display); font-size:1.4rem; font-weight:600; color:var(--text); line-height:1.15; }
+.reg-acc summary .chev{ flex:none; width:22px;height:22px; color:var(--text-muted); transition:transform .2s var(--ease); }
+.reg-acc[open] summary .chev{ transform:rotate(90deg); }
+.reg-acc .body{ padding:0 22px 24px 78px; color:var(--text-soft); }
+.reg-acc .body p{ margin-bottom:.8em; }
+.reg-acc .body ul{ margin:.3em 0 .8em; padding-left:20px; }
+.reg-acc .body li{ margin-bottom:.45em; }
+@media (max-width:820px){ .reg-layout{ grid-template-columns:1fr; } .toc{ position:static; } .reg-acc .body{ padding-left:22px; } }
+</style>
+</head>
+<body>
+<main id="main" data-screen-label="Règlements">
+
+  <section class="wrap reg-hero">
+    <div style="max-width:720px">
+      <span class="eyebrow" data-fr="Transparence" data-en="Transparency">Transparence</span>
+      <h1 class="mt-2" data-fr="Règlements administratifs" data-en="By-laws">Règlements administratifs</h1>
+      <p class="lead mt-2" data-fr="Les règlements généraux qui encadrent la vie démocratique du CRCC. Comme organisme à but non lucratif, le club est tenu à la transparence envers ses membres et le public." data-en="The general by-laws that govern the democratic life of the CRCC. As a non-profit, the club is committed to transparency toward its members and the public.">Les règlements généraux qui encadrent la vie démocratique du CRCC. Comme organisme à but non lucratif, le club est tenu à la transparence envers ses membres et le public.</p>
+    </div>
+    <div class="meta-strip">
+      <span class="meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h12"/></svg><span data-fr="39 articles" data-en="39 articles">39 articles</span></span>
+      <span class="meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span data-fr="Dernière mise à jour : mai 2022" data-en="Last updated: May 2022">Dernière mise à jour : mai 2022</span></span>
+      <span class="meta-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><a href="https://laws-lois.justice.gc.ca/fra/lois/c-7.75/" target="_blank" rel="noopener" data-fr="Loi canadienne sur les OBNL" data-en="Canada Not-for-profit Corporations Act">Loi canadienne sur les OBNL</a></span>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:36px">
+    <div class="wrap reg-layout">
+      <aside class="toc">
+        <h5 data-fr="Sommaire" data-en="Contents">Sommaire</h5>
+        <ol id="tocList"></ol>
+        <div class="dl-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6m0 6 2.5-2.5M12 18l-2.5-2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <p style="font-size:.88rem; margin-bottom:10px" data-fr="Texte intégral des règlements (PDF)." data-en="Full text of the by-laws (PDF).">Texte intégral des règlements (PDF).</p>
+          <a class="btn btn-sm btn-block" href="#" onclick="return false" data-fr="Télécharger le PDF" data-en="Download PDF">Télécharger le PDF</a>
+          <p class="muted" style="font-size:.74rem;margin-top:8px" data-fr="Sur demande à info@club-crcc.ca" data-en="On request at info@club-crcc.ca">Sur demande à info@club-crcc.ca</p>
+        </div>
+      </aside>
+      <div id="regContent"></div>
+    </div>
+  </section>
+
+</main>
+<script src="assets/crcc.js"></script>
+<script>
+(function(){
+  const T=(fr,en)=>CRCC.lang==="en"?en:fr;
+  const ICON_CHEV='<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>';
+  const SECTIONS=[
+    {t:{fr:"Définitions & dispositions générales",en:"Definitions & general provisions"},c:{
+      fr:"<p>Les règlements définissent les termes employés (membre, administrateur, assemblée, etc.), le siège social de l'organisme, son exercice financier et la primauté de la <b>Loi canadienne sur les organisations à but non lucratif</b> en cas de divergence.</p>",
+      en:"<p>The by-laws define the terms used (member, director, assembly, etc.), the organization's head office, its fiscal year, and the primacy of the <b>Canada Not-for-profit Corporations Act</b> in case of conflict.</p>"}},
+    {t:{fr:"Opérations bancaires & finances",en:"Banking & finances"},c:{
+      fr:"<p>Le conseil désigne l'institution financière, les signataires autorisés et les modalités des transactions. La trésorière tient les livres, présente les états financiers à l'assemblée annuelle et veille au respect du budget de l'OBNL.</p>",
+      en:"<p>The board designates the financial institution, the authorized signatories and the terms of transactions. The treasurer keeps the books, presents the financial statements at the annual assembly and ensures the non-profit's budget is respected.</p>"}},
+    {t:{fr:"Conditions d'adhésion",en:"Membership conditions"},c:{
+      fr:"<p>Deux catégories de membres : <b>membre éleveur</b> (régulier ou associé en probation 12 mois) et <b>membre régulier</b>. L'adhésion suppose l'acceptation des codes d'éthique et de pratiques, le paiement de la cotisation et l'approbation du conseil. Les droits, le renouvellement et la fin de l'adhésion y sont décrits.</p>",
+      en:"<p>Two membership categories: <b>breeder member</b> (regular or associate on 12-month probation) and <b>regular member</b>. Membership requires accepting the codes of ethics and practices, paying the dues and board approval. Rights, renewal and termination of membership are described here.</p>"}},
+    {t:{fr:"Assemblées des membres",en:"Members' assemblies"},c:{
+      fr:"<p>L'assemblée générale annuelle, les assemblées extraordinaires, les avis de convocation, le quorum, le droit de vote (un membre, une voix) et les procédures de scrutin. Les membres réguliers comme éleveurs y votent.</p>",
+      en:"<p>The annual general assembly, special assemblies, notices of meeting, quorum, voting rights (one member, one vote) and ballot procedures. Both regular and breeder members vote.</p>"}},
+    {t:{fr:"Conseil d'administration",en:"Board of directors"},c:{
+      fr:"<p>L'organisme est administré par un conseil composé de <b>4 à 7 administrateurs</b> élus par les membres. On y précise la durée des mandats, les conditions d'éligibilité, les vacances, la destitution et la tenue des réunions du conseil.</p>",
+      en:"<p>The organization is run by a board of <b>4 to 7 directors</b> elected by the members. It specifies term length, eligibility, vacancies, removal and the holding of board meetings.</p>"}},
+    {t:{fr:"Descriptions des postes",en:"Officer descriptions"},c:{
+      fr:"<p>Les rôles et responsabilités de chaque dirigeant :</p><ul><li><b>Président·e</b> — direction générale, représentation officielle ;</li><li><b>Vice-président·e</b> — appui et remplacement du président ;</li><li><b>Secrétaire</b> — procès-verbaux, registres, correspondance ;</li><li><b>Trésorier·ère</b> — finances et états financiers ;</li><li><b>Représentant·e du public</b> — voix externe et impartiale ;</li><li><b>Représentant·e·s de territoire</b> — directeurs régionaux (Ouest, Centrale, Atlantique-Nord).</li></ul>",
+      en:"<p>The roles and responsibilities of each officer:</p><ul><li><b>President</b> — general leadership, official representation;</li><li><b>Vice-president</b> — support and replacement of the president;</li><li><b>Secretary</b> — minutes, records, correspondence;</li><li><b>Treasurer</b> — finances and financial statements;</li><li><b>Public representative</b> — external, impartial voice;</li><li><b>Territory representatives</b> — regional directors (West, Central, Atlantic-North).</li></ul>"}},
+    {t:{fr:"Mesures disciplinaires",en:"Disciplinary measures"},c:{
+      fr:"<p>La procédure applicable en cas de manquement aux codes ou aux règlements : avertissement, suspension, radiation. Le membre visé a droit d'être entendu avant toute décision du conseil. Le comité de conformité instruit les dossiers.</p>",
+      en:"<p>The procedure applicable in case of breach of the codes or by-laws: warning, suspension, expulsion. The member concerned has the right to be heard before any board decision. The compliance committee handles the cases.</p>"}},
+    {t:{fr:"Médiation & arbitrage",en:"Mediation & arbitration"},c:{
+      fr:"<p>Les différends entre membres, ou entre un membre et l'organisme, sont d'abord soumis à la médiation, puis le cas échéant à l'arbitrage, afin d'éviter les recours judiciaires. Modalités, délais et confidentialité y sont précisés.</p>",
+      en:"<p>Disputes between members, or between a member and the organization, are first submitted to mediation, then if necessary to arbitration, to avoid litigation. Terms, deadlines and confidentiality are specified here.</p>"}}
+  ];
+  function render(){
+    document.getElementById("tocList").innerHTML=SECTIONS.map((s,i)=>`<li><a href="#sec-${i}" data-i="${i}"><span class="n">${i+1}</span>${T(s.t.fr,s.t.en)}</a></li>`).join("");
+    document.getElementById("regContent").innerHTML=SECTIONS.map((s,i)=>`
+      <details class="reg-acc" id="sec-${i}" ${i===0?'open':''}>
+        <summary><span class="num">${i+1}</span><span class="t">${T(s.t.fr,s.t.en)}</span>${ICON_CHEV}</summary>
+        <div class="body">${T(s.c.fr,s.c.en)}</div>
+      </details>`).join("");
+    document.querySelectorAll("#tocList a").forEach(a=>a.addEventListener("click",e=>{
+      e.preventDefault();
+      const d=document.getElementById("sec-"+a.dataset.i); d.open=true;
+      const y=d.getBoundingClientRect().top+window.scrollY-(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-h'))+16);
+      window.scrollTo({top:y, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+    }));
+  }
+  CRCC.onLangChange.push(render);
+  render();
+})();
+</script>
+</body>
+</html>

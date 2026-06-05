@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La race · Rex de Cornouailles · CRCC</title>
+<meta name="description" content="Histoire, tempérament, entretien et standard du Rex de Cornouailles. Liens vers les standards des associations félines reconnues.">
+<link rel="stylesheet" href="assets/crcc.css">
+<style>
+.race-hero { padding-block: clamp(34px,5vw,56px); }
+.race-hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(28px,4vw,56px); align-items: center; }
+.fact-strip { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; background: var(--surface); margin-top: 36px; }
+.fact { padding: 20px; border-right: 1px solid var(--border); min-width: 0; overflow-wrap: anywhere; }
+.fact:last-child { border-right: 0; }
+.fact .k { font-size: .74rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text-muted); }
+.fact .v { font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; color: var(--text); margin-top: 4px; line-height: 1.1; }
+@media (max-width:720px){ .fact-strip{ grid-template-columns: 1fr 1fr; } .fact .v{ font-size: 1.3rem; } .fact:nth-child(2){border-right:0;} .fact:nth-child(1),.fact:nth-child(2){border-bottom:1px solid var(--border);} }
+@media (max-width:430px){ .fact-strip{ grid-template-columns: 1fr; } .fact{ border-right:0; border-bottom:1px solid var(--border); } .fact:last-child{ border-bottom:0; } }
+
+/* timeline */
+.timeline { position: relative; display: flex; flex-direction: column; gap: 34px; padding-left: 40px; }
+.timeline::before { content:""; position:absolute; left: 11px; top: 8px; bottom: 8px; width: 2px; background: var(--border-strong); }
+.tl-item { position: relative; }
+.tl-item::before { content:""; position:absolute; left: -34px; top: 4px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent); border: 4px solid var(--bg); box-shadow: 0 0 0 1px var(--border-strong); }
+.tl-year { font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; color: var(--primary); }
+[data-theme="dark"] .tl-year { color: var(--forest-200); }
+
+.trait-grid { display:grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+@media (max-width:760px){ .trait-grid{ grid-template-columns:1fr; } }
+.trait { padding: 24px; border-radius: var(--r-lg); background: var(--surface); border: 1px solid var(--border); }
+.trait .t-ic { width:48px;height:48px;border-radius:var(--r-md); background: var(--accent-soft); color: var(--gold-700); display:grid;place-items:center; margin-bottom:14px; }
+.trait .t-ic svg{width:24px;height:24px;}
+[data-theme="dark"] .trait .t-ic{ color: var(--gold-300); }
+
+.assoc-grid { display:grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+@media (max-width:760px){ .assoc-grid{ grid-template-columns: repeat(2,1fr);} }
+.assoc-card { display:flex; flex-direction:column; gap:6px; padding:18px; border-radius:var(--r-md); border:1px solid var(--border); background:var(--surface); text-decoration:none; color:inherit; transition:all .18s var(--ease); }
+.assoc-card:hover{ border-color: var(--primary); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.assoc-card .abbr { font-family:var(--font-display); font-size:1.6rem; font-weight:700; color:var(--primary); }
+[data-theme="dark"] .assoc-card .abbr{ color: var(--forest-200); }
+.assoc-card .full { font-size:.82rem; color:var(--text-muted); line-height:1.3; }
+.assoc-card .go { font-size:.8rem; font-weight:700; color:var(--link); margin-top:auto; display:inline-flex; align-items:center; gap:4px; }
+
+.callout { display:flex; gap:16px; padding: clamp(20px,3vw,28px); border-radius: var(--r-lg); background: var(--primary-soft); border:1px solid var(--forest-200); }
+[data-theme="dark"] .callout{ background:#222a16; border-color:#3a4624; }
+.callout .c-ic{ width:46px;height:46px;border-radius:var(--r-md); background:var(--primary); color:#fff; display:grid;place-items:center;flex:none; }
+.callout .c-ic svg{width:24px;height:24px;}
+
+.standard-card { display:flex; gap:20px; align-items:center; flex-wrap:wrap; padding:clamp(20px,3vw,30px); border-radius:var(--r-lg); background:var(--forest-800); color:#fff; }
+.standard-card .pdf-ic{ width:64px;height:80px;border-radius:8px; background:rgba(255,255,255,.12); display:grid;place-items:center; flex:none; }
+.standard-card .pdf-ic svg{width:30px;height:30px;color:var(--gold-300);}
+@media (max-width:860px){ .race-hero-grid{ grid-template-columns:1fr; } }
+/* ============================================================
+   EXPLORATEUR D'ANATOMIE  ·  interactif & bilingue
+   ============================================================ */
+.anat { display:grid; grid-template-columns: 1.05fr .95fr;
+  grid-template-areas: "stage detail" "list list"; gap: clamp(18px,3vw,34px); align-items:stretch; }
+.anat-stage  { grid-area:stage; }
+.anat-detail { grid-area:detail; }
+.anat-list   { grid-area:list; }
+@media (max-width:880px){ .anat{ grid-template-columns:1fr; grid-template-areas:"stage" "detail" "list"; } }
+
+/* ---- Stage + illustration ---- */
+.anat-stage { display:flex; flex-direction:column; gap:8px;
+  padding:14px; border:1px solid var(--border); border-radius:var(--r-lg);
+  background: radial-gradient(130% 110% at 72% 4%, var(--surface-2), var(--surface)); }
+.anat-figure { position:relative; }
+.anat-illus { width:100%; height:auto; display:block; background:#fff; border-radius: var(--r-md); }
+.cat-base .catshape { fill: var(--cat-fill); }
+.cat-eye { fill: var(--cat-eye); }
+.cat-wave-hint { fill:none; stroke: color-mix(in srgb, var(--cat-fill) 60%, #4e0a0d 24%); stroke-width:2.4; stroke-linecap:round; opacity:.42; }
+[data-theme="dark"] .cat-wave-hint { stroke: color-mix(in srgb, var(--cat-fill) 55%, #000 38%); opacity:.5; }
+
+/* Zone highlights — gold brand accent, never the sole signal */
+.anat-zone { opacity:0; transition: opacity .28s var(--ease); }
+.anat-zone.is-on { opacity:1; }
+.anat-zone .hlshape { fill: var(--accent); }
+.anat-zone--glow { filter: drop-shadow(0 0 5px color-mix(in srgb, var(--accent) 72%, transparent)); }
+.anat-zone--all .hlshape { opacity:.5; }
+.anat-zone--robe { filter: drop-shadow(0 0 4px color-mix(in srgb, var(--accent) 60%, transparent)); }
+.anat-zone--robe .cat-wave-bold { fill:none; stroke: var(--accent); stroke-width:3.4; stroke-linecap:round; }
+.cat-eye-ring { fill:none; stroke: var(--accent); stroke-width:3; }
+@media (prefers-reduced-motion: reduce){ .anat-zone{ transition:none; } }
+
+.anat-hint { font-size:.76rem; color:var(--text-muted); text-align:center; letter-spacing:.01em; }
+
+/* ---- Numbered pins ---- */
+.anat-pins { position:absolute; inset:0; pointer-events:none; }
+.anat-pin { position:absolute; transform: translate(-50%,-50%);
+  width: clamp(30px, 8%, 64px); aspect-ratio:1; border-radius:50%;
+  background:transparent; border:0; padding:0; cursor:pointer; pointer-events:auto;
+  transition: box-shadow .18s var(--ease); }
+.anat-pin:hover, .anat-pin.hover {
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px color-mix(in srgb, var(--accent) 78%, transparent); }
+.anat-pin.is-on {
+  box-shadow: 0 0 0 3px #fff,
+              0 0 0 6px var(--accent-hover),
+              0 0 0 11px color-mix(in srgb, var(--accent-hover) 28%, transparent); }
+.anat-pin:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce){ .anat-pin{ transition:none; } }
+
+/* ---- Detail panel ---- */
+.anat-detail { padding: clamp(20px,2.6vw,30px); display:flex; flex-direction:column; }
+.anat-detail-head { display:flex; align-items:center; gap:14px; }
+.anat-detail-num { width:46px; height:46px; flex:none; border-radius:13px;
+  background: var(--accent-soft); color: var(--gold-700);
+  display:grid; place-items:center; font-weight:800; font-size:1.2rem; }
+[data-theme="dark"] .anat-detail-num { color: var(--gold-300); }
+.anat-detail-label { font-family:var(--font-display); font-weight:600; line-height:1.1;
+  font-size: clamp(1.55rem,3vw,2.1rem); color:var(--text); }
+.anat-detail-desc { margin-top:16px; color:var(--text-soft); font-size:1.02rem; line-height:1.62; }
+.anat-detail-foot { margin-top:auto; padding-top:22px; }
+.anat-detail-foot .textlink { font-size:.92rem; }
+
+/* ---- Part list (legend + picker) ---- */
+.anat-list { list-style:none; padding:0; margin:0;
+  display:grid; grid-template-columns: repeat(5,1fr); gap:10px; }
+@media (max-width:1000px){ .anat-list{ grid-template-columns: repeat(3,1fr);} }
+@media (max-width:620px){ .anat-list{ grid-template-columns: repeat(2,1fr);} }
+@media (max-width:420px){ .anat-list{ grid-template-columns:1fr;} }
+.anat-item { width:100%; text-align:left; cursor:pointer; min-height:54px;
+  display:flex; align-items:center; gap:11px; padding:11px 13px;
+  border-radius:var(--r-md); background:var(--surface); border:1.5px solid var(--border);
+  color:var(--text-soft); font-weight:600; font-size:.95rem; line-height:1.2;
+  transition: border-color .16s var(--ease), background .16s var(--ease), color .16s var(--ease); }
+.anat-item:hover { border-color: var(--border-strong); color:var(--text); }
+.anat-item-num { width:27px; height:27px; flex:none; border-radius:8px;
+  background:var(--surface-2); color:var(--text-muted); display:grid; place-items:center;
+  font-weight:800; font-size:.82rem; transition:inherit; }
+.anat-item-label { flex:1; }
+.anat-item-check { margin-left:auto; color: var(--primary); display:none; flex:none; }
+.anat-item-check svg { width:18px; height:18px; }
+.anat-item.is-on { border-color: var(--primary); background: var(--primary-soft); color: var(--text); }
+.anat-item.is-on .anat-item-num { background: var(--accent); color: #fff; }
+.anat-item.is-on .anat-item-check { display:inline-flex; }
+[data-theme="dark"] .anat-item.is-on .anat-item-check { color: var(--forest-200); }
+
+.anat-live { position:absolute; width:1px; height:1px; padding:0; overflow:hidden;
+  clip:rect(0 0 0 0); white-space:nowrap; border:0; }
+</style>
+</head>
+<body>
+<main id="main" data-screen-label="La race">
+
+  <section class="wrap race-hero">
+    <div class="race-hero-grid">
+      <div>
+        <span class="eyebrow" data-fr="La race" data-en="The breed">La race</span>
+        <h1 class="mt-2" data-fr="Rex de Cornouailles" data-en="Cornish Rex">Rex de Cornouailles</h1>
+        <p class="lead mt-2" data-fr="Une silhouette de lévrier, une fourrure ondulée unique et un caractère de « pot de colle » : le Rex Cornish est l'un des chats les plus distinctifs et attachants qui soient." data-en="A greyhound's silhouette, a uniquely wavy coat and a velcro-cat personality: the Cornish Rex is one of the most distinctive and endearing cats there is.">Une silhouette de lévrier, une fourrure ondulée unique et un caractère de « pot de colle » : le Rex Cornish est l'un des chats les plus distinctifs et attachants qui soient.</p>
+      </div>
+      <div class="ph ratio-4-3" style="border-radius:var(--r-xl); box-shadow:var(--shadow-lg)">
+        <div style="text-align:center"><div class="ph-label" data-fr="Portrait de la race" data-en="Breed portrait">Portrait de la race</div></div>
+      </div>
+    </div>
+    <div class="fact-strip">
+      <div class="fact"><div class="k" data-fr="Origine" data-en="Origin">Origine</div><div class="v" data-fr="Cornouailles, 1950" data-en="Cornwall, 1950s">Cornouailles, 1950</div></div>
+      <div class="fact"><div class="k" data-fr="Gabarit" data-en="Build">Gabarit</div><div class="v" data-fr="Svelte, « lévrier »" data-en="Slender, “greyhound”">Svelte, « lévrier »</div></div>
+      <div class="fact"><div class="k" data-fr="Pelage" data-en="Coat">Pelage</div><div class="v" data-fr="Ondulé, sans poil de garde" data-en="Wavy, no guard hair">Ondulé, sans poil de garde</div></div>
+      <div class="fact"><div class="k" data-fr="Caractère" data-en="Temperament">Caractère</div><div class="v" data-fr="Joueur, sociable" data-en="Playful, sociable">Joueur, sociable</div></div>
+    </div>
+  </section>
+
+  <!-- HISTOIRE -->
+  <section class="section flow-bg">
+    <div class="wrap">
+      <div class="grid cols-2" style="gap:clamp(30px,5vw,70px); align-items:start">
+        <div>
+          <span class="eyebrow" data-fr="Histoire" data-en="History">Histoire</span>
+          <h2 class="mt-2" data-fr="D'une portée fermière à une race reconnue" data-en="From a farm litter to a recognized breed">D'une portée fermière à une race reconnue</h2>
+          <p class="mt-3" data-fr="Le Rex de Cornouailles naît d'une mutation génétique récessive entièrement naturelle. Son histoire commence dans une ferme britannique et se poursuit jusque dans les laboratoires de génétique féline contemporains." data-en="The Cornish Rex was born from an entirely natural recessive genetic mutation. Its story begins on a British farm and continues into today's feline genetics labs.">Le Rex de Cornouailles naît d'une mutation génétique récessive entièrement naturelle. Son histoire commence dans une ferme britannique et se poursuit jusque dans les laboratoires de génétique féline contemporains.</p>
+        </div>
+        <div class="timeline">
+          <div class="tl-item reveal">
+            <div class="tl-year">1950</div>
+            <h4 class="mt-1" data-fr="Le chaton Kallibunker" data-en="The kitten Kallibunker">Le chaton Kallibunker</h4>
+            <p class="mt-1" style="font-size:.95rem" data-fr="En Grande-Bretagne, un chaton au poil bouclé naît dans une portée ordinaire. Baptisé Kallibunker, il devient le fondateur de la race." data-en="In Britain, a curly-coated kitten is born in an ordinary litter. Named Kallibunker, he becomes the founder of the breed.">En Grande-Bretagne, un chaton au poil bouclé naît dans une portée ordinaire. Baptisé Kallibunker, il devient le fondateur de la race.</p>
+          </div>
+          <div class="tl-item reveal">
+            <div class="tl-year" data-fr="Le nom" data-en="The name">Le nom</div>
+            <h4 class="mt-1" data-fr="Cornouailles & le lapin Rex" data-en="Cornwall & the Rex rabbit">Cornouailles & le lapin Rex</h4>
+            <p class="mt-1" style="font-size:.95rem" data-fr="La race est nommée d'après le comté de Cornouailles, où elle est apparue, et pour sa ressemblance frappante avec la fourrure du lapin Rex." data-en="The breed is named after the county of Cornwall, where it appeared, and for its striking resemblance to the Rex rabbit's coat.">La race est nommée d'après le comté de Cornouailles, où elle est apparue, et pour sa ressemblance frappante avec la fourrure du lapin Rex.</p>
+          </div>
+          <div class="tl-item reveal">
+            <div class="tl-year" data-fr="Science" data-en="Science">Science</div>
+            <h4 class="mt-1" data-fr="Le gène identifié" data-en="The gene identified">Le gène identifié</h4>
+            <p class="mt-1" style="font-size:.95rem" data-fr="Le gène récessif responsable du poil ondulé a été identifié par le Lyons Feline Genetics Research Laboratory de l'Université de Californie à Davis (UC Davis)." data-en="The recessive gene responsible for the wavy coat was identified by the Lyons Feline Genetics Research Laboratory at the University of California, Davis (UC Davis).">Le gène récessif responsable du poil ondulé a été identifié par le Lyons Feline Genetics Research Laboratory de l'Université de Californie à Davis (UC Davis).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEMPÉRAMENT -->
+  <section class="section">
+    <div class="wrap">
+      <div class="narrow text-center reveal">
+        <span class="eyebrow" style="justify-content:center" data-fr="Tempérament" data-en="Temperament">Tempérament</span>
+        <h2 class="mt-2" data-fr="Un compagnon qui ne vous lâche pas" data-en="A companion that never leaves your side">Un compagnon qui ne vous lâche pas</h2>
+        <p class="lead mt-2" data-fr="Surnommé « pot de colle », « petit singe » et parfois « extra-terrestre » pour ses grandes oreilles, le Rex Cornish est l'un des chats les plus interactifs." data-en="Nicknamed “velcro cat,” “little monkey” and sometimes “alien” for its large ears, the Cornish Rex is one of the most interactive cats.">Surnommé « pot de colle », « petit singe » et parfois « extra-terrestre » pour ses grandes oreilles, le Rex Cornish est l'un des chats les plus interactifs.</p>
+      </div>
+      <div class="trait-grid mt-5">
+        <div class="trait reveal"><div class="t-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.5-7-9.5A4 4 0 0 1 12 8a4 4 0 0 1 7 3.5C19 16.5 12 21 12 21Z"/></svg></div><h4 data-fr="Affectueux" data-en="Affectionate">Affectueux</h4><p class="mt-1" data-fr="Recherche constamment le contact, suit son humain de pièce en pièce et adore la chaleur." data-en="Constantly seeks contact, follows its human from room to room and loves warmth.">Recherche constamment le contact, suit son humain de pièce en pièce et adore la chaleur.</p></div>
+        <div class="trait reveal"><div class="t-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01" stroke-linecap="round"/></svg></div><h4 data-fr="Joueur & curieux" data-en="Playful & curious">Joueur & curieux</h4><p class="mt-1" data-fr="Énergique toute sa vie : il rapporte, grimpe, ouvre les tiroirs et invente des jeux." data-en="Energetic for life: it fetches, climbs, opens drawers and invents games.">Énergique toute sa vie : il rapporte, grimpe, ouvre les tiroirs et invente des jeux.</p></div>
+        <div class="trait reveal"><div class="t-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 7a4 4 0 1 0-8 0M5 21a7 7 0 0 1 14 0" stroke-linecap="round"/></svg></div><h4 data-fr="Sociable" data-en="Sociable">Sociable</h4><p class="mt-1" data-fr="S'entend avec enfants, chiens et autres chats. Mal à l'aise dans la solitude prolongée." data-en="Gets along with children, dogs and other cats. Unhappy with prolonged solitude.">S'entend avec enfants, chiens et autres chats. Mal à l'aise dans la solitude prolongée.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENTRETIEN + ALLERGÈNE -->
+  <section class="section sunken-bg">
+    <div class="wrap grid cols-2" style="gap:clamp(28px,4vw,50px); align-items:center">
+      <div class="reveal">
+        <span class="eyebrow" data-fr="Entretien" data-en="Care">Entretien</span>
+        <h2 class="mt-2" data-fr="Étonnamment simple" data-en="Surprisingly simple">Étonnamment simple</h2>
+        <p class="mt-3" data-fr="Le Rex de Cornouailles n'a ni poil de garde ni véritable sous-poil : seule subsiste une fine couche de duvet court, doux et ondulé. Résultat : aucun brossage n'est nécessaire, et la mue est minime." data-en="The Cornish Rex has neither guard hairs nor a true undercoat: only a fine layer of short, soft, wavy down remains. As a result, no brushing is needed and shedding is minimal.">Le Rex de Cornouailles n'a ni poil de garde ni véritable sous-poil : seule subsiste une fine couche de duvet court, doux et ondulé. Résultat : aucun brossage n'est nécessaire, et la mue est minime.</p>
+        <ul class="spec-list mt-3" style="list-style:none;padding:0">
+          <li class="flex gap-sm items-center" style="padding:10px 0;border-bottom:1px solid var(--border)"><span class="badge badge-trust" style="border-radius:6px">✓</span><span data-fr="Pas de brossage requis" data-en="No brushing required">Pas de brossage requis</span></li>
+          <li class="flex gap-sm items-center" style="padding:10px 0;border-bottom:1px solid var(--border)"><span class="badge badge-trust" style="border-radius:6px">✓</span><span data-fr="Bain occasionnel (peau parfois grasse)" data-en="Occasional bath (skin can be oily)">Bain occasionnel (peau parfois grasse)</span></li>
+          <li class="flex gap-sm items-center" style="padding:10px 0"><span class="badge badge-trust" style="border-radius:6px">✓</span><span data-fr="Sensible au froid, garder au chaud" data-en="Sensitive to cold, keep warm">Sensible au froid, garder au chaud</span></li>
+        </ul>
+      </div>
+      <div class="callout reveal">
+        <div class="c-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01" stroke-linecap="round"/></svg></div>
+        <div>
+          <h4 data-fr="Mythe à dissiper : « hypoallergénique »" data-en="Myth to dispel: “hypoallergenic”">Mythe à dissiper : « hypoallergénique »</h4>
+          <p class="mt-1" data-fr="Malgré l'absence de mue visible, le Rex de Cornouailles doit être considéré comme allergène, au même titre que tout chat. Les allergènes proviennent de la salive et des squames, pas seulement du poil. Toute personne sensible devrait passer du temps avec un Rex avant d'adopter." data-en="Despite minimal shedding, the Cornish Rex must be considered an allergen, like any cat. Allergens come from saliva and dander, not just hair. Anyone sensitive should spend time with a Rex before adopting.">Malgré l'absence de mue visible, le Rex de Cornouailles doit être considéré comme allergène, au même titre que tout chat. Les allergènes proviennent de la salive et des squames, pas seulement du poil. Toute personne sensible devrait passer du temps avec un Rex avant d'adopter.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STANDARD DÉTAILLÉ · Explorateur d'anatomie interactif -->
+  <section class="section flow-bg" style="position:relative" id="anatomie">
+    <span class="annot" style="left:var(--gutter); top:24px">
+      <span class="annot-dot">2</span>
+      <span class="annot-pop"><b>Refonte</b>L'accordéon plat du standard devient un explorateur interactif : illustration zonée, surbrillance bidirectionnelle chat ↔ liste, contenu bilingue mis à jour en direct.</span>
+    </span>
+    <div class="wrap">
+      <span class="eyebrow" data-fr="Le standard détaillé" data-en="The breed standard, in detail">Le standard détaillé</span>
+      <h2 class="mt-2" data-fr="Anatomie d'un Rex de Cornouailles" data-en="Anatomy of a Cornish Rex">Anatomie d'un Rex de Cornouailles</h2>
+      <p class="lead mt-2 measure" data-fr="Touchez une pastille sur le chat — ou un élément de la liste — pour situer la partie et lire le critère du standard CRCC." data-en="Tap a marker on the cat — or a list item — to locate the part and read the CRCC standard.">Touchez une pastille sur le chat — ou un élément de la liste — pour situer la partie et lire le critère du standard CRCC.</p>
+
+      <div class="anat mt-4" id="anat">
+        <div class="anat-stage">
+          <div class="anat-figure">
+            <img class="anat-illus" src="assets/anatomie-rex.png" alt="Illustration d'un Rex de Cornouailles avec dix repères numérotés situant les parties du standard.">
+            <div class="anat-pins"></div>
+          </div>
+          <p class="anat-hint" data-fr="Illustration du standard — les numéros sur le chat renvoient aux parties ci-dessous." data-en="Standard illustration — the numbers on the cat map to the parts listed below.">Illustration du standard — les numéros sur le chat renvoient aux parties ci-dessous.</p>
+        </div>
+
+        <div class="anat-detail card">
+          <div class="anat-detail-head">
+            <span class="anat-detail-num">1</span>
+            <h3 class="anat-detail-label"></h3>
+          </div>
+          <p class="anat-detail-desc"></p>
+          <div class="anat-detail-foot">
+            <a class="textlink" href="https://club-crcc.ca/wp-content/uploads/2020/06/LE-STANDARD-DE-LA-RACE.pdf" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+              <span data-fr="Standard complet (PDF)" data-en="Full breed standard (PDF)">Standard complet (PDF)</span>
+            </a>
+          </div>
+        </div>
+
+        <ul class="anat-list"></ul>
+        <p class="anat-live" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STANDARD + ASSOCIATIONS -->
+  <section class="section" style="position:relative">
+    <span class="annot" style="left:var(--gutter); top:24px">
+      <span class="annot-dot">1</span>
+      <span class="annot-pop"><b>Refonte</b>Le standard et les liens vers les associations sont rassemblés et structurés, plutôt que dispersés en liens bruts.</span>
+    </span>
+    <div class="wrap">
+      <span class="eyebrow" data-fr="Le standard" data-en="The standard">Le standard</span>
+      <h2 class="mt-2" data-fr="Reconnu par les grandes associations félines" data-en="Recognized by the major feline associations">Reconnu par les grandes associations félines</h2>
+      <p class="lead mt-2 measure" data-fr="Chaque association publie son propre standard de race. Consultez celui qui fait foi pour votre enregistrement." data-en="Each association publishes its own breed standard. Consult the one that governs your registration.">Chaque association publie son propre standard de race. Consultez celui qui fait foi pour votre enregistrement.</p>
+
+      <div class="assoc-grid mt-4">
+        <a class="assoc-card" href="http://www.chatscanadacats.ca/docs/standards/ccc-standard-race-rex-cornouailles-FR.pdf" target="_blank" rel="noopener"><span class="abbr">CCC</span><span class="full" data-fr="Chats Canada Cats" data-en="Cats Canada">Chats Canada Cats</span><span class="go" data-fr="Standard" data-en="Standard">Standard →</span></a>
+        <a class="assoc-card" href="https://www.cca-afc.com/documents/BreedStandards/CORNISH_REX_20160804_230341.pdf" target="_blank" rel="noopener"><span class="abbr">CCA-AFC</span><span class="full" data-fr="Association féline canadienne" data-en="Canadian Cat Association">Association féline canadienne</span><span class="go">Standard →</span></a>
+        <a class="assoc-card" href="http://cfa.org/Portals/0/documents/breeds/standards/cornish.pdf" target="_blank" rel="noopener"><span class="abbr">CFA</span><span class="full">Cat Fanciers' Association</span><span class="go">Standard →</span></a>
+        <a class="assoc-card" href="http://www.tica.org/pdf/publications/standards/cr.pdf" target="_blank" rel="noopener"><span class="abbr">TICA</span><span class="full">The International Cat Association</span><span class="go">Standard →</span></a>
+        <a class="assoc-card" href="http://www1.fifeweb.org/dnld/std/CRX.pdf" target="_blank" rel="noopener"><span class="abbr">FIFe</span><span class="full">Fédération Internationale Féline</span><span class="go">Standard →</span></a>
+        <a class="assoc-card" href="http://www.wcf-online.de/WCF-EN/library/CRX_en_2010-01-01.pdf" target="_blank" rel="noopener"><span class="abbr">WCF</span><span class="full">World Cat Federation</span><span class="go">Standard →</span></a>
+        <a class="assoc-card" href="http://www.loof.asso.fr/download/05_standards_20180101.pdf" target="_blank" rel="noopener"><span class="abbr">LOOF</span><span class="full" data-fr="Livre officiel (France)" data-en="Official book (France)">Livre officiel (France)</span><span class="go">Standard →</span></a>
+        <a class="assoc-card" href="codes.html" style="background:var(--primary-soft);border-color:var(--forest-200)"><span class="abbr" style="font-size:1.1rem">＋</span><span class="full" data-fr="Voir aussi nos codes" data-en="See also our codes">Voir aussi nos codes</span><span class="go" data-fr="Éthique & pratiques" data-en="Ethics & practices">Éthique & pratiques →</span></a>
+      </div>
+
+      <div class="standard-card mt-5">
+        <div class="pdf-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div>
+        <div style="flex:1; min-width:220px">
+          <h3 style="color:#fff" data-fr="Standard de race CRCC (PDF)" data-en="CRCC breed standard (PDF)">Standard de race CRCC (PDF)</h3>
+          <p style="color:#f4d6d6" data-fr="Le document de référence du club, illustré, à télécharger et imprimer." data-en="The club's illustrated reference document, to download and print.">Le document de référence du club, illustré, à télécharger et imprimer.</p>
+        </div>
+        <a class="btn btn-accent" href="https://club-crcc.ca/wp-content/uploads/2020/06/LE-STANDARD-DE-LA-RACE.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-fr="Télécharger" data-en="Download">Télécharger</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section-sm">
+    <div class="wrap text-center narrow">
+      <h2 data-fr="Prêt·e à rencontrer un Rex ?" data-en="Ready to meet a Rex?">Prêt·e à rencontrer un Rex ?</h2>
+      <p class="lead mt-2" data-fr="Parcourez l'annuaire des chatteries membres du CRCC." data-en="Browse the directory of CRCC member catteries.">Parcourez l'annuaire des chatteries membres du CRCC.</p>
+      <a class="btn btn-lg mt-3" href="annuaire.html" data-fr="Voir l'annuaire d'éleveurs" data-en="See the breeder directory">Voir l'annuaire d'éleveurs</a>
+    </div>
+  </section>
+
+</main>
+<script src="assets/crcc.js"></script>
+<script src="assets/anat.js"></script>
+</body>
+</html>

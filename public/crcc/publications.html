@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Publications · Base de connaissances · CRCC</title>
+<meta name="description" content="Base de connaissances du CRCC : articles sur l'élevage, la santé et la vie avec un Rex de Cornouailles.">
+<link rel="stylesheet" href="assets/crcc.css">
+<style>
+.pub-hero{ padding-block: clamp(34px,5vw,56px) 0; }
+.pub-controls{ display:flex; flex-wrap:wrap; gap:14px; align-items:center; justify-content:space-between; margin: 28px 0 8px; }
+.cat-filters{ display:flex; flex-wrap:wrap; gap:8px; }
+.search-wrap{ position:relative; min-width:240px; }
+.search-wrap svg{ position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px;height:18px; color:var(--text-muted);}
+.search-wrap .input{ padding-left:42px; }
+.pub-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:22px; }
+.pub-card{ display:flex; flex-direction:column; }
+.pub-card .ph{ border-radius:0; }
+.pub-card .body{ padding:20px; display:flex; flex-direction:column; flex:1; }
+.pub-meta{ display:flex; align-items:center; gap:10px; font-size:.8rem; color:var(--text-muted); margin-bottom:10px; }
+.cat-dot{ width:8px;height:8px;border-radius:50%; }
+.dot-elevage{ background: var(--forest-500);} .dot-sante{ background: var(--rust);} .dot-general{ background: var(--gold-500);}
+.pub-card p{ font-size:.92rem; flex:1; }
+.pub-card .read{ margin-top:14px; font-weight:700; color:var(--link); display:inline-flex; align-items:center; gap:6px; font-size:.9rem; }
+.feat{ display:grid; grid-template-columns:1.2fr 1fr; gap:0; border-radius:var(--r-xl); overflow:hidden; border:1px solid var(--border); background:var(--surface); margin-bottom:30px; }
+.feat .ph{ min-height:320px; }
+.feat .feat-body{ padding:clamp(24px,4vw,44px); display:flex; flex-direction:column; justify-content:center; }
+@media (max-width:760px){ .feat{ grid-template-columns:1fr; } .feat .ph{ min-height:200px; } }
+.empty{ text-align:center; padding:50px; color:var(--text-muted); grid-column:1/-1; }
+</style>
+</head>
+<body>
+<main id="main" data-screen-label="Publications">
+
+  <section class="wrap pub-hero">
+    <div style="max-width:680px">
+      <span class="eyebrow" data-fr="Base de connaissances" data-en="Knowledge base">Base de connaissances</span>
+      <h1 class="mt-2" data-fr="Publications" data-en="Articles">Publications</h1>
+      <p class="lead mt-2" data-fr="La richesse documentaire du club, rendue scannable. Des articles fiables sur l'élevage, la santé et la vie quotidienne avec un Rex de Cornouailles." data-en="The club's documentary depth, made scannable. Reliable articles on breeding, health and daily life with a Cornish Rex.">La richesse documentaire du club, rendue scannable. Des articles fiables sur l'élevage, la santé et la vie quotidienne avec un Rex de Cornouailles.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:30px; position:relative">
+    <span class="annot" style="left:var(--gutter); top:0">
+      <span class="annot-dot">1</span>
+      <span class="annot-pop"><b>Refonte</b>La page de liens brute devient une vraie base d'articles : 3 catégories, recherche, temps de lecture et un article mis en avant.</span>
+    </span>
+    <div class="wrap">
+
+      <!-- Featured -->
+      <a class="feat reveal" href="article.html" style="text-decoration:none;color:inherit">
+        <div class="ph"><div class="ph-label" data-fr="Image à la une" data-en="Featured image">Image à la une</div></div>
+        <div class="feat-body">
+          <div class="pub-meta"><span class="cat-dot dot-general"></span><span class="tag">Infos générales</span><span>·</span><span data-fr="6 min de lecture" data-en="6 min read">6 min de lecture</span></div>
+          <h2 data-fr="Comment choisir son éleveur" data-en="How to choose your breeder">Comment choisir son éleveur</h2>
+          <p class="mt-2" data-fr="Race pure et enregistrement, conformité au standard, sociabilité, antécédents génétiques, garanties de santé, vérifications publiques : la checklist complète pour adopter en toute confiance." data-en="Purebred status and registration, standard conformity, socialization, genetic background, health guarantees, public checks: the full checklist to adopt with confidence.">Race pure et enregistrement, conformité au standard, sociabilité, antécédents génétiques, garanties de santé, vérifications publiques : la checklist complète pour adopter en toute confiance.</p>
+          <span class="read mt-3" data-fr="Lire l'article" data-en="Read article">Lire l'article →</span>
+        </div>
+      </a>
+
+      <!-- Controls -->
+      <div class="pub-controls">
+        <div class="cat-filters" id="catFilters">
+          <button class="filter-pill is-active" data-cat="all" data-fr="Tout" data-en="All">Tout</button>
+          <button class="filter-pill" data-cat="elevage"><span class="dot dot-elevage" style="background:var(--forest-500)"></span><span data-fr="Infos élevage" data-en="Breeding">Infos élevage</span></button>
+          <button class="filter-pill" data-cat="sante"><span class="dot dot-sante" style="background:var(--rust)"></span><span data-fr="Infos santé" data-en="Health">Infos santé</span></button>
+          <button class="filter-pill" data-cat="general"><span class="dot dot-general" style="background:var(--gold-500)"></span><span data-fr="Infos générales" data-en="General">Infos générales</span></button>
+        </div>
+        <div class="search-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4" stroke-linecap="round"/></svg>
+          <input class="input" id="pubSearch" type="search" data-fr-ph="Rechercher un article…" data-en-ph="Search articles…" placeholder="Rechercher un article…" aria-label="Recherche">
+        </div>
+      </div>
+      <p class="muted" style="font-size:.88rem; margin:6px 0 20px" id="pubCount"></p>
+
+      <div class="pub-grid" id="pubGrid"></div>
+    </div>
+  </section>
+
+</main>
+<script src="assets/crcc.js"></script>
+<script>
+(function(){
+  const T=(fr,en)=>CRCC.lang==="en"?en:fr;
+  const CATS={ elevage:{fr:"Infos élevage",en:"Breeding",dot:"dot-elevage"}, sante:{fr:"Infos santé",en:"Health",dot:"dot-sante"}, general:{fr:"Infos générales",en:"General",dot:"dot-general"} };
+  const ARTICLES=[
+    {cat:"general", min:6, t:{fr:"Comment choisir son éleveur",en:"How to choose your breeder"}, d:{fr:"La checklist complète pour adopter en confiance.",en:"The complete checklist to adopt with confidence."}},
+    {cat:"sante", min:5, t:{fr:"La cardiomyopathie hypertrophique (CMH)",en:"Hypertrophic cardiomyopathy (HCM)"}, d:{fr:"Comprendre cette maladie cardiaque et le dépistage.",en:"Understanding this heart disease and screening."}},
+    {cat:"general", min:4, t:{fr:"Les 10 premiers jours",en:"The first 10 days"}, d:{fr:"Accueillir son chaton sereinement.",en:"Welcoming your kitten calmly."}},
+    {cat:"sante", min:4, t:{fr:"Les allergies aux chats",en:"Cat allergies"}, d:{fr:"Pourquoi aucun chat n'est vraiment hypoallergénique.",en:"Why no cat is truly hypoallergenic."}},
+    {cat:"sante", min:5, t:{fr:"Ressources pour tests génétiques",en:"Genetic testing resources"}, d:{fr:"PKD, PRA-CEP290, groupes sanguins : où et comment tester.",en:"PKD, PRA-CEP290, blood types: where and how to test."}},
+    {cat:"sante", min:3, t:{fr:"Mon chaton a attrapé un rhume",en:"My kitten caught a cold"}, d:{fr:"Reconnaître et gérer les infections respiratoires.",en:"Recognizing and managing respiratory infections."}},
+    {cat:"sante", min:4, t:{fr:"Les groupes sanguins",en:"Blood types"}, d:{fr:"Et le risque d'érythrolyse néonatale chez les chatons.",en:"And the risk of neonatal isoerythrolysis in kittens."}},
+    {cat:"elevage", min:7, t:{fr:"Le code d'éthique",en:"The code of ethics"}, d:{fr:"Les 6 engagements de respect des éleveurs membres.",en:"The 6 commitments of respect for member breeders."}},
+    {cat:"elevage", min:8, t:{fr:"Le code de pratiques",en:"The code of practices"}, d:{fr:"Généalogie, santé, standard, qualité de vie, légal.",en:"Genealogy, health, standard, welfare, legal."}},
+    {cat:"elevage", min:5, t:{fr:"Devenir éleveur",en:"Becoming a breeder"}, d:{fr:"Les étapes, responsabilités et l'adhésion au club.",en:"The steps, responsibilities and club membership."}},
+    {cat:"elevage", min:4, t:{fr:"Élevages et chatteries",en:"Catteries explained"}, d:{fr:"Comment fonctionne un élevage sérieux de Rex Cornish.",en:"How a serious Cornish Rex cattery operates."}},
+    {cat:"elevage", min:3, t:{fr:"Je ne veux pas devenir éleveur",en:"I don't want to breed"}, d:{fr:"Adopter un Rex stérilisé comme animal de compagnie.",en:"Adopting a neutered Rex as a companion."}},
+    {cat:"general", min:5, t:{fr:"Le dégriffage : faits et alternatives",en:"Declawing: facts and alternatives"}, d:{fr:"Pourquoi le CRCC s'y oppose, et que faire à la place.",en:"Why the CRCC opposes it, and what to do instead."}},
+    {cat:"general", min:4, t:{fr:"Le juste prix d'un chaton",en:"The fair price of a kitten"}, d:{fr:"Ce que couvre réellement le prix d'un Rex de qualité.",en:"What the price of a quality Rex actually covers."}},
+    {cat:"general", min:3, t:{fr:"Le blanc",en:"The colour white"}, d:{fr:"Surdité, yeux et particularités des Rex blancs.",en:"Deafness, eyes and quirks of white Rex cats."}},
+    {cat:"general", min:3, t:{fr:"Le poil",en:"The coat"}, d:{fr:"Pourquoi le pelage ondulé est si particulier.",en:"Why the wavy coat is so distinctive."}}
+  ];
+  let cat="all", q="";
+  function render(){
+    const grid=document.getElementById("pubGrid");
+    const list=ARTICLES.filter(a=>{
+      if(cat!=="all"&&a.cat!==cat) return false;
+      if(q){ const h=(a.t.fr+a.t.en+a.d.fr+a.d.en).toLowerCase(); if(!h.includes(q.toLowerCase())) return false; }
+      return true;
+    });
+    grid.innerHTML = list.length? list.map(a=>`
+      <a class="card card-link pub-card reveal in" href="article.html">
+        <div class="ph ratio-16-9"><span class="ph-label" style="font-size:.74rem">${T("Image","Image")}</span></div>
+        <div class="body">
+          <div class="pub-meta"><span class="cat-dot ${CATS[a.cat].dot}"></span><span class="tag">${T(CATS[a.cat].fr,CATS[a.cat].en)}</span><span>·</span><span>${a.min} min</span></div>
+          <h4>${T(a.t.fr,a.t.en)}</h4>
+          <p class="mt-1">${T(a.d.fr,a.d.en)}</p>
+          <span class="read">${T("Lire","Read")} →</span>
+        </div>
+      </a>`).join("") : `<div class="empty">${T("Aucun article ne correspond.","No matching article.")}</div>`;
+    document.getElementById("pubCount").textContent = T(`${list.length} article${list.length>1?"s":""}`, `${list.length} article${list.length>1?"s":""}`);
+  }
+  document.getElementById("catFilters").addEventListener("click",e=>{
+    const b=e.target.closest("[data-cat]"); if(!b)return;
+    document.querySelectorAll("#catFilters .filter-pill").forEach(x=>x.classList.remove("is-active"));
+    b.classList.add("is-active"); cat=b.dataset.cat; render();
+  });
+  document.getElementById("pubSearch").addEventListener("input",e=>{ q=e.target.value; render(); });
+  CRCC.onLangChange.push(render);
+  render();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comment choisir son éleveur · CRCC</title>
+<meta name="description" content="La checklist du CRCC pour choisir un éleveur de Rex de Cornouailles sérieux et adopter en confiance.">
+<link rel="stylesheet" href="assets/crcc.css">
+<style>
+.art-hero{ padding-block: clamp(28px,4vw,48px) 0; }
+.art-head{ max-width: 760px; margin-inline:auto; text-align:center; }
+.art-cover{ max-width:1000px; margin: 32px auto 0; }
+.art-cover .ph{ border-radius:var(--r-xl); }
+.art-body{ max-width: 720px; margin-inline:auto; font-size:1.12rem; line-height:1.72; }
+.art-body > p{ margin-top:1.3em; color:var(--text-soft); }
+.art-body h2{ font-size:1.9rem; margin-top:1.6em; }
+.art-body h3{ font-size:1.4rem; margin-top:1.3em; }
+.art-meta{ display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:10px; color:var(--text-muted); font-size:.92rem; }
+.art-byline{ display:flex; align-items:center; justify-content:center; gap:12px; margin-top:20px; }
+.avatar{ width:44px;height:44px;border-radius:50%; background:var(--primary-soft); color:var(--primary); display:grid;place-items:center; font-weight:700; font-family:var(--font-display); }
+[data-theme="dark"] .avatar{ color:var(--forest-200); }
+.progress-bar{ position:sticky; top:var(--nav-h); height:3px; background:transparent; z-index:50; }
+.progress-bar .fill{ height:100%; background:var(--accent); width:0; transition:width .1s linear; }
+
+/* interactive checklist */
+.checklist{ background:var(--surface); border:1px solid var(--border); border-radius:var(--r-lg); padding:clamp(20px,3vw,30px); margin:2em 0; box-shadow:var(--shadow-sm); }
+.checklist-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:6px; }
+.check-progress{ font-size:.85rem; font-weight:700; color:var(--primary); }
+[data-theme="dark"] .check-progress{ color:var(--forest-200); }
+.check-track{ height:8px; border-radius:999px; background:var(--surface-2); overflow:hidden; margin:14px 0 20px; }
+.check-track .fill{ height:100%; background:linear-gradient(90deg,var(--forest-500),var(--accent)); width:0; transition:width .35s var(--ease); border-radius:999px; }
+.check-item{ display:flex; gap:14px; padding:14px; border-radius:var(--r-md); cursor:pointer; transition:background .15s; align-items:flex-start; font-size:1rem; }
+.check-item:hover{ background:var(--surface-2); }
+.check-box{ width:26px;height:26px;border-radius:8px; border:2px solid var(--border-strong); flex:none; display:grid;place-items:center; transition:all .18s var(--ease); margin-top:1px; }
+.check-box svg{ width:16px;height:16px; color:#fff; opacity:0; transform:scale(.5); transition:all .18s var(--ease); }
+.check-item.done .check-box{ background:var(--primary); border-color:var(--primary); }
+.check-item.done .check-box svg{ opacity:1; transform:none; }
+.check-item.done .ci-text{ color:var(--text-muted); }
+.ci-text b{ display:block; color:var(--text); font-weight:700; margin-bottom:2px; }
+.ci-text{ line-height:1.5; font-size:.96rem; color:var(--text-soft); }
+.callout-inline{ border-left:4px solid var(--accent); background:var(--surface-2); padding:18px 22px; border-radius:0 var(--r-md) var(--r-md) 0; margin:1.6em 0; }
+.callout-inline p{ margin:0; font-style:italic; }
+.res-links{ margin:1.6em 0; padding:18px 20px; border-radius:var(--r-md); background:var(--surface-2); border:1px solid var(--border); }
+.res-title{ display:block; font-size:.74rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--text-muted); margin-bottom:12px; }
+.res-chips{ display:flex; flex-wrap:wrap; gap:8px; }
+.res-chips a{ display:inline-flex; align-items:center; gap:4px; padding:8px 14px; border-radius:var(--r-pill); background:var(--surface); border:1.5px solid var(--border-strong); font-size:.88rem; font-weight:700; color:var(--text); text-decoration:none; transition:all .15s var(--ease); }
+.res-chips a:hover{ border-color:var(--primary); color:var(--primary); }
+.res-chips a span{ color:var(--text-muted); font-weight:500; }
+.related{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }@media (max-width:760px){ .related{ grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<main id="main" data-screen-label="Article">
+  <div class="progress-bar"><div class="fill" id="readProgress"></div></div>
+
+  <article>
+    <div class="wrap art-hero">
+      <div class="art-head">
+        <div class="art-meta">
+          <a class="textlink" href="publications.html" style="font-size:.85rem" data-fr="← Publications" data-en="← Articles">← Publications</a>
+          <span>·</span><span class="tag">Infos générales</span><span>·</span><span data-fr="6 min de lecture" data-en="6 min read">6 min de lecture</span>
+        </div>
+        <h1 class="mt-3" data-fr="Comment choisir son éleveur" data-en="How to choose your breeder">Comment choisir son éleveur</h1>
+        <p class="lead mt-2" data-fr="Adopter un Rex de Cornouailles est un engagement de 15 ans ou plus. Voici comment reconnaître un éleveur sérieux, et les questions à ne jamais oublier de poser." data-en="Adopting a Cornish Rex is a 15-year-plus commitment. Here's how to recognize a serious breeder, and the questions you should never forget to ask.">Adopter un Rex de Cornouailles est un engagement de 15 ans ou plus. Voici comment reconnaître un éleveur sérieux, et les questions à ne jamais oublier de poser.</p>
+        <div class="art-byline">
+          <div class="avatar">CRCC</div>
+          <div style="text-align:left"><div style="font-weight:700;font-size:.92rem" data-fr="Comité Race & Standard" data-en="Breed & Standard Committee">Comité Race & Standard</div><div class="muted" style="font-size:.82rem" data-fr="Club du Rex de Cornouailles du Canada" data-en="Cornish Rex Club of Canada">Club du Rex de Cornouailles du Canada</div></div>
+        </div>
+      </div>
+      <div class="art-cover">
+        <div class="ph ratio-16-9"><div class="ph-label" data-fr="Image de couverture" data-en="Cover image">Image de couverture</div></div>
+      </div>
+    </div>
+
+    <div class="wrap section" style="padding-top:clamp(30px,4vw,50px)">
+      <div class="art-body">
+        <p data-fr="Le Rex de Cornouailles est une race rare. Trouver un chaton demande souvent de la patience, et c'est tant mieux : un bon éleveur ne produit pas à la chaîne. La rareté ne doit jamais devenir un prétexte pour faire l'impasse sur la vérification." data-en="The Cornish Rex is a rare breed. Finding a kitten often takes patience, and that's a good thing: a good breeder doesn't mass-produce. Rarity should never become an excuse to skip your checks.">Le Rex de Cornouailles est une race rare. Trouver un chaton demande souvent de la patience, et c'est tant mieux : un bon éleveur ne produit pas à la chaîne. La rareté ne doit jamais devenir un prétexte pour faire l'impasse sur la vérification.</p>
+
+        <h2 data-fr="La race pure et l'enregistrement" data-en="Purebred status and registration">La race pure et l'enregistrement</h2>
+        <p data-fr="Un Rex de Cornouailles de race doit être enregistré auprès d'une association reconnue. Au Canada, ce sont la CCC et la CCA-AFC ; à l'étranger, la CFA et la TICA font autorité. Méfiez-vous d'un « pedigree » sans organisme émetteur clair." data-en="A purebred Cornish Rex must be registered with a recognized association. In Canada, that's the CCC and CCA-AFC; abroad, the CFA and TICA are authoritative. Be wary of a “pedigree” with no clear issuing body.">Un Rex de Cornouailles de race doit être enregistré auprès d'une association reconnue. Au Canada, ce sont la CCC et la CCA-AFC ; à l'étranger, la CFA et la TICA font autorité. Méfiez-vous d'un « pedigree » sans organisme émetteur clair.</p>
+
+        <div class="callout-inline">
+          <p data-fr="« Un éleveur sérieux est fier de montrer ses enregistrements, ses résultats de tests et son environnement de vie. La transparence est le premier signal de confiance. »" data-en="“A serious breeder is proud to show their registrations, test results and living environment. Transparency is the first sign of trust.”">« Un éleveur sérieux est fier de montrer ses enregistrements, ses résultats de tests et son environnement de vie. La transparence est le premier signal de confiance. »</p>
+        </div>
+
+        <h2 data-fr="Votre checklist avant de vous engager" data-en="Your checklist before committing">Votre checklist avant de vous engager</h2>
+        <p data-fr="Cochez chaque point au fil de vos échanges avec l'éleveur. Si plusieurs cases restent vides, posez-vous des questions." data-en="Tick each point as you talk with the breeder. If several boxes stay empty, ask yourself why.">Cochez chaque point au fil de vos échanges avec l'éleveur. Si plusieurs cases restent vides, posez-vous des questions.</p>
+
+        <div class="checklist">
+          <div class="checklist-head">
+            <h3 style="margin:0" data-fr="8 vérifications essentielles" data-en="8 essential checks">8 vérifications essentielles</h3>
+            <span class="check-progress" id="checkCount">0 / 8</span>
+          </div>
+          <div class="check-track"><div class="fill" id="checkFill"></div></div>
+          <div id="checkItems"></div>
+        </div>
+
+        <h2 data-fr="Encourager l'éleveur professionnel" data-en="Encourage the professional breeder">Encourager l'éleveur professionnel</h2>
+        <p data-i18n-html data-fr="Un éleveur déclaré, qui paie ses impôts sur ses revenus d'élevage et investit dans la santé de ses lignées, mérite votre confiance davantage qu'une annonce anonyme. Avant de vous engager, vérifiez les antécédents publics : litiges aux petites créances (<a href='http://citoyens.soquij.qc.ca/' target='_blank' rel='noopener'>SOQUIJ</a>) et condamnations en bien-être animal (<a href='https://www.mapaq.gouv.qc.ca/fr/Consommation/condamnations/Pages/Recherchecondamnations.aspx' target='_blank' rel='noopener'>MAPAQ</a>)." data-en="A declared breeder, who pays taxes on breeding income and invests in the health of their lines, deserves your trust more than an anonymous ad. Before committing, check public records: small-claims litigation (<a href='http://citoyens.soquij.qc.ca/' target='_blank' rel='noopener'>SOQUIJ</a>) and animal-welfare convictions (<a href='https://www.mapaq.gouv.qc.ca/fr/Consommation/condamnations/Pages/Recherchecondamnations.aspx' target='_blank' rel='noopener'>MAPAQ</a>).">Un éleveur déclaré, qui paie ses impôts sur ses revenus d'élevage et investit dans la santé de ses lignées, mérite votre confiance davantage qu'une annonce anonyme. Avant de vous engager, vérifiez les antécédents publics : litiges aux petites créances (<a href="http://citoyens.soquij.qc.ca/" target="_blank" rel="noopener">SOQUIJ</a>) et condamnations en bien-être animal (<a href="https://www.mapaq.gouv.qc.ca/fr/Consommation/condamnations/Pages/Recherchecondamnations.aspx" target="_blank" rel="noopener">MAPAQ</a>).</p>
+
+        <div class="res-links">
+          <span class="res-title" data-fr="Outils de vérification" data-en="Verification tools">Outils de vérification</span>
+          <div class="res-chips">
+            <a href="http://citoyens.soquij.qc.ca/" target="_blank" rel="noopener">SOQUIJ <span data-fr="· litiges" data-en="· litigation">· litiges</span></a>
+            <a href="https://www.mapaq.gouv.qc.ca/fr/Consommation/condamnations/Pages/Recherchecondamnations.aspx" target="_blank" rel="noopener">MAPAQ <span data-fr="· bien-être animal" data-en="· animal welfare">· bien-être animal</span></a>
+            <a href="https://www.vgl.ucdavis.edu/" target="_blank" rel="noopener">UC Davis VGL <span data-fr="· génétique" data-en="· genetics">· génétique</span></a>
+            <a href="https://www.cca-afc.com" target="_blank" rel="noopener">CCA-AFC <span data-fr="· enregistrement" data-en="· registration">· enregistrement</span></a>
+            <a href="http://www.chatscanadacats.ca" target="_blank" rel="noopener">CCC <span data-fr="· enregistrement" data-en="· registration">· enregistrement</span></a>
+          </div>
+        </div>
+
+        <div class="callout" style="margin-top:2em">
+          <div class="c-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div>
+            <h4 data-fr="Tous les éleveurs de notre annuaire" data-en="Every breeder in our directory">Tous les éleveurs de notre annuaire</h4>
+            <p class="mt-1" data-fr="adhèrent au code d'éthique et au code de pratiques du CRCC. C'est un point de départ, pas un substitut à votre propre vérification." data-en="adhere to the CRCC code of ethics and code of practices. That's a starting point, not a substitute for your own verification.">adhèrent au code d'éthique et au code de pratiques du CRCC. C'est un point de départ, pas un substitut à votre propre vérification.</p>
+            <a class="btn btn-sm mt-3" href="annuaire.html" data-fr="Voir l'annuaire" data-en="View directory">Voir l'annuaire</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <section class="section sunken-bg">
+    <div class="wrap">
+      <h3 class="mb-3" data-fr="À lire ensuite" data-en="Read next">À lire ensuite</h3>
+      <div class="related">
+        <a class="card card-link" href="article.html"><div class="ph ratio-16-9"></div><div class="card-pad"><span class="tag">Infos générales</span><h4 class="mt-1" data-fr="Le juste prix d'un chaton" data-en="The fair price of a kitten">Le juste prix d'un chaton</h4></div></a>
+        <a class="card card-link" href="article.html"><div class="ph ratio-16-9"></div><div class="card-pad"><span class="tag">Infos santé</span><h4 class="mt-1" data-fr="Ressources pour tests génétiques" data-en="Genetic testing resources">Ressources pour tests génétiques</h4></div></a>
+        <a class="card card-link" href="article.html"><div class="ph ratio-16-9"></div><div class="card-pad"><span class="tag">Infos générales</span><h4 class="mt-1" data-fr="Les 10 premiers jours" data-en="The first 10 days">Les 10 premiers jours</h4></div></a>
+      </div>
+    </div>
+  </section>
+</main>
+<script src="assets/crcc.js"></script>
+<script>
+(function(){
+  const T=(fr,en)=>CRCC.lang==="en"?en:fr;
+  const CHECKS=[
+    {fr:["Race pure & enregistrement","Le chaton est enregistré (CCC, CCA-AFC, CFA ou TICA) avec pedigree à l'appui."],en:["Purebred & registered","The kitten is registered (CCC, CCA-AFC, CFA or TICA) with a pedigree to back it."]},
+    {fr:["Conformité au standard","Le type correspond au standard de la race (silhouette, poil ondulé, oreilles)."],en:["Standard conformity","The type matches the breed standard (silhouette, wavy coat, ears)."]},
+    {fr:["Départ ≥ 12–14 semaines","Le chaton reste assez longtemps pour être bien socialisé et sevré."],en:["Leaves at ≥ 12–14 weeks","The kitten stays long enough to be well socialized and weaned."]},
+    {fr:["Voir l'environnement de vie","Vous pouvez visiter (ou voir en vidéo) où vivent les chats et les parents."],en:["See the living environment","You can visit (or video-see) where the cats and parents live."]},
+    {fr:["Antécédents génétiques","L'éleveur teste/dépiste CMH, PRA et PKD et partage les résultats."],en:["Genetic background","The breeder tests/screens for HCM, PRA and PKD and shares results."]},
+    {fr:["Garantie de santé écrite","Un contrat couvre la santé génétique/congénitale et infectieuse."],en:["Written health guarantee","A contract covers genetic/congenital and infectious health."]},
+    {fr:["Éleveur déclaré & professionnel","Activité d'élevage déclarée, revenus déclarés, suivi vétérinaire."],en:["Declared & professional breeder","Declared breeding activity, declared income, veterinary follow-up."]},
+    {fr:["Vérifications publiques","Aucun litige préoccupant (SOQUIJ) ni condamnation MAPAQ."],en:["Public records","No concerning litigation (SOQUIJ) or MAPAQ conviction."]}
+  ];
+  const ICON_CHK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>';
+  const done=new Set();
+  function render(){
+    const box=document.getElementById("checkItems");
+    box.innerHTML=CHECKS.map((c,i)=>`
+      <div class="check-item ${done.has(i)?'done':''}" data-i="${i}" role="checkbox" tabindex="0" aria-checked="${done.has(i)}">
+        <span class="check-box">${ICON_CHK}</span>
+        <span class="ci-text"><b>${T(c.fr[0],c.en[0])}</b>${T(c.fr[1],c.en[1])}</span>
+      </div>`).join("");
+    box.querySelectorAll(".check-item").forEach(el=>{
+      const toggle=()=>{ const i=+el.dataset.i; done.has(i)?done.delete(i):done.add(i); update(); };
+      el.addEventListener("click",toggle);
+      el.addEventListener("keydown",e=>{ if(e.key===" "||e.key==="Enter"){ e.preventDefault(); toggle(); } });
+    });
+    update();
+  }
+  function update(){
+    document.querySelectorAll(".check-item").forEach(el=>{ const on=done.has(+el.dataset.i); el.classList.toggle("done",on); el.setAttribute("aria-checked",on); });
+    document.getElementById("checkCount").textContent=`${done.size} / ${CHECKS.length}`;
+    document.getElementById("checkFill").style.width=(done.size/CHECKS.length*100)+"%";
+  }
+  CRCC.onLangChange.push(()=>{ render(); });
+  render();
+
+  // read progress
+  const pf=document.getElementById("readProgress");
+  const onScroll=()=>{ const h=document.documentElement; const p=h.scrollTop/(h.scrollHeight-h.clientHeight); pf.style.width=Math.min(100,p*100)+"%"; };
+  window.addEventListener("scroll",onScroll,{passive:true}); onScroll();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adhésion & don · CRCC</title>
+<script>
+/* Aperçu mobile : mode "embed" pour l'iframe de prévisualisation */
+window.__CRCC = (function(){
+  var h = (location.hash || "").replace(/^#/, "");
+  var p = new URLSearchParams(h);
+  var embed = p.has("embed");
+  if (embed) document.documentElement.classList.add("crcc-embed");
+  return { embed: embed, params: p };
+})();
+</script>
+<meta name="description" content="Devenez membre éleveur ou membre régulier (10 $), ou faites un don au Club du Rex de Cornouailles du Canada.">
+<link rel="stylesheet" href="assets/crcc.css">
+<style>
+.adh-hero{ padding-block: clamp(34px,5vw,56px); text-align:center; }
+.plan-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:24px; align-items:stretch; }
+@media (max-width:760px){ .plan-grid{ grid-template-columns:1fr; min-width:0; } .plan{ min-width:0; } .plan .price{ flex-wrap:wrap; } .plan .price .amt{ font-size:2.5rem; overflow-wrap:anywhere; } }
+@media (max-width:380px){ .plan-flag{ font-size:.64rem; letter-spacing:.05em; padding:5px 12px; } .plan.featured{ margin-top:8px; } }
+.plan{ display:flex; flex-direction:column; border:1px solid var(--border); border-radius:var(--r-xl); padding:clamp(24px,3vw,36px); background:var(--surface); position:relative; }
+.plan.featured{ border:2px solid var(--primary); box-shadow:var(--shadow-lg); }
+.plan-flag{ position:absolute; top:-14px; left:50%; transform:translateX(-50%); background:var(--accent); color:#fff; font-weight:800; font-size:.74rem; letter-spacing:.08em; text-transform:uppercase; padding:6px 16px; border-radius:var(--r-pill); white-space:nowrap; max-width:calc(100% - 24px); }
+.plan h3{ font-size:1.8rem; }
+.plan .price{ display:flex; align-items:baseline; gap:6px; margin:14px 0 4px; }
+.plan .price .amt{ font-family:var(--font-display); font-size:3rem; font-weight:700; color:var(--text); line-height:1; }
+.plan .price .per{ color:var(--text-muted); font-weight:600; }
+.plan .who{ color:var(--text-muted); font-size:.95rem; min-height:2.6em; }
+.plan ul{ list-style:none; padding:0; margin:22px 0; display:flex; flex-direction:column; gap:12px; flex:1; }
+.plan li{ display:flex; gap:12px; align-items:flex-start; font-size:.96rem; color:var(--text-soft); }
+.plan li svg{ width:20px;height:20px; color:var(--primary); flex:none; margin-top:2px; }
+[data-theme="dark"] .plan li svg{ color:var(--forest-200); }
+.plan li.muted-li{ color:var(--text-muted); }
+.plan li.muted-li svg{ color:var(--text-muted); opacity:.6; }
+
+/* donation */
+.don-wrap{ display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(28px,4vw,56px); align-items:center; }
+@media (max-width:820px){ .don-wrap{ grid-template-columns:1fr; } }
+.phone{ width:300px; max-width:100%; margin-inline:auto; border-radius:42px; background:var(--ink-900); padding:12px; box-shadow:var(--shadow-lg); }
+.phone-screen{ background:var(--bg); border-radius:32px; overflow:hidden; min-height:560px; display:flex; flex-direction:column; }
+.phone-bar{ background:var(--forest-800); color:#fff; padding:16px 18px; display:flex; align-items:center; gap:10px; }
+.phone-bar .mini-mark{ width:26px;height:26px; }
+.phone-body{ padding:20px; display:flex; flex-direction:column; gap:16px; flex:1; }
+.amt-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+.amt-btn{ padding:16px 6px; border-radius:var(--r-md); border:2px solid var(--border-strong); background:var(--surface); font-family:var(--font-display); font-weight:700; font-size:1.4rem; cursor:pointer; color:var(--text); transition:all .15s; }
+.amt-btn.sel{ border-color:var(--primary); background:var(--primary-soft); color:var(--primary); }
+[data-theme="dark"] .amt-btn.sel{ color:var(--forest-200); }
+.freq-toggle{ display:flex; gap:6px; background:var(--surface-2); padding:5px; border-radius:var(--r-pill); }
+.freq-toggle button{ flex:1; min-height:38px; border:none; background:transparent; border-radius:var(--r-pill); font-weight:700; font-size:.88rem; cursor:pointer; color:var(--text-soft); }
+.freq-toggle button.sel{ background:var(--surface); color:var(--primary); box-shadow:var(--shadow-sm); }
+.zeffy-note{ display:flex; align-items:center; gap:8px; font-size:.78rem; color:var(--text-muted); justify-content:center; }
+.zeffy-note svg{ width:14px;height:14px; }
+.trust-row{ display:flex; flex-direction:column; gap:14px; }
+.trust-item{ display:flex; gap:12px; align-items:flex-start; }
+.trust-item .ti-ic{ width:40px;height:40px;border-radius:var(--r-sm); background:var(--accent-soft); color:var(--gold-700); display:grid;place-items:center; flex:none; }
+[data-theme="dark"] .trust-item .ti-ic{ color:var(--gold-300); }
+.trust-item svg{ width:20px;height:20px; }
+.merci-card{ padding:clamp(28px,4vw,44px); border-radius:var(--r-xl); background:var(--surface); border:1px solid var(--border); box-shadow:var(--shadow-md); }
+.merci-ic{ width:72px;height:72px;border-radius:50%; background:var(--forest-100); color:var(--primary); display:grid;place-items:center; margin:0 auto 18px; }
+[data-theme="dark"] .merci-ic{ background:#3a1d1f; color:var(--forest-200); }
+.merci-ic svg{ width:38px;height:38px; }
+.check-row{ display:flex; flex-wrap:wrap; gap:10px; }
+.checkbox{ display:flex; align-items:flex-start; gap:10px; cursor:pointer; font-size:.94rem; color:var(--text-soft); }
+.checkbox input{ appearance:none; width:22px;height:22px; border:2px solid var(--border-strong); border-radius:6px; flex:none; cursor:pointer; position:relative; margin-top:1px; transition:all .15s; }
+.checkbox input:checked{ background:var(--primary); border-color:var(--primary); }
+.checkbox input:checked::after{ content:""; position:absolute; inset:0; background:no-repeat center/13px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 24 24'%3E%3Cpath d='M5 13l4 4L19 7'/%3E%3C/svg%3E"); }
+.check-row .checkbox{ padding:8px 14px; border:1.5px solid var(--border-strong); border-radius:var(--r-pill); align-items:center; }
+.check-row .checkbox:has(input:checked){ border-color:var(--primary); color:var(--text); }
+.engage{ display:flex; flex-direction:column; gap:12px; padding:16px; border-radius:var(--r-md); background:var(--surface-2); border:1px solid var(--border); }
+.ferr{ color:var(--rust); font-size:.82rem; font-weight:600; display:none; }
+.field.invalid .input,.field.invalid .select{ border-color:var(--rust); }
+.field.invalid .ferr{ display:block; }
+
+/* ===== Aperçu mobile (Tweaks) ===== */
+html.crcc-embed .annot-toggle,
+html.crcc-embed .skip-link{ display:none !important; }
+.mobx-overlay{ position:fixed; inset:0; z-index:2147483000; background:rgba(20,24,15,.62);
+  -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; padding:18px; }
+.mobx-bar{ display:flex; align-items:center; gap:14px; color:#fff; font-family:var(--font-sans); font-size:.9rem; font-weight:600; }
+.mobx-bar button{ appearance:none; border:1px solid rgba(255,255,255,.42); background:rgba(255,255,255,.12); color:#fff; font:inherit; font-weight:700; padding:8px 15px; border-radius:999px; cursor:pointer; transition:background .15s; }
+.mobx-bar button:hover{ background:rgba(255,255,255,.24); }
+.mobx-phone{ position:relative; background:#0e0f0b; border-radius:44px; padding:13px;
+  box-shadow:0 30px 70px rgba(0,0,0,.5), inset 0 0 0 2px rgba(255,255,255,.05); flex:none; }
+.mobx-phone::before{ content:""; position:absolute; top:20px; left:50%; transform:translateX(-50%);
+  width:38%; height:7px; border-radius:99px; background:#000; z-index:3; }
+.mobx-screen{ border-radius:31px; overflow:hidden; background:#fff; }
+.mobx-screen iframe{ display:block; border:0; width:100%; height:100%; background:#fff; }
+</style>
+</head>
+<body>
+<main id="main" data-screen-label="Adhésion">
+
+  <section class="wrap adh-hero">
+    <span class="eyebrow" style="justify-content:center" data-fr="Adhésion" data-en="Membership">Adhésion</span>
+    <h1 class="mt-2 narrow" data-fr="Rejoignez celles et ceux qui font vivre la race" data-en="Join the people keeping the breed alive">Rejoignez celles et ceux qui font vivre la race</h1>
+    <p class="lead mt-2 narrow" data-fr="Que vous éleviez des Rex ou que vous aimiez simplement la race, votre adhésion soutient directement notre mission de reconnaissance et d'éducation." data-en="Whether you breed Rex cats or simply love the breed, your membership directly supports our recognition and education mission.">Que vous éleviez des Rex ou que vous aimiez simplement la race, votre adhésion soutient directement notre mission de reconnaissance et d'éducation.</p>
+  </section>
+
+  <section class="section" style="padding-top:20px; position:relative">
+    <span class="annot" style="left:var(--gutter); top:-10px">
+      <span class="annot-dot">1</span>
+      <span class="annot-pop"><b>Refonte</b>Un comparatif clair des deux adhésions avec des CTA distincts, plutôt que de l'information éparpillée. La cohérence de marque est maintenue jusqu'à la redirection Zeffy.</span>
+    </span>
+    <div class="wrap" style="max-width:980px">
+      <div class="plan-grid">
+        <div class="plan reveal">
+          <h3 data-fr="Membre régulier" data-en="Regular member">Membre régulier</h3>
+          <div class="price"><span class="amt">10&nbsp;$</span><span class="per" data-fr="/ an" data-en="/ year">/ an</span></div>
+          <p class="who" data-fr="Pour les sympathisants, futurs adoptants et amoureux de la race qui veulent soutenir le club." data-en="For supporters, future adopters and breed lovers who want to back the club.">Pour les sympathisants, futurs adoptants et amoureux de la race qui veulent soutenir le club.</p>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-fr="Soutien direct à la cause et à la reconnaissance de la race" data-en="Direct support for the cause and breed recognition">Soutien direct à la cause et à la reconnaissance de la race</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-fr="Accès au groupe Facebook des membres réguliers" data-en="Access to the regular members' Facebook group">Accès au groupe Facebook des membres réguliers</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-fr="Carte de membre envoyée par courriel après le don de 10 $" data-en="Membership card emailed after the $10 gift">Carte de membre envoyée par courriel après le don de 10 $</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-fr="Rabais chez nos partenaires" data-en="Discounts with our partners">Rabais chez nos partenaires</span></li>
+            <li class="muted-li"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12" stroke-linecap="round"/></svg><span data-fr="Fiche dans l'annuaire d'éleveurs" data-en="Listing in the breeder directory">Fiche dans l'annuaire d'éleveurs</span></li>
+          </ul>
+          <a class="btn btn-block btn-lg" href="https://www.zeffy.com/fr-CA/ticketing/adhesion-annuelle-2026-membre-regulier" target="_blank" rel="noopener" id="zeffyJoin" data-fr="Adhérer via Zeffy" data-en="Join via Zeffy">Adhérer via Zeffy</a>
+          <p class="zeffy-note mt-2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span data-fr="Paiement sécurisé · redirection Zeffy" data-en="Secure payment · Zeffy redirect">Paiement sécurisé · redirection Zeffy</span></p>
+        </div>
+
+        <div class="plan featured reveal">
+          <span class="plan-flag" data-fr="Pour les éleveurs" data-en="For breeders">Pour les éleveurs</span>
+          <h3 data-fr="Membre éleveur" data-en="Breeder member">Membre éleveur</h3>
+          <div class="price"><span class="amt" data-fr="Sur dossier" data-en="By application">Sur dossier</span></div>
+          <p class="who" data-fr="Pour les éleveurs établis ou en devenir, prêts à s'engager au code d'éthique et de pratiques." data-en="For established or aspiring breeders ready to commit to the codes of ethics and practices.">Pour les éleveurs établis ou en devenir, prêts à s'engager au code d'éthique et de pratiques.</p>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-fr="Participer à la protection du standard de la race" data-en="Help protect the breed standard">Participer à la protection du standard de la race</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-fr="Fiche-chatterie dans l'annuaire + badges de confiance" data-en="Cattery profile in the directory + trust badges">Fiche-chatterie dans l'annuaire + badges de confiance</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-fr="Accès au groupe Facebook privé des éleveurs" data-en="Access to the private breeders' Facebook group">Accès au groupe Facebook privé des éleveurs</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-fr="Certificat de membre (par courriel en probation, par la poste une fois régulier)" data-en="Membership certificate (emailed during probation, mailed once regular)">Certificat de membre (par courriel en probation, par la poste une fois régulier)</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-fr="Ressources, mentorat et participation aux comités" data-en="Resources, mentorship and committee participation">Ressources, mentorat et participation aux comités</span></li>
+          </ul>
+          <a class="btn btn-accent btn-block btn-lg" href="#formulaire" data-fr="Soumettre ma candidature" data-en="Submit my application">Soumettre ma candidature</a>
+          <p class="zeffy-note mt-2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span data-fr="Formulaire d'adhésion éleveur" data-en="Breeder application form">Formulaire d'adhésion éleveur</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DON -->
+  <section class="section forest-bg" id="don" style="scroll-margin-top:90px; position:relative">
+    <span class="annot" style="right:var(--gutter); top:24px">
+      <span class="annot-dot">2</span>
+      <span class="annot-pop"><b>Refonte</b>Parcours de don pensé mobile-first : montants en gros boutons au pouce, fréquence claire, et signaux de confiance, la marque tient jusqu'à Zeffy.</span>
+    </span>
+    <div class="wrap don-wrap">
+      <div>
+        <span class="eyebrow" data-fr="Faire un don" data-en="Donate">Faire un don</span>
+        <h2 class="mt-2" style="color:#fff" data-fr="Un don en moins de deux minutes" data-en="A gift in under two minutes">Un don en moins de deux minutes</h2>
+        <p class="lead mt-2" style="color:#f4d6d6" data-fr="Chaque dollar finance le dossier de reconnaissance de la race, nos ressources éducatives et le réseau Refuge. Le CRCC est un organisme à but non lucratif." data-en="Every dollar funds the breed-recognition case, our educational resources and the shelter network. The CRCC is a non-profit organization.">Chaque dollar finance le dossier de reconnaissance de la race, nos ressources éducatives et le réseau Refuge. Le CRCC est un organisme à but non lucratif.</p>
+        <div class="trust-row mt-4">
+          <div class="trust-item"><span class="ti-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span><div><b style="color:#fff" data-fr="Paiement 100 % sécurisé" data-en="100% secure payment">Paiement 100 % sécurisé</b><p style="color:#cdd4bf;font-size:.9rem;margin-top:2px" data-fr="Traité par Zeffy, sans frais pour le club." data-en="Processed by Zeffy, fee-free for the club.">Traité par Zeffy, sans frais pour le club.</p></div></div>
+          <div class="trust-item"><span class="ti-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 5 5.5.6-4.1 3.7 1.2 5.4L12 19l-5 2.7 1.2-5.4L4 12.6l5.5-.6L12 2z"/></svg></span><div><b style="color:#fff" data-fr="OBNL fondé en 2017" data-en="Non-profit founded 2017">OBNL fondé en 2017</b><p style="color:#cdd4bf;font-size:.9rem;margin-top:2px" data-fr="Géré par un conseil d'administration nommé." data-en="Run by a named board of directors.">Géré par un conseil d'administration nommé.</p></div></div>
+        </div>
+      </div>
+
+      <!-- phone mock -->
+      <div class="phone" aria-label="Aperçu du parcours de don sur mobile">
+        <div class="phone-screen">
+          <div class="phone-bar">
+            <svg class="mini-mark" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="23" fill="var(--gold-500)"/><path d="M14 18c-1 4-1 8 1.5 11.5C18 33 21 35 24 35s6-2 8.5-5.5C35 26 35 22 34 18c-1.4-3.6-5.6-6-10-6s-8.6 2.4-10 6Z" fill="#fff"/></svg>
+            <span style="font-weight:700; font-size:.95rem" data-fr="Don au CRCC" data-en="Donate to CRCC">Don au CRCC</span>
+          </div>
+          <div class="phone-body">
+            <div class="freq-toggle" id="freq">
+              <button class="sel" data-freq="once" data-fr="Une fois" data-en="One-time">Une fois</button>
+              <button data-freq="month" data-fr="Mensuel" data-en="Monthly">Mensuel</button>
+            </div>
+            <div>
+              <label style="font-weight:700;font-size:.88rem;display:block;margin-bottom:8px" data-fr="Choisissez un montant" data-en="Choose an amount">Choisissez un montant</label>
+              <div class="amt-grid" id="amts">
+                <button class="amt-btn" data-amt="10">10&nbsp;$</button>
+                <button class="amt-btn sel" data-amt="25">25&nbsp;$</button>
+                <button class="amt-btn" data-amt="50">50&nbsp;$</button>
+                <button class="amt-btn" data-amt="100">100&nbsp;$</button>
+                <button class="amt-btn" data-amt="250">250&nbsp;$</button>
+                <button class="amt-btn" data-amt="custom" style="font-size:.95rem" data-fr="Autre" data-en="Other">Autre</button>
+              </div>
+            </div>
+            <div style="background:var(--surface-2);border-radius:var(--r-md);padding:14px;font-size:.9rem;color:var(--text-soft)">
+              <div class="flex items-center" style="justify-content:space-between">
+                <span data-fr="Votre don" data-en="Your gift">Votre don</span>
+                <b id="donSummary" style="font-family:var(--font-display);font-size:1.3rem;color:var(--text)">25&nbsp;$</b>
+              </div>
+            </div>
+            <a class="btn btn-accent btn-block" href="https://www.zeffy.com/fr-CA/ticketing/adhesion-annuelle-2026-membre-regulier" target="_blank" rel="noopener" style="margin-top:auto" id="donCta" data-fr="Donner 25 $" data-en="Give $25">Donner 25 $</a>
+            <p class="zeffy-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span data-fr="Sécurisé par Zeffy" data-en="Secured by Zeffy">Sécurisé par Zeffy</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- MERCI / écran de remerciement de don -->
+  <section class="section" id="merci" style="scroll-margin-top:90px; display:none">
+    <div class="wrap narrow text-center">
+      <div class="merci-card">
+        <div class="merci-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h2 data-fr="Merci ! Bienvenue dans le club !" data-en="Thank you! Welcome to the club!">Merci ! Bienvenue dans le club !</h2>
+        <p class="lead mt-2" data-fr="Votre soutien fait une réelle différence pour la reconnaissance du Rex de Cornouailles au Canada. Vous recevrez votre carte de membre et un reçu par courriel." data-en="Your support makes a real difference for the recognition of the Cornish Rex in Canada. You'll receive your membership card and a receipt by email.">Votre soutien fait une réelle différence pour la reconnaissance du Rex de Cornouailles au Canada. Vous recevrez votre carte de membre et un reçu par courriel.</p>
+        <div class="flex gap-md justify-center mt-4" style="flex-wrap:wrap">
+          <a class="btn" href="https://www.facebook.com/groups/1091303434214089/" target="_blank" rel="noopener" data-fr="Rejoindre le groupe des membres réguliers" data-en="Join the regular members’ group">Rejoindre le groupe des membres réguliers</a>
+          <a class="btn btn-ghost" href="index.html" data-fr="Retour à l'accueil" data-en="Back to home">Retour à l'accueil</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMULAIRE D'ADHÉSION ÉLEVEUR -->
+  <section class="section sunken-bg" id="formulaire" style="scroll-margin-top:90px; position:relative">
+    <span class="annot" style="left:var(--gutter); top:24px">
+      <span class="annot-dot">3</span>
+      <span class="annot-pop"><b>Refonte</b>L'adhésion éleveur se fait par un vrai formulaire, avec engagement explicite aux codes (liens actifs), plutôt qu'un simple courriel.</span>
+    </span>
+    <div class="wrap" style="max-width:760px">
+      <div class="text-center">
+        <span class="eyebrow" style="justify-content:center" data-fr="Candidature éleveur" data-en="Breeder application">Candidature éleveur</span>
+        <h2 class="mt-2" data-fr="Formulaire d'adhésion éleveur" data-en="Breeder application form">Formulaire d'adhésion éleveur</h2>
+        <p class="lead mt-2" data-fr="Première étape vers le statut de membre éleveur associé (probation 12 mois)." data-en="First step toward associate breeder member status (12-month probation).">Première étape vers le statut de membre éleveur associé (probation 12 mois).</p>
+      </div>
+      <form class="form-card mt-4" id="breederForm" novalidate>
+        <div class="grid cols-2" style="gap:16px">
+          <div class="field"><label for="chatterie" data-fr="Nom de la chatterie" data-en="Cattery name">Nom de la chatterie</label><input class="input" id="chatterie" required><span class="ferr" data-fr="Requis" data-en="Required">Requis</span></div>
+          <div class="field"><label for="bname" data-fr="Votre nom" data-en="Your name">Votre nom</label><input class="input" id="bname" required><span class="ferr" data-fr="Requis" data-en="Required">Requis</span></div>
+        </div>
+        <div class="grid cols-2 mt-3" style="gap:16px">
+          <div class="field"><label for="bemail" data-fr="Courriel" data-en="Email">Courriel</label><input class="input" id="bemail" type="email" required><span class="ferr" data-fr="Courriel valide requis" data-en="Valid email required">Courriel valide requis</span></div>
+          <div class="field"><label for="bphone" data-fr="Téléphone" data-en="Phone">Téléphone</label><input class="input" id="bphone" type="tel"></div>
+        </div>
+        <div class="grid cols-2 mt-3" style="gap:16px">
+          <div class="field"><label for="bcity" data-fr="Ville" data-en="City">Ville</label><input class="input" id="bcity"></div>
+          <div class="field"><label for="bregion" data-fr="Région / province" data-en="Region / province">Région / province</label>
+            <select class="select" id="bregion"><option data-fr="Québec" data-en="Québec">Québec</option><option data-fr="Ontario" data-en="Ontario">Ontario</option><option data-fr="Ouest canadien" data-en="Western Canada">Ouest canadien</option><option data-fr="Atlantique" data-en="Atlantic">Atlantique</option><option data-fr="Hors Canada" data-en="Outside Canada">Hors Canada</option></select>
+          </div>
+        </div>
+        <div class="field mt-3">
+          <label data-fr="Association(s) d'enregistrement" data-en="Registration association(s)">Association(s) d'enregistrement</label>
+          <div class="check-row">
+            <label class="checkbox"><input type="checkbox" value="CCC"><span>CCC</span></label>
+            <label class="checkbox"><input type="checkbox" value="CCA-AFC"><span>CCA-AFC</span></label>
+            <label class="checkbox"><input type="checkbox" value="CFA"><span>CFA</span></label>
+            <label class="checkbox"><input type="checkbox" value="TICA"><span>TICA</span></label>
+            <label class="checkbox"><input type="checkbox" value="Autre"><span data-fr="Autre" data-en="Other">Autre</span></label>
+          </div>
+        </div>
+        <div class="field mt-3"><label for="bmsg" data-fr="Présentez-vous brièvement" data-en="Introduce yourself briefly">Présentez-vous brièvement</label><textarea class="input" id="bmsg" data-fr-ph="Votre expérience, vos lignées, vos objectifs…" data-en-ph="Your experience, your lines, your goals…" placeholder="Votre expérience, vos lignées, vos objectifs…"></textarea></div>
+        <div class="engage mt-3">
+          <label class="checkbox"><input type="checkbox" id="eng1" required><span data-i18n-html data-fr="Je m'engage à respecter le <a href='codes.html' target='_blank' rel='noopener'>code d'éthique</a> du CRCC." data-en="I commit to respecting the CRCC <a href='codes.html' target='_blank' rel='noopener'>code of ethics</a>.">Je m'engage à respecter le <a href="codes.html" target="_blank" rel="noopener">code d'éthique</a> du CRCC.</span></label>
+          <label class="checkbox"><input type="checkbox" id="eng2" required><span data-i18n-html data-fr="Je m'engage à respecter le <a href='codes.html#pratiques' target='_blank' rel='noopener'>code de pratiques</a> du CRCC." data-en="I commit to respecting the CRCC <a href='codes.html#pratiques' target='_blank' rel='noopener'>code of practices</a>.">Je m'engage à respecter le <a href="codes.html#pratiques" target="_blank" rel="noopener">code de pratiques</a> du CRCC.</span></label>
+        </div>
+        <p class="ferr engErr" style="display:none" data-fr="Vous devez accepter les deux codes pour postuler." data-en="You must accept both codes to apply.">Vous devez accepter les deux codes pour postuler.</p>
+        <button class="btn btn-lg btn-block mt-4" type="submit" data-fr="Envoyer ma candidature" data-en="Send my application">Envoyer ma candidature</button>
+        <p class="muted text-center mt-2" style="font-size:.8rem" data-fr="Maquette — aucune candidature n'est réellement envoyée." data-en="Mockup — no application is actually sent.">Maquette — aucune candidature n'est réellement envoyée.</p>
+      </form>
+      <div class="form-card mt-4" id="breederSuccess" style="display:none; text-align:center">
+        <div class="merci-ic" style="margin:0 auto 16px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3 data-fr="Candidature reçue !" data-en="Application received!">Candidature reçue !</h3>
+        <p class="mt-2" data-fr="Merci. Le comité de conformité examinera votre dossier et vous contactera sous 5 à 10 jours ouvrables." data-en="Thank you. The compliance committee will review your application and contact you within 5–10 business days.">Merci. Le comité de conformité examinera votre dossier et vous contactera sous 5 à 10 jours ouvrables.</p>
+        <a class="btn btn-ghost mt-3" href="https://www.facebook.com/groups/179824389290311/" target="_blank" rel="noopener" data-fr="Rejoindre le groupe Facebook des membres" data-en="Join the members’ Facebook group">Rejoindre le groupe Facebook des membres</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+<script src="assets/crcc.js"></script>
+<script>
+(function(){
+  if (!window.__CRCC || !__CRCC.embed) return;
+  function apply(){
+    var p = __CRCC.params;
+    if (p.get("t")) document.documentElement.setAttribute("data-theme", p.get("t"));
+    if (p.get("menu") === "1"){ var b = document.querySelector(".menu-btn"); if (b) b.click(); }
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function(){ setTimeout(apply, 90); });
+  else setTimeout(apply, 90);
+})();
+</script>
+<script>
+(function(){
+  const T=(fr,en)=>CRCC.lang==="en"?en:fr;
+  let amt=25, freq="once";
+  function fmt(v){ return CRCC.lang==="en" ? "$"+v : v+"\u00A0$"; }
+  function update(){
+    const label = amt==="custom" ? T("montant libre","custom amount") : fmt(amt);
+    document.getElementById("donSummary").textContent = amt==="custom"? T("Au choix","Your choice") : fmt(amt) + (freq==="month"?T(" /mois"," /mo"):"");
+    document.getElementById("donCta").textContent = amt==="custom" ? T("Continuer","Continue") : (T("Donner ","Give ")+fmt(amt)) + (freq==="month"?T(" /mois"," /mo"):"");
+  }
+  document.getElementById("amts").addEventListener("click",e=>{
+    const b=e.target.closest("[data-amt]"); if(!b)return;
+    document.querySelectorAll("#amts .amt-btn").forEach(x=>x.classList.remove("sel")); b.classList.add("sel");
+    amt = b.dataset.amt==="custom"?"custom":+b.dataset.amt; update();
+  });
+  document.getElementById("freq").addEventListener("click",e=>{
+    const b=e.target.closest("[data-freq]"); if(!b)return;
+    document.querySelectorAll("#freq button").forEach(x=>x.classList.remove("sel")); b.classList.add("sel"); freq=b.dataset.freq; update();
+  });
+  CRCC.onLangChange.push(update);
+  update();
+
+  // Reveal thank-you screen on #merci (or after a donation click in this demo)
+  function showMerci(){ const m=document.getElementById("merci"); m.style.display="block"; m.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); }
+  if(location.hash==="#merci") showMerci();
+  ["donCta","zeffyJoin"].forEach(id=>{ const el=document.getElementById(id); if(el) el.addEventListener("click", ()=>setTimeout(showMerci, 400)); });
+
+  // Breeder application form
+  const bf=document.getElementById("breederForm");
+  bf.addEventListener("submit",e=>{
+    e.preventDefault();
+    let ok=true;
+    [["chatterie",v=>v.trim()],["bname",v=>v.trim()],["bemail",v=>/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)]].forEach(([id,test])=>{
+      const f=document.getElementById(id), field=f.closest(".field");
+      if(!test(f.value)){ field.classList.add("invalid"); ok=false; } else field.classList.remove("invalid");
+    });
+    const eng = document.getElementById("eng1").checked && document.getElementById("eng2").checked;
+    document.querySelector(".engErr").style.display = eng ? "none" : "block";
+    if(!ok || !eng){ bf.querySelector(".invalid .input")?.focus(); return; }
+    bf.style.display="none"; document.getElementById("breederSuccess").style.display="block";
+    document.getElementById("breederSuccess").scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'center'});
+  });
+})();
+</script>
+
+<!-- ===== Tweaks : aperçu mobile ===== -->
+<script>
+  /* N'injecte pas le panneau Tweaks à l'intérieur de l'iframe d'aperçu */
+  window.__CRCC_NO_TWEAKS = !!(window.__CRCC && window.__CRCC.embed);
+</script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel">
+const ADH_TWEAKS = /*EDITMODE-BEGIN*/{
+  "view": "Mobile",
+  "deviceWidth": 320,
+  "theme": "Clair",
+  "menuOpen": false
+}/*EDITMODE-END*/;
+
+function AdhTweaksApp() {
+  const [t, setTweak] = useTweaks(ADH_TWEAKS);
+  const [panelOpen, setPanelOpen] = React.useState(false);
+  const [vh, setVh] = React.useState(typeof window !== "undefined" ? window.innerHeight : 820);
+
+  React.useEffect(() => {
+    const onMsg = (e) => {
+      const ty = e && e.data && e.data.type;
+      if (ty === "__activate_edit_mode") setPanelOpen(true);
+      else if (ty === "__deactivate_edit_mode") setPanelOpen(false);
+    };
+    const onResize = () => setVh(window.innerHeight);
+    window.addEventListener("message", onMsg);
+    window.addEventListener("resize", onResize);
+    return () => { window.removeEventListener("message", onMsg); window.removeEventListener("resize", onResize); };
+  }, []);
+
+  const themeAttr = t.theme === "Sombre" ? "dark" : "light";
+  const showMobile = panelOpen && t.view === "Mobile";
+  const screenH = Math.max(440, Math.min(800, vh - 150));
+  const src = "adhesion.html#embed=1&t=" + themeAttr + "&menu=" + (t.menuOpen ? "1" : "0");
+
+  const setTheme = (v) => {
+    setTweak("theme", v);
+    document.documentElement.setAttribute("data-theme", v === "Sombre" ? "dark" : "light");
+  };
+
+  return (
+    <React.Fragment>
+      {showMobile && (
+        <div className="mobx-overlay">
+          <div className="mobx-bar">
+            <span>Aperçu mobile · {t.deviceWidth} px</span>
+            <button onClick={() => setTweak("view", "Bureau")}>✕ Vue bureau</button>
+          </div>
+          <div className="mobx-phone">
+            <div className="mobx-screen" style={{ width: t.deviceWidth, height: screenH }}>
+              <iframe key={src + "|" + t.deviceWidth} src={src} title="Aperçu mobile" />
+            </div>
+          </div>
+        </div>
+      )}
+      <TweaksPanel title="Tweaks">
+        <TweakSection label="Aperçu" />
+        <TweakRadio label="Affichage" value={t.view} options={["Bureau", "Mobile"]}
+                    onChange={(v) => setTweak("view", v)} />
+        {t.view === "Mobile" && (
+          <React.Fragment>
+            <TweakSlider label="Largeur" value={t.deviceWidth} min={320} max={430} step={1} unit="px"
+                         onChange={(v) => setTweak("deviceWidth", v)} />
+            <TweakToggle label="Menu ouvert" value={t.menuOpen}
+                         onChange={(v) => setTweak("menuOpen", v)} />
+          </React.Fragment>
+        )}
+        <TweakSection label="Thème" />
+        <TweakRadio label="Apparence" value={t.theme} options={["Clair", "Sombre"]}
+                    onChange={setTheme} />
+      </TweaksPanel>
+    </React.Fragment>
+  );
+}
+
+if (!window.__CRCC_NO_TWEAKS) {
+  const root = document.createElement("div");
+  root.id = "adh-tweak-root";
+  document.body.appendChild(root);
+  ReactDOM.createRoot(root).render(<AdhTweaksApp />);
+}
+</script>
+</body>
+</html>

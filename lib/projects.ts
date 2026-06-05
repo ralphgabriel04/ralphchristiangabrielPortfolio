@@ -82,6 +82,23 @@ export const projects: Project[] = [
     media: { enabled: true, type: "image", src: "/media/dpm-elevate.gif" }
   },
   {
+    id: "crcc",
+    year: "2026",
+    status: { fr: "Maquette de refonte livrée", en: "Redesign mockup delivered" },
+    name: "CRCC — Refonte",
+    tag: { fr: "Refonte de site OSBL · Maquette bilingue", en: "Nonprofit website redesign · Bilingual mockup" },
+    stack: ["Claude Design", "HTML/CSS/JS statiques", "CSS Custom Properties (tokens)", "i18n maison FR/EN", "JavaScript vanilla", "Montserrat", "ARIA", "WCAG 2.2 AA"],
+    summary: {
+      fr: "Maquette de refonte complète pour le Club du Rex de Cornouailles du Canada (OSBL bilingue d'éleveurs). Site statique multi-pages organisé autour de trois parcours — adopter un chaton, devenir éleveur membre, soutenir le club. 10 pages (Accueil, La race, Annuaire des éleveurs, Codes & éthique, Règlements, Publications, Adhésion, Administrateurs & comités, Contact) avec explorateur d'anatomie interactif, carte de répartition filtrable et identité Rouge & Blanc dérivée du logo officiel. Bilingue FR/EN à bascule instantanée, thème clair/sombre, mobile-first (375px → bureau), accessibilité WCAG 2.2 AA, sans backend. Données réelles intégrées (11 chatteries, badges Anima-Québec, 7 associations félines, ressources officielles), sans inventer ni surpromettre.",
+      en: "Complete redesign mockup for the Cornwall Rex Club of Canada (bilingual nonprofit breeder community). Static multi-page site organised around three journeys — adopt a kitten, become a member breeder, support the club. 10 pages (Home, The Breed, Breeder Directory, Codes & Ethics, By-laws, Publications, Membership, Board & Committees, Contact) with an interactive anatomy explorer, a filterable distribution map and a Red & White identity derived from the official logo. Bilingual FR/EN with instant toggle, light/dark theme, mobile-first (375px → desktop), WCAG 2.2 AA accessibility, no backend. Real data integrated (11 catteries, Anima-Québec badges, 7 feline associations, official resources), without inventing or overpromising."
+    },
+    metrics: {
+      fr: ["10 pages · bilingue FR/EN", "Explorateur d'anatomie (10 parties)", "11 chatteries · données réelles", "WCAG 2.2 AA · clair/sombre"],
+      en: ["10 pages · bilingual FR/EN", "Anatomy explorer (10 parts)", "11 catteries · real data", "WCAG 2.2 AA · light/dark"]
+    },
+    media: { enabled: true, type: "image", src: "/media/crcc.png" }
+  },
+  {
     id: "financej",
     year: "Jan. 2026 · Avr. 2026",
     status: { fr: "Académique · ÉTS", en: "Academic · ÉTS" },
@@ -105,6 +122,7 @@ export const caseStudyIds = new Set([
   "cadence",
   "fastercom-tms",
   "dpm-elevate",
+  "crcc",
   "financej",
 ])
 
@@ -114,6 +132,7 @@ export const projectRoles: Record<string, { fr: string; en: string }> = {
   "cadence": { fr: "Co-fondateur · Tech Lead", en: "Co-founder · Tech Lead" },
   "fastercom-tms": { fr: "Développeur Intégrateur de Solutions", en: "Solutions Integration Developer" },
   "dpm-elevate": { fr: "Fondateur · Design & Prototypage", en: "Founder · Design & Prototyping" },
+  "crcc": { fr: "Design & Prototypage (Refonte)", en: "Design & Prototyping (Redesign)" },
   "financej": { fr: "Développeur · Top contributeur (Projet académique — LOG240)", en: "Developer · Top contributor (Academic Project — LOG240)" },
 }
 
@@ -128,5 +147,9 @@ export const projectLinks: Record<string, { label: string; url: string; type: "g
   ],
   "dpm-elevate": [
     { label: "Live", url: "/dpm-elevate/index.html", type: "live" },
+  ],
+  "crcc": [
+    { label: "Maquette live", url: "/crcc/index.html", type: "live" },
+    { label: "Site actuel", url: "https://club-crcc.ca", type: "demo" },
   ],
 }
