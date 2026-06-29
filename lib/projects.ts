@@ -96,7 +96,7 @@ export const projects: Project[] = [
       fr: ["Suite : adulte · finances · Kids · Famille", "20+ écrans · assistant IA « Wiz »", "Freemium · premium 9,99–19,99 $/mois", "Bilingue FR/EN · clair/sombre"],
       en: ["Suite: adult · finances · Kids · Family", "20+ screens · \"Wiz\" AI assistant", "Freemium · premium $9.99–19.99/mo", "Bilingual FR/EN · light/dark"]
     },
-    media: { enabled: true, type: "image", src: "/media/wise-wealthy.png" }
+    media: { enabled: true, type: "image", src: "/media/wise-wealthy.gif" }
   },
   {
     id: "kim-dubois",
