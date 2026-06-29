@@ -1,0 +1,352 @@
+/* ============================================================
+   Mode administrateur — chrome (sur-marque, clair/sombre)
+   Mêmes tokens que le site : doré primaire, bleu secondaire,
+   Cormorant + Mulish, formes arrondies.
+   ============================================================ */
+
+/* ---- Hooks d'apparence pilotés par l'éditeur ---- */
+body { font-size: calc(16px * var(--ts, 1)); }
+.hero { min-height: min(var(--hero-h, 88vh), 1000px) !important; }
+
+/* Médias remplacés (image ou vidéo) */
+.hero-bg .kd-media-override.hero-photo,
+.photo-zone .kd-media-override.pz-img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; z-index: 0;
+}
+.photo-zone .kd-media-override.pz-img { border-radius: inherit; }
+
+/* ============================================================
+   Indices d'édition (uniquement en mode édition)
+   ============================================================ */
+.kd-editable[contenteditable="true"] {
+  outline: 1.5px dashed color-mix(in srgb, var(--gold) 70%, transparent);
+  outline-offset: 3px;
+  border-radius: 4px;
+  cursor: text;
+  transition: outline-color var(--t) var(--ease), background var(--t) var(--ease);
+}
+.kd-editable[contenteditable="true"]:hover {
+  outline-color: var(--gold);
+  background: color-mix(in srgb, var(--gold) 8%, transparent);
+}
+.kd-editable[contenteditable="true"]:focus {
+  outline: 2px solid var(--gold);
+  background: color-mix(in srgb, var(--gold) 6%, transparent);
+}
+.kd-editable[contenteditable="true"]::after {
+  content: "✎"; font-size: 11px; font-family: var(--font-body);
+  position: absolute; margin-left: 6px; color: var(--gold-dark);
+  opacity: 0; transition: opacity var(--t);
+}
+.kd-editable[contenteditable="true"]:hover::after { opacity: .85; }
+
+/* Bouton « Changer la photo / vidéo » sur les médias.
+   NB : ne PAS forcer position:relative sur .hero-bg (déjà absolute) — sinon
+   le fond du héros se réduit à 0. .photo-zone est déjà position:relative. */
+.photo-zone.kd-media { position: relative; }
+.media-edit {
+  position: absolute; inset: 0; z-index: 6;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  border: 0; border-radius: inherit;
+  background: color-mix(in srgb, var(--ink) 52%, transparent);
+  color: #fff; font-family: var(--font-body); font-weight: 700; font-size: 13.5px;
+  letter-spacing: .01em; opacity: 0; cursor: pointer;
+  transition: opacity var(--t) var(--ease);
+  backdrop-filter: blur(1px);
+}
+.media-edit .me-ico {
+  width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--gold); color: var(--ink); font-size: 20px;
+  box-shadow: 0 8px 22px -8px rgba(0,0,0,.6);
+}
+.media-edit:hover, .media-edit:focus-visible { opacity: 1; }
+
+/* Remplacement direct d'une <img> de contenu (certificats, portfolio…) */
+img.kd-img-edit {
+  outline: 1.5px dashed color-mix(in srgb, var(--gold) 72%, transparent);
+  outline-offset: 2px; cursor: pointer;
+  transition: outline-color var(--t) var(--ease), filter var(--t) var(--ease);
+}
+img.kd-img-edit:hover {
+  outline: 2px solid var(--gold);
+  filter: brightness(.9) saturate(1.05);
+}
+.kd-img-video { display: block; max-width: 100%; }
+
+/* ============================================================
+   Bouton d'entrée flottant
+   ============================================================ */
+.admin-toggle {
+  position: fixed; left: clamp(16px, 2.4vw, 30px); bottom: clamp(16px, 2.4vw, 30px);
+  z-index: 70; display: inline-flex; align-items: center; gap: 9px;
+  height: 48px; padding: 0 18px 0 14px; border-radius: 999px;
+  background: var(--ink); color: var(--gold-light);
+  border: 1px solid color-mix(in srgb, var(--gold) 40%, transparent);
+  font-family: var(--font-body); font-weight: 700; font-size: 13.5px;
+  box-shadow: 0 16px 38px -14px rgba(0,0,0,.55);
+  transition: transform var(--t) var(--ease), background var(--t) var(--ease), color var(--t) var(--ease);
+}
+.admin-toggle:hover { transform: translateY(-2px); background: #25221d; color: #fff; }
+.admin-toggle .at-ico { font-size: 15px; }
+
+/* ============================================================
+   Panneau (tiroir latéral)
+   ============================================================ */
+.admin-panel {
+  position: fixed; top: 0; right: 0; bottom: 0; width: 374px; max-width: 92vw;
+  z-index: 80; display: flex; flex-direction: column;
+  background: var(--surface);
+  border-left: 1px solid var(--hairline);
+  box-shadow: -28px 0 70px -40px rgba(0,0,0,.45);
+  font-family: var(--font-body); color: var(--on-surface);
+  animation: ap-in var(--t) var(--ease) both;
+}
+@keyframes ap-in { from { transform: translateX(18px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+.ap-top {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 16px 14px; border-bottom: 1px solid var(--hairline);
+}
+.ap-brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-title); font-size: 19px; font-weight: 600; }
+.ap-brand .kd-logo { filter: none; }
+.ap-close {
+  width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--hairline);
+  background: transparent; color: var(--on-surface); font-size: 20px; line-height: 1;
+}
+.ap-close:hover { background: var(--surface-soft); }
+
+.ap-modes { display: flex; gap: 6px; padding: 12px 16px; }
+.ap-mode {
+  flex: 1; height: 40px; border-radius: var(--r-md);
+  border: 1px solid var(--hairline); background: var(--surface-soft);
+  color: var(--on-surface-muted); font-weight: 700; font-size: 13.5px;
+}
+.ap-mode.on {
+  background: var(--gold); color: var(--ink);
+  border-color: transparent;
+}
+
+.ap-tabs { display: flex; gap: 2px; padding: 0 12px; border-bottom: 1px solid var(--hairline); }
+.ap-tab {
+  flex: 1; padding: 12px 4px; background: transparent; border: 0;
+  color: var(--on-surface-muted); font-weight: 700; font-size: 13px; position: relative;
+}
+.ap-tab.on { color: var(--accent-strong); }
+.ap-tab.on::after {
+  content: ""; position: absolute; left: 14%; right: 14%; bottom: -1px; height: 2.5px;
+  background: var(--gold); border-radius: 2px;
+}
+
+.ap-body { flex: 1; overflow-y: auto; padding: 16px; }
+.ap-foot {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px; border-top: 1px solid var(--hairline);
+}
+.ap-mock { font-size: 11px; color: var(--on-surface-muted); }
+.ap-reset {
+  background: transparent; border: 1px solid var(--hairline); border-radius: var(--r-sm);
+  padding: 7px 12px; font-size: 12px; font-weight: 700; color: var(--on-surface-muted);
+}
+.ap-reset:hover { color: var(--blue-deep); border-color: var(--blue); }
+
+/* Mode aperçu : panneau réduit à une barre de contrôle (zéro chrome d'édition) */
+.admin-panel.is-preview { height: auto; bottom: auto; border-bottom: 1px solid var(--hairline); border-bottom-left-radius: var(--r-lg); }
+.admin-panel.is-preview .ap-tabs,
+.admin-panel.is-preview .ap-body,
+.admin-panel.is-preview .ap-foot { display: none; }
+
+/* ---- Le site se décale pour ne JAMAIS passer sous le tiroir (desktop) ---- */
+/* Le décalage de largeur est appliqué en JS (editor-panel) ; ici le reste du chrome. */
+@media (min-width: 761px) {
+  html.kd-admin-open .back-to-top { right: calc(374px + 24px); }
+}
+
+/* ---- L'entête se compacte plus tôt quand le tiroir vole 374 px de largeur ----
+   Les points de rupture du site sont calés sur la fenêtre, mais le tiroir réduit
+   la largeur utile : on décale chaque seuil de +374 px tant que l'admin est ouvert,
+   pour que la navigation ne se chevauche jamais. */
+@media (min-width: 761px) and (max-width: 1654px) {  /* 1280 + 374 */
+  html.kd-admin-open .nav-link.is-secondary { display: none; }
+  html.kd-admin-open .hide-compact { display: none !important; }
+  html.kd-admin-open .header-cta { padding: 0 16px; }
+  html.kd-admin-open .site-header .nav-primary { gap: 15px; }
+}
+@media (min-width: 761px) and (max-width: 1094px) {  /* 720 + 374 */
+  html.kd-admin-open .nav-primary { display: none; }
+  html.kd-admin-open .header-cta .cta-long { display: none; }
+  html.kd-admin-open .header-cta .cta-short { display: inline; }
+}
+
+/* ---- Barre flottante « Aperçu » (vue visiteur, zéro chrome) ---- */
+.preview-bar {
+  position: fixed; left: 50%; bottom: clamp(16px, 2.4vw, 28px); transform: translateX(-50%);
+  z-index: 80; display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px; border-radius: 999px;
+  background: var(--ink); border: 1px solid color-mix(in srgb, var(--gold) 30%, transparent);
+  box-shadow: 0 18px 44px -18px rgba(0,0,0,.6);
+  animation: ap-in var(--t) var(--ease) both;
+}
+.pv-mode {
+  border: 0; background: transparent; color: #E9E2D3; font-family: var(--font-body);
+  font-weight: 700; font-size: 13px; padding: 9px 16px; border-radius: 999px; min-height: 40px;
+}
+.pv-mode.on { background: var(--gold); color: var(--ink); }
+.pv-close {
+  width: 36px; height: 36px; border-radius: 50%; border: 0; background: transparent;
+  color: #C9BFAE; font-size: 18px; line-height: 1;
+}
+.pv-close:hover { color: #fff; }
+
+/* ---- Blocs de réglages ---- */
+.ed-tabpane { display: flex; flex-direction: column; gap: 18px; }
+.ed-block {
+  background: var(--surface-soft); border: 1px solid var(--hairline);
+  border-radius: var(--r-lg); padding: 16px;
+}
+.ed-head { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
+.ed-title { font-family: var(--font-title); font-size: 18px; font-weight: 600; }
+.ed-hint, .ed-empty { font-size: 12.5px; color: var(--on-surface-muted); line-height: 1.45; }
+.ed-empty { margin: 4px 0 12px; }
+.ed-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 0; }
+.ed-row.col { flex-direction: column; align-items: stretch; gap: 8px; }
+.ed-row + .ed-row { border-top: 1px dashed var(--hairline); }
+.ed-rlabel { font-size: 13px; font-weight: 600; }
+
+/* Segmented */
+.seg { display: inline-flex; background: var(--surface); border: 1px solid var(--hairline); border-radius: 999px; padding: 3px; gap: 2px; }
+.ed-row.col .seg { display: flex; }
+.seg-opt {
+  flex: 1; min-width: 0; border: 0; background: transparent; border-radius: 999px;
+  padding: 7px 10px; font-size: 12px; font-weight: 700; color: var(--on-surface-muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-height: 32px;
+}
+.seg-opt.on { background: var(--gold); color: var(--ink); }
+
+/* Sliders */
+.ed-slider { display: flex; flex-direction: column; gap: 8px; padding: 11px 0; border-top: 1px dashed var(--hairline); }
+.ed-slabel { display: flex; align-items: center; justify-content: space-between; font-size: 13px; font-weight: 600; }
+.ed-slabel b { color: var(--accent-strong); font-variant-numeric: tabular-nums; }
+.ed-slider input[type="range"] { -webkit-appearance: none; appearance: none; height: 4px; border-radius: 4px; background: var(--hairline); }
+.ed-slider input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%;
+  background: var(--gold); border: 2px solid var(--surface); box-shadow: 0 2px 8px -2px rgba(0,0,0,.4); cursor: pointer;
+}
+.ed-slider input[type="range"]::-moz-range-thumb {
+  width: 20px; height: 20px; border-radius: 50%; background: var(--gold); border: 2px solid var(--surface); cursor: pointer;
+}
+
+/* ---- Palette ---- */
+.pal-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+.pal-chip { position: relative; }
+.pal-dot { display: block; width: 34px; height: 34px; border-radius: 50%; border: 1px solid color-mix(in srgb, var(--ink) 16%, transparent); }
+.pal-x {
+  position: absolute; top: -6px; right: -6px; width: 18px; height: 18px; border-radius: 50%;
+  background: var(--surface); border: 1px solid var(--hairline); color: var(--on-surface-muted);
+  font-size: 12px; line-height: 1; display: grid; place-items: center; opacity: 0; transition: opacity var(--t);
+}
+.pal-chip:hover .pal-x { opacity: 1; }
+.pal-add {
+  width: 34px; height: 34px; border-radius: 50%; border: 1.5px dashed var(--hairline);
+  display: grid; place-items: center; color: var(--on-surface-muted); font-size: 20px; cursor: pointer; position: relative; overflow: hidden;
+}
+.pal-add input[type="color"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+
+.pal-pick { display: flex; flex-wrap: wrap; gap: 7px; }
+.pick-dot { width: 26px; height: 26px; border-radius: 50%; border: 2px solid transparent; box-shadow: 0 0 0 1px var(--hairline) inset; }
+.pick-dot.on { border-color: var(--surface); box-shadow: 0 0 0 2px var(--gold); }
+
+/* ---- Styles enregistrés ---- */
+.style-list { list-style: none; margin: 0 0 12px; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.style-item {
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px;
+  padding: 10px; border: 1px solid var(--hairline); border-radius: var(--r-md); background: var(--surface);
+}
+.style-item.active { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold) inset; }
+.style-mark { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-size: 13px; }
+.style-name { font-weight: 700; font-size: 13.5px; }
+.style-rename { font: inherit; font-weight: 700; font-size: 13.5px; border: 1px solid var(--gold); border-radius: 6px; padding: 4px 6px; background: var(--surface); color: var(--on-surface); width: 100%; }
+.style-swatches { display: none; }
+.style-actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+.mini {
+  border: 1px solid var(--hairline); background: var(--surface-soft); color: var(--on-surface);
+  border-radius: 8px; padding: 6px 10px; font-size: 12px; font-weight: 700; min-height: 32px;
+}
+.mini.solid, .mini.on { background: var(--gold); color: var(--ink); border-color: transparent; }
+.mini.ghost { background: transparent; }
+.mini.danger:hover { color: #fff; background: #B4453A; border-color: transparent; }
+.mini:disabled { opacity: .4; cursor: not-allowed; }
+.style-create { display: flex; gap: 8px; }
+.style-create input { flex: 1; min-width: 0; }
+
+.admin-panel input[type="text"], .style-create input, .style-rename {
+  font: inherit; padding: 9px 11px; border: 1px solid var(--hairline); border-radius: var(--r-sm);
+  background: var(--surface); color: var(--on-surface);
+}
+.style-create input { padding: 9px 11px; border: 1px solid var(--hairline); border-radius: var(--r-sm); background: var(--surface); color: var(--on-surface); }
+.style-create input:focus, .admin-panel input:focus { outline: 2px solid var(--gold); outline-offset: 1px; }
+
+/* ---- Sections ---- */
+.sec-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.sec-item {
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px;
+  padding: 8px 10px; border: 1px solid var(--hairline); border-radius: var(--r-md); background: var(--surface);
+}
+.sec-item.hidden { opacity: .5; }
+.sec-eye { width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--hairline); background: var(--surface-soft); font-size: 15px; }
+.sec-name { font-size: 13.5px; font-weight: 600; }
+.sec-move { display: flex; gap: 4px; }
+.sec-move .mini { padding: 6px 9px; }
+
+/* ---- Aide ---- */
+.aide-list { list-style: none; margin: 0 0 12px; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.aide-list li { display: flex; gap: 12px; align-items: flex-start; }
+.aide-n { flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--gold); color: var(--ink); display: grid; place-items: center; font-family: var(--font-title); font-weight: 700; font-size: 15px; }
+.aide-txt { font-size: 13px; line-height: 1.5; color: var(--on-surface-muted); }
+.aide-txt strong { display: block; color: var(--on-surface); font-size: 13.5px; margin-bottom: 1px; }
+.aide-foot { font-size: 12.5px; color: var(--on-surface-muted); line-height: 1.5; padding-top: 12px; border-top: 1px dashed var(--hairline); }
+.ed-rationale .rat-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }
+.ed-rationale .rat-list li { font-size: 12.5px; line-height: 1.5; color: var(--on-surface-muted); padding-left: 14px; position: relative; }
+.ed-rationale .rat-list li::before { content: ""; position: absolute; left: 0; top: 7px; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+.ed-rationale .rat-list strong { color: var(--on-surface); }
+
+/* ============================================================
+   Toast « Enregistré ✓ »
+   ============================================================ */
+.admin-toast {
+  position: fixed; left: 50%; bottom: 26px; transform: translate(-50%, 14px);
+  z-index: 95; background: var(--ink); color: #fff;
+  padding: 11px 20px; border-radius: 999px; font-family: var(--font-body); font-weight: 700; font-size: 13.5px;
+  box-shadow: 0 18px 40px -16px rgba(0,0,0,.6);
+  opacity: 0; pointer-events: none; transition: opacity var(--t) var(--ease), transform var(--t) var(--ease);
+}
+.admin-toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* ============================================================
+   Responsive — feuille du bas sur mobile
+   ============================================================ */
+@media (max-width: 760px) {
+  .admin-panel {
+    top: auto; left: 0; right: 0; bottom: 0; width: 100%; max-width: none;
+    height: 76vh; border-left: 0; border-top: 1px solid var(--hairline);
+    border-radius: var(--r-lg) var(--r-lg) 0 0;
+    box-shadow: 0 -28px 70px -40px rgba(0,0,0,.5);
+    animation: ap-up var(--t) var(--ease) both;
+  }
+  @keyframes ap-up { from { transform: translateY(24px); opacity: 0; } to { transform: none; opacity: 1; } }
+  .admin-panel.is-preview { height: auto; border-radius: var(--r-lg) var(--r-lg) 0 0; }
+  .admin-panel::before {
+    content: ""; position: absolute; top: 7px; left: 50%; transform: translateX(-50%);
+    width: 40px; height: 4px; border-radius: 4px; background: var(--hairline);
+  }
+  .ap-top { padding-top: 18px; }
+  .admin-toggle .at-txt { display: none; }
+  .admin-toggle { padding: 0; width: 48px; justify-content: center; }
+  /* Sur mobile : la superposition « Changer » est toujours visible (tap) */
+  .media-edit { opacity: 1; background: color-mix(in srgb, var(--ink) 30%, transparent); }
+  .media-edit .me-txt { background: color-mix(in srgb, var(--ink) 64%, transparent); padding: 4px 10px; border-radius: 999px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-panel, .admin-toast, .admin-toggle { animation: none !important; transition: opacity .12s linear !important; }
+}

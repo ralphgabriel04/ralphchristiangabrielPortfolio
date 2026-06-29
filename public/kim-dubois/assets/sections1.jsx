@@ -1,10 +1,24 @@
 /* En-tête sticky + Héros + Bandeau distinctions */
 
-function Header({ theme, onToggleTheme, showAnno, onToggleAnno, lang, onSetLang }) {
+// Petites icônes de navigation (discrètes, trait fin)
+function NavIcon({ name }) {
+  const p = { width: 20, height: 20, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": true };
+  if (name === "award") return (<svg {...p}><circle cx="12" cy="9" r="5"></circle><path d="M9 13.4 8 21l4-2.2L16 21l-1-7.6"></path></svg>);
+  if (name === "pen") return (<svg {...p}><path d="M4 20h4L18.5 9.5a2.1 2.1 0 0 0-3-3L5 17v3z"></path><path d="M13.5 7l3 3"></path></svg>);
+  if (name === "bag") return (<svg {...p}><path d="M6.5 7.5h11l.9 12.5H5.6l.9-12.5z"></path><path d="M9 7.5a3 3 0 0 1 6 0"></path></svg>);
+  if (name === "mail") return (<svg {...p}><rect x="3" y="5.5" width="18" height="13" rx="2.2"></rect><path d="m4 7.5 8 5.2 8-5.2"></path></svg>);
+  return null;
+}
+
+function Header({ theme, onToggleTheme, showAnno, onToggleAnno, lang, onSetLang, audience, onSetAudience }) {
   const D = window.KD;
   const U = D.ui;
+  const AUD = D.audience;
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const headerRef = useRef(null);
+  const burgerRef = useRef(null);
+  const en = lang === "en";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -13,15 +27,44 @@ function Header({ theme, onToggleTheme, showAnno, onToggleAnno, lang, onSetLang 
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Étagère ouverte : Échap + clic extérieur ferment ; le focus revient au hamburger.
+  // On NE verrouille PAS le défilement : le contenu reste visible et utilisable.
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    if (!open) return;
+    const onKey = (e) => { if (e.key === "Escape") { setOpen(false); burgerRef.current && burgerRef.current.focus(); } };
+    const onDown = (e) => { if (headerRef.current && !headerRef.current.contains(e.target)) setOpen(false); };
+    let y0 = window.scrollY;
+    const onScroll = () => { if (Math.abs(window.scrollY - y0) > 60) setOpen(false); };
+    window.addEventListener("keydown", onKey);
+    document.addEventListener("mousedown", onDown);
+    document.addEventListener("touchstart", onDown, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.removeEventListener("mousedown", onDown);
+      document.removeEventListener("touchstart", onDown);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, [open]);
 
+  const go = (href) => { setOpen(false); window.KDnav && window.KDnav((href || "").replace("#", "") || "home"); };
+  const isSecondary = (href) => ["#distinctions", "#blog", "#contact"].includes(href);
+
+  // Pages prioritaires (restent dans l'entête) + secondaires (étagère)
+  const subs = {
+    "#distinctions": en ? "Awards & recognition" : "Récompenses & reconnaissances",
+    "#blog": en ? "Tips & stories" : "Conseils & récits",
+    "#contact": en ? "Let’s talk" : "Échangeons",
+  };
+  const icons = { "#distinctions": "award", "#blog": "pen", "#contact": "mail" };
+  const primary = D.nav.filter((n) => !isSecondary(n.href));
+  const secondary = D.nav.filter((n) => isSecondary(n.href))
+    .map((n) => ({ label: n.label, href: n.href, sub: subs[n.href], icon: icons[n.href] }));
+
   return (
-    <header className={"site-header" + (scrolled ? " is-scrolled" : "")}>
+    <header ref={headerRef} className={"site-header" + (scrolled ? " is-scrolled" : "") + (open ? " is-open" : "")}>
       <div className="wrap header-inner">
-        <a className="brand" href="#accueil" onClick={() => setOpen(false)} aria-label={D.brand.full + " — " + D.nav[0].label}>
+        <a className="brand" href="#accueil" onClick={(e) => { e.preventDefault(); go("#accueil"); }} aria-label={D.brand.full + " — " + D.nav[0].label}>
           <Monogram size={42} spin dash />
           <span className="brand-text">
             <strong>{D.brand.name}</strong>
@@ -29,21 +72,20 @@ function Header({ theme, onToggleTheme, showAnno, onToggleAnno, lang, onSetLang 
           </span>
         </a>
 
-        <nav className="nav-desktop" aria-label={U.langGroup}>
+        <nav className="nav-primary" aria-label={en ? "Main navigation" : "Navigation principale"}>
           {D.nav.map((n) => (
-            <a key={n.label} href={n.href} className="nav-link">{n.label}</a>
+            <a key={n.label} href={n.href} className={"nav-link" + (isSecondary(n.href) ? " is-secondary" : "")}
+              onClick={(e) => { e.preventDefault(); go(n.href); }}>{n.label}</a>
           ))}
         </nav>
 
         <div className="header-actions">
-          <div className="lang-switch" role="group" aria-label={U.langGroup}>
-            {["fr", "en"].map((l, i) => (
-              <React.Fragment key={l}>
-                {i > 0 && <span className="lang-div" aria-hidden="true"></span>}
-                <button className={"lang-opt" + (lang === l ? " on" : "")}
-                  onClick={() => onSetLang(l)} aria-pressed={lang === l}
-                  title={l === "en" ? U.enTitle : U.frTitle}>{l.toUpperCase()}</button>
-              </React.Fragment>
+          <div className="aud-switch hide-compact" role="group" aria-label={AUD.label}>
+            {["particuliers", "entreprises"].map((a) => (
+              <button key={a} className={"aud-opt" + (audience === a ? " on" : "")}
+                onClick={() => onSetAudience(a)} aria-pressed={audience === a}>
+                {a === "particuliers" ? AUD.particuliers : AUD.entreprises}
+              </button>
             ))}
           </div>
 
@@ -53,59 +95,106 @@ function Header({ theme, onToggleTheme, showAnno, onToggleAnno, lang, onSetLang 
             {theme === "dark" ? "☀" : "☾"}
           </button>
 
-          <button className={"icon-btn anno-btn" + (showAnno ? " on" : "")} onClick={onToggleAnno}
-            aria-pressed={showAnno} title={U.notesTitle}>{U.notesDesign}</button>
+          <a href="#contact" className="btn btn-book header-cta" onClick={(e) => { e.preventDefault(); go("#contact"); }}>
+            <span className="cta-long">{U.bookSession}</span>
+            <span className="cta-short">{en ? "Book" : "Réserver"}</span>
+          </a>
 
-          <a href="#contact" className="btn btn-gold header-cta">{U.bookSession}</a>
-
-          <button className={"burger" + (open ? " open" : "")} onClick={() => setOpen(!open)}
-            aria-label={open ? U.menuClose : U.menuOpen} aria-expanded={open}>
+          <button ref={burgerRef} className={"burger" + (open ? " open" : "")}
+            onClick={() => setOpen((o) => !o)}
+            aria-label={open ? U.menuClose : U.menuOpen} aria-expanded={open} aria-controls="kd-shelf">
             <span></span><span></span><span></span>
           </button>
         </div>
       </div>
 
-      {/* Menu mobile plein écran */}
-      <div className={"mobile-menu" + (open ? " open" : "")} role="dialog" aria-modal="true" aria-label={U.langGroup}>
-        <nav className="mobile-nav">
-          {D.nav.map((n, i) => (
-            <a key={n.label} href={n.href} className="mobile-link reveal" data-d={(i % 3) + 1}
-               onClick={() => setOpen(false)} style={{ transitionDelay: open ? `${0.05 + i * 0.05}s` : "0s" }}>
-              <span>{n.label}</span><Monogram size={22} stroke={1.2} />
-            </a>
-          ))}
-        </nav>
-        <a href="#contact" className="btn btn-gold mobile-cta" onClick={() => setOpen(false)}>{U.bookSession}</a>
-        <div className="mobile-langs">
-          {["fr", "en"].map((l) => (
-            <button key={l} className={"lang-opt" + (lang === l ? " on" : "")} onClick={() => onSetLang(l)}>{l.toUpperCase()}</button>
-          ))}
+      {/* Étagère : l'entête s'étend juste assez pour révéler les pages secondaires */}
+      <div id="kd-shelf" className={"shelf" + (open ? " open" : "")} aria-hidden={!open}>
+        <div className="wrap shelf-inner">
+          <nav className="shelf-primary" aria-label={en ? "Main pages" : "Pages principales"}>
+            {primary.map((n) => (
+              <a key={n.label} href={n.href} className="shelf-plink"
+                onClick={(e) => { e.preventDefault(); go(n.href); }}>{n.label}</a>
+            ))}
+          </nav>
+
+          <nav className="shelf-grid" aria-label={en ? "More pages" : "Plus de pages"}>
+            {secondary.map((it) => (
+              <a key={it.label} href={it.href} className="shelf-card"
+                target={it.external ? "_blank" : undefined} rel={it.external ? "noopener noreferrer" : undefined}
+                onClick={it.external ? () => setOpen(false) : (e) => { e.preventDefault(); go(it.href); }}>
+                <span className="shelf-ic"><NavIcon name={it.icon} /></span>
+                <span className="shelf-text">
+                  <strong>{it.label}{it.external && <i className="shelf-ext" aria-hidden="true">↗</i>}</strong>
+                  <em>{it.sub}</em>
+                </span>
+              </a>
+            ))}
+          </nav>
+
+          <div className="shelf-meta">
+            <div className="aud-switch shelf-aud" role="group" aria-label={AUD.label}>
+              {["particuliers", "entreprises"].map((a) => (
+                <button key={a} className={"aud-opt" + (audience === a ? " on" : "")}
+                  onClick={() => onSetAudience(a)} aria-pressed={audience === a}>
+                  {a === "particuliers" ? AUD.particuliers : AUD.entreprises}
+                </button>
+              ))}
+            </div>
+            <div className="shelf-tools">
+              <button className={"shelf-tool" + (showAnno ? " on" : "")} onClick={onToggleAnno} aria-pressed={showAnno}>
+                <span className="shelf-tool-ic">✦</span>
+                <span>{U.notesDesign}</span>
+              </button>
+              <div className="lang-switch shelf-lang" role="group" aria-label={U.langGroup}>
+                {["fr", "en"].map((l, i) => (
+                  <React.Fragment key={l}>
+                    {i > 0 && <span className="lang-div" aria-hidden="true"></span>}
+                    <button className={"lang-opt" + (lang === l ? " on" : "")} onClick={() => onSetLang(l)} aria-pressed={lang === l}>{l.toUpperCase()}</button>
+                  </React.Fragment>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </header>
   );
 }
 
-function Hero() {
-  const H = window.KD.hero;
+function Hero({ audience }) {
+  const HERO = window.KD.hero;
+  const H = HERO[audience] || HERO.particuliers;
   const U = window.KD.ui;
   return (
     <section id="accueil" className="hero" aria-labelledby="hero-title">
-      {/* ZONE PHOTO : héros plein écran — portrait animalier signature de Kim */}
-      <div className="hero-bg" role="img" aria-label={H.bgAlt}>
+      {/* ZONE PHOTO : héros plein écran — vraie photo de Kim */}
+      <div className="hero-bg" role="img" aria-label={HERO.bgAlt}>
+        {HERO.bgSrc && <img className="hero-photo" src={HERO.bgSrc} alt="" aria-hidden="true"
+          style={{ objectPosition: HERO.bgPos || "center" }} />}
         <div className="hero-bg-grad"></div>
         <span className="hero-watermark"><Monogram size={420} stroke={0.6} /></span>
       </div>
 
       <div className="wrap hero-inner">
-        <div className="hero-content">
+        <div className="hero-content" key={audience}>
           <span className="eyebrow hero-eyebrow">{H.eyebrow}</span>
           <h1 id="hero-title" className="hero-title">{H.title}</h1>
           <p className="hero-sub">{H.subtitle}</p>
           <div className="hero-cta">
-            <a href="#contact" className="btn btn-gold">{H.ctaPrimary}</a>
-            <a href="#portfolio" className="btn btn-outline-light">{H.ctaSecondary}</a>
+            <a href="#contact" className="btn btn-book" onClick={(e) => { e.preventDefault(); window.KDnav && window.KDnav("contact"); }}>{H.ctaPrimary}</a>
+            <a href="#portfolio" className="btn btn-outline-light" onClick={(e) => { e.preventDefault(); window.KDnav && window.KDnav("portfolio"); }}>{H.ctaSecondary}</a>
           </div>
+          {H.ctaTertiary && (
+            <a href="#newsletter" className="hero-tertiary" onClick={(e) => { e.preventDefault(); window.KDnav && window.KDnav("newsletter"); }}>
+              <span aria-hidden="true">✦</span>{H.ctaTertiary}
+            </a>
+          )}
+          {H.proof && (
+            <ul className="hero-proof" aria-label="Points de confiance">
+              {H.proof.map((p, i) => <li key={i}>{p}</li>)}
+            </ul>
+          )}
         </div>
       </div>
 
@@ -121,57 +210,4 @@ function Hero() {
   );
 }
 
-function Awards() {
-  const A = window.KD.awards;
-  const U = window.KD.ui;
-  return (
-    <section id="distinctions" className="section awards" aria-labelledby="awards-title">
-      <div className="wrap">
-        <div className="awards-grid">
-          <div className="awards-head reveal">
-            <span className="eyebrow">{A.eyebrow}</span>
-            <h2 id="awards-title">{A.title}</h2>
-            <p className="awards-note">{A.note}</p>
-          </div>
-
-          <div className="awards-counters reveal" data-d="1">
-            {A.counters.map((c, i) => (
-              <React.Fragment key={c.label}>
-                {i > 0 && <span className="counter-sep" aria-hidden="true">·</span>}
-                <div className="counter">
-                  <span className="counter-n">{c.n}</span>
-                  <span className="counter-l">{c.label}</span>
-                </div>
-              </React.Fragment>
-            ))}
-          </div>
-        </div>
-
-        <hr className="gold-rule awards-rule reveal" data-d="1" />
-
-        <ul className="medals reveal" data-d="2">
-          {A.medals.map((m, i) => (
-            <li className="medal" key={i}>
-              <span className={"medal-badge tier-" + m.tier.split(" ")[0].toLowerCase()}>
-                <Monogram size={34} stroke={1.1} />
-              </span>
-              <span className="medal-text">
-                <strong>{m.tier}</strong>
-                <em>{m.cat}</em>
-              </span>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* Annotation : pourquoi les distinctions si haut */}
-      <span className="anno-dot" style={{ right: "calc(var(--gut))", top: "18px" }}>2</span>
-      <aside className="anno" style={{ right: "var(--gut)", top: "44px" }}>
-        <span className="anno-tag">{U.annoTag}</span>
-        <span dangerouslySetInnerHTML={{ __html: U.anno2 }}></span>
-      </aside>
-    </section>
-  );
-}
-
-Object.assign(window, { Header, Hero, Awards });
+Object.assign(window, { Header, Hero });

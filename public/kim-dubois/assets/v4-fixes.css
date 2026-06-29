@@ -1,0 +1,94 @@
+/* ============================================================
+   V4 — Corrections & finitions (chargé en dernier).
+   Catégorie Chevaux (à venir), badges témoignages, brouillons
+   blog, note boutique Etsy, coordonnées à confirmer, filigrane
+   du héros configurable. Hérite des tokens de styles.css.
+   ============================================================ */
+
+/* ---------- Filigrane / logo décoratif du héros (Tweak) ---------- */
+[data-heromark="marqué"] .hero-watermark { opacity: .24; }
+[data-heromark="masqué"] .hero-watermark { display: none; }
+
+/* ---------- Portfolio : catégorie « à venir » (Chevaux) ---------- */
+.pf-soon {
+  margin: 8px auto 0;
+  max-width: 560px;
+  text-align: center;
+  padding: clamp(40px, 6vw, 72px) clamp(24px, 4vw, 48px);
+  border: 1px dashed var(--hairline);
+  border-radius: var(--r-lg);
+  background: var(--surface-soft, var(--surface));
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+}
+.pf-soon-mark { opacity: .5; }
+.pf-soon-mark .kd-logo { filter: none; }
+.pf-soon-title {
+  font-family: var(--font-title);
+  font-size: clamp(24px, 3vw, 34px); font-weight: 600;
+  margin: 0; color: var(--on-surface);
+}
+.pf-soon-body {
+  margin: 0; max-width: 44ch;
+  font-size: 15.5px; line-height: 1.65; color: var(--on-surface-muted);
+}
+.pf-soon .btn { margin-top: 8px; }
+
+/* ---------- Témoignages : badge vérifié / exemple ---------- */
+.tm-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  align-self: flex-start;
+  margin-bottom: 12px;
+  padding: 5px 11px; border-radius: 999px;
+  font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--on-surface-muted);
+  background: color-mix(in srgb, var(--on-surface) 7%, transparent);
+  border: 1px solid var(--hairline);
+}
+.tm-badge.is-verified {
+  color: #1f7a4d;
+  background: color-mix(in srgb, #1f7a4d 12%, transparent);
+  border-color: color-mix(in srgb, #1f7a4d 30%, transparent);
+}
+[data-theme="dark"] .tm-badge.is-verified { color: #7ed6a6; }
+.tm-badge svg { display: block; }
+
+/* ---------- Blog : brouillons « à venir » plus discrets ---------- */
+.blog-flag--draft {
+  background: color-mix(in srgb, var(--on-surface) 10%, transparent) !important;
+  color: var(--on-surface-muted) !important;
+  border: 1px solid var(--hairline);
+  font-weight: 700;
+}
+.blog-card.is-draft { opacity: .9; }
+.blog-card.is-draft .blog-thumb { filter: saturate(.78); }
+.blog-card.is-draft:hover { opacity: 1; }
+.blog-card.is-draft .blog-readmore { color: var(--on-surface-muted); }
+
+/* ---------- Produits : boutique Etsy temporaire ---------- */
+.products-cta-wrap { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.products-shopnote {
+  margin: 0; max-width: 30ch; text-align: right;
+  font-size: 12px; line-height: 1.45; color: var(--on-surface-muted);
+  display: inline-flex; align-items: flex-start; gap: 7px;
+}
+.products-shopnote span {
+  flex: none; width: 17px; height: 17px; border-radius: 4px;
+  display: grid; place-items: center; margin-top: 1px;
+  font-family: var(--font-title); font-weight: 700; font-size: 12px;
+  color: #fff; background: #F1641E;
+}
+@media (max-width: 760px) {
+  .products-cta-wrap { align-items: flex-start; }
+  .products-shopnote { text-align: left; }
+}
+
+/* ---------- Contact : coordonnées provisoires ---------- */
+.contact-confirm {
+  margin: -14px 0 24px;
+  font-size: 12.5px; font-style: italic; color: var(--on-surface-muted);
+  display: inline-flex; align-items: center; gap: 7px;
+}
+.contact-confirm::before {
+  content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--gold, var(--accent));
+}

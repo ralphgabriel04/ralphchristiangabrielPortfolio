@@ -4,10 +4,16 @@
    ============================================================ */
 
 :root {
-  /* Palette de marque (réutilisée partout) */
-  --gold:        #C9A24B;
-  --gold-dark:   #A8842F;
-  --gold-light:  #E4CE97;
+  /* ===== Hiérarchie de couleur V3 — FERME =====
+     DORÉ = primaire (marque, actions principales, distinctions, libellés)
+     BLEU ACIER = secondaire (canvas héros, actions 2ⁿᵈ, sections calmes) */
+  --gold:        #C9A24B;   /* primaire */
+  --gold-dark:   #A8842F;   /* survols / petit texte doré sur clair */
+  --gold-light:  #E4CE97;   /* accent sur fond sombre */
+  --blue:        #45758A;   /* secondaire */
+  --blue-deep:   #2E4E5C;   /* profondeur / survols bleus */
+  --blue-pale:   #ECF1F4;   /* fonds de sections calmes */
+  --blue-on-dark:#8FB4C6;
   --ink:         #1C1A17;
   --text:        #2B2825;
   --card:        #F7F6F4;
@@ -29,7 +35,13 @@
   --accent:       var(--gold);
   --accent-strong:var(--gold-dark);
   --accent-on-dark:var(--gold-light);
-  --hero-scrim:   linear-gradient(90deg, rgba(28,26,23,.62) 0%, rgba(28,26,23,.32) 46%, rgba(28,26,23,.05) 100%);
+  /* Canvas héros = voile BLEU, fort SEULEMENT derrière le texte (gauche),
+     transparent à droite → la photo (le chien) reste bien visible */
+  --hero-scrim:   linear-gradient(95deg, rgba(24,38,46,.82) 0%, rgba(34,54,64,.44) 40%, rgba(44,70,84,.08) 74%, rgba(44,70,84,0) 100%);
+
+  /* Bouton de réservation = DORÉ plein (action principale) */
+  --book-gold:      var(--gold);
+  --book-gold-dark: var(--gold-dark);
 
   /* Type */
   --font-title: "Cormorant Garamond", Georgia, "Times New Roman", serif;
@@ -55,7 +67,8 @@
   --hairline:     #3A352E;
   --accent:       var(--gold);
   --accent-strong:var(--gold-light);
-  --hero-scrim:   linear-gradient(90deg, rgba(10,9,8,.78) 0%, rgba(10,9,8,.42) 50%, rgba(10,9,8,.12) 100%);
+  --blue-pale:    #1A2A30;
+  --hero-scrim:   linear-gradient(95deg, rgba(6,12,16,.86) 0%, rgba(12,22,28,.46) 40%, rgba(18,30,36,.08) 74%, rgba(18,30,36,0) 100%);
 }
 
 * { box-sizing: border-box; }
@@ -64,6 +77,7 @@ html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
+  overflow-x: clip;
   font-family: var(--font-body);
   color: var(--on-surface);
   background: var(--surface);
@@ -144,6 +158,27 @@ button { font-family: inherit; cursor: pointer; }
 [data-theme="dark"] .btn-gold { color: var(--ink); }
 [data-theme="dark"] .btn-gold:hover { background: var(--gold-light); color: var(--ink); }
 
+/* Bouton de réservation = action principale DORÉE pleine (ressort sur le héros bleu) */
+.btn-book {
+  background: var(--gold); color: var(--ink);
+  box-shadow: 0 1px 0 rgba(255,255,255,.25) inset, 0 10px 28px -12px rgba(168,132,47,.75);
+}
+.btn-book:hover {
+  background: var(--gold-dark); color: #fff; transform: translateY(-2px);
+  box-shadow: 0 14px 32px -12px rgba(168,132,47,.85);
+}
+.btn-book:active { background: var(--gold-dark); transform: translateY(1px); }
+[data-theme="dark"] .btn-book:hover { background: var(--gold-light); color: var(--ink); }
+
+/* Action SECONDAIRE = bleu acier */
+.btn-blue {
+  background: var(--blue); color: #fff;
+  box-shadow: 0 8px 24px -14px rgba(46,78,92,.7);
+}
+.btn-blue:hover { background: var(--blue-deep); transform: translateY(-2px); }
+[data-theme="dark"] .btn-blue { background: var(--blue); color: #fff; }
+[data-theme="dark"] .btn-blue:hover { background: var(--blue-on-dark); color: var(--ink); }
+
 .btn-ghost {
   background: transparent; color: var(--on-surface);
   border-color: var(--hairline);
@@ -156,10 +191,10 @@ button { font-family: inherit; cursor: pointer; }
 }
 .btn-outline-light:hover { background: rgba(255,255,255,.16); border-color: #fff; transform: translateY(-2px); }
 
-/* ----------- Monogramme KD ----------- */
+/* ----------- Monogramme KD (doré primaire) ----------- */
 .kd-mono { display: inline-grid; place-items: center; }
-.kd-mono circle { fill: none; stroke: var(--accent); }
-.kd-mono text { fill: var(--accent); font-family: var(--font-title); font-weight: 600; }
+.kd-mono circle { fill: none; stroke: var(--accent-strong); }
+.kd-mono text { fill: var(--accent-strong); font-family: var(--font-title); font-weight: 600; }
 .kd-mono--spin circle.kd-ring-dash {
   stroke-dasharray: 3 7; transform-origin: center;
   animation: kd-spin 26s linear infinite;
@@ -184,6 +219,8 @@ button { font-family: inherit; cursor: pointer; }
   mix-blend-mode: soft-light;
 }
 .photo-zone .pz-mono { position: absolute; inset: 0; display: grid; place-items: center; z-index: 1; opacity: .9; }
+.photo-zone .pz-img { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+.photo-zone.has-img::after { opacity: .35; }
 .photo-zone .pz-label {
   position: absolute; left: 12px; bottom: 12px; z-index: 2;
   font-size: 10.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
@@ -211,11 +248,19 @@ button { font-family: inherit; cursor: pointer; }
 .photo-card:hover .photo-cap { transform: translateY(0); opacity: 1; }
 
 /* ----------- Apparition au scroll ----------- */
-.reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
-.reveal.in { opacity: 1; transform: none; }
-.reveal[data-d="1"] { transition-delay: .08s; }
-.reveal[data-d="2"] { transition-delay: .16s; }
-.reveal[data-d="3"] { transition-delay: .24s; }
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .75s var(--ease), transform .85s cubic-bezier(.22,1,.36,1); will-change: opacity, transform; }
+.reveal.in, .reveal[data-rv="in"] { opacity: 1; transform: none; }
+.reveal[data-d="1"] { transition-delay: .07s; }
+.reveal[data-d="2"] { transition-delay: .14s; }
+.reveal[data-d="3"] { transition-delay: .21s; }
+
+/* Intensités d'animation (réglage admin) */
+[data-anim-style="doux"] .reveal { transform: translateY(13px); transition: opacity .9s ease, transform .9s ease; }
+[data-anim-style="doux"] .reveal.in, [data-anim-style="doux"] .reveal[data-rv="in"] { transform: none; }
+[data-anim-style="dynamique"] .reveal { transform: translateY(30px); transition: opacity .8s var(--ease), transform .9s cubic-bezier(.22,1,.36,1); }
+[data-anim-style="dynamique"] .reveal.in, [data-anim-style="dynamique"] .reveal[data-rv="in"] { transform: none; }
+/* Animations désactivées */
+[data-anim="off"] .reveal { opacity: 1 !important; transform: none !important; filter: none !important; transition: none !important; }
 
 /* ----------- Annotations design ----------- */
 .anno {

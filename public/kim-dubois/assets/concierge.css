@@ -1,0 +1,121 @@
+/* ============================================================
+   Assistant-concierge — chrome (sur-marque, clair/sombre)
+   Bulle dorée · en-tête bleu · bulles bot claires / visiteur dorées
+   ============================================================ */
+
+.cg-launch { position: fixed; right: clamp(16px, 2.4vw, 28px); bottom: clamp(16px, 2.4vw, 28px); z-index: 75; display: flex; align-items: center; gap: 10px; }
+.cg-bubble {
+  width: 60px; height: 60px; border-radius: 50%; border: 0;
+  background: var(--gold); color: var(--ink); font-size: 26px;
+  box-shadow: 0 16px 38px -12px rgba(0,0,0,.5);
+  display: grid; place-items: center; transition: transform var(--t) var(--ease);
+}
+.cg-bubble:hover { transform: translateY(-3px) scale(1.04); }
+.cg-teaser {
+  background: var(--surface); color: var(--on-surface); border: 1px solid var(--hairline);
+  border-radius: 999px; padding: 10px 16px; font-family: var(--font-body); font-weight: 700; font-size: 13.5px;
+  box-shadow: 0 12px 30px -14px rgba(0,0,0,.4); animation: cg-pop var(--t) var(--ease) both;
+}
+@keyframes cg-pop { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: none; } }
+
+/* Panneau */
+.cg-panel {
+  position: fixed; right: clamp(16px, 2.4vw, 28px); bottom: clamp(16px, 2.4vw, 28px);
+  z-index: 85; width: 384px; max-width: calc(100vw - 32px); height: min(620px, 80vh);
+  display: flex; flex-direction: column; overflow: hidden;
+  background: var(--surface); border: 1px solid var(--hairline);
+  border-radius: var(--r-lg); box-shadow: 0 30px 80px -30px rgba(0,0,0,.55);
+  animation: cg-in var(--t) var(--ease) both;
+}
+@keyframes cg-in { from { opacity: 0; transform: translateY(16px) scale(.98); } to { opacity: 1; transform: none; } }
+
+.cg-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; background: linear-gradient(135deg, var(--blue), var(--blue-deep)); color: #fff; }
+.cg-head-id { display: flex; align-items: center; gap: 11px; }
+.cg-avatar { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,.14); display: grid; place-items: center; }
+.cg-avatar .kd-logo { filter: brightness(0) invert(1); }
+.cg-head-txt { display: flex; flex-direction: column; line-height: 1.15; }
+.cg-head-txt strong { font-family: var(--font-title); font-size: 19px; font-weight: 600; }
+.cg-online { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; opacity: .92; }
+.cg-online i { width: 8px; height: 8px; border-radius: 50%; background: #5FD08A; box-shadow: 0 0 0 0 rgba(95,208,138,.6); animation: cg-pulse 2s infinite; }
+@keyframes cg-pulse { 0% { box-shadow: 0 0 0 0 rgba(95,208,138,.5); } 70% { box-shadow: 0 0 0 7px rgba(95,208,138,0); } 100% { box-shadow: 0 0 0 0 rgba(95,208,138,0); } }
+.cg-x { width: 36px; height: 36px; border-radius: 50%; border: 0; background: rgba(255,255,255,.14); color: #fff; font-size: 20px; line-height: 1; }
+.cg-x:hover { background: rgba(255,255,255,.26); }
+
+.cg-body { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px; background: var(--surface-soft); }
+.cg-msg { display: flex; flex-direction: column; max-width: 86%; gap: 6px; }
+.cg-msg.bot { align-self: flex-start; align-items: flex-start; }
+.cg-msg.user { align-self: flex-end; align-items: flex-end; }
+.cg-txt { padding: 11px 14px; border-radius: 16px; font-size: 14px; line-height: 1.5; white-space: pre-line; border: 0; text-align: left; font-family: inherit; cursor: default; display: inline-block; }
+.cg-msg.bot .cg-txt { background: var(--surface); color: var(--on-surface); border: 1px solid var(--hairline); border-bottom-left-radius: 5px; }
+.cg-msg.user .cg-txt { background: var(--gold); color: var(--ink); font-weight: 600; border-bottom-right-radius: 5px; }
+
+.cg-typing { display: inline-flex; gap: 4px; padding: 13px 14px; background: var(--surface); border: 1px solid var(--hairline); border-radius: 16px; border-bottom-left-radius: 5px; }
+.cg-typing i { width: 7px; height: 7px; border-radius: 50%; background: var(--on-surface-muted); animation: cg-bounce 1.2s infinite; }
+.cg-typing i:nth-child(2) { animation-delay: .15s; } .cg-typing i:nth-child(3) { animation-delay: .3s; }
+@keyframes cg-bounce { 0%,60%,100% { transform: translateY(0); opacity: .5; } 30% { transform: translateY(-5px); opacity: 1; } }
+
+.cg-opts { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; margin-top: 2px; }
+.cg-opt {
+  max-width: 100%; text-align: right; background: var(--surface); color: var(--accent-strong);
+  border: 1.5px solid color-mix(in srgb, var(--gold) 55%, transparent); border-radius: 14px;
+  padding: 10px 14px; font-family: var(--font-body); font-weight: 700; font-size: 13.5px; min-height: 44px;
+  transition: background var(--t) var(--ease), color var(--t) var(--ease), transform var(--t) var(--ease);
+}
+.cg-opt:hover { background: var(--gold); color: var(--ink); transform: translateY(-1px); border-color: transparent; }
+.cg-opt.ghost { border-style: dashed; color: var(--on-surface-muted); }
+
+.cg-input { display: flex; gap: 8px; padding: 12px; border-top: 1px solid var(--hairline); background: var(--surface); align-items: center; }
+.cg-attach { width: 40px; height: 40px; flex: none; border-radius: 50%; border: 1px solid var(--hairline); background: var(--surface-soft); color: var(--on-surface); display: grid; place-items: center; cursor: pointer; font-size: 16px; }
+.cg-attach:hover { background: var(--gold); color: var(--ink); border-color: transparent; }
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+/* Fichiers joints — en attente (au-dessus du champ) */
+.cg-pending { display: flex; flex-wrap: wrap; gap: 8px; padding: 10px 12px 0; }
+.cg-chip { display: inline-flex; align-items: center; gap: 7px; max-width: 200px; padding: 5px 8px 5px 5px; border: 1px solid var(--hairline); border-radius: 999px; background: var(--surface-soft); font-size: 12px; }
+.cg-chip img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
+.cg-chip-ico { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--blue-pale); }
+.cg-chip-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cg-chip-x { width: 20px; height: 20px; flex: none; border-radius: 50%; border: 0; background: transparent; color: var(--on-surface-muted); font-size: 15px; line-height: 1; }
+.cg-chip-x:hover { background: var(--gold); color: var(--ink); }
+
+/* Fichiers joints — dans une bulle envoyée */
+.cg-files { display: flex; flex-wrap: wrap; gap: 6px; max-width: 100%; }
+.cg-file-img { width: 92px; height: 92px; object-fit: cover; border-radius: var(--r-md); border: 1px solid var(--hairline); }
+.cg-file-doc { display: inline-flex; align-items: center; gap: 6px; padding: 8px 12px; border-radius: 12px; background: var(--surface); border: 1px solid var(--hairline); font-size: 12.5px; color: var(--on-surface); }
+.cg-file-doc b { font-style: normal; }
+.cg-input input { flex: 1; min-width: 0; font: inherit; font-size: 14px; padding: 11px 14px; border: 1px solid var(--hairline); border-radius: 999px; background: var(--surface-soft); color: var(--on-surface); }
+.cg-input input:focus { outline: 2px solid var(--gold); outline-offset: 1px; }
+.cg-send { width: 44px; height: 44px; flex: none; border-radius: 50%; border: 0; background: var(--gold); color: var(--ink); font-size: 16px; }
+.cg-send:hover { background: var(--gold-dark); color: #fff; }
+
+/* Décale la bulle quand le bouton « Revenir en haut » est visible (évite le chevauchement) */
+@media (min-width: 761px) {
+  .back-to-top.is-visible ~ .cg-launch, .cg-launch { /* placeholder */ }
+}
+
+/* ===== Anti-chevauchement des éléments flottants ===== */
+/* Le « retour en haut » se place AU-DESSUS de la bulle de clavardage */
+.back-to-top { bottom: calc(clamp(16px, 2.4vw, 28px) + 72px) !important; }
+/* Quand le clavardage est ouvert, on masque le « retour en haut » (il serait sous le panneau) */
+html.cg-open .back-to-top { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+/* Quand le tiroir admin est ouvert (desktop), la bulle se décale à gauche du tiroir */
+@media (min-width: 761px) {
+  html.kd-admin-open .cg-launch { right: calc(374px + 24px); }
+}
+@media (max-width: 560px) {
+  .back-to-top { bottom: calc(14px + 66px) !important; }
+}
+
+/* Mobile : plein écran */
+@media (max-width: 560px) {
+  .cg-panel { right: 0; bottom: 0; left: 0; top: 0; width: 100%; max-width: none; height: 100dvh; border-radius: 0; border: 0; }
+  .cg-launch { right: 14px; bottom: 14px; }
+}
+@media (max-width: 420px) {
+  .cg-teaser { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cg-panel, .cg-teaser, .cg-bubble { animation: none !important; }
+  .cg-online i, .cg-typing i { animation: none !important; }
+}

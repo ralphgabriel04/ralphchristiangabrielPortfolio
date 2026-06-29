@@ -1,0 +1,103 @@
+/* ============================================================
+   Portfolio V3 — masonry (ratios respectés), popup crédit 500px-style,
+   micro-crédit À propos. Aucune couche au-dessus des photos.
+   ============================================================ */
+
+/* ---------------- Masonry éditorial ---------------- */
+.pf-masonry { column-count: 4; column-gap: 16px; }
+.pf-masonry--home { column-count: 4; }
+@media (max-width: 1180px) { .pf-masonry, .pf-masonry--home { column-count: 3; } }
+@media (max-width: 760px)  { .pf-masonry, .pf-masonry--home { column-count: 2; column-gap: 12px; } }
+@media (max-width: 460px)  { .pf-masonry, .pf-masonry--home { column-count: 1; } }
+
+.m-item {
+  display: block; break-inside: avoid; margin: 0 0 16px;
+  position: relative; border-radius: var(--r-lg, 16px); overflow: hidden;
+  text-decoration: none; color: inherit; background: var(--surface-soft, #f3efe9);
+  box-shadow: 0 1px 0 var(--hairline, rgba(0,0,0,.06));
+}
+@media (max-width: 760px) { .m-item { margin-bottom: 12px; } }
+.m-item:focus-visible { outline: 2px solid var(--accent, #a8842f); outline-offset: 2px; }
+.m-frame { display: block; position: relative; line-height: 0; overflow: hidden; }
+.m-img {
+  width: 100%; height: auto; display: block; opacity: 1;
+  user-select: none; -webkit-user-drag: none; -webkit-touch-callout: none;
+  transition: transform .65s var(--ease, cubic-bezier(.22,1,.36,1));
+}
+.m-item:hover .m-img { transform: scale(1.045); }
+.m-frame { min-height: 0; background: var(--surface-soft, #f3efe9); }
+
+.m-cap {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 30px 16px 14px; display: flex; flex-direction: column; gap: 3px;
+  color: #fff; background: linear-gradient(transparent, rgba(0,0,0,.66));
+  opacity: 0; transform: translateY(8px); pointer-events: none;
+  transition: opacity .35s var(--ease, ease), transform .35s var(--ease, ease);
+}
+.m-item:hover .m-cap, .m-item:focus-visible .m-cap { opacity: 1; transform: none; }
+.m-cap strong { font-size: 15px; font-weight: 700; line-height: 1.2; }
+.m-cap em { font-style: normal; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; opacity: .82; }
+
+/* Apparition douce, échelonnée — on n'anime QUE le transform (jamais l'opacity) :
+   une tuile figée mi-animation (export, onglet caché) reste pleinement visible. */
+@media (prefers-reduced-motion: no-preference) {
+  .pf-masonry .m-item { animation: mFade .6s var(--ease, cubic-bezier(.22,1,.36,1)); }
+}
+@keyframes mFade { from { transform: translateY(16px); } to { transform: none; } }
+
+/* Lightbox : image non glissable */
+.lb-img { user-select: none; -webkit-user-drag: none; -webkit-touch-callout: none; }
+
+/* ---------------- Popup crédit (clic droit) ---------------- */
+.kd-credit-host {
+  position: fixed; right: 18px; bottom: 18px; z-index: 99990;
+  max-width: 344px; pointer-events: none;
+}
+.kd-credit {
+  pointer-events: auto;
+  background: var(--surface, #fff); color: var(--on-surface, #20201d);
+  border: 1px solid var(--hairline, rgba(0,0,0,.1)); border-radius: 18px;
+  padding: 16px 18px 15px; position: relative;
+  box-shadow: 0 30px 70px -28px rgba(0,0,0,.5), 0 2px 8px -4px rgba(0,0,0,.2);
+  opacity: 0; transform: translateY(16px) scale(.98);
+  transition: opacity .3s var(--ease, ease), transform .35s var(--ease, cubic-bezier(.22,1,.36,1));
+}
+.kd-credit.in { opacity: 1; transform: none; }
+.kd-credit-x {
+  position: absolute; top: 9px; right: 12px; border: none; background: none;
+  font-size: 20px; line-height: 1; color: var(--on-surface-muted, #8a8a86); cursor: pointer;
+  width: 26px; height: 26px;
+}
+.kd-credit-x:hover { color: var(--on-surface, #20201d); }
+.kd-credit-top { display: flex; align-items: center; gap: 10px; padding-right: 22px; }
+.kd-credit-lock {
+  display: grid; place-items: center; flex: none; width: 32px; height: 32px;
+  border-radius: 50%; background: var(--accent, #a8842f); color: #fff;
+}
+.kd-credit-badge {
+  font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--accent-strong, #8a6f2b);
+}
+.kd-credit-meta { margin: 13px 0 0; display: flex; flex-direction: column; gap: 0; }
+.kd-credit-meta div {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+  padding: 7px 0; border-bottom: 1px solid var(--hairline, rgba(0,0,0,.07));
+}
+.kd-credit-meta div:last-child { border-bottom: none; }
+.kd-credit-meta dt { margin: 0; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--on-surface-muted, #9a9a95); }
+.kd-credit-meta dd { margin: 0; font-size: 13px; font-weight: 600; text-align: right; }
+.kd-credit-msg { margin: 12px 0 0; font-size: 12px; line-height: 1.55; color: var(--on-surface-muted, #6c6c66); }
+.kd-credit-cr { margin: 9px 0 0; font-size: 11px; font-weight: 700; letter-spacing: .02em; color: var(--accent-strong, #8a6f2b); }
+@media (max-width: 520px) { .kd-credit-host { left: 14px; right: 14px; max-width: none; } }
+
+/* ---------------- Micro-crédit À propos (@joeva_photo) ---------------- */
+.about-credit {
+  margin-top: 18px; display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12.5px; letter-spacing: .015em; color: var(--on-surface-muted, #6c6c66);
+}
+.about-credit-ic { color: var(--on-surface-muted, #6c6c66); flex: none; }
+.about-credit a {
+  color: var(--accent-strong, #8a6f2b); font-weight: 700; text-decoration: none;
+  border-bottom: 1px solid transparent; transition: border-color .2s var(--ease, ease);
+}
+.about-credit a:hover { border-bottom-color: var(--accent-strong, #8a6f2b); }
