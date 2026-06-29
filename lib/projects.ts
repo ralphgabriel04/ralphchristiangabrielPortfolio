@@ -113,7 +113,7 @@ export const projects: Project[] = [
       fr: ["Maquette multi-pages bilingue · clair/sombre", "~15 sections modulaires + éditeur admin intégré", "Vraies photos primées (TIPPA 2024-2025) + concierge", "Production visée : Next.js + TS"],
       en: ["Multi-page bilingual mockup · light/dark", "~15 modular sections + built-in admin editor", "Real awarded photos (TIPPA 2024-2025) + concierge", "Target production: Next.js + TS"]
     },
-    media: { enabled: true, type: "image", src: "/media/kim-dubois.gif" }
+    media: { enabled: true, type: "video", src: "/media/kim-dubois.mp4" }
   },
   {
     id: "crcc",
