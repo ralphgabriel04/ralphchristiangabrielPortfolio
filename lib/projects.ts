@@ -209,5 +209,9 @@ export const projectGalleries: Record<string, { src: string; caption: { fr: stri
       src: "/media/wise-wealthy-kids.gif",
       caption: { fr: "Wise & Wealthy Kids — app ludique pour enfants", en: "Wise & Wealthy Kids — playful app for children" },
     },
+    {
+      src: "/media/wise-wealthy-famille.gif",
+      caption: { fr: "Espace Famille — verrou parent (Face ID / code PIN)", en: "Family Space — parent lock (Face ID / PIN code)" },
+    },
   ],
 }
