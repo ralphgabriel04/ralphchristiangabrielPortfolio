@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+    body{margin:0;font-family:'Plus Jakarta Sans',sans-serif;}
+    .fam-scroll::-webkit-scrollbar{width:0;height:0;display:none;}
+    .fam-scroll{scrollbar-width:none;}
+    @keyframes famIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes famPop{0%{opacity:0;transform:scale(.93);}100%{opacity:1;transform:scale(1);}}
+    @keyframes famToast{0%{opacity:0;transform:translate(-50%,16px) scale(.96);}100%{opacity:1;transform:translate(-50%,0) scale(1);}}
+    @keyframes famFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+    @keyframes famShake{0%,100%{transform:translateX(0);}20%{transform:translateX(-8px);}40%{transform:translateX(8px);}60%{transform:translateX(-5px);}80%{transform:translateX(5px);}}
+    @keyframes famRing{from{stroke-dashoffset:163;}}
+    .fam-shake-on{animation:famShake .45s ease;}
+    @keyframes famSpin{to{transform:rotate(360deg);}}
+    .fam-spin{animation:famSpin .7s linear infinite;}
+    @keyframes famScan{0%{top:8%;}50%{top:88%;}100%{top:8%;}}
+    @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;}}
+  </style>
+</helmet>
+
+<div style="min-height:100vh;width:100%;display:flex;align-items:center;justify-content:center;padding:32px 16px;background:radial-gradient(120% 120% at 50% 0%,#DCEAD6 0%,#C6DCC0 55%,#B7D2B2 100%);font-family:'Plus Jakarta Sans',sans-serif;">
+  <div style="position:relative;width:392px;height:840px;background:#0E1411;border-radius:54px;padding:13px;box-shadow:0 2px 6px rgba(0,0,0,.18),0 40px 80px -24px rgba(20,73,47,.55),inset 0 0 0 2px #232C27;">
+    <div style="position:absolute;left:50%;top:24px;transform:translateX(-50%);width:118px;height:34px;background:#0E1411;border-radius:20px;z-index:60;"></div>
+
+    <div style="position:relative;width:100%;height:100%;background:#F3F7F0;border-radius:42px;overflow:hidden;display:flex;flex-direction:column;">
+
+      <!-- status bar -->
+      <div style="flex:none;height:52px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 30px 7px;z-index:40;color:#16241C;">
+        <span style="font-size:15px;font-weight:700;letter-spacing:.3px;">9:41</span>
+        <div style="display:flex;align-items:center;gap:7px;">
+          <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="7" width="3" height="5" rx="1"></rect><rect x="5" y="4.5" width="3" height="7.5" rx="1"></rect><rect x="10" y="2" width="3" height="10" rx="1"></rect><rect x="15" y="0" width="3" height="12" rx="1" opacity=".35"></rect></svg>
+          <svg width="17" height="12" viewBox="0 0 17 12" fill="none"><path d="M8.5 11.2 1 4.3a10.5 10.5 0 0 1 15 0L8.5 11.2Z" stroke="currentColor" stroke-width="1.4" fill="currentColor" fill-opacity=".25"></path></svg>
+          <svg width="26" height="13" viewBox="0 0 26 13" fill="none"><rect x="1" y="1.5" width="21" height="10" rx="3" stroke="currentColor" stroke-width="1.2" opacity=".5"></rect><rect x="2.8" y="3.2" width="16" height="6.6" rx="1.6" fill="currentColor"></rect><rect x="23.2" y="4.5" width="1.8" height="4" rx="1" fill="currentColor" opacity=".5"></rect></svg>
+        </div>
+      </div>
+
+      <div ref="{{ contentRef }}" class="fam-scroll" style="flex:1;overflow-y:auto;overflow-x:hidden;position:relative;">
+
+        <!-- ===================== PARENT GATE ===================== -->
+        <sc-if value="{{ isGate }}" hint-placeholder-val="{{ true }}">
+          <div data-screen-label="Parent gate" style="position:relative;min-height:736px;display:flex;flex-direction:column;padding:6px 26px 16px;animation:famIn .4s ease both;">
+
+            <!-- simulated email notification banner -->
+            <sc-if value="{{ notifOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute;left:10px;right:10px;top:6px;z-index:30;background:rgba(248,250,247,.86);backdrop-filter:blur(18px);border:1px solid #E8EDE6;border-radius:20px;padding:11px 13px;display:flex;align-items:center;gap:11px;box-shadow:0 16px 30px -14px rgba(20,73,47,.45);animation:famIn .3s ease both;">
+                <span style="flex:none;width:34px;height:34px;border-radius:9px;background:#14492F;display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2.5" stroke="#fff" stroke-width="1.8"></rect><path d="M4 7l8 6 8-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+                <div style="flex:1;min-width:0;">
+                  <div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-size:12.5px;font-weight:800;color:#16241C;">Courriel</span><span style="font-size:10.5px;color:#9AA89F;">maintenant</span></div>
+                  <div style="font-size:12.5px;color:#33433A;margin-top:1px;line-height:1.35;">Wise &amp; Wealthy · code de vérification <strong style="font-family:'Bricolage Grotesque',sans-serif;letter-spacing:1px;color:#14492F;">{{ notifCode }}</strong></div>
+                </div>
+              </div>
+            </sc-if>
+
+            <!-- back / cancel -->
+            <sc-if value="{{ gateShowBack }}" hint-placeholder-val="{{ false }}">
+              <button onClick="{{ gateBack }}" style="position:absolute;left:26px;top:4px;border:1px solid #E8EDE6;background:#fff;width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#14492F;z-index:10;" style-active="transform:scale(.95);"><svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+            </sc-if>
+
+            <div style="display:flex;justify-content:center;margin-top:6px;">
+              <div style="display:inline-flex;align-items:center;gap:7px;background:#E7F5E9;color:#2E7D43;font-size:12px;font-weight:700;letter-spacing:.3px;padding:7px 14px;border-radius:20px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 11V8a6 6 0 0 1 12 0v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path><rect x="4" y="11" width="16" height="10" rx="2.5" stroke="currentColor" stroke-width="2"></rect></svg>
+                Espace réservé aux parents
+              </div>
+            </div>
+            <div style="display:flex;justify-content:center;margin-top:6px;animation:famFloat 4s ease-in-out infinite;"><div style="width:74px;"><dc-import name="Wiz" pose="secure" hint-size="74px,88px"></dc-import></div></div>
+
+            <!-- ========== PHASE: AUTH (saisir le code) ========== -->
+            <sc-if value="{{ gateAuth }}" hint-placeholder-val="{{ true }}">
+              <h1 style="font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:800;color:#14492F;margin:5px 0 0;text-align:center;letter-spacing:-.4px;">{{ gateTitle }}</h1>
+              <p style="font-size:12.5px;line-height:1.5;color:#33433A;margin:5px 14px 11px;text-align:center;">{{ gateSub }}</p>
+
+              <sc-if value="{{ bioShow }}" hint-placeholder-val="{{ true }}">
+                <button onClick="{{ bioAuth }}" style="display:flex;align-items:center;justify-content:center;gap:11px;width:100%;height:50px;border-radius:16px;border:none;background:#14492F;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:15.5px;font-weight:700;cursor:pointer;box-shadow:0 10px 22px -10px rgba(20,73,47,.6);" style-active="transform:translateY(1px);">
+                  <sc-if value="{{ bioScanning }}" hint-placeholder-val="{{ false }}"><span style="width:18px;height:18px;border:2.5px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;" class="fam-spin"></span>Vérification…</sc-if>
+                  <sc-if value="{{ bioIdle }}" hint-placeholder-val="{{ true }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"></path><path d="M9 10.5v.5M15 10.5v.5M12 9.5v3l-1 .8"></path><path d="M9.5 15a3.4 3.4 0 0 0 5 0"></path></svg>Déverrouiller avec Face ID</sc-if>
+                </button>
+                <div style="display:flex;align-items:center;gap:12px;margin:11px 0;"><div style="flex:1;height:1px;background:#EDF2EB;"></div><span style="font-size:12px;color:#9AA89F;font-weight:600;">ou code parent</span><div style="flex:1;height:1px;background:#EDF2EB;"></div></div>
+              </sc-if>
+              <sc-if value="{{ bioOff }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:center;gap:10px;background:#F4F8F2;border-radius:14px;padding:11px 13px;margin-bottom:12px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9AA89F" stroke-width="1.8" stroke-linecap="round"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2"></path><path d="M3 3l18 18"></path></svg><span style="font-size:12px;color:#7A8A80;line-height:1.4;">Face ID indisponible — entrez votre code parent.</span></div>
+              </sc-if>
+
+              <div class="{{ gateCardClass }}" style="display:flex;justify-content:center;gap:16px;">
+                <sc-for list="{{ pinDots }}" as="d" hint-placeholder-count="4">
+                  <span style="width:15px;height:15px;border-radius:50%;background:{{ d.bg }};border:2px solid {{ d.bd }};transition:all .15s;"></span>
+                </sc-for>
+              </div>
+              <sc-if value="{{ pinErr }}" hint-placeholder-val="{{ false }}"><div style="text-align:center;font-size:12.5px;color:#E5604D;font-weight:600;margin-top:12px;">Code incorrect — il reste {{ attemptsLeft }}</div></sc-if>
+
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:11px;">
+                <sc-for list="{{ pinDigits }}" as="k" hint-placeholder-count="9">
+                  <button onClick="{{ k.press }}" style="height:50px;border-radius:16px;border:1px solid #E8EDE6;background:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:23px;font-weight:700;color:#16241C;cursor:pointer;" style-active="background:#F4F8F2;transform:scale(.97);">{{ k.d }}</button>
+                </sc-for>
+                <button onClick="{{ emailCode }}" aria-label="Recevoir un code par courriel" style="height:50px;border-radius:16px;border:1px solid #E8EDE6;background:#F4F8F2;display:flex;align-items:center;justify-content:center;color:#7A8A80;cursor:pointer;" style-active="transform:scale(.97);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2.5" stroke="currentColor" stroke-width="1.8"></rect><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+                <button onClick="{{ pin0 }}" style="height:50px;border-radius:16px;border:1px solid #E8EDE6;background:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:23px;font-weight:700;color:#16241C;cursor:pointer;" style-active="background:#F4F8F2;transform:scale(.97);">0</button>
+                <button onClick="{{ pinDel }}" aria-label="Effacer" style="height:50px;border-radius:16px;border:1px solid #E8EDE6;background:#F4F8F2;display:flex;align-items:center;justify-content:center;color:#7A8A80;cursor:pointer;" style-active="transform:scale(.97);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 6h11v12H9l-5-6 5-6Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path><path d="M13 10l4 4M17 10l-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></button>
+              </div>
+
+              <sc-if value="{{ pinLocked }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top:13px;background:#FDEEEC;border:1px solid #F4DAD4;border-radius:16px;padding:13px 14px;text-align:center;">
+                  <div style="display:flex;align-items:center;justify-content:center;gap:7px;font-size:13px;color:#C9483A;font-weight:700;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="10" rx="2.5"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke-linecap="round"></path></svg>Saisie bloquée — réessayez dans {{ lockLabel }}</div>
+                  <p style="margin:7px 0 0;font-size:11.5px;color:#A8584C;line-height:1.45;">Une pause de sécurité après plusieurs essais. L'espace de votre enfant reste protégé. Vous pouvez aussi recevoir un code par courriel.</p>
+                </div>
+              </sc-if>
+              <sc-if value="{{ pinUnlocked }}" hint-placeholder-val="{{ true }}"><div style="text-align:center;margin-top:13px;"><button onClick="{{ forgotPin }}" style="border:none;background:none;color:#2E7D43;font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer;padding:4px;">Code parent oublié&nbsp;?</button></div></sc-if>
+
+              <div style="margin-top:11px;display:flex;align-items:center;justify-content:center;gap:7px;text-align:center;font-size:11px;color:#9AA89F;line-height:1.4;"><span style="width:6px;height:6px;border-radius:50%;background:#36B34A;flex:none;"></span>Aucune pub ni lien externe · Argent virtuel · Loi 25 (Québec)</div>
+            </sc-if>
+
+            <!-- ========== PHASE: SETUP / CONFIRM (créer / changer / réinitialiser) ========== -->
+            <sc-if value="{{ gateSetup }}" hint-placeholder-val="{{ false }}">
+              <h1 style="font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:800;color:#14492F;margin:5px 0 0;text-align:center;letter-spacing:-.4px;">{{ setupTitle }}</h1>
+              <p style="font-size:12.5px;line-height:1.5;color:#33433A;margin:5px 14px 14px;text-align:center;">{{ setupSub }}</p>
+
+              <div class="{{ gateCardClass }}" style="display:flex;justify-content:center;gap:16px;">
+                <sc-for list="{{ pinDots }}" as="d" hint-placeholder-count="4">
+                  <span style="width:15px;height:15px;border-radius:50%;background:{{ d.bg }};border:2px solid {{ d.bd }};transition:all .15s;"></span>
+                </sc-for>
+              </div>
+              <sc-if value="{{ setupMismatch }}" hint-placeholder-val="{{ false }}"><div style="text-align:center;font-size:12.5px;color:#E5604D;font-weight:600;margin-top:12px;">Les deux codes ne correspondent pas — recommencez</div></sc-if>
+
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:13px;">
+                <sc-for list="{{ pinDigits }}" as="k" hint-placeholder-count="9">
+                  <button onClick="{{ k.press }}" style="height:50px;border-radius:16px;border:1px solid #E8EDE6;background:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:23px;font-weight:700;color:#16241C;cursor:pointer;" style-active="background:#F4F8F2;transform:scale(.97);">{{ k.d }}</button>
+                </sc-for>
+                <div></div>
+                <button onClick="{{ pin0 }}" style="height:50px;border-radius:16px;border:1px solid #E8EDE6;background:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:23px;font-weight:700;color:#16241C;cursor:pointer;" style-active="background:#F4F8F2;transform:scale(.97);">0</button>
+                <button onClick="{{ pinDel }}" aria-label="Effacer" style="height:50px;border-radius:16px;border:1px solid #E8EDE6;background:#F4F8F2;display:flex;align-items:center;justify-content:center;color:#7A8A80;cursor:pointer;" style-active="transform:scale(.97);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 6h11v12H9l-5-6 5-6Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path><path d="M13 10l4 4M17 10l-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></button>
+              </div>
+              <div style="margin-top:14px;display:flex;align-items:center;justify-content:center;gap:7px;text-align:center;font-size:11px;color:#9AA89F;line-height:1.4;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="9" rx="2.5"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3" stroke-linecap="round"></path></svg>Choisissez un code connu de vous seul — jamais visible par l'enfant.</div>
+            </sc-if>
+
+            <!-- ========== PHASE: OTP (code courriel) ========== -->
+            <sc-if value="{{ gateOtp }}" hint-placeholder-val="{{ false }}">
+              <h1 style="font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:800;color:#14492F;margin:5px 0 0;text-align:center;letter-spacing:-.4px;">Entrez le code reçu</h1>
+              <p style="font-size:12.5px;line-height:1.5;color:#33433A;margin:5px 14px 14px;text-align:center;">Un code à 6 chiffres a été envoyé à <strong style="color:#16241C;">{{ otpEmail }}</strong>.</p>
+
+              <div class="{{ gateCardClass }}" style="display:flex;justify-content:center;gap:9px;">
+                <sc-for list="{{ otpBoxes }}" as="b" hint-placeholder-count="6">
+                  <span style="width:42px;height:52px;border-radius:13px;border:2px solid {{ b.bd }};background:{{ b.bg }};display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-size:23px;font-weight:800;color:#16241C;transition:all .15s;">{{ b.ch }}</span>
+                </sc-for>
+              </div>
+
+              <sc-if value="{{ otpErr }}" hint-placeholder-val="{{ false }}"><div style="text-align:center;font-size:12.5px;color:#E5604D;font-weight:600;margin-top:12px;">Code incorrect — vérifiez et réessayez</div></sc-if>
+              <sc-if value="{{ otpExpired }}" hint-placeholder-val="{{ false }}"><div style="text-align:center;font-size:12.5px;color:#C9483A;font-weight:700;margin-top:12px;">Code expiré — demandez-en un nouveau</div></sc-if>
+              <sc-if value="{{ otpLiveLabel }}" hint-placeholder-val="{{ true }}"><div style="text-align:center;font-size:12px;color:#9AA89F;font-weight:600;margin-top:12px;">Le code expire dans {{ otpTimeLabel }}</div></sc-if>
+
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:13px;">
+                <sc-for list="{{ otpDigits }}" as="k" hint-placeholder-count="9">
+                  <button onClick="{{ k.press }}" style="height:50px;border-radius:16px;border:1px solid #E8EDE6;background:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:23px;font-weight:700;color:#16241C;cursor:pointer;" style-active="background:#F4F8F2;transform:scale(.97);">{{ k.d }}</button>
+                </sc-for>
+                <div></div>
+                <button onClick="{{ otp0 }}" style="height:50px;border-radius:16px;border:1px solid #E8EDE6;background:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:23px;font-weight:700;color:#16241C;cursor:pointer;" style-active="background:#F4F8F2;transform:scale(.97);">0</button>
+                <button onClick="{{ otpDel }}" aria-label="Effacer" style="height:50px;border-radius:16px;border:1px solid #E8EDE6;background:#F4F8F2;display:flex;align-items:center;justify-content:center;color:#7A8A80;cursor:pointer;" style-active="transform:scale(.97);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 6h11v12H9l-5-6 5-6Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path><path d="M13 10l4 4M17 10l-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></button>
+              </div>
+
+              <button onClick="{{ otpResend }}" style="margin-top:14px;width:100%;height:46px;border-radius:14px;border:1px solid {{ otpResendBd }};background:#fff;color:{{ otpResendInk }};font-family:inherit;font-size:13.5px;font-weight:700;cursor:{{ otpResendCursor }};">{{ otpResendLabel }}</button>
+            </sc-if>
+
+          </div>
+        </sc-if>
+
+        <!-- ===================== ACCUEIL FAMILLE ===================== -->
+        <sc-if value="{{ isHome }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="Accueil Famille" style="padding:4px 20px 120px;animation:famIn .34s ease both;">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;padding:4px 0 6px;">
+              <div>
+                <div style="font-size:11px;font-weight:700;letter-spacing:.6px;color:#7A8A80;text-transform:uppercase;">Espace Famille</div>
+                <h1 style="font-family:'Bricolage Grotesque',sans-serif;font-size:25px;font-weight:800;color:#14492F;margin:2px 0 0;letter-spacing:-.5px;">Bonjour, Alex</h1>
+              </div>
+              <button onClick="{{ lock }}" aria-label="Verrouiller" style="width:44px;height:44px;border-radius:14px;border:1px solid #E8EDE6;background:#fff;display:flex;align-items:center;justify-content:center;color:#14492F;cursor:pointer;flex:none;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M7 10V8a5 5 0 0 1 10 0v2" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"></path><rect x="5" y="10" width="14" height="9" rx="2.4" stroke="currentColor" stroke-width="1.9"></rect></svg>
+              </button>
+            </div>
+
+            <!-- Wiz reassurance -->
+            <div style="margin-top:8px;background:#fff;border-radius:20px;padding:15px 16px;border:1px solid #E8EDE6;box-shadow:0 6px 16px -12px rgba(20,73,47,.3);display:flex;align-items:center;gap:12px;">
+              <div style="width:46px;flex:none;"><dc-import name="Wiz" pose="secure" hint-size="46px,55px"></dc-import></div>
+              <div style="flex:1;"><div style="font-size:13.5px;font-weight:700;color:#16241C;line-height:1.35;">Vous gardez le contrôle</div><div style="font-size:12.5px;color:#7A8A80;margin-top:2px;line-height:1.4;">Du contenu, du temps d'écran et des données de votre famille.</div></div>
+            </div>
+
+            <!-- Cette semaine -->
+            <div style="display:flex;align-items:center;justify-content:space-between;margin:22px 0 11px;">
+              <h2 style="font-size:12px;font-weight:700;letter-spacing:.5px;color:#7A8A80;text-transform:uppercase;margin:0;">Cette semaine</h2>
+              <span style="font-size:12px;color:#9AA89F;font-weight:600;">2 — 8 juin</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;">
+              <div style="background:#fff;border-radius:18px;padding:14px;border:1px solid #E8EDE6;box-shadow:0 6px 16px -12px rgba(20,73,47,.3);"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:800;color:#14492F;">1 h 10</div><div style="font-size:11.5px;color:#7A8A80;margin-top:2px;line-height:1.25;">temps total</div></div>
+              <div style="background:#fff;border-radius:18px;padding:14px;border:1px solid #E8EDE6;box-shadow:0 6px 16px -12px rgba(20,73,47,.3);"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:800;color:#14492F;">7</div><div style="font-size:11.5px;color:#7A8A80;margin-top:2px;line-height:1.25;">leçons faites</div></div>
+              <div style="background:#fff;border-radius:18px;padding:14px;border:1px solid #E8EDE6;box-shadow:0 6px 16px -12px rgba(20,73,47,.3);"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:800;color:#14492F;">4</div><div style="font-size:11.5px;color:#7A8A80;margin-top:2px;line-height:1.25;">compétences</div></div>
+            </div>
+
+            <!-- Enfants -->
+            <div style="display:flex;align-items:center;justify-content:space-between;margin:24px 0 11px;">
+              <h2 style="font-size:12px;font-weight:700;letter-spacing:.5px;color:#7A8A80;text-transform:uppercase;margin:0;">Mes enfants</h2>
+              <span onClick="{{ goCreate }}" style="font-size:13px;font-weight:700;color:#2E7D43;cursor:pointer;">+ Ajouter</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:12px;">
+              <sc-for list="{{ children }}" as="c" hint-placeholder-count="2">
+                <div onClick="{{ c.open }}" style="background:#fff;border-radius:20px;padding:15px;border:1px solid #E8EDE6;box-shadow:0 6px 16px -12px rgba(20,73,47,.3);cursor:pointer;display:flex;align-items:center;gap:14px;" style-active="transform:scale(.99);">
+                  <div style="position:relative;width:60px;height:60px;flex:none;">
+                    <svg width="60" height="60" viewBox="0 0 60 60" style="position:absolute;inset:0;"><circle cx="30" cy="30" r="26" fill="none" stroke="#EDF2EB" stroke-width="5"></circle><circle cx="30" cy="30" r="26" fill="none" stroke="{{ c.ring }}" stroke-width="5" stroke-linecap="round" stroke-dasharray="163.4" stroke-dashoffset="{{ c.dash }}" transform="rotate(-90 30 30)"></circle></svg>
+                    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:26px;">{{ c.avatar }}</div>
+                  </div>
+                  <div style="flex:1;min-width:0;">
+                    <div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:17px;font-weight:700;color:#16241C;">{{ c.name }}</span><span style="font-size:11px;font-weight:700;color:{{ c.ring }};background:{{ c.tint }};padding:3px 9px;border-radius:999px;">{{ c.ageLabel }}</span></div>
+                    <div style="font-size:12.5px;color:#7A8A80;margin-top:3px;">{{ c.unitName }} · {{ c.progress }}%</div>
+                    <div style="margin-top:8px;display:flex;align-items:center;gap:8px;">
+                      <span style="font-size:11.5px;color:#7A8A80;font-weight:600;">⏱ {{ c.weekTime }}</span>
+                      <sc-if value="{{ c.hasReview }}" hint-placeholder-val="{{ false }}"><span style="font-size:11px;font-weight:700;color:#B5852A;background:#FFF4DD;padding:3px 9px;border-radius:999px;">{{ c.reviewCount }} à réviser</span></sc-if>
+                      <sc-if value="{{ c.allGood }}" hint-placeholder-val="{{ false }}"><span style="font-size:11px;font-weight:700;color:#2E7D43;background:#E7F5E9;padding:3px 9px;border-radius:999px;">À jour</span></sc-if>
+                    </div>
+                  </div>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex:none;color:#9AA89F;"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                </div>
+              </sc-for>
+            </div>
+
+            <!-- Conversation mission -->
+            <div onClick="{{ goConversation }}" style="margin-top:16px;background:linear-gradient(120deg,#EAF1FE,#DCEBFD);border-radius:20px;padding:16px;cursor:pointer;display:flex;gap:13px;align-items:flex-start;" style-active="transform:scale(.99);">
+              <div style="width:40px;height:40px;border-radius:13px;background:#fff;display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 4px 10px -4px rgba(59,111,212,.4);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 5h16v11H8l-4 4V5Z" stroke="#3B6FD4" stroke-width="1.9" stroke-linejoin="round"></path></svg></div>
+              <div style="flex:1;"><div style="font-size:11px;font-weight:700;letter-spacing:.3px;color:#3B6FD4;text-transform:uppercase;">Mission de conversation</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:700;color:#16241C;margin-top:3px;line-height:1.3;">Besoin ou envie&nbsp;? Parlez-en au souper.</div><div style="font-size:12px;color:#33433A;margin-top:3px;">3 minutes · à faire avec Léa</div></div>
+            </div>
+
+            <!-- Quick controls -->
+            <h2 style="font-size:12px;font-weight:700;letter-spacing:.5px;color:#7A8A80;text-transform:uppercase;margin:24px 0 11px;">Contrôles</h2>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+              <button onClick="{{ goPrivacy }}" style="background:#fff;border:1px solid #E8EDE6;border-radius:18px;padding:15px;text-align:left;cursor:pointer;box-shadow:0 6px 16px -12px rgba(20,73,47,.3);" style-active="transform:scale(.98);">
+                <div style="width:38px;height:38px;border-radius:12px;background:#E7F5E9;display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6l7-3Z" stroke="#2E7D43" stroke-width="1.8" stroke-linejoin="round"></path></svg></div>
+                <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:14.5px;font-weight:700;color:#16241C;margin-top:11px;">Confidentialité</div>
+                <div style="font-size:12px;color:#7A8A80;margin-top:2px;">Consentement & données</div>
+              </button>
+              <button onClick="{{ openKids }}" style="background:#14492F;border:none;border-radius:18px;padding:15px;text-align:left;cursor:pointer;box-shadow:0 10px 22px -12px rgba(20,73,47,.6);" style-active="transform:scale(.98);">
+                <div style="width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 7h14v10H5zM9 11l4 1.5L9 14z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"></path></svg></div>
+                <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:14.5px;font-weight:700;color:#fff;margin-top:11px;">Ouvrir Wiz4Kids</div>
+                <div style="font-size:12px;color:rgba(255,255,255,.7);margin-top:2px;">Lancer l'app enfant</div>
+              </button>
+            </div>
+
+            <div style="margin-top:16px;background:#F4F8F2;border-radius:16px;padding:14px 15px;display:flex;gap:11px;align-items:flex-start;"><span style="flex:none;color:#7A8A80;margin-top:1px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6l7-3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path></svg></span><p style="margin:0;font-size:12px;line-height:1.55;color:#7A8A80;">Conforme à la Loi 25 (Québec). Données enfant séparées de votre compte. Wiz offre de l'éducation générale, pas du conseil financier réglementé.</p></div>
+          </div>
+        </sc-if>
+
+        <!-- ===================== LISTE ENFANTS ===================== -->
+        <sc-if value="{{ isChildren }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="Mes enfants" style="padding:4px 20px 120px;animation:famIn .3s ease both;">
+            <div style="padding:4px 0 8px;"><div style="font-size:11px;font-weight:700;letter-spacing:.6px;color:#7A8A80;text-transform:uppercase;">Espace Famille</div><h1 style="font-family:'Bricolage Grotesque',sans-serif;font-size:25px;font-weight:800;color:#14492F;margin:2px 0 0;letter-spacing:-.5px;">Mes enfants</h1></div>
+            <div style="display:flex;flex-direction:column;gap:12px;margin-top:12px;">
+              <sc-for list="{{ children }}" as="c" hint-placeholder-count="2">
+                <div onClick="{{ c.open }}" style="background:#fff;border-radius:20px;padding:16px;border:1px solid #E8EDE6;box-shadow:0 6px 16px -12px rgba(20,73,47,.3);cursor:pointer;" style-active="transform:scale(.99);">
+                  <div style="display:flex;align-items:center;gap:14px;">
+                    <div style="position:relative;width:56px;height:56px;flex:none;"><div style="width:56px;height:56px;border-radius:17px;background:{{ c.tint }};display:flex;align-items:center;justify-content:center;font-size:26px;">{{ c.avatar }}</div></div>
+                    <div style="flex:1;"><div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:17px;font-weight:700;color:#16241C;">{{ c.name }}</span><span style="font-size:11px;font-weight:700;color:{{ c.ring }};background:{{ c.tint }};padding:3px 9px;border-radius:999px;">{{ c.ageLabel }}</span></div><div style="font-size:12.5px;color:#7A8A80;margin-top:3px;">Actif {{ c.lastActive }}</div></div>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex:none;color:#9AA89F;"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                  </div>
+                  <div style="margin-top:13px;height:8px;border-radius:5px;background:#EDF2EB;overflow:hidden;"><div style="height:100%;border-radius:5px;background:{{ c.ring }};width:{{ c.progressW }};"></div></div>
+                  <div style="display:flex;justify-content:space-between;margin-top:7px;"><span style="font-size:12px;color:#7A8A80;">{{ c.unitName }}</span><span style="font-size:12px;font-weight:700;color:{{ c.ring }};">{{ c.progress }}%</span></div>
+                </div>
+              </sc-for>
+              <button onClick="{{ goCreate }}" style="background:#fff;border:1.5px dashed #CBD8C8;border-radius:20px;padding:18px;display:flex;align-items:center;justify-content:center;gap:9px;color:#2E7D43;font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:700;cursor:pointer;" style-active="transform:scale(.99);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg>Ajouter un enfant</button>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ===================== DÉTAIL ENFANT ===================== -->
+        <sc-if value="{{ isChild }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="Détail enfant" style="padding:4px 20px 120px;animation:famIn .3s ease both;">
+            <div style="display:flex;align-items:center;gap:13px;padding:4px 0 10px;">
+              <button onClick="{{ back }}" style="border:1px solid #E8EDE6;background:#fff;width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#14492F;flex:none;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+              <div style="flex:1;"><div style="font-size:11px;font-weight:700;letter-spacing:.5px;color:#7A8A80;text-transform:uppercase;">Profil enfant</div><h1 style="font-family:'Bricolage Grotesque',sans-serif;font-size:21px;font-weight:800;color:#14492F;margin:1px 0 0;">{{ selName }}</h1></div>
+            </div>
+
+            <!-- header card -->
+            <div style="background:#fff;border-radius:22px;padding:18px;border:1px solid #E8EDE6;box-shadow:0 6px 16px -12px rgba(20,73,47,.3);display:flex;align-items:center;gap:15px;">
+              <div style="position:relative;width:66px;height:66px;flex:none;">
+                <svg width="66" height="66" viewBox="0 0 66 66" style="position:absolute;inset:0;"><circle cx="33" cy="33" r="29" fill="none" stroke="#EDF2EB" stroke-width="5.5"></circle><circle cx="33" cy="33" r="29" fill="none" stroke="{{ selRing }}" stroke-width="5.5" stroke-linecap="round" stroke-dasharray="182.2" stroke-dashoffset="{{ selDash }}" transform="rotate(-90 33 33)"></circle></svg>
+                <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:30px;">{{ selAvatar }}</div>
+              </div>
+              <div style="flex:1;"><div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:19px;font-weight:800;color:#16241C;">{{ selName }}</span></div><div style="font-size:12.5px;color:#7A8A80;margin-top:3px;">{{ selAgeLabel }} · {{ selMode }}</div><div style="font-size:12px;color:#9AA89F;margin-top:5px;">Actif {{ selLastActive }}</div></div>
+              <div style="text-align:right;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:800;color:{{ selRing }};">{{ selProgress }}%</div><div style="font-size:11px;color:#9AA89F;">parcours</div></div>
+            </div>
+
+            <!-- stats -->
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;margin-top:12px;">
+              <div style="background:#fff;border-radius:16px;padding:13px;border:1px solid #E8EDE6;text-align:center;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:19px;font-weight:800;color:#14492F;">{{ selWeekTime }}</div><div style="font-size:11px;color:#7A8A80;margin-top:2px;">cette semaine</div></div>
+              <div style="background:#fff;border-radius:16px;padding:13px;border:1px solid #E8EDE6;text-align:center;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:19px;font-weight:800;color:#14492F;">{{ selLessons }}</div><div style="font-size:11px;color:#7A8A80;margin-top:2px;">leçons</div></div>
+              <div style="background:#fff;border-radius:16px;padding:13px;border:1px solid #E8EDE6;text-align:center;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:19px;font-weight:800;color:#14492F;">{{ selStreak }}</div><div style="font-size:11px;color:#7A8A80;margin-top:2px;">jours de suite</div></div>
+            </div>
+
+            <!-- compétences acquises -->
+            <h2 style="font-size:12px;font-weight:700;letter-spacing:.5px;color:#7A8A80;text-transform:uppercase;margin:22px 0 11px;">Compétences acquises</h2>
+            <div style="display:flex;flex-wrap:wrap;gap:9px;">
+              <sc-for list="{{ selSkills }}" as="sk" hint-placeholder-count="3">
+                <span style="display:inline-flex;align-items:center;gap:7px;background:#E7F5E9;color:#2E7D43;font-size:13px;font-weight:600;padding:9px 13px;border-radius:13px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>{{ sk }}</span>
+              </sc-for>
+            </div>
+
+            <!-- à réviser -->
+            <sc-if value="{{ selHasReview }}" hint-placeholder-val="{{ false }}">
+              <h2 style="font-size:12px;font-weight:700;letter-spacing:.5px;color:#7A8A80;text-transform:uppercase;margin:22px 0 11px;">À revoir ensemble</h2>
+              <div style="background:#FFF4DD;border:1px solid #F4E6C8;border-radius:18px;padding:15px;">
+                <div style="display:flex;flex-wrap:wrap;gap:9px;">
+                  <sc-for list="{{ selReview }}" as="rv" hint-placeholder-count="1">
+                    <span style="display:inline-flex;align-items:center;gap:7px;background:#fff;color:#B5852A;font-size:13px;font-weight:600;padding:8px 12px;border-radius:12px;border:1px solid #F4E6C8;">{{ rv }}</span>
+                  </sc-for>
+                </div>
+                <p style="margin:12px 0 0;font-size:12.5px;line-height:1.5;color:#8A6A2E;">Pas une note — juste une notion à reprendre en douceur. Wiz proposera un mini-rappel à votre enfant.</p>
+              </div>
+            </sc-if>
+
+            <!-- Wiz TV regardé -->
+            <h2 style="font-size:12px;font-weight:700;letter-spacing:.5px;color:#7A8A80;text-transform:uppercase;margin:22px 0 11px;">Wiz TV — vu cette semaine</h2>
+            <div style="background:#fff;border:1px solid #E8EDE6;border-radius:18px;overflow:hidden;">
+              <sc-for list="{{ selVideos }}" as="v" hint-placeholder-count="3">
+                <div style="display:flex;align-items:center;gap:12px;padding:13px 15px;border-bottom:1px solid #EDF2EB;">
+                  <span style="flex:none;width:38px;height:38px;border-radius:11px;background:#F4F8F2;display:flex;align-items:center;justify-content:center;font-size:19px;">{{ v.emoji }}</span>
+                  <div style="flex:1;min-width:0;"><div style="font-size:14px;font-weight:700;color:#16241C;line-height:1.25;">{{ v.title }}</div><div style="font-size:11.5px;color:#7A8A80;margin-top:2px;">Notion : {{ v.notion }}</div></div>
+                  <span style="flex:none;font-size:11px;font-weight:700;color:{{ v.color }};background:{{ v.bg }};padding:5px 10px;border-radius:999px;">{{ v.status }}</span>
+                </div>
+              </sc-for>
+              <div style="display:flex;align-items:center;gap:9px;padding:13px 15px;"><span style="font-size:15px;">❓</span><span style="flex:1;font-size:13px;font-weight:600;color:#16241C;">Questions guidées posées à Wiz</span><span style="font-size:13px;color:#7A8A80;font-weight:700;">{{ selQuestions }}</span></div>
+            </div>
+
+            <!-- réglages enfant -->
+            <h2 style="font-size:12px;font-weight:700;letter-spacing:.5px;color:#7A8A80;text-transform:uppercase;margin:22px 0 11px;">Réglages</h2>
+            <div style="background:#fff;border:1px solid #E8EDE6;border-radius:18px;padding:6px 16px;">
+              <div style="display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid #EDF2EB;">
+                <span style="font-size:18px;">⏱️</span>
+                <div style="flex:1;"><div style="font-size:14px;font-weight:600;color:#16241C;">Limite de temps</div><div style="font-size:11.5px;color:#9AA89F;">par jour</div></div>
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <button onClick="{{ limitDown }}" style="width:32px;height:32px;border-radius:10px;border:1px solid #E8EDE6;background:#F4F8F2;font-size:18px;font-weight:700;color:#14492F;cursor:pointer;line-height:1;">−</button>
+                  <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:800;color:#16241C;min-width:54px;text-align:center;">{{ selLimit }}</span>
+                  <button onClick="{{ limitUp }}" style="width:32px;height:32px;border-radius:10px;border:1px solid #E8EDE6;background:#F4F8F2;font-size:18px;font-weight:700;color:#14492F;cursor:pointer;line-height:1;">+</button>
+                </div>
+              </div>
+              <div style="padding:13px 0 11px;border-bottom:1px solid #EDF2EB;">
+                <div style="display:flex;align-items:center;gap:12px;"><span style="font-size:18px;">🎚️</span><div style="flex:1;"><div style="font-size:14px;font-weight:600;color:#16241C;">Contenu par âge</div><div style="font-size:11.5px;color:#9AA89F;">{{ selMode }}</div></div></div>
+                <div style="display:flex;gap:8px;margin-top:11px;">
+                  <sc-for list="{{ ageModes }}" as="m" hint-placeholder-count="3">
+                    <button onClick="{{ m.pick }}" style="flex:1;height:46px;border-radius:13px;border:1.5px solid {{ m.border }};background:{{ m.bg }};cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;"><span style="font-size:13px;font-weight:800;color:{{ m.ink }};font-family:'Bricolage Grotesque',sans-serif;">{{ m.range }}</span><span style="font-size:9.5px;color:{{ m.sub }};">ans</span></button>
+                  </sc-for>
+                </div>
+              </div>
+              <div onClick="{{ pauseChild }}" style="display:flex;align-items:center;gap:12px;padding:14px 0;cursor:pointer;"><span style="font-size:18px;">⏸️</span><div style="flex:1;"><div style="font-size:14px;font-weight:600;color:#16241C;">Mettre le compte en pause</div></div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="color:#9AA89F;"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg></div>
+            </div>
+
+            <button onClick="{{ goConversation }}" style="margin-top:16px;width:100%;background:linear-gradient(120deg,#EAF1FE,#DCEBFD);border:none;border-radius:18px;padding:15px;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;" style-active="transform:scale(.99);"><span style="width:38px;height:38px;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;flex:none;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M4 5h16v11H8l-4 4V5Z" stroke="#3B6FD4" stroke-width="1.9" stroke-linejoin="round"></path></svg></span><div style="flex:1;"><div style="font-size:14px;font-weight:700;color:#16241C;">Mission de conversation</div><div style="font-size:12px;color:#33433A;">À faire ensemble cette semaine</div></div></button>
+          </div>
+        </sc-if>
+
+        <!-- ===================== CRÉER ENFANT ===================== -->
+        <sc-if value="{{ isCreate }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="Créer un profil enfant" style="min-height:736px;display:flex;flex-direction:column;padding:4px 22px 30px;animation:famIn .3s ease both;">
+            <div style="display:flex;align-items:center;gap:13px;padding:4px 0 12px;">
+              <button onClick="{{ back }}" style="border:1px solid #E8EDE6;background:#fff;width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#14492F;flex:none;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+              <h1 style="font-family:'Bricolage Grotesque',sans-serif;font-size:21px;font-weight:800;color:#14492F;margin:0;">Nouveau profil enfant</h1>
+            </div>
+
+            <span style="font-size:13px;font-weight:600;color:#33433A;margin-bottom:9px;">Choisis un avatar</span>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+              <sc-for list="{{ avatarChoices }}" as="a" hint-placeholder-count="6">
+                <button onClick="{{ a.pick }}" style="width:54px;height:54px;border-radius:16px;border:2px solid {{ a.border }};background:{{ a.bg }};font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;" style-active="transform:scale(.94);">{{ a.emoji }}</button>
+              </sc-for>
+            </div>
+
+            <span style="font-size:13px;font-weight:600;color:#33433A;margin:20px 0 7px;">Surnom</span>
+            <input value="{{ newName }}" onInput="{{ onNewName }}" placeholder="Ex. Léa" style="width:100%;height:54px;border-radius:15px;border:1.5px solid #E8EDE6;background:#fff;padding:0 16px;font-family:inherit;font-size:15.5px;color:#16241C;outline:none;">
+
+            <span style="font-size:13px;font-weight:600;color:#33433A;margin:20px 0 9px;">Âge</span>
+            <div style="display:flex;align-items:center;gap:12px;background:#fff;border:1.5px solid #E8EDE6;border-radius:15px;padding:9px 12px;">
+              <button onClick="{{ ageDown }}" aria-label="Diminuer" style="width:44px;height:44px;border-radius:13px;border:1px solid #E8EDE6;background:#F4F8F2;font-size:24px;font-weight:700;color:#14492F;cursor:pointer;line-height:1;flex:none;" style-active="transform:scale(.94);">−</button>
+              <div style="flex:1;text-align:center;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:800;color:#16241C;">{{ newAge }}</span><span style="font-size:14px;font-weight:600;color:#7A8A80;margin-left:5px;">ans</span></div>
+              <button onClick="{{ ageUp }}" aria-label="Augmenter" style="width:44px;height:44px;border-radius:13px;border:1px solid #E8EDE6;background:#F4F8F2;font-size:24px;font-weight:700;color:#14492F;cursor:pointer;line-height:1;flex:none;" style-active="transform:scale(.94);">+</button>
+            </div>
+
+            <div style="margin-top:16px;background:#E7F5E9;border-radius:16px;padding:14px 15px;display:flex;gap:11px;align-items:center;"><span style="font-size:18px;">🎚️</span><div style="flex:1;"><div style="font-size:13px;font-weight:700;color:#2E7D43;">Mode suggéré : {{ newMode }}</div><div style="font-size:12px;color:#33433A;margin-top:2px;">{{ newModeDesc }}</div></div></div>
+
+            <div style="margin-top:14px;background:#F4F8F2;border-radius:16px;padding:14px 15px;display:flex;gap:11px;align-items:flex-start;"><span style="flex:none;color:#7A8A80;margin-top:1px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6l7-3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path></svg></span><p style="margin:0;font-size:12px;line-height:1.55;color:#7A8A80;">Le profil de votre enfant est conservé séparément de votre compte. Aucune donnée n'est revendue. Vous pouvez le supprimer à tout moment.</p></div>
+
+            <button onClick="{{ createChild }}" style="margin-top:auto;width:100%;height:56px;border:none;border-radius:16px;background:#14492F;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 10px 22px -10px rgba(20,73,47,.6);" style-active="transform:translateY(1px);">Créer le profil</button>
+          </div>
+        </sc-if>
+
+        <!-- ===================== CONVERSATION ===================== -->
+        <sc-if value="{{ isConversation }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="Mission de conversation" style="min-height:736px;display:flex;flex-direction:column;padding:4px 22px 30px;animation:famIn .3s ease both;">
+            <div style="display:flex;align-items:center;gap:13px;padding:4px 0 6px;">
+              <button onClick="{{ back }}" style="border:1px solid #E8EDE6;background:#fff;width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#14492F;flex:none;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+              <h1 style="font-family:'Bricolage Grotesque',sans-serif;font-size:21px;font-weight:800;color:#14492F;margin:0;">Mission de conversation</h1>
+            </div>
+
+            <div style="background:linear-gradient(140deg,#EAF1FE,#DCEBFD);border-radius:24px;padding:22px;margin-top:8px;text-align:center;">
+              <div style="display:flex;justify-content:center;margin-bottom:4px;"><div style="width:96px;"><dc-import name="Wiz" pose="idea" hint-size="96px,114px"></dc-import></div></div>
+              <div style="display:inline-flex;align-items:center;gap:6px;background:#fff;color:#3B6FD4;font-size:11.5px;font-weight:700;padding:6px 13px;border-radius:20px;letter-spacing:.3px;">3 MIN · AVEC LÉA</div>
+              <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-size:21px;font-weight:800;color:#14492F;margin:12px 0 0;line-height:1.25;">Besoin ou envie&nbsp;?</h2>
+              <p style="font-size:14px;line-height:1.55;color:#33433A;margin:9px 0 0;">Léa vient de regarder une capsule sur les besoins et les envies. Profitez d'un moment du quotidien pour en parler ensemble.</p>
+            </div>
+
+            <h2 style="font-size:12px;font-weight:700;letter-spacing:.5px;color:#7A8A80;text-transform:uppercase;margin:22px 0 11px;">Comment lancer la discussion</h2>
+            <div style="display:flex;flex-direction:column;gap:11px;">
+              <sc-for list="{{ talkSteps }}" as="t" hint-placeholder-count="3">
+                <div style="background:#fff;border:1px solid #E8EDE6;border-radius:16px;padding:14px 15px;display:flex;gap:12px;align-items:flex-start;"><span style="flex:none;width:26px;height:26px;border-radius:50%;background:#EAF1FE;color:#3B6FD4;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;">{{ t.n }}</span><p style="margin:0;font-size:14px;line-height:1.5;color:#33433A;">{{ t.text }}</p></div>
+              </sc-for>
+            </div>
+
+            <div style="margin-top:14px;background:#F4F8F2;border-radius:16px;padding:14px 15px;"><div style="font-size:11px;font-weight:700;color:#7A8A80;text-transform:uppercase;letter-spacing:.3px;">Astuce</div><p style="margin:5px 0 0;font-size:13px;line-height:1.5;color:#33433A;">Il n'y a pas de mauvaise réponse. L'objectif est que votre enfant réfléchisse avant d'acheter — pas qu'il ait « raison ».</p></div>
+
+            <button onClick="{{ doneConversation }}" style="margin-top:auto;width:100%;height:56px;border:none;border-radius:16px;background:#3B6FD4;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 10px 22px -10px rgba(59,111,212,.55);" style-active="transform:translateY(1px);">Marquer comme fait</button>
+          </div>
+        </sc-if>
+
+        <!-- ===================== TRUST CENTER ===================== -->
+        <sc-if value="{{ isPrivacy }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="Trust Center" style="padding:4px 20px 120px;animation:famIn .3s ease both;">
+            <div style="padding:4px 0 8px;"><div style="font-size:11px;font-weight:700;letter-spacing:.6px;color:#7A8A80;text-transform:uppercase;">Espace Famille</div><h1 style="font-family:'Bricolage Grotesque',sans-serif;font-size:25px;font-weight:800;color:#14492F;margin:2px 0 0;letter-spacing:-.5px;">Centre de confiance</h1></div>
+
+            <div style="margin-top:8px;background:#fff;border-radius:20px;padding:16px;border:1px solid #E8EDE6;box-shadow:0 6px 16px -12px rgba(20,73,47,.3);display:flex;align-items:center;gap:13px;">
+              <div style="width:46px;flex:none;"><dc-import name="Wiz" pose="secure" hint-size="46px,55px"></dc-import></div>
+              <div style="flex:1;"><div style="font-size:13.5px;font-weight:700;color:#16241C;">Conforme à la Loi 25 (Québec)</div><div style="font-size:12.5px;color:#7A8A80;margin-top:2px;line-height:1.4;">Aucune vente de données. Aucune publicité côté enfant.</div></div>
+            </div>
+
+            <!-- Sécurité du compte -->
+            <h2 style="font-size:12px;font-weight:700;letter-spacing:.5px;color:#7A8A80;text-transform:uppercase;margin:22px 0 11px;">Sécurité de l'accès</h2>
+            <div style="background:#fff;border:1px solid #E8EDE6;border-radius:18px;padding:4px 16px;">
+              <div onClick="{{ changePin }}" style="display:flex;align-items:center;gap:13px;padding:14px 0;border-bottom:1px solid #EDF2EB;cursor:pointer;"><span style="width:36px;height:36px;border-radius:11px;background:#E7F5E9;display:flex;align-items:center;justify-content:center;flex:none;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2E7D43" stroke-width="1.9"><rect x="4" y="10" width="16" height="10" rx="2.5"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke-linecap="round"></path></svg></span><div style="flex:1;"><div style="font-size:14px;font-weight:600;color:#16241C;">Modifier le code parent</div><div style="font-size:11.5px;color:#9AA89F;">Vérification requise</div></div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="color:#9AA89F;"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg></div>
+              <div style="display:flex;align-items:center;gap:13px;padding:14px 0;">
+                <span style="width:36px;height:36px;border-radius:11px;background:#EAF1FE;display:flex;align-items:center;justify-content:center;flex:none;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3B6FD4" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"></path><path d="M9.5 14a3.4 3.4 0 0 0 5 0"></path></svg></span>
+                <div style="flex:1;"><div style="font-size:14px;font-weight:600;color:#16241C;">Déverrouillage par Face ID</div><div style="font-size:11.5px;color:#9AA89F;">Biométrie de l'appareil</div></div>
+                <button onClick="{{ toggleBio }}" style="flex:none;width:48px;height:28px;border-radius:999px;border:none;background:{{ bioToggleBg }};position:relative;cursor:pointer;transition:background .2s;"><span style="position:absolute;top:3px;left:{{ bioToggleKnob }};width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:left .2s;"></span></button>
+              </div>
+            </div>
+
+            <!-- Appareils connectés -->
+            <h2 style="font-size:12px;font-weight:700;letter-spacing:.5px;color:#7A8A80;text-transform:uppercase;margin:22px 0 11px;">Appareils connectés</h2>
+            <div style="background:#fff;border:1px solid #E8EDE6;border-radius:18px;padding:4px 16px;">
+              <sc-for list="{{ devices }}" as="d" hint-placeholder-count="2">
+                <div style="display:flex;align-items:center;gap:13px;padding:14px 0;border-bottom:1px solid {{ d.border }};">
+                  <span style="width:36px;height:36px;border-radius:11px;background:#F4F8F2;display:flex;align-items:center;justify-content:center;flex:none;font-size:17px;">{{ d.icon }}</span>
+                  <div style="flex:1;min-width:0;"><div style="font-size:14px;font-weight:600;color:#16241C;">{{ d.name }}</div><div style="font-size:11.5px;color:#9AA89F;">{{ d.meta }}</div></div>
+                  <sc-if value="{{ d.current }}" hint-placeholder-val="{{ true }}"><span style="flex:none;font-size:11px;font-weight:700;color:#2E7D43;background:#E7F5E9;padding:4px 10px;border-radius:999px;">Cet appareil</span></sc-if>
+                  <sc-if value="{{ d.other }}" hint-placeholder-val="{{ false }}"><button onClick="{{ d.revoke }}" style="flex:none;border:1px solid #E8EDE6;background:#fff;color:#7A8A80;font-family:inherit;font-size:12px;font-weight:700;padding:6px 12px;border-radius:10px;cursor:pointer;">Déconnecter</button></sc-if>
+                </div>
+              </sc-for>
+            </div>
+
+            <!-- Consentement -->
+            <h2 style="font-size:12px;font-weight:700;letter-spacing:.5px;color:#7A8A80;text-transform:uppercase;margin:22px 0 11px;">Consentement</h2>
+            <div style="background:#fff;border:1px solid #E8EDE6;border-radius:18px;padding:4px 16px;">
+              <sc-for list="{{ consents }}" as="c" hint-placeholder-count="3">
+                <div style="display:flex;align-items:center;gap:13px;padding:14px 0;border-bottom:1px solid #EDF2EB;">
+                  <div style="flex:1;"><div style="font-size:14px;font-weight:600;color:#16241C;">{{ c.title }}</div><div style="font-size:11.5px;color:#9AA89F;margin-top:2px;line-height:1.4;">{{ c.sub }}</div></div>
+                  <button onClick="{{ c.toggle }}" style="flex:none;width:48px;height:28px;border-radius:999px;border:none;background:{{ c.bg }};position:relative;cursor:pointer;transition:background .2s;"><span style="position:absolute;top:3px;left:{{ c.knob }};width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:left .2s;"></span></button>
+                </div>
+              </sc-for>
+            </div>
+
+            <!-- Historique des consentements -->
+            <h2 style="font-size:12px;font-weight:700;letter-spacing:.5px;color:#7A8A80;text-transform:uppercase;margin:22px 0 11px;">Preuve de consentement</h2>
+            <div style="background:#fff;border:1px solid #E8EDE6;border-radius:18px;padding:6px 16px;">
+              <sc-for list="{{ consentHistory }}" as="h" hint-placeholder-count="3">
+                <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid {{ h.border }};">
+                  <span style="flex:none;width:8px;height:8px;border-radius:50%;background:{{ h.dot }};"></span>
+                  <div style="flex:1;min-width:0;"><div style="font-size:13.5px;font-weight:600;color:#16241C;line-height:1.3;">{{ h.label }}</div><div style="font-size:11px;color:#9AA89F;margin-top:1px;">{{ h.time }} · {{ h.by }}</div></div>
+                </div>
+              </sc-for>
+            </div>
+
+            <!-- Vos données -->
+            <h2 style="font-size:12px;font-weight:700;letter-spacing:.5px;color:#7A8A80;text-transform:uppercase;margin:22px 0 11px;">Vos données</h2>
+            <div style="background:#fff;border:1px solid #E8EDE6;border-radius:18px;overflow:hidden;">
+              <div onClick="{{ exportData }}" style="display:flex;align-items:center;gap:13px;padding:15px 16px;border-bottom:1px solid #EDF2EB;cursor:pointer;"><span style="width:36px;height:36px;border-radius:11px;background:#EAF1FE;display:flex;align-items:center;justify-content:center;flex:none;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 19h14" stroke="#3B6FD4" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><div style="flex:1;"><div style="font-size:14px;font-weight:600;color:#16241C;">Exporter les données</div><div style="font-size:11.5px;color:{{ exportInk }};">{{ exportLabel }}</div></div><sc-if value="{{ exportPending }}" hint-placeholder-val="{{ false }}"><span style="flex:none;font-size:11px;font-weight:700;color:#B5852A;background:#FFF4DD;padding:4px 10px;border-radius:999px;">En cours</span></sc-if><sc-if value="{{ exportIdle }}" hint-placeholder-val="{{ true }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="color:#9AA89F;flex:none;"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg></sc-if></div>
+              <div onClick="{{ historyWiz }}" style="display:flex;align-items:center;gap:13px;padding:15px 16px;border-bottom:1px solid #EDF2EB;cursor:pointer;"><span style="width:36px;height:36px;border-radius:11px;background:#F4EEFC;display:flex;align-items:center;justify-content:center;flex:none;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 7v5l3 2" stroke="#6B5BE6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="8" stroke="#6B5BE6" stroke-width="1.9"></circle></svg></span><div style="flex:1;"><div style="font-size:14px;font-weight:600;color:#16241C;">Historique des échanges Wiz</div><div style="font-size:11.5px;color:#9AA89F;">Voir les questions de votre enfant</div></div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="color:#9AA89F;"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg></div>
+              <div onClick="{{ deleteData }}" style="display:flex;align-items:center;gap:13px;padding:15px 16px;cursor:pointer;"><span style="width:36px;height:36px;border-radius:11px;background:#FDEEEC;display:flex;align-items:center;justify-content:center;flex:none;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 7h14M9 7V5h6v2m-7 0v12h8V7" stroke="#E5604D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><div style="flex:1;"><div style="font-size:14px;font-weight:600;color:#E5604D;">Supprimer les données enfant</div><div style="font-size:11.5px;color:{{ deleteInk }};">{{ deleteLabel }}</div></div><sc-if value="{{ deletePending }}" hint-placeholder-val="{{ false }}"><span style="flex:none;font-size:11px;font-weight:700;color:#C9483A;background:#FDEEEC;padding:4px 10px;border-radius:999px;">Planifiée</span></sc-if><sc-if value="{{ deleteIdle }}" hint-placeholder-val="{{ true }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="color:#9AA89F;flex:none;"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg></sc-if></div>
+            </div>
+
+            <!-- Journal d'actions parent -->
+            <h2 style="font-size:12px;font-weight:700;letter-spacing:.5px;color:#7A8A80;text-transform:uppercase;margin:22px 0 11px;">Journal des actions sensibles</h2>
+            <div style="background:#fff;border:1px solid #E8EDE6;border-radius:18px;padding:6px 16px;">
+              <sc-for list="{{ parentLog }}" as="e" hint-placeholder-count="3">
+                <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid {{ e.border }};">
+                  <span style="flex:none;width:32px;height:32px;border-radius:10px;background:#F4F8F2;display:flex;align-items:center;justify-content:center;font-size:15px;">{{ e.icon }}</span>
+                  <div style="flex:1;min-width:0;"><div style="font-size:13.5px;font-weight:600;color:#16241C;line-height:1.3;">{{ e.label }}</div><div style="font-size:11px;color:#9AA89F;margin-top:1px;">{{ e.time }}</div></div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="margin-top:16px;background:#F4F8F2;border-radius:16px;padding:15px;display:flex;gap:11px;align-items:flex-start;"><span style="flex:none;font-size:16px;">🔒</span><p style="margin:0;font-size:12px;line-height:1.6;color:#7A8A80;">Les données de votre enfant sont stockées séparément de votre compte adulte et ne servent qu'à adapter son apprentissage. Elles ne sont jamais partagées à des fins publicitaires.</p></div>
+          </div>
+        </sc-if>
+
+        <!-- ===================== PREMIUM FAMILLE ===================== -->
+        <sc-if value="{{ isPremium }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="Premium Famille" style="padding:4px 20px 120px;animation:famIn .3s ease both;">
+            <div style="padding:4px 0 8px;"><div style="font-size:11px;font-weight:700;letter-spacing:.6px;color:#7A8A80;text-transform:uppercase;">Espace Famille</div><h1 style="font-family:'Bricolage Grotesque',sans-serif;font-size:25px;font-weight:800;color:#14492F;margin:2px 0 0;letter-spacing:-.5px;">Premium Famille</h1></div>
+
+            <div style="margin-top:10px;background:#14492F;border-radius:24px;padding:22px;color:#fff;position:relative;overflow:hidden;">
+              <div style="position:absolute;right:-10px;bottom:-10px;width:120px;opacity:.9;"><dc-import name="Wiz" pose="celebrate" hint-size="120px,142px"></dc-import></div>
+              <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.16);font-size:11.5px;font-weight:700;padding:6px 13px;border-radius:20px;letter-spacing:.3px;">⭐ FAMILLE</div>
+              <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-size:23px;font-weight:800;margin:14px 0 0;max-width:200px;line-height:1.2;">Toute la famille apprend, sans pub</h2>
+              <div style="display:flex;align-items:baseline;gap:6px;margin-top:16px;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:34px;font-weight:800;">12,99&nbsp;$</span><span style="font-size:13px;color:rgba(255,255,255,.75);">/ mois</span></div>
+              <div style="font-size:12.5px;color:rgba(255,255,255,.75);margin-top:4px;">Jusqu'à 4 enfants · annulable à tout moment</div>
+            </div>
+
+            <h2 style="font-size:12px;font-weight:700;letter-spacing:.5px;color:#7A8A80;text-transform:uppercase;margin:22px 0 11px;">Ce qui est inclus</h2>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <sc-for list="{{ premiumFeatures }}" as="f" hint-placeholder-count="4">
+                <div style="display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #E8EDE6;border-radius:15px;padding:13px 15px;"><span style="flex:none;width:26px;height:26px;border-radius:50%;background:#E7F5E9;display:flex;align-items:center;justify-content:center;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="#2E7D43" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><span style="font-size:14px;font-weight:600;color:#16241C;">{{ f }}</span></div>
+              </sc-for>
+            </div>
+
+            <div style="margin-top:16px;background:#F4F8F2;border-radius:16px;padding:14px 15px;display:flex;gap:11px;align-items:flex-start;"><span style="flex:none;font-size:15px;">💛</span><p style="margin:0;font-size:12.5px;line-height:1.55;color:#7A8A80;">L'app reste utilisable gratuitement. Le Premium n'ajoute aucune pression et n'apparaît jamais à votre enfant. Vous gardez tout le contrôle.</p></div>
+
+            <button onClick="{{ subscribe }}" style="margin-top:18px;width:100%;height:56px;border:none;border-radius:16px;background:#14492F;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 10px 22px -10px rgba(20,73,47,.6);" style-active="transform:translateY(1px);">Essayer 14 jours gratuits</button>
+            <div style="text-align:center;margin-top:11px;font-size:12px;color:#9AA89F;">Aucun engagement · Rappel avant la fin de l'essai</div>
+          </div>
+        </sc-if>
+
+      </div>
+
+      <!-- ===================== TAB BAR ===================== -->
+      <sc-if value="{{ showTabBar }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:none;position:absolute;left:0;right:0;bottom:0;height:90px;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-top:1px solid #EDF2EB;display:flex;align-items:flex-start;padding:9px 12px 0;z-index:50;">
+          <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+            <button onClick="{{ t.go }}" style="flex:1;background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;padding-top:5px;color:{{ t.color }};">
+              <span style="width:26px;height:26px;display:flex;align-items:center;justify-content:center;">{{ t.icon }}</span>
+              <span style="font-size:10.5px;font-weight:{{ t.weight }};letter-spacing:.1px;">{{ t.label }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <!-- ===================== CONFIRMATION FORTE ===================== -->
+      <sc-if value="{{ confirmOpen }}" hint-placeholder-val="{{ false }}">
+        <div onClick="{{ confirmCancel }}" style="position:absolute;inset:0;z-index:90;display:flex;flex-direction:column;justify-content:flex-end;background:rgba(10,22,16,.5);animation:famIn .2s ease both;">
+          <div onClick="{{ stop }}" style="background:#fff;border-radius:28px 28px 0 0;padding:20px 22px 26px;">
+            <div style="width:42px;height:5px;border-radius:3px;background:#EDF2EB;margin:0 auto 16px;"></div>
+            <div style="width:58px;height:58px;margin:0 auto 12px;border-radius:18px;background:{{ confirmIconBg }};display:flex;align-items:center;justify-content:center;font-size:27px;">{{ confirmIcon }}</div>
+            <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:20px;color:#14492F;margin:0 0 5px;text-align:center;">{{ confirmTitle }}</h2>
+            <p style="text-align:center;font-size:13.5px;color:#7A8A80;margin:0 0 18px;line-height:1.5;">{{ confirmDesc }}</p>
+            <div style="display:flex;align-items:center;justify-content:center;gap:8px;background:#F4F8F2;border-radius:14px;padding:11px;margin-bottom:16px;color:#7A8A80;font-size:12px;font-weight:600;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="10" width="16" height="10" rx="2.5"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke-linecap="round"></path></svg>Vérification du parent requise</div>
+            <button onClick="{{ confirmDo }}" style="width:100%;height:54px;border:none;border-radius:16px;background:{{ confirmBtnBg }};color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:15.5px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;" style-active="transform:translateY(1px);">
+              <sc-if value="{{ confirmScanning }}" hint-placeholder-val="{{ false }}"><span style="width:17px;height:17px;border:2.5px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;" class="fam-spin"></span>Vérification…</sc-if>
+              <sc-if value="{{ confirmReady }}" hint-placeholder-val="{{ true }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"></path><path d="M9 10.5v.5M15 10.5v.5M12 9.5v3l-1 .8"></path><path d="M9.5 15a3.4 3.4 0 0 0 5 0"></path></svg>{{ confirmCta }}</sc-if>
+            </button>
+            <button onClick="{{ confirmCancel }}" style="width:100%;height:48px;margin-top:10px;border:none;background:none;color:#7A8A80;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;">Annuler</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===================== TOAST ===================== -->
+      <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;left:50%;bottom:108px;transform:translateX(-50%);z-index:80;background:#14492F;color:#fff;padding:13px 20px;border-radius:16px;font-size:14px;font-weight:600;box-shadow:0 16px 34px -14px rgba(20,73,47,.7);display:flex;align-items:center;gap:9px;white-space:nowrap;animation:famToast .3s ease both;">
+          <span style="font-size:16px;">{{ toastIcon }}</span>{{ toastMsg }}
+        </div>
+      </sc-if>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:392,&quot;height&quot;:840},&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;gate&quot;,&quot;home&quot;,&quot;children&quot;,&quot;child&quot;,&quot;create&quot;,&quot;conversation&quot;,&quot;privacy&quot;,&quot;premium&quot;],&quot;default&quot;:&quot;gate&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Écran de départ&quot;,&quot;section&quot;:&quot;Aperçu&quot;},&quot;gateView&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;auto&quot;,&quot;Créer le code&quot;,&quot;Saisir le code&quot;,&quot;Code courriel&quot;,&quot;Trop d'essais&quot;],&quot;default&quot;:&quot;auto&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;label&quot;:&quot;État du parent gate&quot;,&quot;section&quot;:&quot;Aperçu&quot;},&quot;faceId&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;label&quot;:&quot;Face ID disponible&quot;,&quot;section&quot;:&quot;Aperçu&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.contentRef = React.createRef();
+    const start = props.startScreen || 'gate';
+    const storedPin = this._loadPin();
+    const gv = props.gateView || 'auto';
+    let gPhase = storedPin ? 'auth' : 'setup';
+    let gIntent = storedPin ? 'unlock' : 'first';
+    let gLocked = false, gLockSec = 0;
+    if(gv==='Créer le code'){ gPhase='setup'; gIntent='first'; }
+    else if(gv==='Saisir le code'){ gPhase='auth'; gIntent='unlock'; }
+    else if(gv==='Code courriel'){ gPhase='otp'; gIntent='unlock'; }
+    else if(gv==='Trop d\'essais'){ gPhase='auth'; gIntent='unlock'; gLocked=true; gLockSec=30; }
+    this.state = {
+      screen: start,
+      selectedId: 'lea',
+      toast: null,
+      // ---- parent gate / sécurité ----
+      gatePhase: gPhase, gateIntent: gIntent,
+      pinSet: storedPin || null,
+      pin: '', setupFirst: '', pinErr: false, setupMismatch: false, bioScanning: false,
+      bioAvailable: props.faceId!==false,
+      pinAttempts: 0, pinLocked: gLocked, lockSec: gLockSec,
+      otp: '', otpCode: '', otpErr: false, otpExpired: false, otpSec: 0, otpResendSec: 0,
+      notif: null,
+      parentLog: this._loadLog(),
+      exportStatus: 'idle', deleteStatus: 'idle',
+      confirm: null, confirmScanning: false,
+      newAvatar: '🦊', newName: '', newAge: 8,
+      consent: { perso: true, history: true, research: false },
+      children: [
+        { id:'lea', name:'Léa', avatar:'🦊', age:9, ageMode:'8-10', accent:'#2E7D43', tint:'#E7F5E9',
+          progress:68, weekTime:'47 min', lessons:5, streak:4, limit:30, lastActive:'il y a 2 h',
+          unitName:"Unité 2 · Épargner", questions:'3 cette semaine',
+          skills:['Besoin vs envie','Compter la monnaie','Premier objectif d\'épargne'],
+          review:['Patienter avant d\'acheter'],
+          videos:[
+            { emoji:'🛒', title:'Wiz au marché', notion:'Besoin ou envie', status:'Terminé', kind:'done' },
+            { emoji:'🐷', title:'La tirelire magique', notion:'Épargne', status:'À revoir', kind:'review' },
+            { emoji:'🤝', title:'Le grand troc', notion:'Échange', status:'Avec parent', kind:'parent' }
+          ] },
+        { id:'tom', name:'Tom', avatar:'🐻', age:6, ageMode:'5-7', accent:'#3B6FD4', tint:'#EAF1FE',
+          progress:32, weekTime:'23 min', lessons:2, streak:2, limit:20, lastActive:'hier',
+          unitName:"Unité 1 · L'argent", questions:'1 cette semaine',
+          skills:['Reconnaître les pièces','Compter jusqu\'à 5 $'],
+          review:[],
+          videos:[
+            { emoji:'🪙', title:'Les pièces de Wiz', notion:'Reconnaître l\'argent', status:'Terminé', kind:'done' },
+            { emoji:'🎈', title:'Acheter un ballon', notion:'Payer', status:'Avec parent', kind:'parent' }
+          ] }
+      ]
+    };
+  }
+
+  go(screen){ this.setState({ screen }, ()=>{ if(this.contentRef.current) this.contentRef.current.scrollTop=0; }); }
+  showToast(msg, icon){ this.setState({ toast:{msg,icon:icon||'✅'} }); clearTimeout(this._t); this._t=setTimeout(()=>this.setState({toast:null}),2200); }
+
+  // ===== persistence helpers =====
+  _loadPin(){ try{ return localStorage.getItem('ww_fam_pin'); }catch(e){ return null; } }
+  _savePin(p){ try{ localStorage.setItem('ww_fam_pin', p); }catch(e){} }
+  _loadLog(){
+    try{ const r=localStorage.getItem('ww_fam_log'); if(r) return JSON.parse(r); }catch(e){}
+    return [
+      { icon:'🔓', label:"Déverrouillage de l'Espace Famille", time:'Hier · 20:14' },
+      { icon:'🎚️', label:'Contenu de Léa réglé sur 8-10 ans', time:'Hier · 20:16' },
+      { icon:'✅', label:'Consentement « Personnaliser » activé', time:'12 juin · 09:02' }
+    ];
+  }
+  _saveLog(l){ try{ localStorage.setItem('ww_fam_log', JSON.stringify(l.slice(0,12))); }catch(e){} }
+  logAction(icon,label){ this.setState(s=>{ const l=[{icon,label,time:"À l'instant"},...(s.parentLog||[])].slice(0,12); this._saveLog(l); return { parentLog:l }; }); }
+
+  componentDidMount(){
+    if(this.state.pinLocked) this.startLock(this.state.lockSec||30);
+    if(this.state.gatePhase==='otp' && !this.state.otpCode) this.sendOtp(this.state.gateIntent);
+  }
+  componentWillUnmount(){ clearInterval(this._lock); clearInterval(this._otpT); clearTimeout(this._t); clearTimeout(this._notifT); }
+
+  // ===== gate navigation =====
+  startGate(intent){
+    const hasPin = !!this.state.pinSet;
+    this.setState({ screen:'gate', gateIntent:intent, gatePhase: hasPin ? 'auth':'setup', pin:'', setupFirst:'', pinErr:false, setupMismatch:false, otpErr:false, notif:null }, ()=>{ if(this.contentRef.current) this.contentRef.current.scrollTop=0; });
+    clearInterval(this._otpT);
+  }
+  lock(){ clearInterval(this._otpT); this.setState({ pin:'', otp:'', pinErr:false, otpErr:false, notif:null, gateIntent:'unlock', gatePhase: this.state.pinSet?'auth':'setup' }); this.go('gate'); }
+  gateBack(){
+    clearInterval(this._otpT);
+    if(this.state.gateIntent==='change'){ this.setState({ gateIntent:'unlock', notif:null }); this.go('privacy'); }
+    else { this.setState({ gatePhase: this.state.pinSet?'auth':'setup', gateIntent:'unlock', pin:'', otp:'', otpErr:false, setupFirst:'', notif:null }); }
+  }
+  setBio(){ const next=!this.state.bioAvailable; this.setState({ bioAvailable:next }); this.showToast(next?'Face ID activé':'Face ID désactivé', next?'🙂':'🔒'); }
+
+  // ===== PIN entry (auth / setup / confirm) =====
+  pinPress(d){
+    const s=this.state;
+    if(s.bioScanning || s.pinLocked) return;
+    this.setState(st=>{
+      const ph=st.gatePhase;
+      if(ph!=='auth'&&ph!=='setup'&&ph!=='confirm') return null;
+      if(st.pin.length>=4) return null;
+      const pin=(st.pin+d).slice(0,4);
+      if(pin.length===4){
+        if(ph==='auth') setTimeout(()=>this._checkAuth(pin),140);
+        else if(ph==='setup') setTimeout(()=>this.setState({setupFirst:pin, pin:'', gatePhase:'confirm'}),140);
+        else if(ph==='confirm') setTimeout(()=>this._checkConfirm(pin),140);
+      }
+      return { pin, pinErr:false, setupMismatch:false };
+    });
+  }
+  _checkAuth(pin){
+    if(pin===this.state.pinSet){
+      this.setState({ pin:'', pinAttempts:0, pinErr:false });
+      if(this.state.gateIntent==='change'){ this.setState({ gatePhase:'setup', setupFirst:'' }); }
+      else { this.logAction('🔓',"Déverrouillage de l'Espace Famille"); this.go('home'); }
+    } else {
+      const att=(this.state.pinAttempts||0)+1;
+      this.setState({ pinErr:true, gateShake:true, pin:'', pinAttempts:att });
+      setTimeout(()=>this.setState({gateShake:false}),500);
+      if(att>=3) this.startLock(30);
+    }
+  }
+  _checkConfirm(pin){
+    if(pin===this.state.setupFirst){
+      this._savePin(pin);
+      const intent=this.state.gateIntent;
+      this.setState({ pinSet:pin, pin:'', setupFirst:'', pinAttempts:0 });
+      if(intent==='change'){ this.logAction('🔑','Code parent modifié'); this.go('privacy'); this.showToast('Code parent modifié','🔑'); }
+      else if(intent==='forgot'){ this.logAction('🔑','Code parent réinitialisé'); this.go('home'); this.showToast('Nouveau code enregistré','🔑'); }
+      else { this.logAction('🔑','Code parent créé'); this.go('home'); this.showToast('Code parent créé','🔑'); }
+    } else {
+      this.setState({ setupMismatch:true, gateShake:true, pin:'', setupFirst:'', gatePhase:'setup' });
+      setTimeout(()=>this.setState({gateShake:false}),500);
+    }
+  }
+  pinDel(){ this.setState(s=>({ pin:s.pin.slice(0,-1), pinErr:false, setupMismatch:false })); }
+  startLock(sec){
+    this.setState({ pinLocked:true, lockSec: sec||30 });
+    clearInterval(this._lock);
+    this._lock = setInterval(()=>{
+      this.setState(s=>{ const n=(s.lockSec||0)-1; if(n<=0){ clearInterval(this._lock); return { pinLocked:false, lockSec:0, pinAttempts:0, pinErr:false }; } return { lockSec:n }; });
+    }, 1000);
+  }
+  bioAuth(){
+    const s=this.state;
+    if(s.bioScanning || s.pinLocked || !s.bioAvailable) return;
+    const intent=s.gateIntent;
+    this.setState({ bioScanning:true });
+    setTimeout(()=>{
+      this.setState({ bioScanning:false, pin:'' });
+      if(intent==='change'){ this.setState({ gatePhase:'setup', setupFirst:'' }); }
+      else { this.logAction('🔓','Déverrouillage par Face ID'); this.go('home'); }
+    }, 950);
+  }
+
+  // ===== OTP par courriel =====
+  sendOtp(intent){
+    const code=String(Math.floor(100000+Math.random()*900000));
+    this.setState({ gatePhase:'otp', gateIntent:intent||this.state.gateIntent, otp:'', otpCode:code, otpErr:false, otpExpired:false, otpSec:120, otpResendSec:30 });
+    this._startOtpTimer();
+    this._showNotif(code);
+  }
+  _startOtpTimer(){
+    clearInterval(this._otpT);
+    this._otpT=setInterval(()=>{
+      this.setState(s=>{
+        const sec=(s.otpSec||0)-1, rs=Math.max(0,(s.otpResendSec||0)-1);
+        if(sec<=0){ clearInterval(this._otpT); return { otpSec:0, otpResendSec:rs, otpExpired:true }; }
+        return { otpSec:sec, otpResendSec:rs };
+      });
+    },1000);
+  }
+  _showNotif(code){ this.setState({ notif:{ code } }); clearTimeout(this._notifT); this._notifT=setTimeout(()=>this.setState({notif:null}),6500); }
+  otpPress(d){
+    if(this.state.otpExpired) return;
+    this.setState(st=>{
+      if(st.otpExpired) return null;
+      if(st.otp.length>=6) return null;
+      const otp=(st.otp+d).slice(0,6);
+      if(otp.length===6) setTimeout(()=>this._checkOtp(otp),150);
+      return { otp, otpErr:false };
+    });
+  }
+  otpDel(){ this.setState(s=>({ otp:s.otp.slice(0,-1), otpErr:false })); }
+  _checkOtp(otp){
+    if(this.state.otpExpired) return;
+    if(otp===this.state.otpCode){
+      clearInterval(this._otpT);
+      const intent=this.state.gateIntent;
+      this.setState({ otp:'', notif:null });
+      if(intent==='forgot'){ this.setState({ gatePhase:'setup', setupFirst:'' }); this.showToast('Identité confirmée','✅'); }
+      else { this.logAction('✉️','Connexion par code courriel'); this.go('home'); }
+    } else {
+      this.setState({ otpErr:true, gateShake:true, otp:'' });
+      setTimeout(()=>this.setState({gateShake:false}),500);
+    }
+  }
+  otpResend(){ if(this.state.otpResendSec>0 && !this.state.otpExpired) return; this.sendOtp(this.state.gateIntent); this.showToast('Nouveau code envoyé','✉️'); }
+  emailCode(){ this.sendOtp('unlock'); }
+  forgotPin(){ this.sendOtp('forgot'); }
+
+  askConfirm(type){
+    const map = {
+      export: { kind:'export', icon:'📤', iconBg:'#EAF1FE', title:'Exporter les données', desc:'Une copie complète des données de votre famille vous sera envoyée par courriel.', cta:'Confirmer l\'export', btn:'#14492F', danger:false, done:'Export demandé — courriel en route', doneIcon:'📤' },
+      delete: { kind:'delete', icon:'🗑️', iconBg:'#FDEEEC', title:'Supprimer les données enfant', desc:'Cette action est définitive. Toute la progression et les données de l\'enfant seront effacées sous 30 jours.', cta:'Supprimer définitivement', btn:'#E5604D', danger:true, done:'Suppression planifiée', doneIcon:'🗑️' },
+      subscribe: { kind:'subscribe', icon:'⭐', iconBg:'#FFF4DD', title:'Activer Premium Famille', desc:'Essai gratuit de 14 jours, puis 12,99 $/mois. Annulable à tout moment. Jamais visible par votre enfant.', cta:'Démarrer l\'essai', btn:'#14492F', danger:false, done:'Essai Premium Famille activé', doneIcon:'⭐' }
+    };
+    this.setState({ confirm: map[type], confirmScanning:false });
+  }
+  confirmCancel(){ this.setState({ confirm:null, confirmScanning:false }); }
+  confirmDo(){
+    if(this.state.confirmScanning) return;
+    const c = this.state.confirm; if(!c) return;
+    this.setState({ confirmScanning:true });
+    setTimeout(()=>{
+      this.setState({ confirm:null, confirmScanning:false });
+      if(c.kind==='export'){ this.setState({exportStatus:'pending'}); this.logAction('📤','Export des données demandé'); }
+      else if(c.kind==='delete'){ this.setState({deleteStatus:'pending'}); this.logAction('🗑️','Suppression des données enfant demandée'); }
+      else if(c.kind==='subscribe'){ this.logAction('⭐','Essai Premium Famille activé'); }
+      this.showToast(c.done, c.doneIcon);
+    }, 950);
+  }
+  openChild(id){ this.setState({ selectedId:id }); this.go('child'); }
+
+  limitAdj(d){
+    const id=this.state.selectedId;
+    this.setState(s=>({ children: s.children.map(c=> c.id===id ? {...c, limit: Math.max(10, Math.min(120, c.limit+d))} : c) }));
+  }
+  setMode(m){
+    const id=this.state.selectedId;
+    this.setState(s=>({ children: s.children.map(c=> c.id===id ? {...c, ageMode:m} : c) }));
+    this.showToast('Contenu adapté à '+m+' ans','🎚️');
+  }
+  toggleConsent(k){ this.setState(s=>({ consent:{...s.consent, [k]:!s.consent[k]} })); }
+
+  onNewName(e){ this.setState({ newName:e.target.value }); }
+  onNewAge(e){ this.setState({ newAge:parseInt(e.target.value,10) }); }
+  ageAdj(d){ this.setState(s=>({ newAge: Math.max(5, Math.min(13, s.newAge+d)) })); }
+  modeForAge(a){ return a<=7 ? '5-7' : (a<=10 ? '8-10' : '11-13'); }
+  createChild(){
+    const name = this.state.newName.trim() || 'Nouvel enfant';
+    const age = this.state.newAge;
+    const mode = this.modeForAge(age);
+    const id = 'c'+Date.now();
+    const nc = { id, name, avatar:this.state.newAvatar, age, ageMode:mode, accent:'#2E7D43', tint:'#E7F5E9',
+      progress:0, weekTime:'0 min', lessons:0, streak:0, limit:20, lastActive:'jamais',
+      unitName:'Pas encore commencé', questions:'—', skills:[], review:[], videos:[] };
+    this.setState(s=>({ children:[...s.children, nc], newName:'', newAge:8, newAvatar:'🦊' }));
+    this.go('children'); this.showToast(name+' a été ajouté','🎉');
+  }
+
+  modeLabel(m){ return m==='5-7'?'5-7 ans · gros boutons, audio':(m==='8-10'?'8-10 ans · mini-budget':'11-13 ans · achats responsables'); }
+
+  renderVals(){
+    const s = this.state;
+    const sc = s.screen;
+    const sel = s.children.find(c=>c.id===s.selectedId) || s.children[0];
+    const C = 163.36, Cbig = 182.21;
+
+    const tabIcon = (name, active)=>{
+      const col = active ? '#14492F' : '#9AA89F';
+      const sw = active ? 2.1 : 1.8;
+      const paths = {
+        home:'<path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-5h-6v5H5a1 1 0 0 1-1-1z"/>',
+        kids:'<circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.6 3-6 7-6s7 2.4 7 6"/>',
+        privacy:'<path d="M12 3l7 3v5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6l7-3Z"/>',
+        premium:'<path d="M5 8l4 3 3-5 3 5 4-3-1.5 10h-11z"/>'
+      };
+      return React.createElement('svg',{width:24,height:24,viewBox:'0 0 24 24',fill:'none',stroke:col,strokeWidth:sw,strokeLinejoin:'round',strokeLinecap:'round',dangerouslySetInnerHTML:{__html:paths[name]}});
+    };
+    const mkTab = (id, label, screen, icoName)=>{
+      const active = (id==='home'&&(sc==='home'||sc==='child'||sc==='conversation')) ||
+                     (id==='kids'&&(sc==='children'||sc==='create')) ||
+                     (id==='privacy'&&sc==='privacy') || (id==='premium'&&sc==='premium');
+      return { label, icon:tabIcon(icoName, active), color: active?'#14492F':'#9AA89F', weight: active?'700':'600', go:()=>this.go(screen) };
+    };
+    const tabs = [
+      mkTab('home','Accueil','home','home'),
+      mkTab('kids','Enfants','children','kids'),
+      mkTab('privacy','Données','privacy','privacy'),
+      mkTab('premium','Premium','premium','premium')
+    ];
+
+    const children = s.children.map(c=>({
+      ...c,
+      ageLabel: c.age+' ans',
+      ring: c.accent,
+      dash: (C*(1 - c.progress/100)).toFixed(1),
+      progressW: c.progress+'%',
+      hasReview: c.review.length>0,
+      allGood: c.review.length===0,
+      reviewCount: c.review.length,
+      open:()=>this.openChild(c.id)
+    }));
+
+    const vStyle = (k)=>({
+      done:{color:'#2E7D43',bg:'#E7F5E9'},
+      review:{color:'#B5852A',bg:'#FFF4DD'},
+      parent:{color:'#3B6FD4',bg:'#EAF1FE'}
+    }[k]||{color:'#7A8A80',bg:'#F4F8F2'});
+    const statusLabel = { done:'Terminé', review:'À revoir', parent:'Avec parent' };
+
+    const ageModes = ['5-7','8-10','11-13'].map(m=>{
+      const on = sel.ageMode===m;
+      return { range:m, pick:()=>this.setMode(m),
+        border:on?'#2E7D43':'#E8EDE6', bg:on?'#E7F5E9':'#fff', ink:on?'#2E7D43':'#16241C', sub:on?'#2E7D43':'#9AA89F' };
+    });
+
+    const avatarChoices = ['🦊','🐻','🐰','🦉','🐢','🐙','🦁','🐼'].map(em=>({
+      emoji:em, pick:()=>this.setState({newAvatar:em}),
+      border: s.newAvatar===em?'#2E7D43':'#E8EDE6', bg: s.newAvatar===em?'#E7F5E9':'#F4F8F2'
+    }));
+
+    const consentDefs = [
+      { key:'perso', title:'Personnaliser l\'apprentissage', sub:'Adapter les leçons au niveau de l\'enfant' },
+      { key:'history', title:'Conserver l\'historique Wiz', sub:'Garder les questions guidées posées' },
+      { key:'research', title:'Améliorer Wise & Wealthy', sub:'Données anonymisées · facultatif' }
+    ];
+    const consents = consentDefs.map(d=>{
+      const on = s.consent[d.key];
+      return { title:d.title, sub:d.sub, toggle:()=>this.toggleConsent(d.key),
+        bg:on?'#36B34A':'#D6DDD4', knob:on?'23px':'3px' };
+    });
+
+    const consentHistRaw = [
+      { label:'Consentement parental initial accordé', time:'12 juin 2025 · 09:01', by:'Alex', dot:'#36B34A' },
+      { label:'Personnalisation de l\'apprentissage activée', time:'12 juin 2025 · 09:02', by:'Alex', dot:'#36B34A' },
+      { label:'Amélioration produit (anonyme) refusée', time:'12 juin 2025 · 09:02', by:'Alex', dot:'#9AA89F' }
+    ];
+    const consentHistory = consentHistRaw.map((h,i)=>({ ...h, border: i===consentHistRaw.length-1 ? 'transparent':'#EDF2EB' }));
+
+    const devicesRaw = [
+      { icon:'📱', name:"iPhone 15 d'Alex", meta:'Cet appareil · actif maintenant', current:true },
+      { icon:'📟', name:'iPad familial', meta:'Dernier accès hier · 19:40', current:false }
+    ];
+    const devices = devicesRaw.map((d,i)=>({ ...d, other:!d.current, border: i===devicesRaw.length-1 ? 'transparent':'#EDF2EB', revoke:()=>this.showToast('Appareil déconnecté','📵') }));
+
+    const logRaw = s.parentLog||[];
+    const parentLogV = logRaw.map((e,i)=>({ ...e, border: i===logRaw.length-1 ? 'transparent':'#EDF2EB' }));
+
+    const showTab = ['home','children','privacy','premium','child'].indexOf(sc)>=0;
+
+    return {
+      contentRef: this.contentRef,
+      isGate:sc==='gate', isHome:sc==='home', isChildren:sc==='children', isChild:sc==='child',
+      isCreate:sc==='create', isConversation:sc==='conversation', isPrivacy:sc==='privacy', isPremium:sc==='premium',
+      showTabBar: showTab,
+      tabs, children,
+
+      // ===== parent gate =====
+      gateAuth: s.gatePhase==='auth',
+      gateSetup: s.gatePhase==='setup' || s.gatePhase==='confirm',
+      gateOtp: s.gatePhase==='otp',
+      gateShowBack: s.gateIntent==='change' || s.gateIntent==='forgot',
+      gateBack:()=>this.gateBack(),
+      gateTitle: s.gateIntent==='change' ? 'Confirmez votre code actuel' : "Bienvenue dans l'Espace Famille",
+      gateSub: s.gateIntent==='change' ? 'Entrez votre code parent actuel pour le modifier.' : 'Cet espace contient les réglages et les données de votre famille. Confirmez votre identité.',
+      setupTitle: s.gatePhase==='confirm' ? 'Confirmez votre code' : ((s.gateIntent==='change'||s.gateIntent==='forgot') ? 'Créez un nouveau code' : 'Créez votre code parent'),
+      setupSub: s.gatePhase==='confirm' ? 'Saisissez à nouveau les 4 chiffres.' : 'Choisissez un code à 4 chiffres connu de vous seul.',
+      setupMismatch: s.setupMismatch,
+      bioShow: s.bioAvailable, bioOff: !s.bioAvailable,
+      bioScanning: s.bioScanning, bioIdle: !s.bioScanning,
+      bioAuth:()=>this.bioAuth(), emailCode:()=>this.emailCode(), forgotPin:()=>this.forgotPin(),
+      pinErr: s.pinErr, gateCardClass: s.gateShake ? 'fam-shake-on' : '',
+      pinLocked: s.pinLocked, pinUnlocked: !s.pinLocked,
+      lockLabel: '0:'+((s.lockSec||0)<10?'0'+(s.lockSec||0):(s.lockSec||0)),
+      attemptsLeft: (3-(s.pinAttempts||0))<=1 ? '1 essai' : ((3-(s.pinAttempts||0))+' essais'),
+      pinDots: [0,1,2,3].map(i=>({ bg: i<s.pin.length ? '#14492F':'transparent', bd: i<s.pin.length ? '#14492F':'#CBD8C8' })),
+      pinDigits: [1,2,3,4,5,6,7,8,9].map(d=>({ d, press:()=>this.pinPress(d) })),
+      pin0:()=>this.pinPress(0), pinDel:()=>this.pinDel(),
+      // otp
+      otpBoxes: [0,1,2,3,4,5].map(i=>({ ch: s.otp[i]||'', bd: i===s.otp.length ? '#14492F' : (i<s.otp.length ? '#14492F':'#E8EDE6'), bg: i<s.otp.length ? '#F4F8F2':'#fff' })),
+      otpDigits: [1,2,3,4,5,6,7,8,9].map(d=>({ d, press:()=>this.otpPress(d) })),
+      otp0:()=>this.otpPress(0), otpDel:()=>this.otpDel(),
+      otpErr: s.otpErr, otpExpired: s.otpExpired, otpLiveLabel: !s.otpExpired && !s.otpErr,
+      otpTimeLabel: Math.floor((s.otpSec||0)/60)+':'+(((s.otpSec||0)%60)<10?'0':'')+((s.otpSec||0)%60),
+      otpResendLabel: (s.otpResendSec>0 && !s.otpExpired) ? ('Renvoyer le code dans '+s.otpResendSec+' s') : 'Renvoyer le code',
+      otpResendBd: (s.otpResendSec<=0||s.otpExpired)?'#CBD8C8':'#EDF2EB',
+      otpResendInk: (s.otpResendSec<=0||s.otpExpired)?'#14492F':'#B5BFB7',
+      otpResendCursor: (s.otpResendSec<=0||s.otpExpired)?'pointer':'default',
+      otpResend:()=>this.otpResend(), otpEmail:'a•••@exemple.ca',
+      notifOpen: !!s.notif, notifCode: s.notif&&s.notif.code,
+
+      // confirmation forte
+      confirmOpen: !!s.confirm,
+      confirmIcon: s.confirm&&s.confirm.icon, confirmIconBg: s.confirm&&s.confirm.iconBg,
+      confirmTitle: s.confirm&&s.confirm.title, confirmDesc: s.confirm&&s.confirm.desc,
+      confirmCta: s.confirm&&s.confirm.cta, confirmBtnBg: s.confirm&&s.confirm.btn,
+      confirmScanning: s.confirmScanning, confirmReady: !s.confirmScanning,
+      confirmCancel:()=>this.confirmCancel(), confirmDo:()=>this.confirmDo(),
+      stop:(e)=>{ if(e&&e.stopPropagation) e.stopPropagation(); },
+
+      // selected child
+      selName:sel.name, selAvatar:sel.avatar, selRing:sel.accent,
+      selDash:(Cbig*(1-sel.progress/100)).toFixed(1),
+      selProgress:sel.progress, selAgeLabel:sel.age+' ans', selMode:this.modeLabel(sel.ageMode),
+      selLastActive:sel.lastActive, selWeekTime:sel.weekTime, selLessons:sel.lessons, selStreak:sel.streak,
+      selSkills:sel.skills, selReview:sel.review, selHasReview:sel.review.length>0,
+      selQuestions:sel.questions, selLimit:sel.limit+' min',
+      selVideos: sel.videos.map(v=>({ ...v, color:vStyle(v.kind).color, bg:vStyle(v.kind).bg, status:statusLabel[v.kind]||v.status })),
+      ageModes,
+
+      // create
+      avatarChoices, newName:s.newName, newAge:s.newAge,
+      ageUp:()=>this.ageAdj(1), ageDown:()=>this.ageAdj(-1),
+      newMode:this.modeForAge(s.newAge)+' ans', newModeDesc:this.modeLabel(this.modeForAge(s.newAge)),
+
+      // conversation
+      talkSteps:[
+        { n:1, text:'Au prochain magasin, demandez : « Est-ce un besoin ou une envie ? »' },
+        { n:2, text:'Écoutez sa réponse sans corriger. Laissez-le expliquer pourquoi.' },
+        { n:3, text:'Félicitez la réflexion : « Bravo, tu as pris le temps d\'y penser. »' }
+      ],
+
+      // trust center
+      consents, consentHistory, devices, parentLog: parentLogV,
+      changePin:()=>this.startGate('change'),
+      bioToggleBg: s.bioAvailable?'#36B34A':'#D6DDD4', bioToggleKnob: s.bioAvailable?'23px':'3px',
+      toggleBio:()=>this.setBio(),
+      exportPending: s.exportStatus==='pending', exportIdle: s.exportStatus!=='pending',
+      exportLabel: s.exportStatus==='pending'?'Préparation en cours — envoi par courriel':'Recevez une copie complète',
+      exportInk: s.exportStatus==='pending'?'#B5852A':'#9AA89F',
+      deletePending: s.deleteStatus==='pending', deleteIdle: s.deleteStatus!=='pending',
+      deleteLabel: s.deleteStatus==='pending'?'Suppression planifiée sous 30 jours':'Effacement définitif',
+      deleteInk: s.deleteStatus==='pending'?'#C9483A':'#9AA89F',
+
+      // premium
+      premiumFeatures:[
+        'Wiz TV complet, sans publicité',
+        'Jusqu\'à 4 profils enfants',
+        'Tableau de bord parent détaillé',
+        'Missions de conversation chaque semaine',
+        'Coaching adulte Premium inclus'
+      ],
+
+      hasToast: !!s.toast, toastMsg: s.toast&&s.toast.msg, toastIcon: s.toast&&s.toast.icon,
+
+      // handlers
+      lock:()=>this.lock(), back:()=>this.go(sc==='child'?'home':(sc==='create'?'children':(sc==='conversation'?'home':'home'))),
+      goCreate:()=>this.go('create'), goConversation:()=>this.go('conversation'),
+      goPrivacy:()=>this.go('privacy'), openKids:()=>this.showToast('Ouverture de Wiz4Kids…','📺'),
+      limitDown:()=>this.limitAdj(-5), limitUp:()=>this.limitAdj(5),
+      pauseChild:()=>this.showToast('Compte mis en pause','⏸️'),
+      createChild:()=>this.createChild(),
+      doneConversation:()=>{ this.showToast('Mission accomplie !','💬'); this.go('home'); },
+      exportData:()=>this.askConfirm('export'),
+      historyWiz:()=>this.showToast('Ouverture de l\'historique Wiz','🕑'),
+      deleteData:()=>this.askConfirm('delete'),
+      subscribe:()=>this.askConfirm('subscribe')
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+    body{margin:0;font-family:'Plus Jakarta Sans',sans-serif;}
+    .fin-scroll::-webkit-scrollbar{width:0;height:0;display:none;}
+    .fin-scroll{scrollbar-width:none;}
+    @keyframes finIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes finBar{from{width:0;}}
+    @keyframes finToast{0%{opacity:0;transform:translate(-50%,16px);}100%{opacity:1;transform:translate(-50%,0);}}
+    @keyframes finDash{from{stroke-dashoffset:600;}}
+    @keyframes finSheet{from{transform:translateY(100%);}to{transform:translateY(0);}}
+    @keyframes finFade{from{opacity:0;}to{opacity:1;}}
+    @keyframes finSpin{to{transform:rotate(360deg);}}
+    .fin-spin{animation:finSpin .8s linear infinite;}
+    @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;}}
+  </style>
+</helmet>
+
+<div style="min-height:100vh;width:100%;display:flex;align-items:center;justify-content:center;padding:32px 16px;background:radial-gradient(120% 120% at 50% 0%,#DCEAD6 0%,#C6DCC0 55%,#B7D2B2 100%);font-family:'Plus Jakarta Sans',sans-serif;">
+  <div style="position:relative;width:392px;height:840px;background:#0E1411;border-radius:54px;padding:13px;box-shadow:0 2px 6px rgba(0,0,0,.18),0 40px 80px -24px rgba(20,73,47,.55),inset 0 0 0 2px #232C27;">
+    <div style="position:absolute;left:50%;top:24px;transform:translateX(-50%);width:118px;height:34px;background:#0E1411;border-radius:20px;z-index:60;"></div>
+
+    <div style="position:relative;width:100%;height:100%;background:#F3F7F0;border-radius:42px;overflow:hidden;display:flex;flex-direction:column;">
+
+      <!-- status bar -->
+      <div style="flex:none;height:52px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 30px 7px;z-index:40;color:#16241C;">
+        <span style="font-size:15px;font-weight:700;letter-spacing:.3px;">9:41</span>
+        <div style="display:flex;align-items:center;gap:7px;">
+          <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="7" width="3" height="5" rx="1"></rect><rect x="5" y="4.5" width="3" height="7.5" rx="1"></rect><rect x="10" y="2" width="3" height="10" rx="1"></rect><rect x="15" y="0" width="3" height="12" rx="1" opacity=".35"></rect></svg>
+          <svg width="17" height="12" viewBox="0 0 17 12" fill="none"><path d="M8.5 11.2 1 4.3a10.5 10.5 0 0 1 15 0L8.5 11.2Z" stroke="currentColor" stroke-width="1.4" fill="currentColor" fill-opacity=".25"></path></svg>
+          <svg width="26" height="13" viewBox="0 0 26 13" fill="none"><rect x="1" y="1.5" width="21" height="10" rx="3" stroke="currentColor" stroke-width="1.2" opacity=".5"></rect><rect x="2.8" y="3.2" width="16" height="6.6" rx="1.6" fill="currentColor"></rect><rect x="23.2" y="4.5" width="1.8" height="4" rx="1" fill="currentColor" opacity=".5"></rect></svg>
+        </div>
+      </div>
+
+      <!-- header + segmented nav (fixed) -->
+      <div style="flex:none;padding:2px 20px 10px;">
+        <div style="display:flex;align-items:center;gap:13px;">
+          <a href="Wise%20%26%20Wealthy.dc.html" style="border:1px solid #E8EDE6;background:#fff;width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;color:#14492F;flex:none;text-decoration:none;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+          <div style="flex:1;"><div style="font-size:11px;font-weight:700;letter-spacing:.6px;color:#7A8A80;text-transform:uppercase;">Wise &amp; Wealthy</div><h1 style="font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:800;color:#14492F;margin:1px 0 0;letter-spacing:-.4px;">Mes finances</h1></div>
+          <button onClick="{{ openAdd }}" aria-label="Ajouter une transaction" style="border:none;background:#14492F;width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;color:#fff;flex:none;cursor:pointer;box-shadow:0 8px 18px -10px rgba(20,73,47,.7);" style-active="transform:scale(.95);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"></path></svg></button>
+        </div>
+        <div class="fin-scroll" style="display:flex;gap:8px;overflow-x:auto;margin-top:12px;">
+          <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5">
+            <button onClick="{{ t.go }}" style="flex:none;height:38px;padding:0 16px;border-radius:19px;border:1.5px solid {{ t.border }};background:{{ t.bg }};color:{{ t.color }};font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .15s;">{{ t.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+
+      <div ref="{{ contentRef }}" class="fin-scroll" style="flex:1;overflow-y:auto;overflow-x:hidden;position:relative;">
+
+        <!-- ===================== TRANSACTIONS ===================== -->
+        <sc-if value="{{ isTx }}" hint-placeholder-val="{{ true }}">
+          <div data-screen-label="Transactions" style="padding:6px 20px 30px;animation:finIn .3s ease both;">
+
+            <!-- état : déconnecté -->
+            <sc-if value="{{ stDisconnected }}" hint-placeholder-val="{{ false }}">
+              <div style="background:#fff;border:1px solid #F4DAD4;border-radius:22px;padding:22px;text-align:center;box-shadow:0 6px 16px -12px rgba(20,73,47,.3);">
+                <div style="width:58px;height:58px;margin:0 auto 12px;border-radius:18px;background:#FDEEEC;display:flex;align-items:center;justify-content:center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E5604D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"></path><path d="M3 3l18 18"></path></svg></div>
+                <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;color:#14492F;margin:0;">Compte déconnecté</h2>
+                <p style="font-size:13px;color:#7A8A80;margin:7px 16px 0;line-height:1.5;">Ta banque a expiré la connexion (c'est normal après 90 jours). Tes données restent en sécurité.</p>
+                <button onClick="{{ startImport }}" style="margin-top:16px;width:100%;height:50px;border:none;border-radius:15px;background:#14492F;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:700;cursor:pointer;">Reconnecter ma banque</button>
+              </div>
+            </sc-if>
+
+            <!-- état : erreur -->
+            <sc-if value="{{ stError }}" hint-placeholder-val="{{ false }}">
+              <div style="background:#fff;border:1px solid #F4DAD4;border-radius:22px;padding:22px;text-align:center;box-shadow:0 6px 16px -12px rgba(20,73,47,.3);">
+                <div style="width:58px;height:58px;margin:0 auto 12px;border-radius:18px;background:#FDEEEC;display:flex;align-items:center;justify-content:center;font-size:26px;">⚠️</div>
+                <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;color:#14492F;margin:0;">Impossible de charger</h2>
+                <p style="font-size:13px;color:#7A8A80;margin:7px 16px 0;line-height:1.5;">Vérifie ta connexion internet. Rien n'est perdu — réessaie dans un instant.</p>
+                <button onClick="{{ retry }}" style="margin-top:16px;width:100%;height:50px;border:none;border-radius:15px;background:#14492F;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:700;cursor:pointer;">Réessayer</button>
+              </div>
+            </sc-if>
+
+            <!-- état : vide -->
+            <sc-if value="{{ stEmpty }}" hint-placeholder-val="{{ false }}">
+              <div style="text-align:center;padding:34px 18px;">
+                <div style="width:96px;margin:0 auto;"><dc-import name="Wiz" pose="idea" hint-size="96px,114px"></dc-import></div>
+                <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-size:19px;font-weight:800;color:#14492F;margin:14px 0 0;">Commençons par tes transactions</h2>
+                <p style="font-size:13.5px;color:#7A8A80;margin:8px 16px 0;line-height:1.55;">Connecte ta banque ou importe un fichier CSV. Wiz s'occupe de tout ranger avec toi.</p>
+                <button onClick="{{ startImport }}" style="margin-top:18px;width:100%;height:52px;border:none;border-radius:15px;background:#14492F;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 12px 24px -12px rgba(20,73,47,.6);">Importer mes transactions</button>
+              </div>
+            </sc-if>
+
+            <!-- état : connecté (normal) -->
+            <sc-if value="{{ stConnected }}" hint-placeholder-val="{{ true }}">
+              <!-- import -->
+              <div style="background:linear-gradient(135deg,#1C6B45,#14492F);border-radius:22px;padding:17px;color:#fff;box-shadow:0 14px 26px -16px rgba(20,73,47,.6);">
+                <div style="display:flex;align-items:center;gap:12px;">
+                  <div style="width:44px;height:44px;border-radius:13px;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;flex:none;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 16V4m0 0l-4 4m4-4l4 4" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5 16v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2" stroke="#fff" stroke-width="1.9" stroke-linecap="round"></path></svg></div>
+                  <div style="flex:1;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:15.5px;font-weight:800;">Importer mes transactions</div><div style="font-size:12.5px;color:#BFE6CA;margin-top:1px;">Connexion bancaire sécurisée ou fichier CSV</div></div>
+                </div>
+                <div style="display:flex;gap:10px;margin-top:14px;">
+                  <button onClick="{{ startImport }}" style="flex:1;height:44px;border:none;border-radius:13px;background:#fff;color:#14492F;font-family:'Bricolage Grotesque',sans-serif;font-size:13.5px;font-weight:800;cursor:pointer;">Connecter ma banque</button>
+                  <button onClick="{{ startImportCsv }}" aria-label="Importer un CSV" style="flex:none;width:44px;height:44px;border:none;border-radius:13px;background:rgba(255,255,255,.14);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M8 4h6l4 4v12H8z" stroke="#fff" stroke-width="1.7" stroke-linejoin="round"></path><path d="M14 4v4h4" stroke="#fff" stroke-width="1.7" stroke-linejoin="round"></path></svg></button>
+                </div>
+              </div>
+
+              <!-- month summary -->
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px;">
+                <div style="background:#fff;border-radius:18px;padding:15px;border:1px solid #E8EDE6;box-shadow:0 6px 16px -12px rgba(20,73,47,.3);"><div style="display:flex;align-items:center;gap:7px;color:#7A8A80;font-size:12.5px;font-weight:600;"><span style="width:8px;height:8px;border-radius:50%;background:#36B34A;"></span>Entrées</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:800;color:#16241C;margin-top:7px;">{{ inTotal }}</div></div>
+                <div style="background:#fff;border-radius:18px;padding:15px;border:1px solid #E8EDE6;box-shadow:0 6px 16px -12px rgba(20,73,47,.3);"><div style="display:flex;align-items:center;gap:7px;color:#7A8A80;font-size:12.5px;font-weight:600;"><span style="width:8px;height:8px;border-radius:50%;background:#E5604D;"></span>Sorties</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:800;color:#16241C;margin-top:7px;">{{ outTotal }}</div></div>
+              </div>
+
+              <!-- à catégoriser -->
+              <sc-if value="{{ hasUncat }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top:14px;background:#FFF4DD;border:1px solid #F4E6C8;border-radius:16px;padding:13px 15px;display:flex;align-items:center;gap:11px;">
+                  <span style="font-size:18px;">🏷️</span>
+                  <div style="flex:1;"><div style="font-size:13.5px;font-weight:700;color:#16241C;">{{ uncatLabel }}</div><div style="font-size:12px;color:#8A6A2E;margin-top:1px;">Range-les pour un budget plus juste.</div></div>
+                  <button onClick="{{ categorizeNext }}" style="border:none;background:#14492F;color:#fff;border-radius:11px;padding:8px 13px;font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;">Classer</button>
+                </div>
+              </sc-if>
+
+              <!-- list -->
+              <sc-for list="{{ txGroups }}" as="g" hint-placeholder-count="3">
+                <div style="margin-top:18px;">
+                  <div style="font-size:12px;font-weight:700;letter-spacing:.5px;color:#9AA89F;text-transform:uppercase;margin-bottom:9px;">{{ g.label }}</div>
+                  <div style="background:#fff;border:1px solid #E8EDE6;border-radius:18px;overflow:hidden;">
+                    <sc-for list="{{ g.items }}" as="x" hint-placeholder-count="3">
+                      <div onClick="{{ x.tap }}" style="display:flex;align-items:center;gap:12px;padding:13px 15px;border-bottom:1px solid #EDF2EB;cursor:{{ x.cursor }};" style-active="background:#FAFCF9;">
+                        <span style="flex:none;width:40px;height:40px;border-radius:12px;background:{{ x.tint }};display:flex;align-items:center;justify-content:center;font-size:19px;">{{ x.emoji }}</span>
+                        <div style="flex:1;min-width:0;"><div style="font-size:14px;font-weight:700;color:#16241C;line-height:1.2;">{{ x.merchant }}</div><div style="display:flex;align-items:center;gap:6px;margin-top:3px;"><span style="font-size:11.5px;color:#7A8A80;">{{ x.cat }}</span><sc-if value="{{ x.uncategorized }}" hint-placeholder-val="{{ false }}"><span style="font-size:10px;font-weight:700;color:#B5852A;background:#FFF4DD;padding:2px 7px;border-radius:6px;">à classer</span></sc-if></div></div>
+                        <span style="flex:none;font-family:'Bricolage Grotesque',sans-serif;font-size:14.5px;font-weight:800;color:{{ x.amtColor }};">{{ x.amount }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-for>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <!-- ===================== ABONNEMENTS ===================== -->
+        <sc-if value="{{ isSubs }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="Abonnements récurrents" style="padding:6px 20px 30px;animation:finIn .3s ease both;">
+            <div style="background:#fff;border:1px solid #E8EDE6;border-radius:22px;padding:18px;box-shadow:0 6px 16px -12px rgba(20,73,47,.3);">
+              <div style="display:flex;justify-content:space-between;align-items:flex-end;">
+                <div><div style="font-size:12.5px;color:#7A8A80;font-weight:600;">Récurrent ce mois</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:27px;font-weight:800;color:#16241C;margin-top:4px;">{{ subsMonthly }}</div></div>
+                <div style="text-align:right;"><div style="font-size:12.5px;color:#7A8A80;font-weight:600;">Par année</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;color:#7A8A80;margin-top:4px;">{{ subsYearly }}</div></div>
+              </div>
+              <sc-if value="{{ subsHasSavings }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top:12px;background:#E7F5E9;border-radius:12px;padding:10px 12px;font-size:12.5px;font-weight:700;color:#2E7D43;">En résiliant tes choix : {{ subsSavings }}/an d'économies 🌱</div>
+              </sc-if>
+            </div>
+
+            <div style="font-size:12px;font-weight:700;letter-spacing:.5px;color:#7A8A80;text-transform:uppercase;margin:20px 2px 11px;">Paiements récurrents détectés</div>
+            <div style="display:flex;flex-direction:column;gap:11px;">
+              <sc-for list="{{ subsList }}" as="s" hint-placeholder-count="5">
+                <div style="background:#fff;border:1px solid #E8EDE6;border-radius:16px;padding:13px 15px;display:flex;align-items:center;gap:12px;{{ s.dim }}">
+                  <span style="flex:none;width:40px;height:40px;border-radius:12px;background:{{ s.tint }};display:flex;align-items:center;justify-content:center;font-size:19px;">{{ s.emoji }}</span>
+                  <div style="flex:1;min-width:0;"><div style="font-size:14px;font-weight:700;color:#16241C;">{{ s.name }}</div><div style="font-size:11.5px;color:#9AA89F;margin-top:2px;">{{ s.cycleLabel }} · prochain {{ s.next }}</div></div>
+                  <div style="text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+                    <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:800;color:#16241C;">{{ s.amountF }}</span>
+                    <button onClick="{{ s.toggle }}" style="border:1px solid {{ s.btnBd }};background:{{ s.btnBg }};color:{{ s.btnInk }};border-radius:9px;padding:5px 11px;font-family:inherit;font-size:11.5px;font-weight:700;cursor:pointer;white-space:nowrap;">{{ s.btnLabel }}</button>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="margin-top:16px;background:linear-gradient(135deg,#F4EEFC,#E7F5E9);border:1px solid #E7DDF6;border-radius:18px;padding:15px;display:flex;gap:12px;align-items:center;">
+              <div style="width:44px;flex:none;"><dc-import name="Wiz" pose="idea" hint-size="44px,52px"></dc-import></div>
+              <p style="margin:0;font-size:13.5px;line-height:1.5;color:#33433A;"><b style="color:#14492F;">Wiz :</b> tu paies 2 services de musique. En garder un seul libérerait ~12 $/mois pour ton fonds d'urgence.</p>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ===================== PRÉVU VS RÉEL ===================== -->
+        <sc-if value="{{ isPlan }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="Prévu vs réel" style="padding:6px 20px 30px;animation:finIn .3s ease both;">
+            <div style="background:#fff;border:1px solid #E8EDE6;border-radius:20px;padding:18px;box-shadow:0 6px 16px -12px rgba(20,73,47,.3);">
+              <div style="display:flex;justify-content:space-between;align-items:flex-end;">
+                <div><div style="font-size:12.5px;color:#7A8A80;font-weight:600;">Dépensé ce mois</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:27px;font-weight:800;color:#16241C;margin-top:4px;">2 050 $</div></div>
+                <div style="text-align:right;"><div style="font-size:12.5px;color:#7A8A80;font-weight:600;">Budget prévu</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;color:#7A8A80;margin-top:4px;">2 080 $</div></div>
+              </div>
+              <div style="margin-top:14px;height:11px;border-radius:6px;background:#EDF2EB;overflow:hidden;display:flex;"><div style="height:100%;width:{{ planTotalW }};background:linear-gradient(90deg,#36B34A,#2E7D43);border-radius:6px;animation:finBar 1s cubic-bezier(.4,0,.2,1);"></div></div>
+              <div style="margin-top:9px;font-size:13px;color:#2E7D43;font-weight:700;">Il te reste 30 $ avant la fin du mois 🌱</div>
+            </div>
+
+            <div style="font-size:12px;font-weight:700;letter-spacing:.5px;color:#7A8A80;text-transform:uppercase;margin:20px 2px 11px;">Par catégorie</div>
+            <div style="display:flex;flex-direction:column;gap:12px;">
+              <sc-for list="{{ planCats }}" as="c" hint-placeholder-count="5">
+                <div style="background:#fff;border:1px solid #E8EDE6;border-radius:16px;padding:14px 15px;">
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <span style="flex:none;width:34px;height:34px;border-radius:10px;background:{{ c.tint }};display:flex;align-items:center;justify-content:center;font-size:17px;">{{ c.emoji }}</span>
+                    <div style="flex:1;font-size:14px;font-weight:700;color:#16241C;">{{ c.name }}</div>
+                    <div style="text-align:right;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:14.5px;font-weight:800;color:{{ c.amtColor }};">{{ c.actualF }}</span><span style="font-size:12px;color:#9AA89F;"> / {{ c.plannedF }}</span></div>
+                  </div>
+                  <div style="margin-top:11px;height:8px;border-radius:5px;background:#EDF2EB;overflow:hidden;"><div style="height:100%;width:{{ c.barW }};background:{{ c.barColor }};border-radius:5px;animation:finBar 1s cubic-bezier(.4,0,.2,1);"></div></div>
+                  <div style="margin-top:7px;font-size:12px;font-weight:600;color:{{ c.noteColor }};">{{ c.note }}</div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="margin-top:16px;background:linear-gradient(135deg,#F4EEFC,#E7F5E9);border:1px solid #E7DDF6;border-radius:18px;padding:15px;display:flex;gap:12px;align-items:center;">
+              <div style="width:44px;flex:none;"><dc-import name="Wiz" pose="idea" hint-size="44px,52px"></dc-import></div>
+              <p style="margin:0;font-size:13.5px;line-height:1.5;color:#33433A;"><b style="color:#14492F;">Conseil de Wiz :</b> tes restos dépassent un peu. Vise 200 $ le mois prochain — pas de pression, une petite action à la fois.</p>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ===================== CASHFLOW 30 JOURS ===================== -->
+        <sc-if value="{{ isCash }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="Cashflow 30 jours" style="padding:6px 20px 30px;animation:finIn .3s ease both;">
+            <div style="background:#fff;border:1px solid #E8EDE6;border-radius:22px;padding:18px;box-shadow:0 6px 16px -12px rgba(20,73,47,.3);">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+                <div><div style="font-size:12.5px;color:#7A8A80;font-weight:600;">Solde estimé dans 30 jours</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:28px;font-weight:800;color:#16241C;margin-top:4px;">1 300 $</div></div>
+                <span style="font-size:11.5px;font-weight:700;color:#2E7D43;background:#E7F5E9;padding:5px 11px;border-radius:999px;">Projection</span>
+              </div>
+              <svg viewBox="0 0 320 130" style="width:100%;height:130px;margin-top:14px;" preserveAspectRatio="none">
+                <defs><linearGradient id="cashFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#36B34A" stop-opacity=".22"></stop><stop offset="1" stop-color="#36B34A" stop-opacity="0"></stop></linearGradient></defs>
+                <line x1="0" y1="98" x2="320" y2="98" stroke="#F0AFA5" stroke-width="1" stroke-dasharray="4 4"></line>
+                <path d="{{ cashArea }}" fill="url(#cashFill)"></path>
+                <path d="{{ cashLine }}" fill="none" stroke="#2E7D43" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="600" style="animation:finDash 1.4s ease both;"></path>
+                <circle cx="{{ cashLowX }}" cy="{{ cashLowY }}" r="4" fill="#E5604D"></circle>
+              </svg>
+              <div style="display:flex;justify-content:space-between;font-size:11px;color:#9AA89F;margin-top:2px;"><span>Aujourd'hui</span><span>+15 j</span><span>+30 j</span></div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px;">
+              <div style="background:#fff;border:1px solid #E8EDE6;border-radius:16px;padding:14px;"><div style="font-size:12px;color:#7A8A80;font-weight:600;">Solde le plus bas</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:19px;font-weight:800;color:#E5604D;margin-top:5px;">720 $</div><div style="font-size:11.5px;color:#9AA89F;margin-top:2px;">vers le 9 du mois</div></div>
+              <div style="background:#fff;border:1px solid #E8EDE6;border-radius:16px;padding:14px;"><div style="font-size:12px;color:#7A8A80;font-weight:600;">Prochaine paie</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:19px;font-weight:800;color:#2E7D43;margin-top:5px;">+1 240 $</div><div style="font-size:11.5px;color:#9AA89F;margin-top:2px;">le 15 du mois</div></div>
+            </div>
+
+            <!-- quoi faire avant le solde bas -->
+            <div style="margin-top:14px;background:linear-gradient(135deg,#FFF4DD,#FBEAD0);border:1px solid #F4E6C8;border-radius:18px;padding:15px;">
+              <div style="display:flex;align-items:center;gap:9px;"><span style="font-size:17px;">🌤️</span><div style="font-size:12.5px;font-weight:800;color:#8A6A2E;text-transform:uppercase;letter-spacing:.3px;">Avant le 9 du mois</div></div>
+              <p style="margin:8px 0 0;font-size:13.5px;line-height:1.55;color:#33433A;">Ton solde frôle 720 $. Pour rester tranquille, tu peux décaler le paiement de carte au <b style="color:#14492F;">22</b> (après la paie) ou prévoir un coussin de ~150 $. Rien d'urgent.</p>
+            </div>
+
+            <div style="font-size:12px;font-weight:700;letter-spacing:.5px;color:#7A8A80;text-transform:uppercase;margin:20px 2px 11px;">Mouvements à venir</div>
+            <div style="background:#fff;border:1px solid #E8EDE6;border-radius:18px;overflow:hidden;">
+              <sc-for list="{{ cashEvents }}" as="e" hint-placeholder-count="4">
+                <div style="display:flex;align-items:center;gap:12px;padding:13px 15px;border-bottom:1px solid #EDF2EB;">
+                  <span style="flex:none;width:38px;height:38px;border-radius:11px;background:{{ e.tint }};display:flex;align-items:center;justify-content:center;font-size:17px;">{{ e.emoji }}</span>
+                  <div style="flex:1;"><div style="font-size:14px;font-weight:700;color:#16241C;">{{ e.label }}</div><div style="font-size:11.5px;color:#9AA89F;margin-top:1px;">{{ e.date }}</div></div>
+                  <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:800;color:{{ e.color }};">{{ e.amount }}</span>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="margin-top:14px;background:#F4F8F2;border-radius:14px;padding:13px 15px;display:flex;gap:10px;align-items:flex-start;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" style="flex:none;margin-top:1px;color:#7A8A80;"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"></circle><path d="M12 11v5M12 8h.01" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path></svg><p style="margin:0;font-size:11.5px;line-height:1.5;color:#7A8A80;">Projection estimée à partir de tes revenus et dépenses récurrents. À titre indicatif — éducation générale, pas un conseil financier.</p></div>
+          </div>
+        </sc-if>
+
+        <!-- ===================== DETTES ===================== -->
+        <sc-if value="{{ isDebt }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="Dettes" style="padding:6px 20px 30px;animation:finIn .3s ease both;">
+            <div style="background:#fff;border:1px solid #E8EDE6;border-radius:22px;padding:18px;box-shadow:0 6px 16px -12px rgba(20,73,47,.3);">
+              <div style="font-size:12.5px;color:#7A8A80;font-weight:600;">Total à rembourser</div>
+              <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:28px;font-weight:800;color:#16241C;margin-top:4px;">12 140 $</div>
+              <div style="margin-top:12px;display:flex;height:10px;border-radius:6px;overflow:hidden;gap:2px;">
+                <div style="width:19%;background:#E5604D;"></div><div style="width:71%;background:#3B6FD4;"></div><div style="width:10%;background:#E8A93B;"></div>
+              </div>
+              <div style="margin-top:9px;font-size:13px;color:#2E7D43;font-weight:700;">−420 $ ce mois · tu avances bien 💪</div>
+            </div>
+
+            <!-- stratégie -->
+            <div style="font-size:12px;font-weight:700;letter-spacing:.5px;color:#7A8A80;text-transform:uppercase;margin:20px 2px 10px;">Stratégie de remboursement</div>
+            <div style="display:flex;gap:8px;background:#EDF2EB;border-radius:14px;padding:4px;">
+              <sc-for list="{{ strategies }}" as="st" hint-placeholder-count="2">
+                <button onClick="{{ st.pick }}" style="flex:1;height:42px;border-radius:11px;border:none;background:{{ st.bg }};color:{{ st.ink }};font-family:'Bricolage Grotesque',sans-serif;font-size:13.5px;font-weight:800;cursor:pointer;box-shadow:{{ st.shadow }};transition:all .15s;">{{ st.label }}</button>
+              </sc-for>
+            </div>
+            <div style="margin-top:10px;background:{{ stratTint }};border:1px solid {{ stratBd }};border-radius:16px;padding:14px 15px;">
+              <div style="display:flex;gap:14px;">
+                <div style="flex:1;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:800;color:#14492F;">{{ stratMonths }}</div><div style="font-size:11.5px;color:#7A8A80;margin-top:1px;">sans dettes</div></div>
+                <div style="flex:1;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:800;color:#2E7D43;">{{ stratInterest }}</div><div style="font-size:11.5px;color:#7A8A80;margin-top:1px;">intérêts évités</div></div>
+              </div>
+              <p style="margin:10px 0 0;font-size:12.5px;line-height:1.5;color:#33433A;">{{ stratExplain }}</p>
+            </div>
+
+            <div style="font-size:12px;font-weight:700;letter-spacing:.5px;color:#7A8A80;text-transform:uppercase;margin:20px 2px 10px;">Ordre conseillé</div>
+            <div style="display:flex;flex-direction:column;gap:12px;">
+              <sc-for list="{{ debts }}" as="d" hint-placeholder-count="3">
+                <div style="background:#fff;border:1.5px solid {{ d.cardBd }};border-radius:18px;padding:16px;box-shadow:0 6px 16px -12px rgba(20,73,47,.3);">
+                  <div style="display:flex;align-items:center;gap:12px;">
+                    <span style="flex:none;width:28px;height:28px;border-radius:9px;background:{{ d.rankBg }};color:{{ d.rankInk }};font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;">{{ d.rank }}</span>
+                    <span style="flex:none;width:42px;height:42px;border-radius:12px;background:{{ d.tint }};display:flex;align-items:center;justify-content:center;font-size:20px;">{{ d.emoji }}</span>
+                    <div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:7px;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:800;color:#16241C;">{{ d.name }}</span><sc-if value="{{ d.focus }}" hint-placeholder-val="{{ false }}"><span style="font-size:10px;font-weight:700;color:#fff;background:#14492F;padding:2px 8px;border-radius:6px;">À cibler</span></sc-if></div><div style="font-size:12px;color:#7A8A80;margin-top:2px;">Taux {{ d.rate }} · {{ d.payment }}</div></div>
+                    <div style="text-align:right;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:800;color:#16241C;">{{ d.balance }}</div></div>
+                  </div>
+                  <div style="margin-top:12px;height:7px;border-radius:5px;background:#EDF2EB;overflow:hidden;"><div style="height:100%;width:{{ d.paidW }};background:{{ d.color }};border-radius:5px;animation:finBar 1s cubic-bezier(.4,0,.2,1);"></div></div>
+                  <div style="margin-top:6px;font-size:11.5px;color:#9AA89F;">{{ d.paidLabel }} remboursé</div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="margin-top:16px;background:linear-gradient(135deg,#EAF1FE,#E7F5E9);border:1px solid #D7E3F6;border-radius:18px;padding:15px;display:flex;gap:12px;align-items:flex-start;">
+              <div style="width:44px;flex:none;"><dc-import name="Wiz" pose="idea" hint-size="44px,52px"></dc-import></div>
+              <div><div style="font-size:12px;font-weight:800;color:#3B6FD4;text-transform:uppercase;letter-spacing:.3px;">Conseil de Wiz</div><p style="margin:4px 0 0;font-size:13.5px;line-height:1.5;color:#33433A;">{{ debtTip }}</p></div>
+            </div>
+
+            <div style="margin-top:12px;background:#F4F8F2;border-radius:14px;padding:13px 15px;display:flex;gap:10px;align-items:flex-start;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" style="flex:none;margin-top:1px;color:#7A8A80;"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"></circle><path d="M12 11v5M12 8h.01" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path></svg><p style="margin:0;font-size:11.5px;line-height:1.5;color:#7A8A80;">Simulation indicative basée sur tes soldes et paiements actuels. Pour un plan adapté, un conseiller autorisé peut t'aider.</p></div>
+          </div>
+        </sc-if>
+
+      </div>
+
+      <!-- ===================== SHEET : IMPORT CSV ===================== -->
+      <sc-if value="{{ sheetImport }}" hint-placeholder-val="{{ false }}">
+        <div onClick="{{ closeSheet }}" style="position:absolute;inset:0;z-index:90;background:rgba(10,22,16,.5);display:flex;flex-direction:column;justify-content:flex-end;animation:finFade .2s ease both;">
+          <div onClick="{{ stop }}" style="background:#F3F7F0;border-radius:28px 28px 0 0;max-height:90%;display:flex;flex-direction:column;animation:finSheet .3s cubic-bezier(.4,0,.2,1) both;">
+            <div style="flex:none;padding:14px 22px 8px;">
+              <div style="width:42px;height:5px;border-radius:3px;background:#D6DDD4;margin:0 auto 14px;"></div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <h2 style="flex:1;font-family:'Bricolage Grotesque',sans-serif;font-size:19px;font-weight:800;color:#14492F;margin:0;">{{ importTitle }}</h2>
+                <button onClick="{{ closeSheet }}" aria-label="Fermer" style="border:none;background:#E8EDE6;width:32px;height:32px;border-radius:10px;color:#33433A;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg></button>
+              </div>
+              <!-- steps -->
+              <div style="display:flex;gap:6px;margin-top:12px;">
+                <sc-for list="{{ importSteps }}" as="p" hint-placeholder-count="3">
+                  <div style="flex:1;height:5px;border-radius:3px;background:{{ p.bg }};"></div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div class="fin-scroll" style="flex:1;overflow-y:auto;padding:6px 22px 26px;">
+              <!-- STEP 0 : source -->
+              <sc-if value="{{ impSource }}" hint-placeholder-val="{{ true }}">
+                <button onClick="{{ importBank }}" style="width:100%;text-align:left;background:#fff;border:1px solid #E8EDE6;border-radius:18px;padding:16px;display:flex;align-items:center;gap:13px;cursor:pointer;margin-top:6px;" style-active="transform:scale(.99);">
+                  <span style="flex:none;width:46px;height:46px;border-radius:13px;background:#E7F5E9;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2E7D43" stroke-width="1.8" stroke-linejoin="round"><path d="M3 10l9-5 9 5M5 10v8h14v-8M3 18h18"></path></svg></span>
+                  <div style="flex:1;"><div style="font-size:14.5px;font-weight:800;color:#16241C;font-family:'Bricolage Grotesque',sans-serif;">Connexion bancaire</div><div style="font-size:12px;color:#7A8A80;margin-top:2px;">Sécurisé · lecture seule · chiffré</div></div>
+                  <sc-if value="{{ importBusy }}" hint-placeholder-val="{{ false }}"><span style="width:20px;height:20px;border:2.5px solid #CBD8C8;border-top-color:#2E7D43;border-radius:50%;" class="fin-spin"></span></sc-if>
+                  <sc-if value="{{ importIdle }}" hint-placeholder-val="{{ true }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="color:#9AA89F;"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg></sc-if>
+                </button>
+                <button onClick="{{ pickCsv }}" style="width:100%;text-align:left;background:#fff;border:1px solid #E8EDE6;border-radius:18px;padding:16px;display:flex;align-items:center;gap:13px;cursor:pointer;margin-top:11px;" style-active="transform:scale(.99);">
+                  <span style="flex:none;width:46px;height:46px;border-radius:13px;background:#EAF1FE;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3B6FD4" stroke-width="1.7" stroke-linejoin="round"><path d="M8 3h6l4 4v14H8z"></path><path d="M14 3v4h4"></path></svg></span>
+                  <div style="flex:1;"><div style="font-size:14.5px;font-weight:800;color:#16241C;font-family:'Bricolage Grotesque',sans-serif;">Importer un fichier CSV</div><div style="font-size:12px;color:#7A8A80;margin-top:2px;">Export de ta banque ou tableur</div></div>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="color:#9AA89F;"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg>
+                </button>
+                <div style="margin-top:14px;background:#F4F8F2;border-radius:14px;padding:13px 15px;display:flex;gap:10px;align-items:flex-start;"><span style="flex:none;font-size:15px;">🔒</span><p style="margin:0;font-size:12px;line-height:1.5;color:#7A8A80;">Wise &amp; Wealthy lit tes transactions en lecture seule. Aucun mouvement d'argent n'est possible depuis l'app.</p></div>
+              </sc-if>
+
+              <!-- STEP 1 : mapping -->
+              <sc-if value="{{ impMapping }}" hint-placeholder-val="{{ false }}">
+                <div style="background:#fff;border:1px solid #E8EDE6;border-radius:16px;padding:13px 15px;display:flex;align-items:center;gap:11px;margin-top:6px;">
+                  <span style="flex:none;width:38px;height:38px;border-radius:11px;background:#EAF1FE;display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3B6FD4" stroke-width="1.7" stroke-linejoin="round"><path d="M8 3h6l4 4v14H8z"></path><path d="M14 3v4h4"></path></svg></span>
+                  <div style="flex:1;"><div style="font-size:13.5px;font-weight:700;color:#16241C;">releve_mai_2026.csv</div><div style="font-size:11.5px;color:#9AA89F;">14 lignes · 3 colonnes détectées</div></div>
+                  <span style="font-size:11px;font-weight:700;color:#2E7D43;background:#E7F5E9;padding:4px 9px;border-radius:8px;">Lu</span>
+                </div>
+
+                <p style="font-size:12.5px;color:#7A8A80;margin:14px 2px 4px;line-height:1.5;">Associe chaque colonne du fichier. On a deviné — corrige au besoin.</p>
+                <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px;">
+                  <sc-for list="{{ mapRows }}" as="m" hint-placeholder-count="3">
+                    <div style="background:#fff;border:1px solid #E8EDE6;border-radius:14px;padding:12px 14px;">
+                      <div style="font-size:13px;font-weight:700;color:#16241C;">{{ m.field }}</div>
+                      <div style="display:flex;gap:7px;margin-top:9px;">
+                        <sc-for list="{{ m.cols }}" as="col" hint-placeholder-count="3">
+                          <button onClick="{{ col.pick }}" style="flex:1;height:40px;border-radius:11px;border:1.5px solid {{ col.bd }};background:{{ col.bg }};color:{{ col.ink }};font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;line-height:1.15;">{{ col.label }}</button>
+                        </sc-for>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+                <button onClick="{{ mapContinue }}" style="margin-top:16px;width:100%;height:52px;border:none;border-radius:15px;background:#14492F;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:700;cursor:pointer;">Continuer</button>
+              </sc-if>
+
+              <!-- STEP 2 : review + doublons -->
+              <sc-if value="{{ impReview }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;gap:11px;margin-top:6px;">
+                  <div style="flex:1;background:#E7F5E9;border-radius:14px;padding:13px;text-align:center;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:23px;font-weight:800;color:#2E7D43;">{{ newCount }}</div><div style="font-size:11.5px;color:#2E7D43;font-weight:600;margin-top:1px;">nouvelles</div></div>
+                  <div style="flex:1;background:#FFF4DD;border-radius:14px;padding:13px;text-align:center;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:23px;font-weight:800;color:#B5852A;">{{ dupCount }}</div><div style="font-size:11.5px;color:#B5852A;font-weight:600;margin-top:1px;">doublons</div></div>
+                </div>
+
+                <div style="font-size:12px;font-weight:700;letter-spacing:.4px;color:#7A8A80;text-transform:uppercase;margin:16px 2px 9px;">Doublons détectés</div>
+                <div style="background:#fff;border:1px solid #E8EDE6;border-radius:16px;overflow:hidden;">
+                  <sc-for list="{{ dupRows }}" as="d" hint-placeholder-count="2">
+                    <div style="display:flex;align-items:center;gap:11px;padding:12px 14px;border-bottom:1px solid #EDF2EB;{{ d.dim }}">
+                      <div style="flex:1;min-width:0;"><div style="font-size:13.5px;font-weight:700;color:#16241C;">{{ d.merchant }}</div><div style="font-size:11px;color:#9AA89F;margin-top:1px;">{{ d.date }} · déjà importé</div></div>
+                      <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:13.5px;font-weight:800;color:#16241C;">{{ d.amount }}</span>
+                      <button onClick="{{ d.toggle }}" style="border:1px solid {{ d.btnBd }};background:{{ d.btnBg }};color:{{ d.btnInk }};border-radius:9px;padding:5px 10px;font-family:inherit;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;">{{ d.btnLabel }}</button>
+                    </div>
+                  </sc-for>
+                </div>
+                <p style="font-size:12px;color:#7A8A80;margin:12px 2px 0;line-height:1.5;">Les doublons sont ignorés par défaut pour éviter de compter deux fois la même dépense.</p>
+                <button onClick="{{ doImportCsv }}" style="margin-top:16px;width:100%;height:52px;border:none;border-radius:15px;background:#14492F;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:700;cursor:pointer;">{{ importCta }}</button>
+              </sc-if>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===================== SHEET : CATÉGORISER ===================== -->
+      <sc-if value="{{ sheetCat }}" hint-placeholder-val="{{ false }}">
+        <div onClick="{{ closeSheet }}" style="position:absolute;inset:0;z-index:92;background:rgba(10,22,16,.5);display:flex;flex-direction:column;justify-content:flex-end;animation:finFade .2s ease both;">
+          <div onClick="{{ stop }}" style="background:#F3F7F0;border-radius:28px 28px 0 0;padding:14px 22px 26px;animation:finSheet .3s cubic-bezier(.4,0,.2,1) both;">
+            <div style="width:42px;height:5px;border-radius:3px;background:#D6DDD4;margin:0 auto 14px;"></div>
+            <div style="background:#fff;border:1px solid #E8EDE6;border-radius:16px;padding:13px 15px;display:flex;align-items:center;gap:12px;">
+              <span style="flex:none;width:40px;height:40px;border-radius:12px;background:{{ catTxTint }};display:flex;align-items:center;justify-content:center;font-size:19px;">{{ catTxEmoji }}</span>
+              <div style="flex:1;"><div style="font-size:14px;font-weight:700;color:#16241C;">{{ catTxMerchant }}</div><div style="font-size:11.5px;color:#9AA89F;margin-top:1px;">À classer</div></div>
+              <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:14.5px;font-weight:800;color:#16241C;">{{ catTxAmount }}</span>
+            </div>
+            <div style="font-size:12px;font-weight:700;letter-spacing:.4px;color:#7A8A80;text-transform:uppercase;margin:16px 2px 10px;">Choisis une catégorie</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;">
+              <sc-for list="{{ catChips }}" as="c" hint-placeholder-count="6">
+                <button onClick="{{ c.pick }}" style="display:flex;align-items:center;gap:10px;background:#fff;border:1.5px solid #E8EDE6;border-radius:13px;padding:12px 13px;cursor:pointer;text-align:left;" style-active="transform:scale(.98);border-color:#14492F;">
+                  <span style="flex:none;width:32px;height:32px;border-radius:9px;background:{{ c.tint }};display:flex;align-items:center;justify-content:center;font-size:16px;">{{ c.emoji }}</span>
+                  <span style="font-size:13px;font-weight:700;color:#16241C;">{{ c.name }}</span>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===================== SHEET : AJOUTER ===================== -->
+      <sc-if value="{{ sheetAdd }}" hint-placeholder-val="{{ false }}">
+        <div onClick="{{ closeSheet }}" style="position:absolute;inset:0;z-index:92;background:rgba(10,22,16,.5);display:flex;flex-direction:column;justify-content:flex-end;animation:finFade .2s ease both;">
+          <div onClick="{{ stop }}" style="background:#F3F7F0;border-radius:28px 28px 0 0;padding:14px 22px 26px;animation:finSheet .3s cubic-bezier(.4,0,.2,1) both;">
+            <div style="width:42px;height:5px;border-radius:3px;background:#D6DDD4;margin:0 auto 14px;"></div>
+            <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-size:19px;font-weight:800;color:#14492F;margin:0 0 14px;">Ajouter une transaction</h2>
+
+            <div style="display:flex;gap:8px;background:#EDF2EB;border-radius:13px;padding:4px;">
+              <button onClick="{{ setOut }}" style="flex:1;height:42px;border-radius:10px;border:none;background:{{ outBg }};color:{{ outInk }};font-family:'Bricolage Grotesque',sans-serif;font-size:13.5px;font-weight:800;cursor:pointer;box-shadow:{{ outShadow }};">Dépense</button>
+              <button onClick="{{ setIn }}" style="flex:1;height:42px;border-radius:10px;border:none;background:{{ inBg }};color:{{ inInk }};font-family:'Bricolage Grotesque',sans-serif;font-size:13.5px;font-weight:800;cursor:pointer;box-shadow:{{ inShadow }};">Revenu</button>
+            </div>
+
+            <span style="display:block;font-size:13px;font-weight:600;color:#33433A;margin:16px 0 7px;">Description</span>
+            <input value="{{ addDesc }}" onInput="{{ onAddDesc }}" placeholder="Ex. Épicerie IGA" style="width:100%;height:52px;border-radius:14px;border:1.5px solid #E8EDE6;background:#fff;padding:0 15px;font-family:inherit;font-size:15px;color:#16241C;outline:none;">
+
+            <span style="display:block;font-size:13px;font-weight:600;color:#33433A;margin:16px 0 7px;">Montant</span>
+            <div style="display:flex;align-items:center;background:#fff;border:1.5px solid #E8EDE6;border-radius:14px;padding:0 15px;">
+              <input value="{{ addAmt }}" onInput="{{ onAddAmt }}" inputmode="decimal" placeholder="0,00" style="flex:1;height:52px;border:none;background:none;font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;color:#16241C;outline:none;">
+              <span style="font-size:16px;font-weight:700;color:#9AA89F;">$</span>
+            </div>
+
+            <sc-if value="{{ addShowCats }}" hint-placeholder-val="{{ true }}">
+              <span style="display:block;font-size:13px;font-weight:600;color:#33433A;margin:16px 0 9px;">Catégorie</span>
+              <div class="fin-scroll" style="display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;">
+                <sc-for list="{{ addCatChips }}" as="c" hint-placeholder-count="5">
+                  <button onClick="{{ c.pick }}" style="flex:none;display:flex;align-items:center;gap:7px;border:1.5px solid {{ c.bd }};background:{{ c.bg }};border-radius:12px;padding:9px 13px;cursor:pointer;white-space:nowrap;"><span style="font-size:15px;">{{ c.emoji }}</span><span style="font-size:12.5px;font-weight:700;color:{{ c.ink }};">{{ c.name }}</span></button>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <button onClick="{{ submitAdd }}" style="margin-top:20px;width:100%;height:54px;border:none;border-radius:15px;background:#14492F;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:15.5px;font-weight:700;cursor:pointer;box-shadow:0 10px 22px -10px rgba(20,73,47,.6);" style-active="transform:translateY(1px);">Ajouter</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- toast -->
+      <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;left:50%;bottom:34px;transform:translateX(-50%);z-index:95;background:#14492F;color:#fff;padding:13px 20px;border-radius:16px;font-size:14px;font-weight:600;box-shadow:0 16px 34px -14px rgba(20,73,47,.7);display:flex;align-items:center;gap:9px;white-space:nowrap;animation:finToast .3s ease both;"><span style="font-size:16px;">{{ toastIcon }}</span>{{ toastMsg }}</div>
+      </sc-if>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:392,&quot;height&quot;:840},&quot;startTab&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;tx&quot;,&quot;plan&quot;,&quot;cash&quot;,&quot;subs&quot;,&quot;debt&quot;],&quot;default&quot;:&quot;tx&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Onglet de départ&quot;,&quot;section&quot;:&quot;Aperçu&quot;},&quot;accountState&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;connecté&quot;,&quot;vide&quot;,&quot;erreur&quot;,&quot;déconnecté&quot;],&quot;default&quot;:&quot;connecté&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;label&quot;:&quot;État du compte&quot;,&quot;section&quot;:&quot;Aperçu&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.contentRef = React.createRef();
+    const stMap = { 'connecté':'connected', 'vide':'empty', 'erreur':'error', 'déconnecté':'disconnected' };
+    this.state = {
+      tab: props.startTab || 'tx',
+      accountState: stMap[props.accountState] || 'connected',
+      toast: null,
+      sheet: null,
+      // import wizard
+      importMode: null, importStep: 0, importBusy: false,
+      mapDate: 0, mapDesc: 1, mapAmt: 2,
+      dupSkip: [true, true],
+      // categorize
+      catTarget: null,
+      // add
+      addType: 'out', addDesc: '', addAmt: '', addCat: 'ali',
+      // dettes
+      strategy: 'avalanche',
+      catList: [
+        { id:'ali', name:'Alimentation', emoji:'🛒', tint:'#E7F5E9' },
+        { id:'resto', name:'Restos & sorties', emoji:'🍽️', tint:'#FFF4DD' },
+        { id:'trans', name:'Transport', emoji:'🚇', tint:'#EAF1FE' },
+        { id:'log', name:'Logement', emoji:'🏠', tint:'#E7F5E9' },
+        { id:'abo', name:'Abonnements', emoji:'🎬', tint:'#F4EEFC' },
+        { id:'loisir', name:'Loisirs', emoji:'🎮', tint:'#EAF1FE' },
+        { id:'sante', name:'Santé', emoji:'❤️', tint:'#FDEEEC' },
+        { id:'rev', name:'Revenu', emoji:'💼', tint:'#E7F5E9' }
+      ],
+      transactions: [
+        { id:'t1', merchant:'Metro — Épicerie', emoji:'🛒', tint:'#E7F5E9', amt:-52.40, day:"Aujourd'hui", catId:'ali' },
+        { id:'t2', merchant:'Tim Hortons', emoji:'☕', tint:'#FFF4DD', amt:-4.85, day:"Aujourd'hui", catId:'resto' },
+        { id:'t3', merchant:'Paie — Solutions Nord', emoji:'💼', tint:'#E7F5E9', amt:1240, day:'Hier', catId:'rev' },
+        { id:'t4', merchant:'STM — Carte Opus', emoji:'🚇', tint:'#EAF1FE', amt:-94, day:'Hier', catId:'trans' },
+        { id:'t5', merchant:'Netflix', emoji:'🎬', tint:'#F4EEFC', amt:-16.99, day:'Hier', catId:'abo' },
+        { id:'t6', merchant:'Loyer', emoji:'🏠', tint:'#E7F5E9', amt:-985, day:'2 juin', catId:'log' },
+        { id:'t7', merchant:'Hydro-Québec', emoji:'⚡', tint:'#FFF4DD', amt:-78.30, day:'2 juin', catId:'log' },
+        { id:'t8', merchant:'Pharmaprix', emoji:'🧾', tint:'#EDF2EB', amt:-23.10, day:'2 juin', catId:null }
+      ],
+      subs: [
+        { id:'s1', name:'Netflix', emoji:'🎬', tint:'#F4EEFC', amt:16.99, cycle:'mois', next:'le 18', keep:true },
+        { id:'s2', name:'Spotify', emoji:'🎵', tint:'#E7F5E9', amt:11.99, cycle:'mois', next:'le 3', keep:true },
+        { id:'s3', name:'Apple Music', emoji:'🎶', tint:'#FDEEEC', amt:11.99, cycle:'mois', next:'le 9', keep:false },
+        { id:'s4', name:'Gym Énergie', emoji:'🏋️', tint:'#EAF1FE', amt:45, cycle:'mois', next:'le 1er', keep:true },
+        { id:'s5', name:'iCloud+', emoji:'☁️', tint:'#EAF1FE', amt:3.99, cycle:'mois', next:'le 12', keep:true },
+        { id:'s6', name:'Le Devoir', emoji:'📰', tint:'#FFF4DD', amt:99, cycle:'an', next:'15 nov.', keep:true }
+      ],
+      debtsRaw: [
+        { id:'visa', name:'Carte Visa', emoji:'💳', tint:'#FDEEEC', rateN:19.99, bal:2340, payment:'70 $/mois', color:'#E5604D', paidW:'34%', paidLabel:'34 %' },
+        { id:'auto', name:'Prêt auto', emoji:'🚗', tint:'#EAF1FE', rateN:6.40, bal:8600, payment:'245 $/mois', color:'#3B6FD4', paidW:'52%', paidLabel:'52 %' },
+        { id:'marge', name:'Marge de crédit', emoji:'🏦', tint:'#FFF4DD', rateN:8.90, bal:1200, payment:'50 $/mois', color:'#E8A93B', paidW:'20%', paidLabel:'20 %' }
+      ]
+    };
+  }
+
+  go(tab){ this.setState({ tab }, ()=>{ if(this.contentRef.current) this.contentRef.current.scrollTop=0; }); }
+  showToast(msg, icon){ this.setState({ toast:{msg,icon:icon||'✅'} }); clearTimeout(this._t); this._t=setTimeout(()=>this.setState({toast:null}),2200); }
+  stop(e){ if(e&&e.stopPropagation) e.stopPropagation(); }
+
+  fmtAmt(n){
+    const sign = n<0?'−':'+';
+    const v = Math.abs(n).toLocaleString('fr-CA',{minimumFractionDigits:2,maximumFractionDigits:2}).replace(/\u202f/g,' ').replace(/\u00a0/g,' ');
+    return sign+v+' $';
+  }
+  fmtMoney(n){ return Math.round(n).toLocaleString('fr-CA').replace(/\u202f/g,' ').replace(/\u00a0/g,' ')+' $'; }
+  catById(id){ return this.state.catList.find(c=>c.id===id); }
+
+  // ---- account state ----
+  retry(){ this.setState({accountState:'connected'}); this.showToast('Transactions chargées','✅'); }
+
+  // ---- import wizard ----
+  startImport(){ this.setState({ sheet:'import', importMode:null, importStep:0, importBusy:false }); }
+  startImportCsv(){ this.setState({ sheet:'import', importMode:'csv', importStep:1 }); }
+  closeSheet(){ this.setState({ sheet:null, importStep:0, importMode:null, importBusy:false, catTarget:null }); }
+  pickCsv(){ this.setState({ importMode:'csv', importStep:1 }); }
+  importBank(){
+    if(this.state.importBusy) return;
+    this.setState({ importBusy:true });
+    setTimeout(()=>{ this.setState({ importBusy:false }); this._finishImport(8); }, 1200);
+  }
+  setMap(field, col){ this.setState({ ['map'+field]: col }); }
+  mapContinue(){ this.setState({ importStep:2 }); }
+  toggleDup(i){ this.setState(s=>{ const d=[...s.dupSkip]; d[i]=!d[i]; return { dupSkip:d }; }); }
+  doImportCsv(){ const kept = this.state.dupSkip.filter(x=>!x).length; this._finishImport(12 + kept); }
+  _finishImport(count){
+    const stamp = Date.now();
+    const news = [
+      { id:'imp'+stamp, merchant:'Uniprix', emoji:'🧾', tint:'#EDF2EB', amt:-31.20, day:"Aujourd'hui", catId:null },
+      { id:'imp'+(stamp+1), merchant:'Café Olimpico', emoji:'☕', tint:'#FFF4DD', amt:-6.50, day:"Aujourd'hui", catId:'resto' }
+    ];
+    this.setState(s=>({ transactions:[...news, ...s.transactions], sheet:null, importStep:0, importMode:null, accountState:'connected' }));
+    this.showToast(count+' transactions importées','📥');
+  }
+
+  // ---- categorize ----
+  categorizeNext(){
+    const t = this.state.transactions.find(x=>!x.catId);
+    if(!t){ this.showToast('Tout est déjà classé ✨','🏷️'); return; }
+    this.setState({ sheet:'cat', catTarget:t.id });
+  }
+  openCat(id){ this.setState({ sheet:'cat', catTarget:id }); }
+  assignCat(catId){
+    const id = this.state.catTarget;
+    const c = this.catById(catId);
+    this.setState(s=>({ transactions: s.transactions.map(t=> t.id===id ? { ...t, catId, tint: (t.amt<0? c.tint : t.tint) } : t), sheet:null, catTarget:null }));
+    this.showToast('Transaction classée','🏷️');
+  }
+
+  // ---- add transaction ----
+  openAdd(){ this.setState({ sheet:'add', addType:'out', addDesc:'', addAmt:'', addCat:'ali' }); }
+  onAddDesc(e){ this.setState({ addDesc:e.target.value }); }
+  onAddAmt(e){ this.setState({ addAmt:e.target.value.replace(/[^0-9.,]/g,'') }); }
+  pickAddCat(id){ this.setState({ addCat:id }); }
+  submitAdd(){
+    const amt = parseFloat((this.state.addAmt||'').replace(',','.'));
+    if(!amt || amt<=0){ this.showToast('Entre un montant valide','✏️'); return; }
+    const out = this.state.addType==='out';
+    const cat = out ? this.state.addCat : 'rev';
+    const c = this.catById(cat);
+    const t = { id:'add'+Date.now(), merchant:(this.state.addDesc||'').trim()||(out?'Dépense':'Revenu'), emoji:c.emoji, tint:c.tint, amt: out?-amt:amt, day:"Aujourd'hui", catId:cat };
+    this.setState(s=>({ transactions:[t, ...s.transactions], sheet:null }));
+    this.showToast('Transaction ajoutée','✅');
+  }
+
+  // ---- subs ----
+  toggleSub(id){ this.setState(s=>({ subs: s.subs.map(x=> x.id===id ? { ...x, keep:!x.keep } : x) })); }
+
+  // ---- debts ----
+  setStrategy(st){ this.setState({ strategy:st }); }
+
+  renderVals(){
+    const s = this.state;
+    const tab = s.tab;
+    const mkTab = (id,label)=>({ label, go:()=>this.go(id),
+      border: tab===id?'#14492F':'#E8EDE6', bg: tab===id?'#14492F':'#fff', color: tab===id?'#fff':'#33433A' });
+    const tabs = [ mkTab('tx','Transactions'), mkTab('plan','Prévu vs réel'), mkTab('cash','Cashflow'), mkTab('subs','Abonnements'), mkTab('debt','Dettes') ];
+
+    // ----- transactions -----
+    const dayOrder = [];
+    s.transactions.forEach(t=>{ if(dayOrder.indexOf(t.day)<0) dayOrder.push(t.day); });
+    const txGroups = dayOrder.map(day=>({
+      label: day,
+      items: s.transactions.filter(t=>t.day===day).map(t=>{
+        const uncat = !t.catId;
+        return { merchant:t.merchant, emoji:t.emoji, tint:t.tint,
+          cat: uncat ? 'Non classé' : (this.catById(t.catId)||{}).name,
+          uncategorized: uncat, cursor: uncat?'pointer':'default',
+          amount: this.fmtAmt(t.amt), amtColor: t.amt>=0 ? '#2E7D43' : '#16241C',
+          tap: uncat ? (()=>this.openCat(t.id)) : (()=>{}) };
+      })
+    }));
+    const inSum = s.transactions.filter(t=>t.amt>0).reduce((a,t)=>a+t.amt,0);
+    const outSum = s.transactions.filter(t=>t.amt<0).reduce((a,t)=>a+t.amt,0);
+    const uncatN = s.transactions.filter(t=>!t.catId).length;
+
+    // ----- prévu vs réel -----
+    const rawCats = [
+      { name:'Logement', emoji:'🏠', tint:'#E7F5E9', planned:1100, actual:1063 },
+      { name:'Alimentation', emoji:'🛒', tint:'#E7F5E9', planned:450, actual:512 },
+      { name:'Transport', emoji:'🚇', tint:'#EAF1FE', planned:150, actual:94 },
+      { name:'Restos & sorties', emoji:'🍽️', tint:'#FFF4DD', planned:200, actual:243 },
+      { name:'Abonnements', emoji:'🎬', tint:'#F4EEFC', planned:60, actual:60 },
+      { name:'Loisirs', emoji:'🎮', tint:'#EAF1FE', planned:120, actual:78 }
+    ];
+    const fmt = (n)=> n.toLocaleString('fr-CA') + ' $';
+    const planCats = rawCats.map(c=>{
+      const over = c.actual > c.planned;
+      const ratio = Math.min(c.actual/c.planned, 1);
+      const diff = Math.abs(c.actual - c.planned);
+      return { ...c, actualF:fmt(c.actual), plannedF:fmt(c.planned),
+        barW:(ratio*100).toFixed(0)+'%', barColor: over?'#E5604D':'#36B34A',
+        amtColor: over?'#E5604D':'#16241C',
+        note: over ? ('Dépassé de '+fmt(diff)) : ('Reste '+fmt(diff)),
+        noteColor: over?'#E5604D':'#2E7D43' };
+    });
+
+    // ----- cashflow -----
+    const bal = [1850,1790,1730,865,820,790,760,740,720,1960,1900,1600,1300];
+    const maxB=2000, minB=600, W=320, H=130, topPad=8, botPad=14;
+    const xs = (i)=> (i*(W/(bal.length-1)));
+    const ys = (b)=> H - botPad - ((b-minB)/(maxB-minB))*(H-topPad-botPad);
+    let line = '';
+    bal.forEach((b,i)=>{ line += (i===0?'M':'L')+xs(i).toFixed(1)+' '+ys(b).toFixed(1)+' '; });
+    const area = 'M0 '+(H-botPad)+' ' + bal.map((b,i)=>'L'+xs(i).toFixed(1)+' '+ys(b).toFixed(1)).join(' ') + ' L'+W+' '+(H-botPad)+' Z';
+    const lowI = bal.indexOf(Math.min.apply(null, bal));
+    const cashEvents = [
+      { label:'Loyer', date:'le 1er', emoji:'🏠', tint:'#FDEEEC', amount:'−985 $', color:'#E5604D' },
+      { label:'Paie — Solutions Nord', date:'le 15', emoji:'💼', tint:'#E7F5E9', amount:'+1 240 $', color:'#2E7D43' },
+      { label:'Carte de crédit', date:'le 22', emoji:'💳', tint:'#FFF4DD', amount:'−300 $', color:'#E5604D' },
+      { label:'Abonnements', date:'le 28', emoji:'🎬', tint:'#F4EEFC', amount:'−47 $', color:'#E5604D' }
+    ];
+
+    // ----- subs -----
+    const monthly = s.subs.filter(x=>x.keep).reduce((a,x)=> a + (x.cycle==='an' ? x.amt/12 : x.amt), 0);
+    const savings = s.subs.filter(x=>!x.keep).reduce((a,x)=> a + (x.cycle==='an' ? x.amt : x.amt*12), 0);
+    const subsList = s.subs.map(x=>({
+      name:x.name, emoji:x.emoji, tint:x.tint,
+      cycleLabel: x.cycle==='an' ? 'Annuel' : 'Mensuel',
+      next:x.next, amountF: this.fmtAmt(-x.amt).replace('−',''),
+      dim: x.keep ? '' : 'opacity:.55;',
+      toggle:()=>this.toggleSub(x.id),
+      btnLabel: x.keep ? 'Garder' : 'Résilié',
+      btnBg: x.keep ? '#fff' : '#FDEEEC', btnBd: x.keep ? '#CBD8C8' : '#F4DAD4', btnInk: x.keep ? '#2E7D43' : '#C9483A'
+    }));
+
+    // ----- dettes -----
+    const ordered = [...s.debtsRaw].sort((a,b)=> s.strategy==='avalanche' ? (b.rateN-a.rateN) : (a.bal-b.bal));
+    const debts = ordered.map((d,i)=>({
+      name:d.name, emoji:d.emoji, tint:d.tint, color:d.color, paidW:d.paidW, paidLabel:d.paidLabel,
+      rate:d.rateN.toFixed(2).replace('.',',')+' %', payment:d.payment, balance:this.fmtMoney(d.bal),
+      rank:i+1, focus:i===0,
+      cardBd: i===0 ? '#14492F' : '#E8EDE6',
+      rankBg: i===0 ? '#14492F' : '#EDF2EB', rankInk: i===0 ? '#fff' : '#7A8A80'
+    }));
+    const av = s.strategy==='avalanche';
+    const strategies = [
+      { label:'Avalanche', pick:()=>this.setStrategy('avalanche'), bg: av?'#fff':'transparent', ink: av?'#14492F':'#7A8A80', shadow: av?'0 2px 6px rgba(20,73,47,.15)':'none' },
+      { label:'Boule de neige', pick:()=>this.setStrategy('snowball'), bg: !av?'#fff':'transparent', ink: !av?'#14492F':'#7A8A80', shadow: !av?'0 2px 6px rgba(20,73,47,.15)':'none' }
+    ];
+
+    return {
+      contentRef: this.contentRef,
+      isTx: tab==='tx', isPlan: tab==='plan', isCash: tab==='cash', isDebt: tab==='debt', isSubs: tab==='subs',
+      tabs,
+
+      // account states
+      stConnected: s.accountState==='connected', stEmpty: s.accountState==='empty',
+      stError: s.accountState==='error', stDisconnected: s.accountState==='disconnected',
+      retry:()=>this.retry(),
+
+      // transactions
+      txGroups, inTotal: this.fmtAmt(inSum), outTotal: this.fmtAmt(outSum),
+      hasUncat: uncatN>0, uncatLabel: uncatN+(uncatN>1?' transactions à catégoriser':' transaction à catégoriser'),
+      categorizeNext:()=>this.categorizeNext(),
+
+      // prévu vs réel
+      planCats, planTotalW:'82%',
+
+      // cashflow
+      cashLine:line.trim(), cashArea:area, cashLowX:xs(lowI).toFixed(1), cashLowY:ys(bal[lowI]).toFixed(1), cashEvents,
+
+      // subs
+      subsList, subsMonthly: this.fmtMoney(monthly), subsYearly: this.fmtMoney(monthly*12),
+      subsHasSavings: savings>0, subsSavings: this.fmtMoney(savings),
+
+      // dettes
+      debts, strategies,
+      stratTint: av?'#FDEEEC':'#EAF1FE', stratBd: av?'#F4DAD4':'#D7E3F6',
+      stratMonths: av ? '~28 mois' : '~30 mois',
+      stratInterest: av ? '~640 $' : '~510 $',
+      stratExplain: av
+        ? 'Tu attaques d\'abord la dette au taux le plus élevé (Visa, 19,99 %). C\'est l\'option qui coûte le moins d\'intérêts au total.'
+        : 'Tu rembourses d\'abord le plus petit solde (Marge, 1 200 $). Premières victoires rapides et motivantes — idéal si tu veux garder le momentum.',
+      debtTip: av
+        ? 'Mets un peu plus sur la carte Visa (taux le plus élevé) tout en gardant les minimums ailleurs. C\'est mathématiquement le moins cher.'
+        : 'Élimine d\'abord la marge de crédit (plus petit solde). La sensation de rayer une dette aide souvent à tenir le cap.',
+
+      // ----- import sheet -----
+      sheetImport: s.sheet==='import',
+      importTitle: s.importStep===0 ? 'Importer mes transactions' : (s.importStep===1 ? 'Associer les colonnes' : 'Vérifier l\'import'),
+      importSteps: [0,1,2].map(i=>({ bg: i<=s.importStep ? '#14492F' : '#D6DDD4' })),
+      impSource: s.importStep===0, impMapping: s.importStep===1, impReview: s.importStep===2,
+      importBusy: s.importBusy, importIdle: !s.importBusy,
+      importBank:()=>this.importBank(), pickCsv:()=>this.pickCsv(),
+      mapRows: [
+        { field:'📅 Date', key:'Date', sel:s.mapDate },
+        { field:'🏷️ Description', key:'Desc', sel:s.mapDesc },
+        { field:'💲 Montant', key:'Amt', sel:s.mapAmt }
+      ].map(r=>({
+        field: r.field,
+        cols: [
+          { label:'A · Date', i:0 }, { label:'B · Libellé', i:1 }, { label:'C · Montant', i:2 }
+        ].map(c=>({
+          label:c.label, pick:()=>this.setMap(r.key, c.i),
+          bd: r.sel===c.i ? '#14492F':'#E8EDE6', bg: r.sel===c.i ? '#E7F5E9':'#fff', ink: r.sel===c.i ? '#14492F':'#7A8A80'
+        }))
+      })),
+      mapContinue:()=>this.mapContinue(),
+      newCount: 12, dupCount: 2,
+      dupRows: [
+        { merchant:'Loyer', date:'1 mai', amount:'−985,00 $' },
+        { merchant:'Hydro-Québec', date:'2 mai', amount:'−78,30 $' }
+      ].map((d,i)=>({ ...d,
+        dim: s.dupSkip[i] ? 'opacity:.5;' : '',
+        toggle:()=>this.toggleDup(i),
+        btnLabel: s.dupSkip[i] ? 'Ignoré' : 'Inclure',
+        btnBg: s.dupSkip[i] ? '#fff' : '#E7F5E9', btnBd: s.dupSkip[i] ? '#CBD8C8' : '#BFE0C6', btnInk: s.dupSkip[i] ? '#7A8A80' : '#2E7D43'
+      })),
+      importCta: 'Importer '+(12 + this.state.dupSkip.filter(x=>!x).length)+' transactions',
+      doImportCsv:()=>this.doImportCsv(),
+
+      // ----- categorize sheet -----
+      sheetCat: s.sheet==='cat',
+      catTxMerchant: (s.transactions.find(t=>t.id===s.catTarget)||{}).merchant,
+      catTxEmoji: (s.transactions.find(t=>t.id===s.catTarget)||{}).emoji,
+      catTxTint: (s.transactions.find(t=>t.id===s.catTarget)||{}).tint,
+      catTxAmount: this.fmtAmt(((s.transactions.find(t=>t.id===s.catTarget)||{}).amt)||0),
+      catChips: s.catList.filter(c=>c.id!=='rev').map(c=>({ name:c.name, emoji:c.emoji, tint:c.tint, pick:()=>this.assignCat(c.id) })),
+
+      // ----- add sheet -----
+      sheetAdd: s.sheet==='add',
+      addDesc: s.addDesc, addAmt: s.addAmt,
+      onAddDesc:(e)=>this.onAddDesc(e), onAddAmt:(e)=>this.onAddAmt(e),
+      setOut:()=>this.setState({addType:'out'}), setIn:()=>this.setState({addType:'in'}),
+      outBg: s.addType==='out'?'#fff':'transparent', outInk: s.addType==='out'?'#14492F':'#7A8A80', outShadow: s.addType==='out'?'0 2px 6px rgba(20,73,47,.15)':'none',
+      inBg: s.addType==='in'?'#fff':'transparent', inInk: s.addType==='in'?'#14492F':'#7A8A80', inShadow: s.addType==='in'?'0 2px 6px rgba(20,73,47,.15)':'none',
+      addShowCats: s.addType==='out',
+      addCatChips: s.catList.filter(c=>c.id!=='rev').map(c=>({ name:c.name, emoji:c.emoji,
+        pick:()=>this.pickAddCat(c.id),
+        bd: s.addCat===c.id?'#14492F':'#E8EDE6', bg: s.addCat===c.id?'#E7F5E9':'#fff', ink: s.addCat===c.id?'#14492F':'#33433A' })),
+      submitAdd:()=>this.submitAdd(),
+
+      openAdd:()=>this.openAdd(), startImport:()=>this.startImport(), startImportCsv:()=>this.startImportCsv(),
+      closeSheet:()=>this.closeSheet(), stop:(e)=>this.stop(e),
+      hasToast: !!s.toast, toastMsg: s.toast&&s.toast.msg, toastIcon: s.toast&&s.toast.icon
+    };
+  }
+}
+</script>
+</body>
+</html>

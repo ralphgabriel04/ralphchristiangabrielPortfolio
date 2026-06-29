@@ -82,6 +82,23 @@ export const projects: Project[] = [
     media: { enabled: true, type: "image", src: "/media/dpm-elevate.gif" }
   },
   {
+    id: "wise-wealthy",
+    year: "2026",
+    status: { fr: "Concept · Prototype haute-fidélité", en: "Concept · High-fidelity prototype" },
+    name: "Wise & Wealthy",
+    tag: { fr: "Coach financier IA · Prototype mobile", en: "AI financial coach · Mobile prototype" },
+    stack: ["Claude Design → Claude Code", "dc-runtime (React 18)", "Prototype mobile haute-fidélité", "20+ écrans / états", "Assistant IA « Wiz » (coach financier)", "Dashboard · Budget · Objectifs · Leçons", "Actualité financière vulgarisée", "Freemium · paywall premium", "Bilingue FR/EN · clair/sombre", "Design tokens (CSS Custom Properties)", "Bricolage Grotesque + Plus Jakarta Sans", "Déclinaisons Kids + Espace Famille", "Conformité Loi 25 (éducation, non conseil réglementé)", "Next.js + TS (production visée)"],
+    summary: {
+      fr: "Concept et prototype haute-fidélité de Wise & Wealthy, un coach financier personnel propulsé par l'IA qui démocratise l'éducation financière pour les 18–35 ans peu à l'aise avec la finance. Le produit est pensé à partir d'un modèle d'affaires complet (12 pages : étude de marché, Business Model Canvas, analyse concurrentielle YNAB/Rocket Money/Wealthsimple, MVP, indicateurs) et d'un PRD de découverte, et se positionne à l'opposé des apps de trading : éducation, vulgarisation et accompagnement plutôt que spéculation. La maquette mobile couvre une vingtaine d'écrans et d'états — onboarding guidé, tableau de bord (revenus, dépenses, épargne, « série de clarté », action du jour), assistant conversationnel « Wiz », budget et budget setup, objectifs d'épargne, mini-leçons + flashcards + exercices, actualité financière vulgarisée, notifications, profil, confidentialité et paywall freemium. Identité rassurante et non intimidante (mascotte Wiz, verts apaisants, Bricolage Grotesque + Plus Jakarta Sans), bilingue FR/EN, thème clair/sombre, avec des déclinaisons Wise & Wealthy Kids et un Espace Famille. Positionnement assumé : éducation financière, pas de conseil réglementé — orienté confiance et protection des données (Loi 25).",
+      en: "Concept and high-fidelity prototype of Wise & Wealthy, an AI-powered personal financial coach that democratises financial literacy for 18–35 year-olds who aren't comfortable with finance. The product is grounded in a full business model (12 pages: market study, Business Model Canvas, competitive analysis of YNAB/Rocket Money/Wealthsimple, MVP, KPIs) and a discovery PRD, and is positioned as the opposite of trading apps: education, plain-language guidance and coaching rather than speculation. The mobile mockup spans around twenty screens and states — guided onboarding, dashboard (income, expenses, savings, a \"clarity streak\", daily action), conversational \"Wiz\" assistant, budget and budget setup, savings goals, mini-lessons + flashcards + exercises, simplified financial news, notifications, profile, privacy and a freemium paywall. A reassuring, non-intimidating identity (Wiz mascot, calming greens, Bricolage Grotesque + Plus Jakarta Sans), bilingual FR/EN, light/dark theme, with Wise & Wealthy Kids and a Family Space variants. A deliberate stance: financial education, not regulated advice — built around trust and data protection (Loi 25)."
+    },
+    metrics: {
+      fr: ["20+ écrans · app mobile", "Assistant IA « Wiz » intégré", "Freemium · premium 9,99–19,99 $/mois", "Bilingue FR/EN · clair/sombre"],
+      en: ["20+ screens · mobile app", "Built-in \"Wiz\" AI assistant", "Freemium · premium $9.99–19.99/mo", "Bilingual FR/EN · light/dark"]
+    },
+    media: { enabled: true, type: "image", src: "/media/wise-wealthy.png" }
+  },
+  {
     id: "kim-dubois",
     year: "2026",
     status: { fr: "Prototype client · Premier client payant", en: "Client prototype · First paying client" },
@@ -139,6 +156,7 @@ export const caseStudyIds = new Set([
   "cadence",
   "fastercom-tms",
   "dpm-elevate",
+  "wise-wealthy",
   "kim-dubois",
   "crcc",
   "financej",
@@ -150,6 +168,7 @@ export const projectRoles: Record<string, { fr: string; en: string }> = {
   "cadence": { fr: "Co-fondateur · Tech Lead", en: "Co-founder · Tech Lead" },
   "fastercom-tms": { fr: "Développeur Intégrateur de Solutions", en: "Solutions Integration Developer" },
   "dpm-elevate": { fr: "Fondateur · Design & Prototypage", en: "Founder · Design & Prototyping" },
+  "wise-wealthy": { fr: "Conception produit · Modèle d'affaires & Prototypage", en: "Product Design · Business Model & Prototyping" },
   "kim-dubois": { fr: "Freelance · Design, Prototypage & Relation client", en: "Freelance · Design, Prototyping & Client Relations" },
   "crcc": { fr: "Design & Prototypage (Refonte)", en: "Design & Prototyping (Redesign)" },
   "financej": { fr: "Développeur · Top contributeur (Projet académique — LOG240)", en: "Developer · Top contributor (Academic Project — LOG240)" },
@@ -166,6 +185,9 @@ export const projectLinks: Record<string, { label: string; url: string; type: "g
   ],
   "dpm-elevate": [
     { label: "Live", url: "/dpm-elevate/index.html", type: "live" },
+  ],
+  "wise-wealthy": [
+    { label: "Maquette live", url: "/wise-wealthy/index.html", type: "live" },
   ],
   "crcc": [
     { label: "Maquette live", url: "/crcc/index.html", type: "live" },
