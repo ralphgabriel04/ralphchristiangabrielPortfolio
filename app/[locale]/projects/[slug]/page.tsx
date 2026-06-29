@@ -5,7 +5,7 @@ import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight, ExternalLink, ImageIcon } from "lucide-react";
-import { projects, projectRoles, projectLinks } from "@/lib/projects";
+import { projects, projectRoles, projectLinks, projectGalleries } from "@/lib/projects";
 import { caseStudies } from "@/lib/case-studies";
 import { Tag } from "@/components/ui/tag";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
@@ -78,6 +78,7 @@ function ProjectDetailContent({ slug }: { slug: string }) {
   const hasCaseStudy = !!sections;
 
   const role = projectRoles[slug]?.[locale] ?? project.tag[locale];
+  const gallery = projectGalleries[slug] ?? [];
 
   // Find prev/next projects for navigation
   const projectIndex = projects.findIndex((p) => p.id === slug);
@@ -199,6 +200,36 @@ function ProjectDetailContent({ slug }: { slug: string }) {
           )}
         </div>
       </Reveal>
+
+      {/* Suite gallery (extra animated previews) */}
+      {gallery.length > 0 && (
+        <Reveal delay={100}>
+          <div className="mb-16">
+            <h2 className="mb-5 text-sm font-medium uppercase tracking-[0.08em] text-muted-foreground">
+              {locale === "fr" ? "La suite" : "The suite"}
+            </h2>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {gallery.map((item) => (
+                <figure
+                  key={item.src}
+                  className="overflow-hidden rounded-lg border border-border-color"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={item.src}
+                    alt={item.caption[locale]}
+                    loading="lazy"
+                    className="w-full"
+                  />
+                  <figcaption className="px-4 py-3 text-sm text-muted-foreground">
+                    {item.caption[locale]}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+        </Reveal>
+      )}
 
       {/* Case study sections OR coming soon fallback */}
       {hasCaseStudy ? (

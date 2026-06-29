@@ -201,3 +201,13 @@ export const projectLinks: Record<string, { label: string; url: string; type: "g
     { label: "Instagram", url: "https://www.instagram.com/kimduboisphotographeanimaliere/", type: "demo" },
   ],
 }
+
+/** Extra animated previews shown as a gallery on the detail page (beyond the hero media) */
+export const projectGalleries: Record<string, { src: string; caption: { fr: string; en: string } }[]> = {
+  "wise-wealthy": [
+    {
+      src: "/media/wise-wealthy-kids.gif",
+      caption: { fr: "Wise & Wealthy Kids — app ludique pour enfants", en: "Wise & Wealthy Kids — playful app for children" },
+    },
+  ],
+}
