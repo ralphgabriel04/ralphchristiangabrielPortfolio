@@ -1,4 +1,4 @@
-/* global React, useState, cn, Icons, useInViewOnce, useCountUp, window */
+/* global React, useState, cn, Icons, useInView, useInViewOnce, useCountUp, window */
 /* ============================================================
    LANDING — deep demos #5: Health & sleep, Goals (SMART),
    Daily planning ritual, Reviews
@@ -132,42 +132,48 @@ function HealthSleepDemo({ t }) {
 }
 
 /* ---------- Goals: progress + SMART badges + linked habit ---------- */
+/* One goal row — current value count-ups in sync with the bar fill, and both
+   reset to 0 when the section leaves view (seen=false) so they replay on
+   re-entry. Extracted so useCountUp obeys the rules of hooks. */
+function GoalRow({ goal, gi, seen, g }) {
+  const cur = useCountUp(goal.cur, seen, 1000 + gi * 140);   // drives BOTH the number and the bar
+  const pct = Math.min(100, (cur / goal.max) * 100);          // JS-animated width — no fragile CSS transition/delay
+  return (
+    <div className="rounded-[10px] border border-[hsl(var(--border))] bg-[hsl(var(--card)/0.5)] p-3">
+      <div className="flex items-center justify-between mb-1.5">
+        <div className="min-w-0">
+          <div className="text-[12.5px] font-semibold leading-tight truncate">{goal.t}</div>
+          <div className="text-[9.5px] text-[hsl(var(--muted-foreground))]">{goal.cat}</div>
+        </div>
+        <div className="text-right flex-shrink-0 ml-2">
+          <span className="text-[15px] font-bold tabular-nums" style={{ color: `hsl(${goal.c})` }}>{Math.round(cur)}</span>
+          <span className="text-[10px] text-[hsl(var(--muted-foreground))]">/{goal.max} {goal.unit}</span>
+        </div>
+      </div>
+      <div className="h-1.5 rounded-full bg-[hsl(var(--muted))] overflow-hidden">
+        <div className="h-full rounded-full" style={{ width: `${pct}%`, background: `hsl(${goal.c})` }} />
+      </div>
+      <div className="flex items-center justify-between mt-2">
+        <div className="flex items-center gap-1">
+          {g.smart.map((sm, si) => (
+            <span key={si} title={g.smartFull[si]} className={cn("w-4 h-4 rounded-[4px] text-[8px] font-bold flex items-center justify-center transition-all", goal.smart[si] ? "text-white" : "bg-[hsl(var(--muted))] text-[hsl(var(--muted-foreground))]", seen && "lp-check-pop")}
+              style={{ ...(goal.smart[si] ? { background: `hsl(${goal.c})` } : {}), animationDelay: `${gi * 140 + si * 60}ms` }}>{sm}</span>
+          ))}
+        </div>
+        {goal.linked && (
+          <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-[hsl(var(--muted))] text-[hsl(var(--muted-foreground))] flex items-center gap-1"><Icons.Flame size={9} /> {goal.linked}</span>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function GoalsProDemo({ t }) {
   const g = t.goalsPro;
   const [ref, seen] = useInViewOnce(0.3);
   return (
     <div ref={ref} className="rounded-[12px] border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-3.5 flex flex-col gap-2.5">
-      {g.items.map((goal, gi) => {
-        const pct = Math.round((goal.cur / goal.max) * 100);
-        return (
-          <div key={gi} className="rounded-[10px] border border-[hsl(var(--border))] bg-[hsl(var(--card)/0.5)] p-3">
-            <div className="flex items-center justify-between mb-1.5">
-              <div className="min-w-0">
-                <div className="text-[12.5px] font-semibold leading-tight truncate">{goal.t}</div>
-                <div className="text-[9.5px] text-[hsl(var(--muted-foreground))]">{goal.cat}</div>
-              </div>
-              <div className="text-right flex-shrink-0 ml-2">
-                <span className="text-[15px] font-bold tabular-nums" style={{ color: `hsl(${goal.c})` }}>{goal.cur}</span>
-                <span className="text-[10px] text-[hsl(var(--muted-foreground))]">/{goal.max} {goal.unit}</span>
-              </div>
-            </div>
-            <div className="h-1.5 rounded-full bg-[hsl(var(--muted))] overflow-hidden">
-              <div className="h-full rounded-full transition-[width] duration-[900ms] ease-out" style={{ width: seen ? `${pct}%` : "0%", transitionDelay: `${gi * 140}ms`, background: `hsl(${goal.c})` }} />
-            </div>
-            <div className="flex items-center justify-between mt-2">
-              <div className="flex items-center gap-1">
-                {g.smart.map((sm, si) => (
-                  <span key={si} title={g.smartFull[si]} className={cn("w-4 h-4 rounded-[4px] text-[8px] font-bold flex items-center justify-center transition-all", goal.smart[si] ? "text-white" : "bg-[hsl(var(--muted))] text-[hsl(var(--muted-foreground))]", seen && "lp-check-pop")}
-                    style={{ ...(goal.smart[si] ? { background: `hsl(${goal.c})` } : {}), animationDelay: `${gi * 140 + si * 60}ms` }}>{sm}</span>
-                ))}
-              </div>
-              {goal.linked && (
-                <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-[hsl(var(--muted))] text-[hsl(var(--muted-foreground))] flex items-center gap-1"><Icons.Flame size={9} /> {goal.linked}</span>
-              )}
-            </div>
-          </div>
-        );
-      })}
+      {g.items.map((goal, gi) => <GoalRow key={gi} goal={goal} gi={gi} seen={seen} g={g} />)}
     </div>
   );
 }
@@ -314,25 +320,27 @@ function ReviewsGrid({ t }) {
   return (
     <div className="grid sm:grid-cols-2 gap-4">
       {r.items.map((rv, i) => (
-        <div key={i} className="rounded-[14px] border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5 flex flex-col">
-          <div className="flex items-center gap-3 mb-3">
-            <span className="w-10 h-10 rounded-full gradient-violet flex items-center justify-center flex-shrink-0">
-              {React.createElement(Icons[rv.icon] || Icons.Users, { size: 18, className: "text-white" })}
-            </span>
-            <div className="flex-1 min-w-0">
-              <div className="text-[13.5px] font-semibold">{rv.name}</div>
-              <div className="text-[11px] text-[hsl(var(--muted-foreground))]">{rv.role}</div>
+        <Reveal key={i} delay={i * 80} className="h-full">
+          <div className="lp-card-hover h-full rounded-[14px] border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5 flex flex-col">
+            <div className="flex items-center gap-3 mb-3">
+              <span className="w-10 h-10 rounded-full gradient-violet flex items-center justify-center flex-shrink-0">
+                {React.createElement(Icons[rv.icon] || Icons.Users, { size: 18, className: "text-white" })}
+              </span>
+              <div className="flex-1 min-w-0">
+                <div className="text-[13.5px] font-semibold">{rv.name}</div>
+                <div className="text-[11px] text-[hsl(var(--muted-foreground))]">{rv.role}</div>
+              </div>
+              <div className="flex gap-0.5">
+                {[0,1,2,3,4].map((s) => <Icons.Star key={s} size={12} className={s < rv.stars ? "text-[hsl(38_92%_55%)]" : "text-[hsl(var(--muted))]"} fill={s < rv.stars ? "currentColor" : "none"} />)}
+              </div>
             </div>
-            <div className="flex gap-0.5">
-              {[0,1,2,3,4].map((s) => <Icons.Star key={s} size={12} className={s < rv.stars ? "text-[hsl(38_92%_55%)]" : "text-[hsl(var(--muted))]"} fill={s < rv.stars ? "currentColor" : "none"} />)}
+            <p className="text-[13.5px] leading-relaxed text-[hsl(var(--foreground)/0.9)] flex-1" style={{ textWrap: "pretty" }}>{rv.text}</p>
+            <div className="mt-3 pt-3 border-t border-[hsl(var(--border))] flex items-start gap-2 text-[12px] text-[hsl(var(--muted-foreground))]">
+              <Icons.Sparkles size={13} className="text-[hsl(var(--primary))] flex-shrink-0 mt-0.5" />
+              <span style={{ textWrap: "pretty" }}>{rv.tip}</span>
             </div>
           </div>
-          <p className="text-[13.5px] leading-relaxed text-[hsl(var(--foreground)/0.9)] flex-1" style={{ textWrap: "pretty" }}>{rv.text}</p>
-          <div className="mt-3 pt-3 border-t border-[hsl(var(--border))] flex items-start gap-2 text-[12px] text-[hsl(var(--muted-foreground))]">
-            <Icons.Sparkles size={13} className="text-[hsl(var(--primary))] flex-shrink-0 mt-0.5" />
-            <span style={{ textWrap: "pretty" }}>{rv.tip}</span>
-          </div>
-        </div>
+        </Reveal>
       ))}
     </div>
   );

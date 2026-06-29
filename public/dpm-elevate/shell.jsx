@@ -33,7 +33,7 @@ const NAV_SECTIONS = [
   {
     id: "automation", titleKey: "nav.automation", expanded: false,
     items: [
-      { id: "auto:rules", labelKey: "nav.rules", icon: Icons.Shield, route: "rules" },
+      { id: "auto:rules", labelKey: "nav.rules", icon: Icons.Shield, route: "automations" },
     ],
   },
   {
@@ -42,6 +42,18 @@ const NAV_SECTIONS = [
       { id: "insights:analytics", labelKey: "nav.dashboard", icon: Icons.BarChart, route: "dashboard" },
     ],
   },
+];
+
+/* New DPM Calendar surfaces — literal labels (no i18n key needed). */
+const NAV_WORKSPACE = [
+  { id: "ai-planning", label: "AI Planning", icon: Icons.Sparkles, route: "ai-planning" },
+  { id: "collaboration", label: "Collaboration", icon: Icons.Users, route: "collaboration" },
+  { id: "sync", label: "Sync Center", icon: Icons.Refresh, route: "sync" },
+  { id: "notifications", label: "Notifications", icon: Icons.Bell, route: "notifications" },
+];
+const NAV_ACCOUNT = [
+  { id: "billing", label: "Plan & Billing", icon: Icons.Briefcase, route: "billing" },
+  { id: "privacy", label: "Data & Privacy", icon: Icons.Lock, route: "privacy" },
 ];
 
 const ALL_NAV = [
@@ -54,6 +66,7 @@ const ALL_NAV = [
 function defaultNavIdForRoute(route) {
   if (route === "settings") return "settings";
   if (route === "resources") return "resources";
+  if (["sync", "ai-planning", "collaboration", "notifications", "billing", "privacy"].includes(route)) return route;
   const hit = ALL_NAV.find(i => i.route === route);
   return hit ? hit.id : "main:home";
 }
@@ -94,6 +107,9 @@ function Sidebar({ route, setRoute, navId, setNavId, collapsed, setCollapsed, th
         {/* Espace switcher (collapsed) */}
         <div className="mt-2"><SpaceSwitcher variant="rail" /></div>
 
+        {/* Quick capture (⌘K) */}
+        <div className="mt-1"><CommandTrigger variant="rail" /></div>
+
         {/* Nav */}
         <nav className="flex-1 overflow-y-auto py-3 px-2 w-full flex flex-col items-center gap-1">
           {NAV_MAIN.map(item => (
@@ -103,10 +119,18 @@ function Sidebar({ route, setRoute, navId, setNavId, collapsed, setCollapsed, th
           {NAV_SECTIONS.flatMap(s => s.items).map(item => (
             <NavIcon key={item.id} item={{ ...item, label: t(item.labelKey) }} active={navId === item.id} onClick={() => go(item)} completed={completed} />
           ))}
+          <div className="w-7 h-px bg-[hsl(var(--border))] my-1.5" />
+          {NAV_WORKSPACE.map(item => (
+            <NavIcon key={item.id} item={item}
+              active={navId === item.id || route === item.route}
+              onClick={() => { setNavId(item.id); setRoute(item.route); }}
+              completed={completed} />
+          ))}
         </nav>
 
-        {/* Bottom: settings only (le « + » et l'aide « ? » vivent ailleurs) */}
-        <div className="w-full p-2 border-t border-[hsl(var(--border))] flex flex-col items-center gap-1">
+        {/* Bottom: account + settings (le « + » et l'aide « ? » vivent ailleurs) */}
+        <div className="w-full p-2 border-t border-[hsl(var(--border))] flex flex-col items-center gap-1.5">
+          <AccountMenu setRoute={setRoute} collapsed />
           <NavIcon
             item={{ id: "settings", label: t("nav.settings"), icon: Icons.Settings, route: "settings" }}
             active={route === "settings"}
@@ -144,6 +168,11 @@ function Sidebar({ route, setRoute, navId, setNavId, collapsed, setCollapsed, th
         <NewTaskButton onOpenTask={onOpenTask} t={t} />
       </div>
 
+      {/* Quick capture (⌘K) — natural-language command palette */}
+      <div className="px-3 pt-2">
+        <CommandTrigger variant="bar" />
+      </div>
+
       {/* Nav */}
       <nav className="flex-1 overflow-y-auto p-3 space-y-4">
         {/* Main nav */}
@@ -173,9 +202,26 @@ function Sidebar({ route, setRoute, navId, setNavId, collapsed, setCollapsed, th
           </div>
         ))}
 
+        {/* Workspace — DPM Calendar surfaces */}
+        <div className="space-y-0.5">
+          <div className="px-2.5 py-1.5 text-[10.5px] font-semibold text-[hsl(var(--muted-foreground))] tracking-[0.08em]">WORKSPACE</div>
+          {NAV_WORKSPACE.map(item => (
+            <NavLink key={item.id} item={item}
+              active={navId === item.id || route === item.route}
+              onClick={() => { setNavId(item.id); setRoute(item.route); }}
+              indent completed={completed} />
+          ))}
+        </div>
+
         {/* Other */}
         <div className="space-y-0.5">
           <div className="px-2.5 py-1.5 text-[10.5px] font-semibold text-[hsl(var(--muted-foreground))] tracking-[0.08em]">OTHER</div>
+          {NAV_ACCOUNT.map(item => (
+            <NavLink key={item.id} item={item}
+              active={navId === item.id || route === item.route}
+              onClick={() => { setNavId(item.id); setRoute(item.route); }}
+              indent completed={completed} />
+          ))}
           <NavLink
             item={{ id: "resources", label: "Help & Resources", icon: Icons.HelpCircle, route: "resources" }}
             active={navId === "resources" || route === "resources"}
@@ -188,6 +234,7 @@ function Sidebar({ route, setRoute, navId, setNavId, collapsed, setCollapsed, th
 
       {/* Bottom */}
       <div className="border-t border-[hsl(var(--border))] p-3 space-y-2">
+        <AccountMenu setRoute={setRoute} />
         <NavLink
           item={{ id: "settings", label: t("nav.settings"), icon: Icons.Settings, route: "settings" }}
           active={navId === "settings" || route === "settings"}
@@ -225,6 +272,101 @@ function Sidebar({ route, setRoute, navId, setNavId, collapsed, setCollapsed, th
         </div>
       </div>
     </aside>
+  );
+}
+
+function AccountMenu({ setRoute, collapsed = false }) {
+  const t = useT();
+  const [profile] = (typeof useProfile === "function") ? useProfile() : [{}];
+  const [open, setOpen] = useState(false);
+  const ref = React.useRef(null);
+  const name = ((profile && profile.firstName) || "").trim() || "Ralph Gabriel";
+  const email = ((profile && profile.email) || "").trim() || "ralph@dpm.io";
+  const initials = window.profileInitials ? window.profileInitials(profile) : "RG";
+
+  useEffect(() => {
+    if (!open) return;
+    const onClick = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
+    const onKey = (e) => { if (e.key === "Escape") setOpen(false); };
+    document.addEventListener("mousedown", onClick);
+    document.addEventListener("keydown", onKey);
+    return () => { document.removeEventListener("mousedown", onClick); document.removeEventListener("keydown", onKey); };
+  }, [open]);
+
+  const go = (route, toast) => { setOpen(false); if (toast) window.__dpmToast?.(toast); setRoute?.(route); };
+
+  const menu = (
+    <div
+      role="menu"
+      className={cn(
+        "absolute z-50 w-[220px] rounded-[10px] border border-[hsl(var(--border))] bg-[hsl(var(--card))] shadow-xl shadow-black/30 p-1.5 anim-fade-in",
+        collapsed ? "left-full bottom-0 ml-2" : "left-0 right-0 bottom-full mb-2"
+      )}
+    >
+      <div className="px-2.5 py-2 flex items-center gap-2.5">
+        <Avatar name={initials} size={34} />
+        <div className="min-w-0">
+          <div className="text-[12.5px] font-semibold truncate">{name}</div>
+          <div className="text-[11px] text-[hsl(var(--muted-foreground))] truncate">{email}</div>
+        </div>
+      </div>
+      <div className="h-px bg-[hsl(var(--border))] my-1" />
+      <button onClick={() => go("settings")} role="menuitem"
+        className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-[7px] text-[12.5px] text-[hsl(var(--muted-foreground))] hover:bg-[hsl(var(--accent))] hover:text-[hsl(var(--foreground))] transition-colors text-left">
+        <Icons.Settings size={15} className="flex-shrink-0" /> <span className="flex-1">Account settings</span>
+      </button>
+      <button onClick={() => go("login", "Switch account")} role="menuitem"
+        className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-[7px] text-[12.5px] text-[hsl(var(--muted-foreground))] hover:bg-[hsl(var(--accent))] hover:text-[hsl(var(--foreground))] transition-colors text-left">
+        <Icons.Refresh size={15} className="flex-shrink-0" /> <span className="flex-1">Switch account</span>
+      </button>
+      <div className="h-px bg-[hsl(var(--border))] my-1" />
+      <button onClick={() => go("login", "Logged out")} role="menuitem"
+        className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-[7px] text-[12.5px] text-[hsl(0_84%_65%)] hover:bg-[hsl(0_84%_60%/0.12)] transition-colors text-left">
+        <Icons.LogOut size={15} className="flex-shrink-0" /> <span className="flex-1">Log out</span>
+      </button>
+    </div>
+  );
+
+  if (collapsed) {
+    return (
+      <div className="relative" ref={ref}>
+        <button
+          onClick={() => setOpen(o => !o)}
+          aria-haspopup="menu"
+          aria-expanded={open}
+          title={name}
+          className={cn(
+            "w-9 h-9 rounded-full flex items-center justify-center transition-all",
+            open ? "ring-2 ring-[hsl(var(--ring))]" : "hover:opacity-90"
+          )}
+        >
+          <Avatar name={initials} size={30} />
+        </button>
+        {open && menu}
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative" ref={ref}>
+      <button
+        onClick={() => setOpen(o => !o)}
+        aria-haspopup="menu"
+        aria-expanded={open}
+        className={cn(
+          "w-full flex items-center gap-2.5 px-2 py-1.5 rounded-[8px] transition-colors text-left",
+          open ? "bg-[hsl(var(--accent))]" : "hover:bg-[hsl(var(--accent))]"
+        )}
+      >
+        <Avatar name={initials} size={30} />
+        <div className="flex-1 min-w-0">
+          <div className="text-[12.5px] font-semibold truncate leading-tight">{name}</div>
+          <div className="text-[10.5px] text-[hsl(var(--muted-foreground))] truncate">{email}</div>
+        </div>
+        <Icons.ChevronDown size={14} className={cn("text-[hsl(var(--muted-foreground))] flex-shrink-0 transition-transform", open && "rotate-180")} />
+      </button>
+      {open && menu}
+    </div>
   );
 }
 
@@ -350,12 +492,24 @@ function RightSidebar({ collapsed, setCollapsed, setRoute, onOpenTask, route }) 
 }
 
 function MiniCalendar() {
-  const [month, setMonth] = useState(4);
-  const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-  const days = ["M","T","W","T","F","S","S"];
-  const startDay = 4;
-  const daysInMonth = 31;
-  const today = 24;
+  const D = window.DPMDate;
+  const L = (typeof window !== "undefined" && window.__dpmLang === "fr") ? "fr" : "en";
+  // Navigate by month OFFSET from the real current month (0 = this month).
+  const [offset, setOffset] = useState(0);
+  const ref = D ? D.now() : new Date();
+  const viewDate = new Date(ref.getFullYear(), ref.getMonth() + offset, 1);
+  const year = viewDate.getFullYear(), month = viewDate.getMonth();
+  const days = L === "fr" ? ["L","M","M","J","V","S","D"] : ["M","T","W","T","F","S","S"];
+  const monthLabel = D ? D.monthYear(viewDate, L) : viewDate.toLocaleDateString("en-US", { month: "long", year: "numeric" });
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const startDay = (new Date(year, month, 1).getDay() + 6) % 7; // Monday-first
+  // Highlight today only when its month is in view.
+  const showToday = offset === 0;
+  const todayN = showToday ? ref.getDate() : -1;
+  // Event dots: a few days around today, only meaningful on the current month.
+  const dotDays = showToday
+    ? [2, 3, 5].map(d => ref.getDate() + d).filter(n => n <= daysInMonth)
+    : [];
   const cells = [];
   for (let i = 0; i < startDay; i++) cells.push(null);
   for (let i = 1; i <= daysInMonth; i++) cells.push(i);
@@ -364,12 +518,12 @@ function MiniCalendar() {
   return (
     <div>
       <div className="flex items-center justify-between mb-2">
-        <span className="text-[12px] font-semibold">{months[month]} 2026</span>
+        <span className="text-[12px] font-semibold">{monthLabel}</span>
         <div className="flex items-center gap-0.5">
-          <button onClick={() => setMonth(m => Math.max(0, m-1))} className="w-6 h-6 rounded hover:bg-[hsl(var(--accent))] flex items-center justify-center text-[hsl(var(--muted-foreground))]">
+          <button onClick={() => setOffset(o => o - 1)} className="w-6 h-6 rounded hover:bg-[hsl(var(--accent))] flex items-center justify-center text-[hsl(var(--muted-foreground))]">
             <Icons.ChevronLeft size={12} />
           </button>
-          <button onClick={() => setMonth(m => Math.min(11, m+1))} className="w-6 h-6 rounded hover:bg-[hsl(var(--accent))] flex items-center justify-center text-[hsl(var(--muted-foreground))]">
+          <button onClick={() => setOffset(o => o + 1)} className="w-6 h-6 rounded hover:bg-[hsl(var(--accent))] flex items-center justify-center text-[hsl(var(--muted-foreground))]">
             <Icons.ChevronRight size={12} />
           </button>
         </div>
@@ -385,9 +539,9 @@ function MiniCalendar() {
             className={cn(
               "h-6 text-[11px] rounded transition-colors",
               !c && "invisible",
-              c === today
+              c === todayN
                 ? "bg-[hsl(var(--primary))] text-white font-semibold"
-                : c && [22, 23, 25, 27, 29].includes(c)
+                : c && dotDays.includes(c)
                   ? "text-[hsl(var(--foreground))] relative after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-1 after:h-1 after:rounded-full after:bg-[hsl(var(--primary))]"
                   : "text-[hsl(var(--muted-foreground))] hover:bg-[hsl(var(--accent))]"
             )}
@@ -419,7 +573,7 @@ function UpcomingTasks({ setRoute }) {
               t.priority === "danger" ? "bg-[hsl(0_84%_60%)]" : "bg-[hsl(38_92%_55%)]"
             )} />
             <div className="flex-1 min-w-0">
-              <div className="text-[12px] font-medium truncate">{t.title}</div>
+              <div title={t.title} className="text-[12px] font-medium truncate">{t.title}</div>
               <div className="text-[10.5px] text-[hsl(var(--muted-foreground))]">{t.time}</div>
             </div>
           </button>

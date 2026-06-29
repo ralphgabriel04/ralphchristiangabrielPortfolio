@@ -1,4 +1,4 @@
-/* global React, useState, useEffect, useRef, cn, Icons, Ring, useCountUp, useInViewOnce, window */
+/* global React, useState, useEffect, useRef, cn, Icons, Ring, useCountUp, useInView, useInViewOnce, window */
 /* ============================================================
    LANDING — interactive demos (energy, AI, stats, customize, resources)
 ============================================================ */
@@ -7,13 +7,14 @@
 function EnergyDemo({ t }) {
   const e = t.energy;
   const [levels, setLevels] = useState([1, 2, 3, 2, 1, 0]); // 0..3 per time slot
+  const [ref, seen] = useInView(0.3);                       // re-arms: bars grow on entry, reset on exit
   const cycle = (i) => setLevels((ls) => ls.map((v, k) => (k === i ? (v + 1) % 4 : v)));
   // peak slot (highest level; earliest on tie)
   const peak = levels.reduce((best, v, i) => (v > levels[best] ? i : best), 0);
   const tones = ["215 16% 55%", "217 70% 58%", "263 70% 60%", "142 70% 50%"];
 
   return (
-    <div className="rounded-[12px] border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-4">
+    <div ref={ref} className="rounded-[12px] border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-4">
       <div className="flex items-center gap-2 mb-4">
         <Icons.Activity size={15} className="text-[hsl(var(--primary))]" />
         <span className="text-[13px] font-semibold tracking-tight">{e.tag}</span>
@@ -21,8 +22,8 @@ function EnergyDemo({ t }) {
       <div className="grid grid-cols-6 gap-2 h-[132px] items-end">
         {levels.map((v, i) => (
           <button key={i} onClick={() => cycle(i)} className="h-full flex flex-col justify-end items-center gap-1 group">
-            <div className="w-full rounded-[6px] transition-all duration-300 group-hover:opacity-90"
-              style={{ height: `${((v + 1) / 4) * 100}%`, background: `hsl(${tones[v]} / ${i === peak ? 1 : 0.55})`, boxShadow: i === peak ? `0 0 0 1px hsl(${tones[v]})` : "none" }} />
+            <div className="w-full rounded-[6px] transition-all duration-500 ease-out group-hover:opacity-90 origin-bottom"
+              style={{ height: seen ? `${((v + 1) / 4) * 100}%` : "0%", transitionDelay: `${i * 55}ms`, background: `hsl(${tones[v]} / ${i === peak ? 1 : 0.55})`, boxShadow: i === peak ? `0 0 0 1px hsl(${tones[v]})` : "none" }} />
             <span className="text-[9.5px] font-mono text-[hsl(var(--muted-foreground))]">{e.times[i]}</span>
           </button>
         ))}

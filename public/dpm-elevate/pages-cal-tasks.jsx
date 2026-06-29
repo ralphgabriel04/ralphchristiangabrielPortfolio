@@ -190,6 +190,9 @@ const zoomFont = (hourPx, base, min, max) => Math.round(Math.max(min, Math.min(m
 
 function CalendarPage({ setRoute, emptyState }) {
   const isMobile = window.useIsMobile ? window.useIsMobile() : false;
+  const calLang = (typeof useLang === "function") ? useLang() : (window.__dpmLang || "en");
+  const weekRangeLabel = window.DPMDate ? window.DPMDate.weekRangeLabel(undefined, calLang) : "May 18 – 24, 2026";
+  const weekNo = window.DPMDate ? window.DPMDate.isoWeek() : 21;
   const [view, setView] = useState(isMobile ? "agenda" : "week");
   const [zoom] = useCalZoom(); // read-only; the control now lives in Settings
   const [expanded, setExpanded] = useState(false);
@@ -321,9 +324,9 @@ function CalendarPage({ setRoute, emptyState }) {
           <Button variant="ghost" size="iconSm"><Icons.ChevronRight size={14}/></Button>
         </div>
         <div>
-          <h1 className="text-[20px] font-bold tracking-tight leading-tight">May 18 – 24, 2026</h1>
+          <h1 className="text-[20px] font-bold tracking-tight leading-tight">{weekRangeLabel}</h1>
           <p className="text-[11px] text-[hsl(var(--muted-foreground))] tabular-nums">
-            Week 21 · {calendarsCount}/{allCalNames.length} active calendars
+            {(calLang === "fr" ? "Semaine " : "Week ") + weekNo} · {calendarsCount}/{allCalNames.length} active calendars
           </p>
         </div>
         <div className="flex-1" />
@@ -700,7 +703,7 @@ function CalendarLeftPanel({ tree, onSetLeafEnabled, onSetBranchEnabled, onUpdat
       {/* Mini cal */}
       <div>
         <div className="flex items-center justify-between mb-2">
-          <span className="text-[12px] font-semibold">May 2026</span>
+          <span className="text-[12px] font-semibold">{window.DPMDate ? window.DPMDate.monthYear() : "May 2026"}</span>
           <div className="flex items-center gap-0.5">
             <button className="w-6 h-6 rounded hover:bg-[hsl(var(--accent))] flex items-center justify-center text-[hsl(var(--muted-foreground))]">
               <Icons.ChevronLeft size={11} />
@@ -710,7 +713,7 @@ function CalendarLeftPanel({ tree, onSetLeafEnabled, onSetBranchEnabled, onUpdat
             </button>
           </div>
         </div>
-        <MiniCal current={24} weekRange={[18,24]} />
+        <MiniCal />
       </div>
 
       {/* Calendar tree */}
@@ -905,7 +908,7 @@ function CalNode({ node, depth, collapsed, onToggleCollapsed, onSetLeafEnabled, 
 
         {/* Label + count */}
         <div className="flex-1 min-w-0 flex items-center gap-1.5">
-          <span className={cn(
+          <span title={node.name} className={cn(
             "text-[12.5px] truncate",
             node.type !== "cal" && "font-semibold",
             state === "off" && "text-[hsl(var(--muted-foreground))]"
@@ -1264,14 +1267,27 @@ function AddCalendarButton({ onAdd }) {
   );
 }
 
-function MiniCal({ current = 24, weekRange = [] }) {
-  const days = ["L","M","M","J","V","S","D"];
-  const startDay = 4;
+function MiniCal() {
+  const L = (typeof window !== "undefined" && window.__dpmLang === "fr") ? "fr" : "en";
+  const D = window.DPMDate;
+  const days = L === "fr" ? ["L","M","M","J","V","S","D"] : ["M","T","W","T","F","S","S"];
+  const ref = D ? D.now() : new Date();
+  const year = ref.getFullYear(), month = ref.getMonth();
+  const first = new Date(year, month, 1);
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const startDay = (first.getDay() + 6) % 7; // 0 = Monday
+  const todayN = (D ? D.sameDay(ref, D.today()) : true) ? ref.getDate() : -1;
+  // Current week range (day-of-month numbers that fall in THIS month).
+  const ws = D ? D.weekStart(ref) : null;
+  const weekNums = ws ? Array.from({ length: 7 }, (_, i) => {
+    const dd = D.addDays(ws, i);
+    return dd.getMonth() === month ? dd.getDate() : null;
+  }).filter(n => n != null) : [];
+  const inRange = (n) => weekNums.includes(n);
   const cells = [];
   for (let i = 0; i < startDay; i++) cells.push(null);
-  for (let i = 1; i <= 31; i++) cells.push(i);
+  for (let i = 1; i <= daysInMonth; i++) cells.push(i);
   while (cells.length % 7) cells.push(null);
-  const inRange = (n) => weekRange.length === 2 && n >= weekRange[0] && n <= weekRange[1];
   return (
     <>
       <div className="grid grid-cols-7 gap-0.5 text-center mb-1">
@@ -1282,7 +1298,7 @@ function MiniCal({ current = 24, weekRange = [] }) {
           <button key={i} disabled={!c} className={cn(
             "h-6 text-[10.5px] rounded transition-colors tabular-nums",
             !c && "invisible",
-            c === current ? "bg-[hsl(var(--primary))] text-white font-semibold" :
+            c === todayN ? "bg-[hsl(var(--primary))] text-white font-semibold" :
             inRange(c) ? "bg-[hsl(var(--primary)/0.12)] text-[hsl(var(--foreground))]" :
             "text-[hsl(var(--muted-foreground))] hover:bg-[hsl(var(--accent))]"
           )}>{c}</button>
@@ -1394,7 +1410,13 @@ function CalendarRightPanel() {
         </div>
       </CalSection>
 
-      <CalSection title="Summary of May 24" icon={Icons.BarChart} defaultOpen>
+      <CalSection title={(function(){
+        const D = window.DPMDate;
+        const L = (typeof window !== "undefined" && window.__dpmLang === "fr") ? "fr" : "en";
+        if (!D) return "Summary of May 24";
+        const dayMonth = D.fmt(D.today(), { day: "numeric", month: "long" }, L);
+        return L === "fr" ? `Résumé du ${dayMonth}` : `Summary of ${dayMonth}`;
+      })()} icon={Icons.BarChart} defaultOpen>
         <div className="grid grid-cols-2 gap-2 mb-2">
           {[
             { l: "Events",      v: "3",   icon: Icons.Calendar,    c: "263 70% 60%" },
@@ -1478,11 +1500,16 @@ function CalendarRightPanel() {
           ]} />
         </div>
         <div className="space-y-1.5">
-          {[
-            { d: "Mon May 25", h: "09:00", desc: "Optimal morning slot for concentration", quality: "Optimal", icon: Icons.Zap },
-            { d: "Tue May 26", h: "09:00", desc: "Optimal morning slot for concentration", quality: "Optimal", icon: Icons.Clock },
-            { d: "Wed May 27", h: "10:30", desc: "Good slot after the standup",               quality: "Good",    icon: Icons.Clock },
-          ].map((s, i) => {
+          {(function(){
+            const D = window.DPMDate;
+            const L = (typeof window !== "undefined" && window.__dpmLang === "fr") ? "fr" : "en";
+            const mk = (off) => D ? D.fmt(D.addDays(D.today(), off), { weekday: "short", month: "short", day: "numeric" }, L) : "Mon May 25";
+            return [
+              { d: mk(1), h: "09:00", desc: "Optimal morning slot for concentration", quality: "Optimal", icon: Icons.Zap },
+              { d: mk(2), h: "09:00", desc: "Optimal morning slot for concentration", quality: "Optimal", icon: Icons.Clock },
+              { d: mk(3), h: "10:30", desc: "Good slot after the standup",             quality: "Good",    icon: Icons.Clock },
+            ];
+          })().map((s, i) => {
             const selected = selSlot === i;
             return (
             <div key={i}
@@ -1555,13 +1582,18 @@ function CalendarRightPanel() {
           ))}
         </div>
         <div className="space-y-0.5">
-          {[
-            { t: "Test Recurrence", h: "20 mai 15:45", done: true },
-            { t: "Test Recurrence", h: "21 mai 15:45", done: true },
-            { t: "Workshop archi",  h: "21 mai 14:00", done: true },
-            { t: "Q2 presentation", h: "May 22 10:00", done: false },
-            { t: "Revue sprint",    h: "22 mai 15:00", done: false },
-          ].map((ev, i) => (
+          {(function(){
+            const D = window.DPMDate;
+            const L = (typeof window !== "undefined" && window.__dpmLang === "fr") ? "fr" : "en";
+            const mk = (off, time) => (D ? D.fmt(D.addDays(D.today(), off), { day: "numeric", month: "short" }, L) : "20 May") + " " + time;
+            return [
+              { t: "Test Recurrence", h: mk(-3, "15:45"), done: true },
+              { t: "Test Recurrence", h: mk(-2, "15:45"), done: true },
+              { t: "Workshop archi",  h: mk(-2, "14:00"), done: true },
+              { t: "Q2 presentation", h: mk(1, "10:00"),  done: false },
+              { t: "Revue sprint",    h: mk(2, "15:00"),  done: false },
+            ];
+          })().map((ev, i) => (
             <div key={i} className="flex items-center gap-2 px-1.5 py-1.5 rounded hover:bg-[hsl(var(--accent)/0.3)]">
               <div className={cn(
                 "w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center flex-shrink-0",
@@ -1652,11 +1684,16 @@ function MiniSelect({ label, value, onChange, options }) {
   );
 }
 
-const WEEK_DAYS = [
-  { d: "Mon", n: 18 }, { d: "Tue", n: 19 }, { d: "Wed", n: 20 },
-  { d: "Thu", n: 21 }, { d: "Fri", n: 22 }, { d: "Sat", n: 23, today: true },
-  { d: "Sun", n: 24 },
-];
+// Live current week (Mon-first). The mock events stay on their weekday COLUMN
+// (index 0 = Monday … 6 = Sunday); only the dates + today flag go dynamic so
+// the calendar always reads as "this week" instead of a frozen May 2026.
+const WEEK_DAYS = (window.DPMDate
+  ? window.DPMDate.weekDays()
+  : [
+      { d: "Mon", n: 18 }, { d: "Tue", n: 19 }, { d: "Wed", n: 20 },
+      { d: "Thu", n: 21 }, { d: "Fri", n: 22 }, { d: "Sat", n: 23, today: true },
+      { d: "Sun", n: 24 },
+    ]);
 
 /* Events use { start, dur } in hours. `task: true` => checkbox + strike when done.
    Includes intentional overlaps to demonstrate side-by-side layout. */
@@ -2662,14 +2699,14 @@ function EventDetailsCard({ detail, onClose, onEdit, onDelete, onToggleDone, onC
 function CreatePopover({ popover, hourPx, onClose, onDraftChange, onSave }) {
   const [tab, setTab] = useState("event");
   const [title, setTitle] = useState("");
-  const [dateISO, setDateISO] = useState(() => (window.pkISO ? window.pkISO(2026, 4, WEEK_DAYS[popover.day].n) : "2026-05-18"));
+  const [dateISO, setDateISO] = useState(() => { const wd = WEEK_DAYS[popover.day]; return window.pkISO ? window.pkISO(wd.year ?? 2026, wd.month ?? 4, wd.n) : "2026-05-18"; });
   const [start, setStart] = useState(() => fmtHM(popover.hour));
   const [end, setEnd] = useState(() => fmtHM(popover.hour + 1));
   const [allDay, setAllDay] = useState(false);
   const [freq, setFreq] = useState("une");
   const [calIdx, setCalIdx] = useState(0);
   const [prio, setPrio] = useState("MEDIUM");
-  const [endDateISO, setEndDateISO] = useState(() => (window.pkISO ? window.pkISO(2026, 4, WEEK_DAYS[popover.day].n) : "2026-05-18"));
+  const [endDateISO, setEndDateISO] = useState(() => { const wd = WEEK_DAYS[popover.day]; return window.pkISO ? window.pkISO(wd.year ?? 2026, wd.month ?? 4, wd.n) : "2026-05-18"; });
   const titleRef = useRef(null);
   const wrapperRef = useRef(null);
 
@@ -2746,6 +2783,13 @@ function CreatePopover({ popover, hourPx, onClose, onDraftChange, onSave }) {
             </button>
           ))}
         </div>
+        <button
+          onClick={() => { window.__dpmQuickCreate?.({ type: tab, date: dateISO, start: startHM, end: endHM, title }); onClose(); }}
+          title="More options"
+          className="w-6 h-6 rounded hover:bg-[hsl(var(--accent))] flex items-center justify-center text-[hsl(var(--muted-foreground))] -mt-0.5"
+        >
+          <Icons.Maximize size={12} />
+        </button>
         <button
           onClick={onClose}
           aria-label="Close"
@@ -2931,8 +2975,8 @@ function DayView({ zoomPx = CAL_ZOOM_DEFAULT }) {
   return (
     <div className="flex-1 overflow-auto bg-[hsl(var(--background))]">
       <div className="max-w-2xl mx-auto p-6">
-        <h2 className="text-[18px] font-bold mb-1">Saturday May 23</h2>
-        <p className="text-[12px] text-[hsl(var(--muted-foreground))] mb-5 tabular-nums">14:32 · {evs.length} events · drag to move · drop tasks to schedule</p>
+        <h2 className="text-[18px] font-bold mb-1">{window.DPMDate ? window.DPMDate.fmt(window.DPMDate.today(), { weekday: "long", month: "long", day: "numeric" }, window.__dpmLang === "fr" ? "fr" : "en") : "Saturday May 23"}</h2>
+        <p className="text-[12px] text-[hsl(var(--muted-foreground))] mb-5 tabular-nums">{window.DPMDate ? window.DPMDate.time() : "14:32"} · {evs.length} events · drag to move · drop tasks to schedule</p>
         <div
           ref={gridRef}
           className={cn("relative rounded-[8px] transition-colors", drop && "ring-1 ring-[hsl(var(--primary)/0.5)]")}
@@ -3088,6 +3132,7 @@ function MonthView() {
                 {evs.slice(0,3).map((e) => (
                   <div
                     key={e.id}
+                    title={e.t}
                     draggable={droppable}
                     onDragStart={(ev) => { window.__dpmDragChip = { fromDay: c.n, item: e }; ev.dataTransfer.effectAllowed = "move"; try { ev.dataTransfer.setData("text/plain", e.t); } catch (x) {} }}
                     onDragEnd={() => { window.__dpmDragChip = null; setDropDay(null); }}
@@ -3182,9 +3227,14 @@ function AgendaView() {
 }
 
 function TimelineView() {
+  const D = window.DPMDate;
+  const L = (typeof window !== "undefined" && window.__dpmLang === "fr") ? "fr" : "en";
   const days = 14;
-  const startDay = 18; // May 18
-  const monthDays = 31;
+  const start = D ? D.weekStart(D.now()) : new Date(2026, 4, 18); // Monday of this week
+  const monthLabel = D ? D.monthYear(start, L) : "May 2026";
+  const wkA = D ? D.isoWeek(start) : 21;
+  const wkB = D ? D.isoWeek(D.addDays(start, 7)) : 22;
+  const rangeLabel = `${monthLabel} · ${L === "fr" ? "S" : "W"}${wkA} – ${L === "fr" ? "S" : "W"}${wkB}`;
   const projects = [
     { name: "Proposition Desjardins", color: "263 70% 60%", bars: [{ s: 1, w: 3 }, { s: 6, w: 2 }] },
     { name: "Q2 presentation",        color: "38 92% 55%",  bars: [{ s: 2, w: 5 }] },
@@ -3192,12 +3242,10 @@ function TimelineView() {
     { name: "Doc API",                color: "142 70% 50%", bars: [{ s: 7, w: 4 }] },
     { name: "Sprint planning",        color: "0 84% 60%",   bars: [{ s: 7, w: 1 }] },
   ];
-  const dayLabels = Array.from({ length: days }, (_, i) => {
-    const n = startDay + i;
-    return n > monthDays ? n - monthDays : n;
-  });
+  const dayLabels = Array.from({ length: days }, (_, i) =>
+    (D ? D.addDays(start, i) : new Date(2026, 4, 18 + i)).getDate());
   const dayCol = `repeat(${days}, minmax(0, 1fr))`;
-  const todayIndex = 24 - startDay; // May 24 highlighted
+  const todayIndex = D ? Math.round((D.today() - start) / 86400000) : 5;
 
   return (
     <div className="flex-1 overflow-auto bg-[hsl(var(--background))]">
@@ -3206,7 +3254,7 @@ function TimelineView() {
         <div className="grid gap-2" style={{ gridTemplateColumns: `200px 1fr` }}>
           <div />
           <div className="text-[10.5px] uppercase tracking-[0.08em] font-semibold text-[hsl(var(--muted-foreground))] pb-1">
-            Mai 2026 · S21 – S22
+            {rangeLabel}
           </div>
         </div>
 
@@ -3215,7 +3263,7 @@ function TimelineView() {
           <div />
           <div className="grid gap-px text-center text-[10.5px] font-mono tabular-nums" style={{ gridTemplateColumns: dayCol }}>
             {dayLabels.map((n, i) => {
-              const isWeekend = ((startDay + i - 1) % 7) >= 5;
+              const isWeekend = (i % 7) >= 5;
               const isToday = i === todayIndex;
               return (
                 <div key={i} className={cn(
@@ -3241,7 +3289,7 @@ function TimelineView() {
                 {/* Day grid background */}
                 <div className="absolute inset-0 grid gap-px" style={{ gridTemplateColumns: dayCol }}>
                   {Array.from({ length: days }, (_, j) => {
-                    const isWeekend = ((startDay + j - 1) % 7) >= 5;
+                    const isWeekend = (j % 7) >= 5;
                     const isToday = j === todayIndex;
                     return (
                       <div key={j} className={cn(
@@ -4540,7 +4588,7 @@ function BoardsView({ search = "", filters = EMPTY_TASK_FILTER }) {
                   </div>
                 )}
                 {col.id === "todo" && (
-                  <button className="w-full rounded-[8px] border border-dashed border-[hsl(var(--border))] p-3 text-[12px] text-[hsl(var(--muted-foreground))] hover:bg-[hsl(var(--accent)/0.3)] flex items-center justify-center gap-1.5">
+                  <button onClick={() => window.__dpmQuickCreate?.({ type: "task" })} className="w-full rounded-[8px] border border-dashed border-[hsl(var(--border))] p-3 text-[12px] text-[hsl(var(--muted-foreground))] hover:bg-[hsl(var(--accent)/0.3)] flex items-center justify-center gap-1.5">
                     <Icons.Plus size={12} /> Add a card
                   </button>
                 )}
@@ -5160,7 +5208,10 @@ function TaskList({ search = "", filters = EMPTY_TASK_FILTER, createSignal = 0 }
   };
   const endDrag = () => { setDragId(null); setOver(null); };
 
-  const COLS = "grid grid-cols-[20px_24px_1fr_120px_80px_140px_40px] gap-3";
+  const COLS = "grid grid-cols-[20px_24px_1fr_120px_80px_96px_140px_40px] gap-3";
+  const focusMap = (typeof window !== "undefined" && window.useFocusTime) ? window.useFocusTime()[0] : {};
+  const fmtFT = window.fmtFocusTime || ((s) => "");
+  const nT = window.normTitle || ((s) => String(s || "").trim().toLowerCase());
 
   return (
     <Card padding="p-0">
@@ -5170,6 +5221,7 @@ function TaskList({ search = "", filters = EMPTY_TASK_FILTER, createSignal = 0 }
         <div>Task</div>
         <div>{t("common.priority")}</div>
         <div>{t("common.duration")}</div>
+        <div title="Time spent in Focus">Focus</div>
         <div>Due date</div>
         <div></div>
       </div>
@@ -5224,6 +5276,14 @@ function TaskList({ search = "", filters = EMPTY_TASK_FILTER, createSignal = 0 }
               </div>
               <div><Badge variant={pColors[r.p]} dot>{r.p}</Badge></div>
               <div className="text-[hsl(var(--muted-foreground))] font-mono tabular-nums">{r.d}</div>
+              <div className="font-mono tabular-nums">
+                {(() => {
+                  const ft = focusMap[nT(r.t)] || 0;
+                  return ft
+                    ? <span className="inline-flex items-center gap-1 text-[hsl(263_70%_72%)]" title="Time spent in Focus"><Icons.Target size={11} />{fmtFT(ft)}</span>
+                    : <span className="text-[hsl(var(--muted-foreground))] opacity-40">—</span>;
+                })()}
+              </div>
               <div className="text-[hsl(var(--muted-foreground))]">{r.date}</div>
 
               <div className="relative justify-self-end">

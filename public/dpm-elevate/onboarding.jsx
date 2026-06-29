@@ -105,6 +105,11 @@ const L = {
     ],
     personaTitle: "Pour commencer, qui es-tu ?",
     personaHint: "On pré-remplit tes espaces, tâches et rythme. Tout est modifiable.",
+    nameLabel: "Ton prénom", namePh: "Camille",
+    nameHint: "On l'utilise pour personnaliser ton espace et ton avatar.",
+    nameReq: "Indique ton prénom pour continuer.",
+    required: "Requis", optional: "Optionnel",
+    estLeft: "~2 min restantes", estAlmost: "Moins d'une minute",
     calMore: "Tu pourras en connecter d'autres depuis les réglages.",
     connect: "Connecter", connected: "Connecté",
     spacesHint: "Les Espaces filtrent calendriers, tâches et objectifs. Active ceux qui te parlent.",
@@ -154,6 +159,11 @@ const L = {
     ],
     personaTitle: "To get started, who are you?",
     personaHint: "We pre-fill your spaces, tasks and rhythm. Everything stays editable.",
+    nameLabel: "Your first name", namePh: "Camille",
+    nameHint: "We use it to personalize your workspace and avatar.",
+    nameReq: "Enter your first name to continue.",
+    required: "Required", optional: "Optional",
+    estLeft: "~2 min left", estAlmost: "Less than a minute",
     calMore: "You can connect more later from settings.",
     connect: "Connect", connected: "Connected",
     spacesHint: "Spaces filter calendars, tasks and goals. Turn on the ones that fit.",
@@ -197,10 +207,12 @@ const IDX = { PROFILE: 0, CAL: 1, SPACES: 2, TASKS: 3, GOAL: 4, RHYTHM: 5, PERSO
 function OnboardingPage({ setRoute }) {
   const lang = (typeof useLang === "function") ? useLang() : "fr";
   const T = L[lang] || L.fr;
+  const [profile, updateProfile] = (typeof useProfile === "function") ? useProfile() : [{}, () => {}];
 
   const [step, setStep] = useState(0);
   const [done, setDone] = useState(false);
   const [data, setData] = useState({
+    firstName: (profile && profile.firstName) || "",
     persona: null,
     calendars: { google: false, microsoft: false, apple: false },
     spaces: [],
@@ -217,7 +229,9 @@ function OnboardingPage({ setRoute }) {
   });
   const set = (patch) => setData(d => ({ ...d, ...patch }));
 
-  // Persona selection seeds the rest of the flow.
+  // Persona selection seeds the rest of the flow. We auto-advance only once a
+  // first name is present (it's required for the account); otherwise we just
+  // select and let the user fill the name + tap Next.
   const choosePersona = (p) => {
     const loc = p[lang];
     set({
@@ -228,12 +242,23 @@ function OnboardingPage({ setRoute }) {
       tasks: loc.tasks.slice(0, 3),
       goal: loc.goal,
     });
-    setTimeout(() => setStep(IDX.CAL), 420);
+    if ((data.firstName || "").trim()) setTimeout(() => setStep(IDX.CAL), 420);
   };
 
+  // Persist the full captured profile, apply the accent, and enter the app.
   const finish = () => {
-    try { window.__dpmAccent = data.accent; applyAccent?.(data.accent);
-      window.dispatchEvent(new CustomEvent("dpm-accent-change", { detail: data.accent })); } catch (e) {}
+    try {
+      window.__dpmAccent = data.accent; applyAccent?.(data.accent);
+      window.dispatchEvent(new CustomEvent("dpm-accent-change", { detail: data.accent }));
+    } catch (e) {}
+    updateProfile({
+      firstName: (data.firstName || "").trim(),
+      onboarded: true,
+      calendars: data.calendars, spaces: data.spaces,
+      tasks: data.tasks.filter(t => t && t.trim()), goal: data.goal, habit: data.habit,
+      chrono: data.chrono, watch: data.watch, hours: data.hours, days: data.days,
+      accent: data.accent, notif: data.notif, prefs: data.prefs,
+    });
     setRoute("home");
   };
 
@@ -269,7 +294,12 @@ function OnboardingPage({ setRoute }) {
                 {String(step + 1).padStart(2, "0")}
               </span>
               <span className="text-[13px] font-medium">{T.steps[step].t}</span>
-              <span className="text-[12px] text-[hsl(var(--muted-foreground))] ml-auto tabular-nums">{T.stepOf(step + 1, TOTAL)}</span>
+              <span className="ml-auto flex items-center gap-3 text-[12px] text-[hsl(var(--muted-foreground))] tabular-nums">
+                <span className="hidden sm:flex items-center gap-1.5">
+                  <Icons.Clock size={12} /> {step >= TOTAL - 2 ? T.estAlmost : T.estLeft}
+                </span>
+                <span>{T.stepOf(step + 1, TOTAL)}</span>
+              </span>
             </div>
           </div>
         </div>
@@ -280,7 +310,7 @@ function OnboardingPage({ setRoute }) {
             <h2 className="text-[26px] font-bold tracking-tight leading-tight">{T.steps[step].t === T.steps[0].t && step === 0 ? T.personaTitle : T.steps[step].t}</h2>
             <p className="text-[14px] text-[hsl(var(--muted-foreground))] mt-1.5 mb-7" style={{ textWrap: "balance" }}>{T.steps[step].s}</p>
 
-            {step === IDX.PROFILE && <StepProfile data={data} lang={lang} T={T} accent={accent} onPick={choosePersona} />}
+            {step === IDX.PROFILE && <StepProfile data={data} set={set} lang={lang} T={T} accent={accent} onPick={choosePersona} />}
             {step === IDX.CAL && <StepCalendars data={data} set={set} T={T} accent={accent} />}
             {step === IDX.SPACES && <StepSpaces data={data} set={set} T={T} accent={accent} />}
             {step === IDX.TASKS && <StepTasks data={data} set={set} T={T} accent={accent} />}
@@ -293,7 +323,7 @@ function OnboardingPage({ setRoute }) {
         {/* Footer nav */}
         <div className="border-t border-[hsl(var(--border))] px-8 py-5">
           <div className="max-w-xl mx-auto flex items-center justify-between">
-            <Button variant="ghost" disabled={step === 0} onClick={() => setStep(s => Math.max(0, s - 1))} icon={Icons.ChevronLeft}>{T.previous}</Button>
+            <Button variant="ghost" disabled={step === 0} onClick={() => setStep(s => Math.max(0, s - 1))}><Icons.ChevronLeft size={16} /> {T.previous}</Button>
             <div className="hidden sm:flex items-center gap-1.5">
               {Array.from({ length: TOTAL }).map((_, n) => (
                 <span key={n} className="w-1.5 h-1.5 rounded-full transition-all"
@@ -301,10 +331,12 @@ function OnboardingPage({ setRoute }) {
               ))}
             </div>
             {step < TOTAL - 1
-              ? <Button onClick={() => setStep(s => s + 1)} iconRight={Icons.ChevronRight}
-                        style={{ background: `hsl(${accent})` }}>{T.next}</Button>
-              : <Button onClick={() => setDone(true)} iconRight={Icons.ArrowRight}
-                        style={{ background: `hsl(${accent})` }}>{T.next}</Button>}
+              ? <Button onClick={() => setStep(s => s + 1)}
+                        disabled={step === IDX.PROFILE && !(data.firstName || "").trim()}
+                        title={step === IDX.PROFILE && !(data.firstName || "").trim() ? T.nameReq : undefined}
+                        style={{ background: `hsl(${accent})` }}>{T.next} <Icons.ChevronRight size={16} /></Button>
+              : <Button onClick={() => setDone(true)}
+                        style={{ background: `hsl(${accent})` }}>{T.next} <Icons.ArrowRight size={16} /></Button>}
           </div>
         </div>
       </div>
@@ -320,9 +352,22 @@ function OnboardingPage({ setRoute }) {
 /* ============================================================
    STEP 1 — Profile / persona
 ============================================================ */
-function StepProfile({ data, lang, T, accent, onPick }) {
+function StepProfile({ data, set, lang, T, accent, onPick }) {
+  const nameMissing = !(data.firstName || "").trim();
   return (
     <div>
+      {/* First name — required for the account / avatar / greeting */}
+      <div className="mb-5">
+        <div className="flex items-center justify-between mb-1.5">
+          <label htmlFor="onb-name" className="text-[12.5px] font-medium">{T.nameLabel}</label>
+          <span className="text-[10.5px] font-medium px-1.5 py-0.5 rounded-full" style={{ background: `hsl(${accent} / 0.12)`, color: `hsl(${accent})` }}>{T.required}</span>
+        </div>
+        <Input id="onb-name" value={data.firstName} placeholder={T.namePh} className="h-12 text-[15px]"
+               autoFocus name="given-name" autoComplete="given-name"
+               onChange={e => set({ firstName: e.target.value })} />
+        <p className="mt-1.5 text-[11.5px] text-[hsl(var(--muted-foreground))]">{T.nameHint}</p>
+      </div>
+
       <div className="grid grid-cols-2 gap-3">
         {PERSONAS.map(p => {
           const on = data.persona === p.id;
@@ -344,7 +389,9 @@ function StepProfile({ data, lang, T, accent, onPick }) {
         })}
       </div>
       <p className="text-[12px] text-[hsl(var(--muted-foreground))] text-center mt-5 flex items-center justify-center gap-1.5">
-        <Icons.Sparkles size={13} style={{ color: `hsl(${accent})` }} /> {T.personaHint}
+        {nameMissing && data.persona
+          ? <><Icons.AlertTriangle size={13} style={{ color: `hsl(${accent})` }} /> {T.nameReq}</>
+          : <><Icons.Sparkles size={13} style={{ color: `hsl(${accent})` }} /> {T.personaHint}</>}
       </p>
     </div>
   );
@@ -834,8 +881,8 @@ function OnbReward({ data, lang, T, accent, onFinish }) {
             </div>
           )}
 
-          <Button size="lg" className="mt-8 px-7" iconRight={Icons.ArrowRight} onClick={onFinish}
-                  style={{ background: `hsl(${accent})` }}>{T.finish}</Button>
+          <Button size="lg" className="mt-8 px-7" onClick={onFinish}
+                  style={{ background: `hsl(${accent})` }}>{T.finish} <Icons.ArrowRight size={16} /></Button>
         </div>
 
         {/* Right — the built day */}

@@ -7,20 +7,27 @@
    Namespaced lp-; nothing here touches product UI.
 ============================================================ */
 
-/* One shared IntersectionObserver for all reveals (cheap + consistent). */
+/* One shared IntersectionObserver for all reveals (cheap + consistent).
+   RE-ARMING: reveals play when an element scrolls ~15% into view, and reset
+   once it has fully left the viewport — so they replay on the next entry
+   (scroll down → animate, scroll up & back → animate again). The wide
+   hysteresis band (enter at 0.15, reset only at ratio 0) prevents any
+   flicker at the boundary. Reduced-motion users get instant, static reveals
+   via the global CSS rule, so the toggling is invisible to them. */
 const __lpRevealObs = (() => {
   if (typeof window === "undefined" || !("IntersectionObserver" in window)) return null;
   if (window.__lpRevealObs) return window.__lpRevealObs;
   const obs = new IntersectionObserver(
     (entries) => {
       entries.forEach((e) => {
-        if (e.isIntersecting) {
+        if (e.isIntersecting && e.intersectionRatio >= 0.15) {
           e.target.classList.add("is-visible");
-          obs.unobserve(e.target);
+        } else if (e.intersectionRatio <= 0.001) {
+          e.target.classList.remove("is-visible");
         }
       });
     },
-    { threshold: 0.12, rootMargin: "0px 0px -7% 0px" }
+    { threshold: [0, 0.15], rootMargin: "0px 0px -7% 0px" }
   );
   window.__lpRevealObs = obs;
   return obs;
@@ -136,11 +143,15 @@ function FeatureRow({ tag, n, title, desc, bullets = [], reverse = false, childr
   );
 }
 
-/* useCountUp — eases 0→target once `active` becomes true. */
+/* useCountUp — eases 0→target while `active` is true; RESETS to 0 when
+   `active` becomes false, so the number replays from 0 on every re-entry
+   into view (paired with the re-arming useInView hook below). A single rAF
+   loop is cancelled on cleanup so a number never keeps ticking off-screen
+   or runs two loops at once. */
 function useCountUp(target, active, dur = 1300) {
   const [val, setVal] = useState(0);
   useEffect(() => {
-    if (!active) return;
+    if (!active) { setVal(0); return; }            // left view → reset for replay
     if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setVal(target); return;
     }
@@ -158,21 +169,56 @@ function useCountUp(target, active, dur = 1300) {
   return val;
 }
 
-/* useInViewOnce — true once the element scrolls into view (for count-ups). */
-function useInViewOnce(threshold = 0.3) {
+/* useInView — true WHILE the element is in view, false once it fully leaves.
+   Re-arming (not one-shot): drives count-ups and chart bars so they reset on
+   exit and replay on re-entry. `useInViewOnce` is kept as an alias.
+
+   Robustness: an IntersectionObserver handles the normal re-arm cheaply, and a
+   DIRECT rect measure (no requestAnimationFrame gate — rAF can be throttled in
+   background tabs, stranding count-ups/bars at their 0 reset state while on
+   screen) runs on mount, on two settle timers, and on scroll/resize (scroll
+   captured at the window so it catches any descendant scroll container). Wide
+   hysteresis (enter ≥ threshold, reset only when fully out of view) prevents
+   flicker and double-fires. */
+function useInView(threshold = 0.3) {
   const ref = useRef(null);
-  const [seen, setSeen] = useState(false);
+  const [inView, setInView] = useState(false);
   useEffect(() => {
     const el = ref.current;
-    if (!el || !("IntersectionObserver" in window)) { setSeen(true); return; }
-    const obs = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) { setSeen(true); obs.disconnect(); }
-    }, { threshold });
-    obs.observe(el);
-    return () => obs.disconnect();
+    if (!el) return;
+    const measure = () => {
+      const r = el.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight || 800;
+      if (!r.height) return;
+      const visiblePx = Math.min(r.bottom, vh) - Math.max(r.top, 0);
+      const ratio = visiblePx / Math.min(r.height, vh);
+      if (ratio >= threshold) setInView(true);
+      else if (r.bottom <= 0 || r.top >= vh) setInView(false);  // fully out → reset for replay
+    };
+    let obs;
+    if ("IntersectionObserver" in window) {
+      obs = new IntersectionObserver((entries) => {
+        const e = entries[0];
+        if (e.isIntersecting && e.intersectionRatio >= threshold) setInView(true);
+        else if (e.intersectionRatio <= 0.001) setInView(false);
+      }, { threshold: [0, threshold] });
+      obs.observe(el);
+    }
+    measure();
+    const t1 = setTimeout(measure, 300);
+    const t2 = setTimeout(measure, 1200);
+    window.addEventListener("scroll", measure, { passive: true, capture: true });
+    window.addEventListener("resize", measure, { passive: true });
+    return () => {
+      if (obs) obs.disconnect();
+      clearTimeout(t1); clearTimeout(t2);
+      window.removeEventListener("scroll", measure, { capture: true });
+      window.removeEventListener("resize", measure);
+    };
   }, [threshold]);
-  return [ref, seen];
+  return [ref, inView];
 }
+const useInViewOnce = useInView;
 
 /* lpCelebrate — confetti burst from the center of `host` (task/habit done). */
 function lpCelebrate(host, colors) {
@@ -450,5 +496,5 @@ function ScrollControls() {
 
 Object.assign(window, {
   Reveal, Eyebrow, SectionHead, BrowserChrome, DemoShell, FeatureRow, FeatureTrail,
-  useCountUp, useInViewOnce, lpCelebrate, ScrollControls,
+  useCountUp, useInView, useInViewOnce, lpCelebrate, ScrollControls,
 });

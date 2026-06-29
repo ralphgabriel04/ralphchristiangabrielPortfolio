@@ -55,8 +55,13 @@ function LandingPage({ setRoute, theme = "dark", setTheme, lang = "en", setLang 
   const t = useLandingT(lang);
   const [accent, setAccent] = useState("263 70% 60%");
   const [scrolled, setScrolled] = useState(false);
+  const [videoOpen, setVideoOpen] = useState(false);
+  const [legal, setLegal] = useState(null);   // null | "terms" | "privacy" | "cookies" | "gdpr"
   const sentinel = useRef(null);
   const tryRef = useRef(null);
+
+  const goSignup = () => setRoute("signup");
+  const goLogin = () => setRoute("login");
 
   // nav glass on scroll (sentinel at very top of the page)
   useEffect(() => {
@@ -100,14 +105,15 @@ function LandingPage({ setRoute, theme = "dark", setTheme, lang = "en", setLang 
       <div className="lp-glow" style={{ width: 520, height: 520, top: 80, right: -160, background: "hsl(330 75% 55%)", animationDelay: "-7s" }} />
 
       {/* ---------------- NAV ---------------- */}
-      <nav className={cn("lp-nav sticky top-0 z-30 border-b",
-        scrolled ? "bg-[hsl(var(--background)/0.8)] backdrop-blur-xl border-[hsl(var(--border))]" : "bg-transparent border-transparent")}>
-        <div className="max-w-[1180px] mx-auto px-6 h-16 flex items-center justify-between">
-          <Logo size={34} />
+      <nav className={cn("lp-nav sticky top-0 z-30 border-b transition-all duration-300",
+        scrolled ? "bg-[hsl(var(--background)/0.85)] backdrop-blur-xl border-[hsl(var(--border))] shadow-sm" : "bg-transparent border-transparent")}>
+        <div className={cn("max-w-[1180px] mx-auto px-6 flex items-center justify-between transition-all duration-300", scrolled ? "h-14" : "h-16")}>
+          <Logo size={scrolled ? 30 : 34} />
           <div className="hidden lg:flex items-center gap-7 text-[13.5px] text-[hsl(var(--muted-foreground))]">
             <a className="hover:text-[hsl(var(--foreground))] transition-colors" href="#modules">{t.nav.modules}</a>
             <a className="hover:text-[hsl(var(--foreground))] transition-colors" href="#how">{t.nav.how}</a>
-            <a className="hover:text-[hsl(var(--foreground))] transition-colors" href="#try">{t.nav.try}</a>
+            <a className="hover:text-[hsl(var(--foreground))] transition-colors" href="#pricing">{t.nav.pricing}</a>
+            <a className="hover:text-[hsl(var(--foreground))] transition-colors" href="#faq">{t.nav.faq}</a>
           </div>
           <div className="flex items-center gap-1.5">
             <button onClick={toggleLang} title={t.nav.toFr}
@@ -118,8 +124,8 @@ function LandingPage({ setRoute, theme = "dark", setTheme, lang = "en", setLang 
               className="h-8 w-8 rounded-[8px] flex items-center justify-center text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] hover:bg-[hsl(var(--accent))] transition-colors">
               {theme === "dark" ? <Icons.Sun size={15} /> : <Icons.Moon size={15} />}
             </button>
-            <Button variant="ghost" size="sm" className="hidden sm:inline-flex" onClick={() => setRoute("login")}>{t.nav.login}</Button>
-            <Button size="sm" onClick={() => setRoute("login")}>{t.nav.cta} <Icons.ArrowRight size={14} /></Button>
+            <Button variant="ghost" size="sm" className="hidden sm:inline-flex" onClick={goLogin}>{t.nav.login}</Button>
+            <Button size="sm" onClick={goSignup}>{t.nav.cta} <Icons.ArrowRight size={14} /></Button>
           </div>
         </div>
       </nav>
@@ -141,10 +147,11 @@ function LandingPage({ setRoute, theme = "dark", setTheme, lang = "en", setLang 
           </p>
         </Reveal>
         <Reveal delay={180} className="flex flex-wrap items-center justify-center gap-3 mt-9">
-          <Button size="lg" onClick={() => setRoute("login")}>{t.hero.ctaPrimary} <Icons.ArrowRight size={16} /></Button>
-          <a href="#try"><Button size="lg" variant="outline"><Icons.Play size={16} /> {t.hero.ctaSecondary}</Button></a>
+          <Button size="lg" onClick={goSignup}>{t.hero.ctaPrimary} <Icons.ArrowRight size={16} /></Button>
+          <Button size="lg" variant="outline" onClick={() => setVideoOpen(true)}><Icons.Play size={16} /> {t.hero.ctaSecondary}</Button>
         </Reveal>
         <Reveal delay={220}><div className="text-[12px] text-[hsl(var(--muted-foreground))] mt-4">{t.hero.trust}</div></Reveal>
+        <SocialProofBar t={t} />
 
         {/* live product stage */}
         <Reveal scale delay={120} className="relative mt-14 mx-auto max-w-[920px]">
@@ -186,13 +193,7 @@ function LandingPage({ setRoute, theme = "dark", setTheme, lang = "en", setLang 
         {/* integrations marquee */}
         <div className="mt-16">
           <Reveal><div className="text-[11px] uppercase tracking-[0.18em] text-[hsl(var(--muted-foreground))] font-mono">{t.hero.integrates}</div></Reveal>
-          <div className="lp-marquee-host relative mt-5 overflow-hidden" style={{ maskImage: "linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent)", WebkitMaskImage: "linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent)" }}>
-            <div className="lp-marquee opacity-60">
-              {["Google Calendar", "Microsoft Outlook", "Apple Calendar", "Todoist", "Slack", "Notion", "Zoom", "Google Calendar", "Microsoft Outlook", "Apple Calendar", "Todoist", "Slack", "Notion", "Zoom"].map((n, i) => (
-                <span key={i} className="text-[15px] font-semibold tracking-tight whitespace-nowrap px-6">{n}</span>
-              ))}
-            </div>
-          </div>
+          <BrandMarquee t={t} />
         </div>
       </header>
 
@@ -210,7 +211,7 @@ function LandingPage({ setRoute, theme = "dark", setTheme, lang = "en", setLang 
         <div className="grid md:grid-cols-3 gap-5 mt-12">
           {t.how.steps.map((step, i) => (
             <Reveal key={i} delay={i * 110}>
-              <div className="lp-ring rounded-[16px] border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-7 h-full relative overflow-hidden">
+              <div className="lp-ring lp-card-hover rounded-[16px] border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-7 h-full relative overflow-hidden">
                 <div className="text-[68px] font-serif italic leading-none text-[hsl(var(--primary)/0.18)] absolute top-3 right-5 select-none">{step.n}</div>
                 <div className="w-11 h-11 rounded-[12px] bg-[hsl(var(--primary)/0.12)] flex items-center justify-center mb-5">
                   {[Icons.Sunrise, Icons.Zap, Icons.BarChart][i] && React.createElement([Icons.Sunrise, Icons.Zap, Icons.BarChart][i], { size: 20, className: "text-[hsl(var(--primary))]" })}
@@ -324,7 +325,7 @@ function LandingPage({ setRoute, theme = "dark", setTheme, lang = "en", setLang 
       {/* ---------------- REVIEWS ---------------- */}
       <section className="relative max-w-[1180px] mx-auto px-6 py-16">
         <SectionHead n="05" label={t.reviews.label} title={t.reviews.title} sub={t.reviews.sub} />
-        <div className="mt-12"><Reveal scale><ReviewsGrid t={t} /></Reveal></div>
+        <div className="mt-12"><ReviewsGrid t={t} /></div>
       </section>
 
       {/* ---------------- SECURITY ---------------- */}
@@ -346,16 +347,24 @@ function LandingPage({ setRoute, theme = "dark", setTheme, lang = "en", setLang 
               </div>
               <div className="grid grid-cols-2 gap-3">
                 {t.security.cards.map((c, i) => (
-                  <div key={i} className="rounded-[12px] border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-4">
-                    <div className="text-[14px] font-semibold">{c.t}</div>
-                    <div className="text-[12.5px] text-[hsl(var(--muted-foreground))] mt-1">{c.d}</div>
-                  </div>
+                  <Reveal key={i} delay={i * 80} className="h-full">
+                    <div className="lp-card-hover h-full rounded-[12px] border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-4">
+                      <div className="text-[14px] font-semibold">{c.t}</div>
+                      <div className="text-[12.5px] text-[hsl(var(--muted-foreground))] mt-1">{c.d}</div>
+                    </div>
+                  </Reveal>
                 ))}
               </div>
             </div>
           </div>
         </Reveal>
       </section>
+
+      {/* ---------------- PRICING ---------------- */}
+      <PricingSection t={t} onSignup={goSignup} />
+
+      {/* ---------------- FAQ ---------------- */}
+      <FaqSection t={t} />
 
       {/* ---------------- FINAL CTA ---------------- */}
       <section className="relative max-w-[1180px] mx-auto px-6 py-20">
@@ -367,8 +376,9 @@ function LandingPage({ setRoute, theme = "dark", setTheme, lang = "en", setLang 
                 {t.finalCta.title}
               </h2>
               <p className="text-[15.5px] text-[hsl(var(--muted-foreground))] mt-4 mb-8">{t.finalCta.sub}</p>
-              <div className="flex justify-center">
-                <Button size="lg" onClick={() => setRoute("login")}>{t.finalCta.button} <Icons.ArrowRight size={16} /></Button>
+              <div className="flex flex-wrap justify-center gap-3">
+                <Button size="lg" onClick={goSignup}>{t.finalCta.button} <Icons.ArrowRight size={16} /></Button>
+                <Button size="lg" variant="outline" onClick={goLogin}>{t.nav.login}</Button>
               </div>
               <div className="mt-5 text-[12.5px] text-[hsl(var(--muted-foreground))] flex items-center justify-center gap-2">
                 <Icons.Check size={14} className="text-[hsl(142_70%_50%)]" /> {t.finalCta.reassure}
@@ -394,16 +404,40 @@ function LandingPage({ setRoute, theme = "dark", setTheme, lang = "en", setLang 
               ))}
             </div>
           </div>
-          {t.footer.cols.map((c) => (
-            <div key={c.t}>
-              <div className="text-[11px] uppercase tracking-[0.1em] font-semibold mb-3 text-[hsl(var(--muted-foreground))] font-mono">{c.t}</div>
-              <ul className="space-y-2.5 text-[hsl(var(--muted-foreground))]">
-                {c.l.map((i) => <li key={i}><a className="hover:text-[hsl(var(--foreground))] transition-colors" href="#">{i}</a></li>)}
-              </ul>
-            </div>
-          ))}
+          {t.footer.cols.map((c, ci) => {
+            const legalTabs = ["terms", "privacy", "cookies", "gdpr"];
+            const sectionFor = ci === 0 ? ["#modules", "#modules", "#pricing", "#faq"] : ["#faq", "#modules", "#faq", "#faq"];
+            return (
+              <div key={c.t}>
+                <div className="text-[11px] uppercase tracking-[0.1em] font-semibold mb-3 text-[hsl(var(--muted-foreground))] font-mono">{c.t}</div>
+                <ul className="space-y-2.5 text-[hsl(var(--muted-foreground))]">
+                  {c.l.map((item, ii) => (
+                    <li key={item}>
+                      {ci === 2
+                        ? <button onClick={() => setLegal(legalTabs[ii] || "terms")} className="hover:text-[hsl(var(--foreground))] transition-colors text-left">{item}</button>
+                        : <a className="hover:text-[hsl(var(--foreground))] transition-colors" href={sectionFor[ii] || "#modules"}>{item}</a>}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
+        </div>
+        {/* bottom legal strip — always-available real links */}
+        <div className="max-w-[1180px] mx-auto px-6 mt-10 pt-6 border-t border-[hsl(var(--border))] flex flex-wrap items-center justify-between gap-3 text-[12px] text-[hsl(var(--muted-foreground))]">
+          <span>{t.footer.rights}</span>
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-1">
+            {["terms", "privacy", "cookies", "gdpr"].map(id => (
+              <button key={id} onClick={() => setLegal(id)} className="hover:text-[hsl(var(--foreground))] transition-colors">{t.legal.tabs[id]}</button>
+            ))}
+          </div>
         </div>
       </footer>
+
+      {/* ---------------- OVERLAYS ---------------- */}
+      <VideoModal open={videoOpen} onClose={() => setVideoOpen(false)} t={t} />
+      <LegalModal open={!!legal} tab={legal} onClose={() => setLegal(null)} onTab={setLegal} t={t} />
+      <CookieBanner t={t} onLegal={setLegal} />
     </div>
   );
 }

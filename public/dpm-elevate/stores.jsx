@@ -49,6 +49,108 @@ function currentSpaceTag() {
 const HABIT_ICONS = ["Brain", "Run", "Book", "Pen", "Heart", "Coffee", "Sun", "Moon", "Activity", "Target", "Star", "Flame", "Sparkles", "Zap"];
 const HABIT_COLORS = ["263 70% 60%", "217 91% 60%", "142 70% 50%", "330 80% 60%", "38 92% 55%", "20 90% 55%", "180 65% 50%", "0 84% 60%"];
 
+/* ---- Date-keyed habit journal (P3) ----
+   Each habit carries logs: { "YYYY-MM-DD": true }. doneToday, the rolling
+   7-day grid (weekly) and x/7 are all DERIVED from logs against the real
+   current date, so the UI never looks frozen. ---- */
+function habitISO(d) {
+  const D = window.DPMDate;
+  const date = d || (D ? D.today() : new Date());
+  const y = date.getFullYear(), m = String(date.getMonth() + 1).padStart(2, "0"), dd = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${dd}`;
+}
+function habitDaysAgo(n) {
+  const D = window.DPMDate;
+  const base = D ? D.today() : (() => { const x = new Date(); x.setHours(0, 0, 0, 0); return x; })();
+  const x = new Date(base); x.setDate(x.getDate() - n);
+  return x;
+}
+function weeklyFromLogs(logs) {
+  // index 0 = 6 days ago … index 6 = today
+  return Array.from({ length: 7 }, (_, i) => (logs[habitISO(habitDaysAgo(6 - i))] ? 1 : 0));
+}
+
+/* ---- Frequency model (P5) ----
+   A habit's cadence is read from `freq`:
+     • "N×/wk" / "N×/week" / "N×/sem"  → weekly target of N (flexible)
+     • anything else ("Daily", "Tous les jours") → daily
+   `type` may say "Conditional" — a conditional habit still completes by being
+   logged on a day, so it behaves like a daily habit for streak purposes. */
+function habitWeeklyTarget(h) {
+  const m = /(\d+)\s*[×x]/.exec((h && h.freq) || "");
+  const n = m ? parseInt(m[1], 10) : null;
+  return n && n > 0 && n < 7 ? n : null;
+}
+// Logged days inside the Mon-first week that is `wOffset` weeks before the
+// current week (0 = this week).
+function logsInWeekOffset(logs, wOffset) {
+  const D = window.DPMDate;
+  const base = D ? D.today() : (() => { const x = new Date(); x.setHours(0,0,0,0); return x; })();
+  const ws = D ? D.weekStart(D.addDays(base, -7 * wOffset))
+              : (() => { const x = new Date(base); x.setDate(x.getDate() - 7 * wOffset); return x; })();
+  let c = 0;
+  for (let i = 0; i < 7; i++) {
+    const day = D ? D.addDays(ws, i) : (() => { const x = new Date(ws); x.setDate(x.getDate() + i); return x; })();
+    if (logs[habitISO(day)]) c++;
+  }
+  return c;
+}
+// Streak DERIVED from the logs journal — never incremented blindly (P4).
+//  • Daily / conditional → consecutive days with a log. Today not being done
+//    yet does NOT break the streak (we count from yesterday in that case).
+//  • Weekly target (N×/wk) → consecutive weeks that met the target; the current
+//    week counts as soon as it is met but an unfinished current week never breaks it.
+function computeStreak(h) {
+  const logs = (h && h.logs) || {};
+  const target = habitWeeklyTarget(h);
+  if (target) {
+    let streak = 0;
+    if (logsInWeekOffset(logs, 0) >= target) streak++;
+    for (let w = 1; w < 260; w++) {
+      if (logsInWeekOffset(logs, w) >= target) streak++;
+      else break;
+    }
+    return streak;
+  }
+  let streak = 0;
+  const start = logs[habitISO(habitDaysAgo(0))] ? 0 : 1;
+  for (let n = start; n < 400; n++) {
+    if (logs[habitISO(habitDaysAgo(n))]) streak++;
+    else break;
+  }
+  return streak;
+}
+// Backfill plausible history OLDER than the visible 7-day grid so the seeded
+// streak reads coherently while staying fully log-derived. Never touches the
+// last 7 days (keeps the visible weekly pattern intact).
+function backfillHistory(h, logs) {
+  const D = window.DPMDate; if (!D) return;
+  const S = Math.max(0, h.streak || 0);
+  const target = habitWeeklyTarget(h);
+  if (target) {
+    const order = [0, 2, 4, 1, 3, 5, 6]; // Mon, Wed, Fri, Tue, Thu, Sat, Sun
+    for (let w = 1; w <= S; w++) {
+      const ws = D.weekStart(D.addDays(D.today(), -7 * w));
+      for (let k = 0; k < target; k++) logs[habitISO(D.addDays(ws, order[k]))] = true;
+    }
+  } else {
+    for (let n = 7; n < S; n++) logs[habitISO(habitDaysAgo(n))] = true;
+  }
+}
+// Seed logs from the legacy `weekly` array (index 6 = today), today overridden
+// by `done`, then derive `weekly`, `done` and `streak` from the journal.
+function seedHabit(h) {
+  const logs = {};
+  const w = h.weekly || [0, 0, 0, 0, 0, 0, 0];
+  for (let i = 0; i < 7; i++) if (w[i]) logs[habitISO(habitDaysAgo(6 - i))] = true;
+  const todayKey = habitISO();
+  if (h.done) logs[todayKey] = true; else delete logs[todayKey];
+  backfillHistory(h, logs);
+  const seeded = { ...h, logs, done: !!logs[todayKey], weekly: weeklyFromLogs(logs) };
+  seeded.streak = computeStreak(seeded);
+  return seeded;
+}
+
 const habitsInit = [
   { id: "h1", name: "Meditation", iconName: "Brain", color: "263 70% 60%", type: "Fixed · 07:00", freq: "Daily", streak: 7, weekly: [1,1,1,1,1,1,1], duration: "10 min", done: true, space: "perso" },
   { id: "h2", name: "Running", iconName: "Run", color: "217 91% 60%", type: "Flexible", freq: "3×/wk", streak: 12, weekly: [1,0,1,0,1,1,0], duration: "30 min", done: false, space: "perso" },
@@ -57,7 +159,7 @@ const habitsInit = [
   { id: "h5", name: "Stretching", iconName: "Heart", color: "38 92% 55%", type: "Fixed · 07:30", freq: "Daily", streak: 2, weekly: [0,0,0,0,0,1,1], duration: "15 min", done: true, space: "perso" },
   { id: "h6", name: "No coffee after 2pm", iconName: "Coffee", color: "20 90% 55%", type: "Conditional", freq: "Daily", streak: 9, weekly: [1,1,1,1,1,1,1], duration: "—", done: true, spaces: ["pro","perso"] },
 ];
-const habitsStore = makeStore("Habits", habitsInit);
+const habitsStore = makeStore("Habits", habitsInit.map(seedHabit));
 
 function useHabits() {
   const [list, setList] = useState(habitsStore.get());
@@ -76,6 +178,7 @@ function useHabits() {
       freq: partial.freq || "Daily",
       streak: 0,
       weekly: [0,0,0,0,0,0,0],
+      logs: {},
       duration: partial.duration || "—",
       done: false,
       space: partial.space || currentSpaceTag(),
@@ -85,7 +188,15 @@ function useHabits() {
   };
   const update = (id, patch) => habitsStore.set(curr => curr.map(h => h.id === id ? { ...h, ...patch } : h));
   const remove = (id) => habitsStore.set(curr => curr.filter(h => h.id !== id));
-  const toggleDone = (id) => habitsStore.set(curr => curr.map(h => h.id === id ? { ...h, done: !h.done } : h));
+  const toggleDone = (id) => habitsStore.set(curr => curr.map(h => {
+    if (h.id !== id) return h;
+    const todayKey = habitISO();
+    const logs = { ...(h.logs || {}) };
+    if (logs[todayKey]) delete logs[todayKey]; else logs[todayKey] = true;
+    const next = { ...h, logs, done: !!logs[todayKey], weekly: weeklyFromLogs(logs) };
+    next.streak = computeStreak(next); // always re-derived from the journal (P4)
+    return next;
+  }));
   return [useScopedList(list), { add, update, remove, toggleDone }];
 }
 
@@ -215,27 +326,7 @@ function useEvents() {
     window.addEventListener(eventsStore.evt, h);
     return () => window.removeEventListener(eventsStore.evt, h);
   }, []);
-  const add = (partial) => {
-    const e = {
-      id: "e" + Date.now(),
-      title: partial.title || "New event",
-      calendar: partial.calendar || "Work",
-      color: partial.color || "263 70% 60%",
-      allDay: !!partial.allDay,
-      date: partial.date || new Date().toISOString().slice(0, 10),
-      start: partial.start || "09:00",
-      end: partial.end || "10:00",
-      location: partial.location || "",
-      attendees: partial.attendees || [],
-      notify: partial.notify ?? true,
-      repeat: partial.repeat || "none",
-      busy: partial.busy || "busy",
-      visibility: partial.visibility || "default",
-      desc: partial.desc || "",
-    };
-    eventsStore.set(curr => [...curr, e]);
-    return e.id;
-  };
+  const add = (partial) => dpmAddEvent(partial);
   const update = (id, patch) => eventsStore.set(curr => curr.map(e => e.id === id ? { ...e, ...patch } : e));
   const remove = (id) => eventsStore.set(curr => curr.filter(e => e.id !== id));
   return [list, { add, update, remove }];
@@ -262,27 +353,182 @@ function useTasks() {
     window.addEventListener(tasksStore.evt, h);
     return () => window.removeEventListener(tasksStore.evt, h);
   }, []);
-  const add = (partial) => {
-    const t = {
-      id: "u" + Date.now(),
-      t: partial.t || "New task",
-      d: partial.d || "30min",
-      mins: partial.mins || 30,
-      p: partial.p || "primary",
-      ...(partial.e ? { e: partial.e } : {}),
-    };
-    tasksStore.set(curr => [...curr, t]);
-    return t.id;
-  };
+  const add = (partial) => dpmAddTask(partial);
   const remove = (id) => tasksStore.set(curr => curr.filter(t => t.id !== id));
   const rename = (id, t) => tasksStore.set(curr => curr.map(x => x.id === id ? { ...x, t } : x));
   return [list, { add, remove, rename }];
+}
+
+/* ============================================================
+   FOCUS TIME — time actually spent on each task while in Focus mode.
+   Keyed by NORMALIZED task title (the queue, the Tasks board and the
+   calendar all reference tasks by title in this mockup), value = seconds.
+   Persisted to localStorage so the accrued time survives a refresh, and
+   broadcast so the Focus queue + Tasks list stay in sync live.
+============================================================ */
+const FOCUS_TIME_LS_KEY = "dpm-focus-time-v1";
+function normTitle(s) { return String(s || "").trim().toLowerCase().replace(/\s+/g, " "); }
+const focusTimeInit = (() => {
+  const seed = {
+    // Demo history so the feature reads immediately (matches the Home "45min
+    // elapsed" banner and the running Desjardins session in the Focus view).
+    "desjardins proposal": 45 * 60,
+    "finalize the desjardins client proposal": 45 * 60,
+    "review pr #142": 22 * 60,
+    "stand-up · notes": 10 * 60,
+    "q2 presentation": 80 * 60,
+    "supplier emails": 12 * 60,
+    // Tasks-board (List view) titles — kept in sync so the Focus column there
+    // is populated too.
+    "finalize desjardins client proposal": 45 * 60,
+    "review pr #142 — refactoring auth": 22 * 60,
+    "prep q2 board presentation": 80 * 60,
+    "staging database migration": 35 * 60,
+  };
+  if (typeof window === "undefined") return seed;
+  try {
+    const raw = window.localStorage.getItem(FOCUS_TIME_LS_KEY);
+    if (raw) return { ...seed, ...JSON.parse(raw) };
+  } catch (e) {}
+  return seed;
+})();
+const focusTimeStore = makeStore("FocusTime", focusTimeInit);
+function focusTimePersist() {
+  try { window.localStorage.setItem(FOCUS_TIME_LS_KEY, JSON.stringify(window.__dpmFocusTime)); } catch (e) {}
+}
+// "1h 05m" · "32m" · "45s" · "" (nothing yet)
+function fmtFocusTime(secs, opts = {}) {
+  const s = Math.max(0, Math.round(secs || 0));
+  if (s === 0) return opts.dash ? "—" : "";
+  const h = Math.floor(s / 3600);
+  const m = Math.floor((s % 3600) / 60);
+  if (h > 0) return `${h}h ${String(m).padStart(2, "0")}m`;
+  if (m > 0) return `${m}m`;
+  return `${s}s`;
+}
+function focusTimeFor(title) {
+  const map = (typeof window !== "undefined" && window.__dpmFocusTime) || {};
+  return map[normTitle(title)] || 0;
+}
+function useFocusTime() {
+  const [map, setMap] = useState(focusTimeStore.get());
+  useEffect(() => {
+    const h = (e) => setMap({ ...e.detail });
+    window.addEventListener(focusTimeStore.evt, h);
+    return () => window.removeEventListener(focusTimeStore.evt, h);
+  }, []);
+  const add = (title, secs) => {
+    const k = normTitle(title);
+    if (!k || !secs) return;
+    focusTimeStore.set(curr => ({ ...curr, [k]: (curr[k] || 0) + secs }));
+    focusTimePersist();
+  };
+  const setTime = (title, secs) => {
+    const k = normTitle(title);
+    if (!k) return;
+    focusTimeStore.set(curr => ({ ...curr, [k]: Math.max(0, secs) }));
+    focusTimePersist();
+  };
+  const reset = (title) => {
+    const k = normTitle(title);
+    focusTimeStore.set(curr => { const n = { ...curr }; delete n[k]; return n; });
+    focusTimePersist();
+  };
+  return [map, { add, setTime, reset, get: focusTimeFor }];
+}
+if (typeof window !== "undefined") {
+  Object.assign(window, { useFocusTime, fmtFocusTime, focusTimeFor, normTitle });
 }
 
 Object.assign(window, {
   useHabits, useGoals, useRules, useNotes, useEvents, useTasks, useKanbanFx,
   HABIT_ICONS, HABIT_COLORS,
 });
+
+/* ============================================================
+   UNIFIED CREATION BACKBONE (P1 / P2)
+   Every create surface — the New-task modal, Quick Create, a calendar
+   click, the task list, the board and the command palette — funnels through
+   window.__dpmCreate(payload) so a created item ACTUALLY lands in the right
+   store and shows up in the views that read it. window.__dpmRemove undoes it.
+============================================================ */
+function fmtDurShort(mins) { const m = +mins || 30; return m % 60 === 0 ? `${m / 60}h` : `${m}min`; }
+function taskToneFromPriority(p) {
+  const s = String(p || "").toLowerCase();
+  if (s === "urgent" || s === "high") return "warning";
+  if (s === "low") return "success";
+  return "primary";
+}
+function taskEnergy(e) { const s = String(e || "").toLowerCase(); return (s === "high" || s === "low") ? s : undefined; }
+
+function dpmAddTask(partial = {}) {
+  const mins = partial.mins || partial.duration || 30;
+  const energy = partial.e || taskEnergy(partial.energy);
+  const t = {
+    id: "u" + Date.now() + Math.floor(Math.random() * 1000),
+    t: partial.t || partial.title || "New task",
+    d: partial.d || fmtDurShort(mins),
+    mins,
+    p: partial.p || taskToneFromPriority(partial.priority),
+    ...(energy ? { e: energy } : {}),
+  };
+  tasksStore.set(curr => [t, ...curr]); // prepend so the new task is visible at once
+  return t.id;
+}
+function dpmAddHabit(partial = {}) {
+  const h = {
+    id: "h" + Date.now(),
+    name: partial.name || partial.title || "New habit",
+    iconName: partial.iconName || "Star",
+    color: partial.color || HABIT_COLORS[0],
+    type: partial.type || "Daily",
+    freq: partial.freq || "Daily",
+    streak: 0, weekly: [0, 0, 0, 0, 0, 0, 0], logs: {},
+    duration: partial.duration || "—",
+    done: false,
+    space: partial.space || currentSpaceTag(),
+  };
+  habitsStore.set(curr => [...curr, h]);
+  return h.id;
+}
+function dpmAddEvent(partial = {}) {
+  const e = {
+    id: "e" + Date.now(),
+    title: partial.title || "New event",
+    calendar: partial.calendar || "Work",
+    color: partial.color || "263 70% 60%",
+    allDay: !!partial.allDay,
+    date: partial.date || (window.DPMDate ? (() => { const d = window.DPMDate.today(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; })() : new Date().toISOString().slice(0, 10)),
+    start: partial.start || "09:00",
+    end: partial.end || "10:00",
+    location: partial.location || "",
+    attendees: partial.attendees || [],
+    notify: partial.notify ?? true,
+    repeat: partial.repeat || "none",
+    busy: partial.busy || "busy",
+    visibility: partial.visibility || "default",
+    kind: partial.type || "event",
+    desc: partial.desc || partial.notes || "",
+  };
+  eventsStore.set(curr => [...curr, e]);
+  return e.id;
+}
+function dpmCreate(payload = {}) {
+  const type = payload.type || "task";
+  if (type === "habit") return { type, id: dpmAddHabit(payload) };
+  if (type === "task")  return { type, id: dpmAddTask(payload) };
+  return { type, id: dpmAddEvent(payload) }; // event / focus / availability / poll
+}
+function dpmRemove(ref = {}) {
+  const { type, id } = ref;
+  if (!id) return;
+  if (type === "habit") habitsStore.set(curr => curr.filter(x => x.id !== id));
+  else if (type === "task") tasksStore.set(curr => curr.filter(x => x.id !== id));
+  else eventsStore.set(curr => curr.filter(x => x.id !== id));
+}
+if (typeof window !== "undefined") {
+  Object.assign(window, { __dpmCreate: dpmCreate, __dpmRemove: dpmRemove, computeStreak, habitWeeklyTarget });
+}
 
 /* ============================================================
    GLOBAL ACCENT COLOR — lets the user recolor the app's selection/primary
@@ -451,4 +697,68 @@ function useKanbanFx() {
   const setEndCol  = (boardId, colId)      => commit(s => ({ ...s, endCol:{ ...s.endCol, [boardId]: colId } }));
   const setColor   = (boardId, colId, hsl) => commit(s => ({ ...s, color: { ...s.color, [boardId + ":" + colId]: hsl } }));
   return [state, { setMotion, setAnim, setEndCol, setColor }];
+}
+
+/* ============================================================
+   PROFILE / ACCOUNT STORE — the user identity + everything captured
+   during sign-up and onboarding. Persisted to localStorage so a refresh
+   keeps the account, and read across the app (header avatar, greeting,
+   first calendars/tasks/goal, chronotype, working hours, preferences).
+
+   Shape:
+     firstName, email, newsletter            ← from sign-up
+     onboarded (bool)                          ← finished the flow once
+     calendars {google,microsoft,apple}        ← connected providers
+     spaces [{id,name,color,on}]               ← chosen contexts
+     tasks [str], goal, habit                  ← first intentions
+     chrono, watch, hours{start,end}, days[]   ← rhythm
+     accent, notif, prefs[]                    ← personalization
+
+   Auth here is a front-end mock (no backend); the value is a faithful,
+   persistent demo of the real data contract the app would consume.
+============================================================ */
+const PROFILE_LS_KEY = "dpm-profile";
+const profileInit = (() => {
+  const base = {
+    firstName: "", email: "", newsletter: false, onboarded: false,
+    calendars: { google: false, microsoft: false, apple: false },
+    spaces: [], tasks: [], goal: "", habit: null,
+    chrono: "third", watch: null, hours: { start: "09:00", end: "18:00" },
+    days: [true, true, true, true, true, false, false],
+    accent: "violet", notif: true, prefs: [true, true, true],
+  };
+  if (typeof window === "undefined") return base;
+  try {
+    const raw = window.localStorage.getItem(PROFILE_LS_KEY);
+    if (raw) return { ...base, ...JSON.parse(raw) };
+  } catch (e) {}
+  return base;
+})();
+const profileStore = makeStore("Profile", profileInit);
+function profilePersist() {
+  try { window.localStorage.setItem(PROFILE_LS_KEY, JSON.stringify(window.__dpmProfile)); } catch (e) {}
+}
+/* Initials for the avatar, derived from the first name (falls back to "RG"). */
+function profileInitials(p) {
+  const n = (p && p.firstName || "").trim();
+  if (!n) return "RG";
+  const parts = n.split(/\s+/).filter(Boolean);
+  return (parts.length > 1 ? parts[0][0] + parts[1][0] : n.slice(0, 2)).toUpperCase();
+}
+function useProfile() {
+  const [state, setState] = useState(profileStore.get());
+  useEffect(() => {
+    const h = (e) => setState({ ...e.detail });
+    window.addEventListener(profileStore.evt, h);
+    return () => window.removeEventListener(profileStore.evt, h);
+  }, []);
+  // merge a partial patch (or updater) and persist
+  const update = (patch) => {
+    profileStore.set(s => ({ ...s, ...(typeof patch === "function" ? patch(s) : patch) }));
+    profilePersist();
+  };
+  return [state, update];
+}
+if (typeof window !== "undefined") {
+  Object.assign(window, { useProfile, profileInitials, profilePersist });
 }

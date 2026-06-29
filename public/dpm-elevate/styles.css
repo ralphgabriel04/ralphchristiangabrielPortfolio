@@ -378,6 +378,24 @@ html, body { transition: background-color 240ms ease; }
   .lp-reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
 }
 
+/* Card micro-interaction — gentle lift + shadow + accent border on hover for
+   content cards (how-it-works steps, security cards). Composited transform/
+   shadow only, so it stays cheap. Under reduced motion the lift is dropped
+   (border/shadow feedback only). */
+.lp-card-hover {
+  transition: transform 260ms cubic-bezier(0.33, 1, 0.68, 1),
+              box-shadow 260ms ease, border-color 260ms ease;
+}
+.lp-card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px -18px hsl(263 70% 30% / 0.5);
+  border-color: hsl(var(--primary) / 0.4);
+}
+:root.light .lp-card-hover:hover { box-shadow: 0 18px 40px -18px hsl(263 40% 50% / 0.28); }
+@media (prefers-reduced-motion: reduce) {
+  .lp-card-hover:hover { transform: none; }
+}
+
 /* Hero headline — animated gradient wash that slowly breathes. */
 .lp-gradient-text {
   background: linear-gradient(110deg,
@@ -534,6 +552,25 @@ html, body { transition: background-color 240ms ease; }
    scroll or interaction. Honors prefers-reduced-motion (full static).
    --lp-trail: 24 95% 56% ≈ #ef8324 — high contrast on #020817.
 ============================================================ */
+/* Inline spinner for auth button pending states. */
+@keyframes lpSpin { to { transform: rotate(360deg); } }
+.lp-spin { animation: lpSpin 0.7s linear infinite; transform-origin: 50% 50%; }
+@media (prefers-reduced-motion: reduce) { .lp-spin { animation-duration: 1.4s; } }
+
+/* Overlay + banner motion for landing modals (video, legal) and cookie bar. */
+@keyframes lpFadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes lpPop { from { opacity: 0; transform: scale(0.96) translateY(8px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+@keyframes lpSlideUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes lpVideoProgress { from { width: 8%; } to { width: 92%; } }
+.lp-fade-in { animation: lpFadeIn 0.2s ease both; }
+.lp-pop { animation: lpPop 0.28s cubic-bezier(0.2,0.8,0.2,1) both; }
+.lp-slide-up { animation: lpSlideUp 0.35s cubic-bezier(0.2,0.8,0.2,1) both; }
+.lp-video-progress { animation: lpVideoProgress 90s linear forwards; }
+@media (prefers-reduced-motion: reduce) {
+  .lp-fade-in, .lp-pop, .lp-slide-up { animation-duration: 0.01ms; }
+  .lp-video-progress { animation: none; width: 8%; }
+}
+
 .lp-trail-svg {
   position: absolute;
   inset: 0;

@@ -41,6 +41,10 @@
 <body>
   <div id="root" style="height: 100vh; width: 100vw;"></div>
 
+  <!-- Dynamic date layer (plain JS — runs before the Babel pipeline so
+       window.DPMDate is ready for every component). -->
+  <script src="dpm-dates.jsx"></script>
+
   <!-- Components — order matters: deps first -->
   <script type="text/babel" src="ui.jsx"></script>
   <script type="text/babel" src="i18n.jsx"></script>
@@ -57,11 +61,15 @@
   <script type="text/babel" src="slot-actions.jsx"></script>
   <script type="text/babel" src="devices.jsx"></script>
   <script type="text/babel" src="shell.jsx"></script>
+  <script type="text/babel" src="auth-kit.jsx"></script>
   <script type="text/babel" src="pages-auth.jsx"></script>
+  <script type="text/babel" src="pages-signup.jsx"></script>
   <script type="text/babel" src="onboarding.jsx"></script>
   <script type="text/babel" src="landing-copy.jsx"></script>
   <script type="text/babel" src="landing-copy2.jsx"></script>
+  <script type="text/babel" src="landing-copy3.jsx"></script>
   <script type="text/babel" src="landing-fx.jsx"></script>
+  <script type="text/babel" src="landing-sections.jsx"></script>
   <script type="text/babel" src="landing-demos.jsx"></script>
   <script type="text/babel" src="landing-demos2.jsx"></script>
   <script type="text/babel" src="landing-demos3.jsx"></script>
@@ -74,6 +82,15 @@
   <script type="text/babel" src="tour-catalog.jsx"></script>
   <script type="text/babel" src="tour.jsx"></script>
   <script type="text/babel" src="resources.jsx"></script>
+  <script type="text/babel" src="command-palette.jsx"></script>
+  <script type="text/babel" src="app-states.jsx"></script>
+  <script type="text/babel" src="quick-create.jsx"></script>
+  <script type="text/babel" src="pages-sync.jsx"></script>
+  <script type="text/babel" src="pages-ai.jsx"></script>
+  <script type="text/babel" src="automations.jsx"></script>
+  <script type="text/babel" src="pages-collab.jsx"></script>
+  <script type="text/babel" src="pages-account.jsx"></script>
+  <script type="text/babel" src="pages-notifications.jsx"></script>
   <script type="text/babel" src="tweaks-panel.jsx"></script>
   <script type="text/babel" src="app.jsx"></script>
 </body>

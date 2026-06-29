@@ -245,6 +245,20 @@ function WorkloadWidget() {
 
 function HomePage({ setRoute, emptyState, onOpenTask }) {
   const isMobile = window.useIsMobile ? window.useIsMobile() : false;
+  const [profile] = (typeof useProfile === "function") ? useProfile() : [{}];
+  const greetLang = (typeof useLang === "function") ? useLang() : (window.__dpmLang || "en");
+  const greetName = (profile && profile.firstName || "").trim() || "Ralph";
+  const greet = window.DPMDate ? window.DPMDate.greeting(greetLang, greetName)
+    : (greetLang === "fr" ? "Bon après-midi, " : "Good afternoon, ") + greetName;
+  // Live clock — re-renders the date line each minute so it never freezes.
+  const [nowTick, setNowTick] = useState(() => Date.now());
+  useEffect(() => {
+    const id = setInterval(() => setNowTick(Date.now()), 30000);
+    return () => clearInterval(id);
+  }, []);
+  const dateLine = window.DPMDate
+    ? `${window.DPMDate.time(undefined, greetLang)} · ${window.DPMDate.longDate(undefined, greetLang)}`
+    : "";
   const [energy, setEnergy] = useState(4);
   const [homeSpaceId] = useSpace();
   const inHomeSpace = (e) => homeSpaceId === "all" || (window.__dpmItemInSpace ? window.__dpmItemInSpace(e, homeSpaceId) : true);
@@ -307,6 +321,16 @@ function HomePage({ setRoute, emptyState, onOpenTask }) {
   const homeVisibleCount = HOME_WIDGETS.filter(w => homeVisible[w.id]).length;
   const homeTotalCount = HOME_WIDGETS.length;
 
+  // Essentiel / Complet quick presets (P6). Essentiel = a curated focused subset.
+  const HOME_ESSENTIAL = ["workload", "current-task", "assistant", "tasks-today"];
+  const setHomeMode = (mode) => {
+    if (mode === "full") setHomeVisible(HOME_ALL_ON);
+    else setHomeVisible(Object.fromEntries(HOME_WIDGETS.map(w => [w.id, HOME_ESSENTIAL.includes(w.id)])));
+  };
+  const homeMode = HOME_WIDGETS.every(w => !!homeVisible[w.id]) ? "full"
+    : HOME_WIDGETS.every(w => !!homeVisible[w.id] === HOME_ESSENTIAL.includes(w.id)) ? "essential"
+    : "custom";
+
   // Drag-and-drop in-place reorder on the page (Mechanism B from P11.7).
   const [draggingWidget, setDraggingWidget] = useState(null);
   const [overWidget, setOverWidget] = useState(null);
@@ -365,7 +389,7 @@ function HomePage({ setRoute, emptyState, onOpenTask }) {
     return (
       <div className="max-w-5xl mx-auto pt-12">
         <div className="text-center mb-12">
-          <h1 className="text-[32px] font-bold tracking-tight">Good afternoon, Ralph!</h1>
+          <h1 className="text-[32px] font-bold tracking-tight">{greet}</h1>
           <p className="text-[14px] text-[hsl(var(--muted-foreground))] mt-1.5">Your day starts here.</p>
         </div>
         <Card padding="p-16" className="text-center">
@@ -393,10 +417,10 @@ function HomePage({ setRoute, emptyState, onOpenTask }) {
         <div>
           <h1 className="text-[28px] font-bold tracking-tight flex items-center gap-2.5">
             <Icons.Sun size={22} className="text-[hsl(38_92%_60%)]" />
-            Good afternoon, Ralph
+            <span>{greet}</span>
           </h1>
           <p className="text-[13px] text-[hsl(var(--muted-foreground))] mt-1 tabular-nums">
-            14:32 · samedi 24 mai 2026
+            {dateLine}
           </p>
         </div>
         <div className="flex items-center gap-3 flex-wrap">
@@ -408,13 +432,27 @@ function HomePage({ setRoute, emptyState, onOpenTask }) {
             />
           </Card>
           <ModuleTutorialButton module="home" />
+          <div className="inline-flex items-center rounded-[9px] border border-[hsl(var(--border))] p-0.5 bg-[hsl(var(--background))]" role="group" aria-label="Home density">
+            {[["essential", "Essential"], ["full", "Complete"]].map(([m, lbl]) => (
+              <button
+                key={m}
+                onClick={() => setHomeMode(m)}
+                className={cn(
+                  "h-8 px-3 rounded-[7px] text-[12px] font-medium transition-colors",
+                  homeMode === m
+                    ? "bg-[hsl(var(--primary))] text-white"
+                    : "text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]"
+                )}
+              >{lbl}</button>
+            ))}
+          </div>
           <Button
             variant={customizing ? "primary" : "outline"}
             size="sm"
             icon={Icons.Layout}
             onClick={() => setCustomizing(c => !c)}
           >
-            Personnaliser
+            Customize
             {homeVisibleCount < homeTotalCount && (
               <span className="ml-1.5 px-1.5 py-0.5 rounded-full bg-[hsl(var(--primary)/0.18)] text-[hsl(263_70%_80%)] text-[10px] font-mono tabular-nums">
                 {homeVisibleCount}/{homeTotalCount}
@@ -434,7 +472,7 @@ function HomePage({ setRoute, emptyState, onOpenTask }) {
           <p className="text-[12.5px] text-[hsl(var(--muted-foreground))] max-w-sm mx-auto mb-5">
             Open “Customize” to re-enable the sections you care about. Your settings are remembered.
           </p>
-          <Button size="sm" icon={Icons.Layout} onClick={() => setCustomizing(true)}>Personnaliser</Button>
+          <Button size="sm" icon={Icons.Layout} onClick={() => setCustomizing(true)}>Customize</Button>
         </Card>
       )}
 
@@ -459,7 +497,7 @@ function HomePage({ setRoute, emptyState, onOpenTask }) {
                   </div>
                   <h3 className="text-[18px] font-semibold leading-tight">Finalize the Desjardins client proposal</h3>
                   <div className="flex items-center gap-x-4 gap-y-1 flex-wrap text-[12px] text-[hsl(var(--muted-foreground))] mt-2">
-                    <span className="flex items-center gap-1.5"><Icons.Clock size={12} /> 2h estimated · 45min elapsed</span>
+                    <span className="flex items-center gap-1.5"><Icons.Clock size={12} /> 2h estimated · {window.fmtFocusTime ? window.fmtFocusTime(window.focusTimeFor("Finalize the Desjardins client proposal"), { dash: true }) : "45min"} in focus</span>
                     <span className="flex items-center gap-1.5"><Icons.Target size={12} /> Started at 13:47</span>
                   </div>
                   <div className="mt-3">
@@ -467,9 +505,9 @@ function HomePage({ setRoute, emptyState, onOpenTask }) {
                   </div>
                 </div>
                 <div className={cn("flex items-center gap-1.5", isMobile ? "w-full justify-end" : "flex-shrink-0")}>
-                  <Button variant="outline" size="sm" icon={Icons.Check}>Terminer</Button>
-                  <Button variant="ghost" size="iconSm" title="Passer"><Icons.SkipForward size={14}/></Button>
-                  <Button variant="ghost" size="iconSm" title="Plus"><Icons.More size={14}/></Button>
+                  <Button variant="outline" size="sm" icon={Icons.Check}>Done</Button>
+                  <Button variant="ghost" size="iconSm" title="Skip"><Icons.SkipForward size={14}/></Button>
+                  <Button variant="ghost" size="iconSm" title="More options"><Icons.More size={14}/></Button>
                 </div>
               </div>
             </Card>
@@ -1319,6 +1357,7 @@ const AI_SUGGESTIONS = [
     action: "Reschedule",
     icon: "Moon",
     source: { title: "Why We Sleep", author: "Matthew Walker" },
+    apply: { toast: "Task rescheduled to 2 PM", doneLabel: "Rescheduled" },
   },
   {
     id: "energy-pattern",
@@ -1326,6 +1365,7 @@ const AI_SUGGESTIONS = [
     action: "View the day",
     icon: "Sunrise",
     source: { title: "When", author: "Daniel H. Pink" },
+    nav: "calendar",
   },
   {
     id: "habit-1",
@@ -1333,6 +1373,7 @@ const AI_SUGGESTIONS = [
     action: "Block 20 min",
     icon: "Clock",
     source: { title: "Atomic Habits", author: "James Clear" },
+    apply: { toast: "20 min blocked for Reading tonight", doneLabel: "Blocked" },
   },
 ];
 
@@ -1439,6 +1480,19 @@ function MenuItem({ icon: Icon, children, onClick }) {
 
 function SuggestionRow({ suggestion }) {
   const ActionIcon = Icons[suggestion.icon] || Icons.ArrowRight;
+  const [done, setDone] = useState(false);
+
+  const onAction = () => {
+    if (suggestion.nav) {
+      window.__dpmNavigate?.(suggestion.nav);
+      return;
+    }
+    if (suggestion.apply) {
+      setDone(true);
+      window.__dpmToast?.(suggestion.apply.toast);
+    }
+  };
+
   return (
     <div className="flex items-start gap-3 p-2.5 rounded-[8px] hover:bg-[hsl(var(--accent)/0.4)] transition-colors group/sug">
       <div className="w-0.5 self-stretch rounded-full bg-[hsl(var(--primary))] flex-shrink-0 min-h-[28px]" />
@@ -1455,9 +1509,16 @@ function SuggestionRow({ suggestion }) {
           </div>
         )}
       </div>
-      <Button variant="outline" size="sm" icon={ActionIcon} className="flex-shrink-0 opacity-90 group-hover/sug:opacity-100">
-        {suggestion.action}
-      </Button>
+      {done ? (
+        <div className="flex-shrink-0 inline-flex items-center gap-1.5 h-8 px-3 rounded-[8px] text-[12px] font-medium text-[hsl(142_70%_45%)] bg-[hsl(142_70%_45%/0.12)] border border-[hsl(142_70%_45%/0.3)]">
+          <Icons.Check size={13} stroke={3} />
+          {suggestion.apply.doneLabel}
+        </div>
+      ) : (
+        <Button variant="outline" size="sm" icon={ActionIcon} onClick={onAction} className="flex-shrink-0 opacity-90 group-hover/sug:opacity-100">
+          {suggestion.action}
+        </Button>
+      )}
     </div>
   );
 }
@@ -1993,7 +2054,7 @@ function DPSchedule({ tasks, schedule, setSchedule }) {
         </div>
       </div>
       <div>
-        <SectionTitle>Today · May 24</SectionTitle>
+        <SectionTitle>{window.DPMDate ? ((window.__dpmLang === "fr" ? "Aujourd'hui · " : "Today · ") + window.DPMDate.fmt(window.DPMDate.today(), { month: "long", day: "numeric" }, window.__dpmLang === "fr" ? "fr" : "en")) : "Today · May 24"}</SectionTitle>
         <div className="rounded-[10px] border border-[hsl(var(--border))] overflow-hidden">
           {schedule.map(row => {
             const isDrop = row.type === "drop" && !row.taskId;
@@ -2142,6 +2203,20 @@ function PlannerPage({ setRoute, onOpenTask }) {
   // Drag-reorder state on the queue
   const [dragId, setDragId] = useState(null);
   const [overId, setOverId] = useState(null);
+
+  // Focus-time accrual: while a task is locked AND the session is running, add
+  // one real second per second to that task's focus total (persisted + shared
+  // with the Tasks board and the Home "elapsed" banner).
+  const [focusMap, focusTimeOps] = (typeof useFocusTime === "function") ? useFocusTime() : [{}, { add() {} }];
+  const fmtFT = window.fmtFocusTime || ((s) => "");
+  const nT = window.normTitle || ((s) => String(s || "").trim().toLowerCase());
+  useEffect(() => {
+    if (!focusActive || lockedTask == null) return;
+    const title = taskQueue.find(x => x.id === lockedTask)?.t;
+    if (!title) return;
+    const id = setInterval(() => focusTimeOps.add(title, 1), 1000);
+    return () => clearInterval(id);
+  }, [focusActive, lockedTask]);
 
   const reorder = (fromId, toId) => {
     if (fromId === toId) return;
@@ -2294,8 +2369,24 @@ function PlannerPage({ setRoute, onOpenTask }) {
                 <Checkbox checked={taskItem.done} onChange={() => {}} />
                 <div className="flex-1 min-w-0">
                   <div className={cn("text-[13px] font-medium truncate", taskItem.done && "line-through text-[hsl(var(--muted-foreground))]")}>{taskItem.t}</div>
-                  <div className="flex items-center gap-2 mt-1">
+                  <div className="flex items-center gap-2 mt-1 flex-wrap">
                     <Badge variant={taskItem.p} dot={taskItem.p !== "muted"} className="text-[10px]">{taskItem.d}</Badge>
+                    {(() => {
+                      const ft = focusMap[nT(taskItem.t)] || 0;
+                      if (!ft) return null;
+                      return (
+                        <span className={cn(
+                          "inline-flex items-center gap-1 text-[10px] font-medium tabular-nums px-1.5 py-0.5 rounded-full",
+                          isLockedRow && focusActive
+                            ? "bg-[hsl(263_70%_60%/0.18)] text-[hsl(263_70%_78%)]"
+                            : "bg-[hsl(var(--muted)/0.6)] text-[hsl(var(--muted-foreground))]"
+                        )} title="Time spent in Focus">
+                          <Icons.Target size={9} />
+                          {fmtFT(ft)}
+                          {isLockedRow && focusActive && <span className="w-1 h-1 rounded-full bg-[hsl(263_70%_70%)] animate-pulse" />}
+                        </span>
+                      );
+                    })()}
                     {isLockedRow && <span className="text-[10px] text-[hsl(38_92%_65%)] font-semibold uppercase tracking-wider flex items-center gap-1"><Icons.Lock size={9} /> {t("focus.taskInProgress")}</span>}
                     {!isLockedRow && isSelected && lockedTask === null && <span className="text-[10px] text-[hsl(var(--primary))] font-semibold uppercase tracking-wider">Selected</span>}
                   </div>
@@ -2532,7 +2623,7 @@ function PlannerPage({ setRoute, onOpenTask }) {
         <div className="flex items-center gap-3 flex-wrap">
           <div>
             <h1 className="text-[22px] font-bold tracking-tight">{t("focus.title")}</h1>
-            <p className="text-[12px] text-[hsl(var(--muted-foreground))] mt-0.5">Saturday May 24 · {taskQueue.length} tasks · 3h planned</p>
+            <p className="text-[12px] text-[hsl(var(--muted-foreground))] mt-0.5">{window.DPMDate ? window.DPMDate.fmt(window.DPMDate.today(), { weekday: "long", month: "long", day: "numeric" }, window.__dpmLang === "fr" ? "fr" : "en") : "Saturday May 24"} · {taskQueue.length} tasks · 3h planned</p>
           </div>
           <div className="flex-1" />
           <ModuleTutorialButton module="planner" />

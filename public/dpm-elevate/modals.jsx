@@ -160,6 +160,196 @@ const DURATION_PRESETS = [
   { v: 240, l: "4h" },
 ];
 
+/* Events that can be linked from the task modal. Titles + day words are kept
+   in English so the runtime i18n layer (UI_FR) auto-translates them. */
+const LINKABLE_EVENTS = [
+  { id: "e1", title: "Team stand-up",          day: "Today",    time: "09:00", type: "meeting" },
+  { id: "e2", title: "Desjardins client call", day: "Today",    time: "14:00", type: "meeting" },
+  { id: "e3", title: "Lunch with Marc",        day: "Tomorrow", time: "12:00", type: "personal" },
+  { id: "e4", title: "Design system review",   day: "Tomorrow", time: "14:30", type: "meeting" },
+  { id: "e5", title: "Sprint planning",        day: "Mon",      time: "10:00", type: "meeting" },
+  { id: "e6", title: "Family dinner",          day: "Sun",      time: "19:00", type: "personal" },
+];
+
+const EVENT_TYPE_COLOR = {
+  meeting:  "217 91% 60%",
+  personal: "280 65% 60%",
+  focus:    "142 70% 50%",
+};
+
+function EventPicker({ value, onChange }) {
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const ref = useRef(null);
+  useEffect(() => {
+    const h = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
+    document.addEventListener("mousedown", h);
+    return () => document.removeEventListener("mousedown", h);
+  }, []);
+
+  const selected = LINKABLE_EVENTS.find(e => e.id === value);
+  const filtered = LINKABLE_EVENTS.filter(e => e.title.toLowerCase().includes(query.toLowerCase().trim()));
+
+  if (selected) {
+    return (
+      <div className="w-full flex items-center gap-2.5 p-3 rounded-[8px] border border-[hsl(var(--primary)/0.4)] bg-[hsl(var(--primary)/0.08)]">
+        <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: `hsl(${EVENT_TYPE_COLOR[selected.type] || EVENT_TYPE_COLOR.meeting})` }} />
+        <div className="flex-1 min-w-0">
+          <div className="text-[12.5px] font-medium truncate">{selected.title}</div>
+          <div className="text-[11px] text-[hsl(var(--muted-foreground))]">{selected.day} · {selected.time}</div>
+        </div>
+        <button type="button" onClick={() => onChange("")} title="Remove link" className="w-6 h-6 rounded-md hover:bg-[hsl(var(--accent))] flex items-center justify-center text-[hsl(var(--muted-foreground))] flex-shrink-0">
+          <Icons.X size={13} />
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative" ref={ref}>
+      <button type="button" onClick={() => setOpen(o => !o)}
+        className="w-full flex items-center gap-2 p-3 rounded-[8px] border border-dashed border-[hsl(var(--border))] text-[12.5px] text-[hsl(var(--muted-foreground))] hover:bg-[hsl(var(--accent)/0.3)] transition-colors">
+        <Icons.Calendar size={13} />
+        Choose an event…
+      </button>
+      {open && (
+        <div className="absolute z-50 left-0 right-0 mt-1.5 rounded-[10px] border border-[hsl(var(--border))] bg-[hsl(var(--popover))] shadow-xl anim-fade-in overflow-hidden">
+          <div className="p-2 border-b border-[hsl(var(--border))]">
+            <div className="flex items-center gap-2 h-9 px-2.5 rounded-[7px] bg-[hsl(var(--background))] border border-[hsl(var(--input))]">
+              <Icons.Search size={13} className="text-[hsl(var(--muted-foreground))]" />
+              <input autoFocus value={query} onChange={e => setQuery(e.target.value)} placeholder="Search an event"
+                className="flex-1 bg-transparent text-[12.5px] focus:outline-none placeholder:text-[hsl(var(--muted-foreground))]" />
+            </div>
+          </div>
+          <div className="max-h-[220px] overflow-y-auto py-1">
+            {filtered.length === 0 && (
+              <div className="px-3 py-4 text-center text-[12px] text-[hsl(var(--muted-foreground))]">No event found</div>
+            )}
+            {filtered.map(e => (
+              <button key={e.id} type="button" onClick={() => { onChange(e.id); setOpen(false); setQuery(""); }}
+                className="w-full px-3 py-2 flex items-center gap-2.5 hover:bg-[hsl(var(--accent))] text-left">
+                <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: `hsl(${EVENT_TYPE_COLOR[e.type] || EVENT_TYPE_COLOR.meeting})` }} />
+                <div className="flex-1 min-w-0">
+                  <div className="text-[12.5px] font-medium truncate">{e.title}</div>
+                  <div className="text-[11px] text-[hsl(var(--muted-foreground))]">{e.day} · {e.time}</div>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ============================================================
+   SMART CAPTURE — voice + natural-language auto-fill
+   Reuses window.parseCapture (defined in command-palette.jsx).
+============================================================ */
+function fmtMinLocal(m) {
+  const h = Math.floor(m / 60), mm = m % 60;
+  return `${String(h).padStart(2, "0")}:${String(mm).padStart(2, "0")}`;
+}
+
+function useSpeech(lang, onResult) {
+  const recRef = useRef(null);
+  const finalRef = useRef("");
+  const [listening, setListening] = useState(false);
+  const SR = (typeof window !== "undefined") && (window.SpeechRecognition || window.webkitSpeechRecognition);
+  const supported = !!SR;
+  const toastErr = (msg) => window.__dpmToast?.(msg, { tone: "danger" });
+
+  const stop = () => { try { recRef.current?.stop(); } catch (e) {} setListening(false); };
+
+  const begin = () => {
+    try {
+      const rec = new SR();
+      rec.lang = lang === "fr" ? "fr-FR" : "en-US";
+      rec.interimResults = true;
+      rec.continuous = false;
+      finalRef.current = "";
+      rec.onresult = (e) => {
+        let interim = "";
+        for (let i = e.resultIndex; i < e.results.length; i++) {
+          const r = e.results[i];
+          if (r.isFinal) finalRef.current += r[0].transcript;
+          else interim += r[0].transcript;
+        }
+        onResult((finalRef.current + interim).trim(), false);
+      };
+      rec.onend = () => { setListening(false); if (finalRef.current) onResult(finalRef.current.trim(), true); };
+      rec.onerror = (e) => {
+        setListening(false);
+        const err = e && e.error;
+        if (err === "not-allowed" || err === "service-not-allowed") toastErr("Microphone blocked — allow it and open this page in a browser tab");
+        else if (err === "audio-capture") toastErr("No microphone detected");
+        else if (err === "no-speech") toastErr("Didn't catch that — try again");
+        else if (err && err !== "aborted") toastErr("Dictation failed — type instead");
+      };
+      recRef.current = rec;
+      rec.start();
+      setListening(true);
+    } catch (e) { setListening(false); toastErr("Dictation failed — type instead"); }
+  };
+
+  const start = async () => {
+    if (!supported) { toastErr("Voice input not supported — type instead"); return; }
+    // Warm up mic permission first: in restricted/embedded contexts this surfaces
+    // a clear error instead of the SpeechRecognition API failing silently.
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      try {
+        const s = await navigator.mediaDevices.getUserMedia({ audio: true });
+        s.getTracks().forEach(t => t.stop());
+      } catch (e) {
+        toastErr("Microphone blocked — allow it and open this page in a browser tab");
+        return;
+      }
+    }
+    begin();
+  };
+
+  useEffect(() => () => stop(), []);
+  return { supported, listening, start, stop };
+}
+
+const DATE_CHIP_MAP = { Today: "today", Tomorrow: "tomorrow", Monday: "monday", Friday: "friday" };
+
+function durLabel(min) { return min % 60 === 0 ? `${min / 60}h` : `${min} min`; }
+
+function CaptureSuggestion({ p, onApply, onDismiss }) {
+  const chips = [];
+  if (p.dateLabel && p.dateLabel !== "No date") chips.push({ icon: Icons.Calendar, label: p.dateLabel });
+  if (p.startMin != null) chips.push({ icon: Icons.Clock, label: fmtMinLocal(p.startMin) });
+  if (p.durMin != null) chips.push({ label: durLabel(p.durMin) });
+  if (p.priority === "high") chips.push({ label: "Urgent", tone: "danger" });
+  (p.tags || []).forEach(t => chips.push({ label: "#" + t, tone: "primary" }));
+  return (
+    <div className="mt-2 rounded-[10px] border border-[hsl(var(--primary)/0.3)] bg-[hsl(var(--primary)/0.06)] p-2.5 anim-fade-in">
+      <div className="flex items-center gap-2 mb-2">
+        <Icons.Sparkles size={13} className="text-[hsl(var(--primary))]" />
+        <span className="text-[11.5px] font-semibold">I understood</span>
+        <button type="button" onClick={onDismiss} title="Dismiss" className="ml-auto w-5 h-5 rounded hover:bg-[hsl(var(--accent))] flex items-center justify-center text-[hsl(var(--muted-foreground))]">
+          <Icons.X size={11} />
+        </button>
+      </div>
+      <div className="flex flex-wrap items-center gap-1.5 mb-2.5">
+        <span className="text-[12px] font-medium">{p.title}</span>
+        {chips.map((c, i) => (
+          <span key={i} className={cn("inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10.5px] font-medium",
+            c.tone === "danger" ? "bg-[hsl(0_84%_60%/0.15)] text-[hsl(0_84%_70%)]"
+            : c.tone === "primary" ? "bg-[hsl(var(--primary)/0.15)] text-[hsl(263_70%_75%)]"
+            : "bg-[hsl(var(--muted))] text-[hsl(var(--muted-foreground))]")}>
+            {c.icon && <c.icon size={10} />}{c.label}
+          </span>
+        ))}
+      </div>
+      <button type="button" onClick={() => onApply(p)} className="h-7 px-3 rounded-[7px] bg-[hsl(var(--primary))] text-white text-[11.5px] font-semibold hover:opacity-90">
+        Apply
+      </button>
+    </div>
+  );
+}
+
 function TaskModal({ open, onClose, defaults = {} }) {
   const [title, setTitle] = useState("");
   const [status, setStatus] = useState("todo");
@@ -176,8 +366,58 @@ function TaskModal({ open, onClose, defaults = {} }) {
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [url, setUrl] = useState("");
   const [energy, setEnergy] = useState("MEDIUM");
+  const [linkedEvent, setLinkedEvent] = useState("");
   const [notes, setNotes] = useState("");
+  const [captureDismissed, setCaptureDismissed] = useState(false);
   const titleRef = useRef(null);
+
+  const lang = (typeof window !== "undefined" && window.__dpmLang === "fr") ? "fr" : "en";
+  const speech = useSpeech(lang, (text) => { setTitle(text); setCaptureDismissed(false); });
+
+  // Natural-language parse of the title (reuses the command-palette parser).
+  const capture = useMemo(() => {
+    if (!open || captureDismissed) return null;
+    const txt = (title || "").trim();
+    if (txt.length < 4 || typeof window === "undefined" || !window.parseCapture) return null;
+    try {
+      const p = window.parseCapture(txt);
+      if (!p) return null;
+      const hasSignal = p.priority === "high" || (p.tags && p.tags.length) ||
+        p.startMin != null || p.durMin != null || (p.dateLabel && p.dateLabel !== "No date");
+      return hasSignal ? p : null;
+    } catch (e) { return null; }
+  }, [title, open, captureDismissed]);
+
+  const applyCapture = (p) => {
+    if (p.title) setTitle(p.title);
+    if (p.priority === "high") setPriority("URGENT");
+    const dc = DATE_CHIP_MAP[p.dateLabel];
+    if (dc) setDueDate(dc);
+    if (p.startMin != null) setPlanTime(fmtMinLocal(p.startMin));
+    if (p.durMin != null) setDuration(p.durMin);
+    if (p.tags && p.tags.length) setTags(prev => Array.from(new Set([...prev, ...p.tags])));
+    setCaptureDismissed(true);
+    window.__dpmToast?.("Details applied from capture");
+  };
+
+  // Actually create the task in the shared store (P2) so it shows up in the
+  // task list / calendar inbox immediately. Both footer buttons funnel here.
+  const submit = (schedule) => {
+    const name = (title || "").trim();
+    if (!name) return;
+    window.__dpmCreate?.({
+      type: "task", title: name, priority, duration, energy, tags,
+      planDate, planTime,
+    });
+    window.__dpmToast?.(schedule ? "Task created & scheduled" : "Task created");
+    onClose?.();
+  };
+  useEffect(() => {
+    if (!open) return;
+    const h = (e) => { if ((e.metaKey || e.ctrlKey) && e.key === "Enter") { e.preventDefault(); submit(false); } };
+    window.addEventListener("keydown", h);
+    return () => window.removeEventListener("keydown", h);
+  }); // eslint-disable-line
 
   // Signature of defaults so the prefill re-runs when the slot payload changes,
   // not only on open-toggle (fixes duration not carrying over on rapid re-open).
@@ -189,7 +429,8 @@ function TaskModal({ open, onClose, defaults = {} }) {
       setDueDate(""); setPlanDate(defaults.planDate || ""); setPlanTime(defaults.planTime || ""); setDuration(defaults.duration || 30);
       setDesc(""); setChecklist([]); setCheckInput("");
       setTags([]); setTagInput("");
-      setShowAdvanced(false); setUrl(""); setEnergy("MEDIUM"); setNotes("");
+      setShowAdvanced(false); setUrl(""); setEnergy("MEDIUM"); setLinkedEvent(""); setNotes("");
+      setCaptureDismissed(false);
       setTimeout(() => titleRef.current?.focus(), 80);
     }
   }, [open, defaultsKey]);
@@ -207,23 +448,63 @@ function TaskModal({ open, onClose, defaults = {} }) {
   const priorityObj = PRIORITY_OPTIONS.find(p => p.id === priority);
   const statusObj = STATUS_OPTIONS.find(s => s.id === status);
 
+  // Dynamic due-date chips (P4) — labels translate via i18n, dates via DPMDate.
+  const dueChips = useMemo(() => {
+    const D = window.DPMDate;
+    if (!D) return [
+      { id: "today", l: "Today" }, { id: "tomorrow", l: "Tomorrow" },
+      { id: "monday", l: "Monday" }, { id: "friday", l: "Friday" }, { id: "next-week", l: "Next week" },
+    ];
+    const sub = (date) => D.fmt(date, { weekday: "short", day: "numeric", month: "short" });
+    const today = D.today();
+    const nextDow = (dow) => { let delta = (dow - today.getDay() + 7) % 7; if (delta === 0) delta = 7; return D.addDays(today, delta); };
+    const nextWeekMon = D.addDays(D.weekStart(today), 7);
+    return [
+      { id: "today",     l: "Today",     sub: sub(today) },
+      { id: "tomorrow",  l: "Tomorrow",  sub: sub(D.addDays(today, 1)) },
+      { id: "monday",    l: "Monday",    sub: sub(nextDow(1)) },
+      { id: "friday",    l: "Friday",    sub: sub(nextDow(5)) },
+      { id: "next-week", l: "Next week", sub: sub(nextWeekMon) },
+    ];
+  }, [open]);
+
   return (
     <Modal open={open} onClose={onClose} size="xl">
       <ModalHeader title="New task" onClose={onClose} />
 
       <ModalBody className="space-y-4">
-        {/* Title with mic */}
-        <div className="relative">
-          <input
-            ref={titleRef}
-            value={title}
-            onChange={e => setTitle(e.target.value)}
-            placeholder="Task title"
-            className="w-full h-11 pl-3 pr-11 rounded-[8px] border border-[hsl(var(--input))] bg-[hsl(var(--background))] text-[14px] font-medium focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))] placeholder:text-[hsl(var(--muted-foreground))]"
-          />
-          <button title="Voice dictation" className="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-md hover:bg-[hsl(var(--accent))] flex items-center justify-center text-[hsl(var(--muted-foreground))]">
-            <Icons.Mic size={14} />
-          </button>
+        {/* Title with mic + smart capture */}
+        <div>
+          <div className="relative">
+            <input
+              ref={titleRef}
+              value={title}
+              onChange={e => { setTitle(e.target.value); setCaptureDismissed(false); }}
+              placeholder="Task title — or dictate it"
+              className="w-full h-11 pl-3 pr-11 rounded-[8px] border border-[hsl(var(--input))] bg-[hsl(var(--background))] text-[14px] font-medium focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))] placeholder:text-[hsl(var(--muted-foreground))]"
+            />
+            <button
+              type="button"
+              title={speech.supported ? (speech.listening ? "Stop" : "Voice dictation") : "Voice input not supported"}
+              onClick={() => { if (!speech.supported) { window.__dpmToast?.("Voice input not supported — type instead"); return; } speech.listening ? speech.stop() : speech.start(); }}
+              className={cn(
+                "absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-md flex items-center justify-center transition-colors",
+                speech.listening
+                  ? "bg-[hsl(0_84%_60%)] text-white animate-pulse"
+                  : "hover:bg-[hsl(var(--accent))] text-[hsl(var(--muted-foreground))]"
+              )}
+            >
+              <Icons.Mic size={14} />
+            </button>
+          </div>
+          {speech.listening && (
+            <div className="mt-1.5 flex items-center gap-1.5 text-[11px] text-[hsl(0_84%_65%)]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[hsl(0_84%_60%)] animate-pulse" /> Listening…
+            </div>
+          )}
+          {capture && (
+            <CaptureSuggestion p={capture} onApply={applyCapture} onDismiss={() => setCaptureDismissed(true)} />
+          )}
         </div>
 
         {/* Statut + Priorité */}
@@ -247,13 +528,7 @@ function TaskModal({ open, onClose, defaults = {} }) {
         {/* Date d'échéance — chips quick + personnalisée */}
         <FieldRow icon={Icons.Calendar} label="Due date">
           <div className="flex flex-wrap gap-1.5">
-            {[
-              { id: "today",     l: "Today",            sub: "Sat May 24" },
-              { id: "tomorrow",  l: "Tomorrow",         sub: "Sun May 25" },
-              { id: "monday",    l: "Monday",           sub: "Mon 26" },
-              { id: "friday",    l: "Friday",           sub: "Fri 29" },
-              { id: "next-week", l: "Next week",        sub: "Mon Jun 02" },
-            ].map(c => (
+            {dueChips.map(c => (
               <button
                 key={c.id}
                 onClick={() => setDueDate(dueDate === c.id ? "" : c.id)}
@@ -409,10 +684,7 @@ function TaskModal({ open, onClose, defaults = {} }) {
 
             {/* Linked event */}
             <FieldRow icon={Icons.Calendar} label="Link to an event" sub="optional">
-              <button className="w-full flex items-center gap-2 p-3 rounded-[8px] border border-dashed border-[hsl(var(--border))] text-[12.5px] text-[hsl(var(--muted-foreground))] hover:bg-[hsl(var(--accent)/0.3)]">
-                <Icons.Calendar size={13} />
-                Choose an event…
-              </button>
+              <EventPicker value={linkedEvent} onChange={setLinkedEvent} />
             </FieldRow>
 
             {/* Notes */}
@@ -429,8 +701,8 @@ function TaskModal({ open, onClose, defaults = {} }) {
           <kbd className="px-1.5 py-0.5 rounded bg-[hsl(var(--muted))] text-[10px] font-mono">↵</kbd>
           <span>to create</span>
         </div>
-        <Button variant="outline" size="sm" icon={Icons.Calendar} disabled={!title.trim()}>Save & schedule</Button>
-        <Button size="sm" disabled={!title.trim()} onClick={onClose}>Create</Button>
+        <Button variant="outline" size="sm" icon={Icons.Calendar} disabled={!title.trim()} onClick={() => submit(true)}>Save & schedule</Button>
+        <Button size="sm" disabled={!title.trim()} onClick={() => submit(false)}>Create</Button>
       </ModalFooter>
     </Modal>
   );
@@ -613,5 +885,6 @@ function EnergyModal({ open, onClose, level = 5 }) {
 Object.assign(window, {
   Modal, ModalHeader, ModalBody, ModalFooter,
   TaskModal, EnergyModal,
-  FieldRow, FauxSelect, PillButton, MarkdownToolbar, MarkdownEditor, FlagIcon, Dropdown
+  FieldRow, FauxSelect, PillButton, MarkdownToolbar, MarkdownEditor, FlagIcon, Dropdown,
+  useSpeech, CaptureSuggestion, fmtMinLocal, durLabel,
 });

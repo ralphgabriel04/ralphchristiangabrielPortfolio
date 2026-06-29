@@ -59,14 +59,18 @@ const Icons = {
   Mail: (p) => <Ico {...p} d={<><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></>} />,
   Lock: (p) => <Ico {...p} d={<><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></>} />,
   Github: (p) => <Ico {...p} d="M9 19c-4 1.5-4-2-6-2m12 5v-3.5a3 3 0 0 0-.8-2.5c2.8-.3 5.8-1.4 5.8-6.3a4.8 4.8 0 0 0-1.4-3.4 4.5 4.5 0 0 0-.1-3.4s-1-.3-3.5 1.3a12 12 0 0 0-6.4 0C5 2.7 4 3 4 3a4.5 4.5 0 0 0-.1 3.4 4.8 4.8 0 0 0-1.4 3.4c0 4.9 3 6 5.8 6.3a3 3 0 0 0-.8 2.5V22"/>,
-  Apple: (p) => <Ico {...p} d="M19 8.5c-1.5-.5-3 0-4 1-1-1-2.5-1.5-4-1-2 .8-3 3-3 5.5 0 4 3 8 5 8 1 0 1.5-.5 2-.5s1 .5 2 .5c2 0 5-4 5-8 0-2.5-1-4.7-3-5.5zM12 4c.5-1.5 2-2.5 3.5-2.5 0 1.5-1.5 3-3 3-.5 0-.5-.3-.5-.5z" fill="currentColor"/>,
+  Apple: (p) => (
+    <svg width={p.size||16} height={p.size||16} viewBox="0 0 24 24" fill="currentColor" className={p.className}>
+      <path d="M16.365 1.43c0 1.14-.42 2.2-1.12 2.99-.74.84-1.95 1.49-3.13 1.4-.14-1.13.43-2.31 1.09-3.06.74-.84 2.01-1.45 3.16-1.33zM20.5 17.2c-.57 1.32-.85 1.91-1.59 3.08-1.03 1.63-2.49 3.66-4.29 3.67-1.6.02-2.01-1.04-4.18-1.03-2.17.01-2.62 1.05-4.22 1.03-1.8-.02-3.18-1.85-4.21-3.48-2.88-4.56-3.19-9.91-1.41-12.76 1.27-2.02 3.27-3.2 5.15-3.2 1.92 0 3.12 1.05 4.71 1.05 1.54 0 2.48-1.05 4.7-1.05 1.68 0 3.46.91 4.73 2.49-4.16 2.28-3.48 8.21.81 9.94z"/>
+    </svg>
+  ),
   Building: (p) => <Ico {...p} d={<><rect x="4" y="2" width="16" height="20"/><path d="M8 6h2M14 6h2M8 10h2M14 10h2M8 14h2M14 14h2M10 22v-4h4v4"/></>} />,
   Google: (p) => (
     <svg width={p.size||16} height={p.size||16} viewBox="0 0 24 24" className={p.className}>
-      <path fill="#EA4335" d="M12 11v3.2h4.5a4.5 4.5 0 0 1-1.9 3l3 2.4A8.8 8.8 0 0 0 21 12.2c0-.7-.1-1.3-.2-1.9H12z" transform="translate(0 0)"/>
-      <path fill="#4285F4" d="M5.3 14.3 4.5 15l-2.6 2A9 9 0 0 0 12 21c2.4 0 4.5-.8 6-2.2l-3-2.4a5.5 5.5 0 0 1-8-3l-1.7 1z" transform="translate(0 -1)"/>
-      <path fill="#FBBC05" d="M1.9 7A9 9 0 0 0 1 12c0 1.4.4 2.8 1 4l3.7-2.9a5.4 5.4 0 0 1 0-2.2L1.9 8z" transform="translate(0 0)"/>
-      <path fill="#34A853" d="M12 5.4c1.5 0 2.8.5 3.8 1.5l2.8-2.8A9 9 0 0 0 12 1.5 9 9 0 0 0 1.9 7l3.7 2.9A5.4 5.4 0 0 1 12 5.4z" transform="translate(0 0)"/>
+      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.28-1.93-6.15-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+      <path fill="#FBBC05" d="M5.85 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l3.67-2.84z"/>
+      <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.67 2.84C6.72 7.31 9.14 5.38 12 5.38z"/>
     </svg>
   ),
   Microsoft: (p) => (
@@ -75,6 +79,42 @@ const Icons = {
       <path fill="#7FBA00" d="M12 2h10v10H12z"/>
       <path fill="#00A4EF" d="M2 12h10v10H2z"/>
       <path fill="#FFB900" d="M12 12h10v10H12z"/>
+    </svg>
+  ),
+  Spotify: (p) => (
+    <svg width={p.size||16} height={p.size||16} viewBox="0 0 24 24" className={p.className} aria-hidden="true">
+      <circle cx="12" cy="12" r="10" fill="#1DB954"/>
+      <g fill="none" stroke="#000" strokeLinecap="round">
+        <path d="M6.8 9.6c3.4-.9 7-.6 9.9 1.3" strokeWidth="1.8"/>
+        <path d="M7.5 12.8c2.7-.7 5.6-.5 8 1.1" strokeWidth="1.5"/>
+        <path d="M8.1 15.8c2.1-.5 4.3-.4 6.2.9" strokeWidth="1.2"/>
+      </g>
+    </svg>
+  ),
+  Todoist: (p) => (
+    <svg width={p.size||16} height={p.size||16} viewBox="0 0 24 24" className={p.className} aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="5" fill="#E44332"/>
+      <path d="M7 9.1l1.7 1 4.3-2.5M7 12.3l1.7 1 4.3-2.5M7 15.5l1.7 1 4.3-2.5" fill="none" stroke="#fff" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  ),
+  Notion: (p) => (
+    <svg width={p.size||16} height={p.size||16} viewBox="0 0 24 24" className={p.className} aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="3" fill="#fff" stroke="#000" strokeWidth="0.8" strokeOpacity="0.2"/>
+      <path fill="#000" d="M8 7.8v8.4h1.7v-5.1l3.8 5.1H15V7.8h-1.7v5l-3.7-5z"/>
+    </svg>
+  ),
+  Zoom: (p) => (
+    <svg width={p.size||16} height={p.size||16} viewBox="0 0 24 24" className={p.className} aria-hidden="true">
+      <rect x="2" y="2" width="20" height="20" rx="6" fill="#2D8CFF"/>
+      <path fill="#fff" d="M6 9.7C6 8.8 6.8 8 7.7 8h5.1c.9 0 1.7.8 1.7 1.7v4.6c0 .9-.8 1.7-1.7 1.7H7.7C6.8 16 6 15.2 6 14.3V9.7zm9.5 1.6 2.7-2c.43-.32 1 0 1 .52v5.36c0 .52-.57.84-1 .52l-2.7-2v-2.4z"/>
+    </svg>
+  ),
+  Slack: (p) => (
+    <svg width={p.size||16} height={p.size||16} viewBox="0 0 122.8 122.8" className={p.className} aria-hidden="true">
+      <path fill="#E01E5A" d="M25.8 77.6c0 7.1-5.8 12.9-12.9 12.9S0 84.7 0 77.6s5.8-12.9 12.9-12.9h12.9v12.9zm6.5 0c0-7.1 5.8-12.9 12.9-12.9s12.9 5.8 12.9 12.9v32.3c0 7.1-5.8 12.9-12.9 12.9s-12.9-5.8-12.9-12.9V77.6z"/>
+      <path fill="#36C5F0" d="M45.2 25.8c-7.1 0-12.9-5.8-12.9-12.9S38.1 0 45.2 0s12.9 5.8 12.9 12.9v12.9H45.2zm0 6.5c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9H12.9C5.8 58.1 0 52.3 0 45.2s5.8-12.9 12.9-12.9h32.3z"/>
+      <path fill="#2EB67D" d="M97 45.2c0-7.1 5.8-12.9 12.9-12.9s12.9 5.8 12.9 12.9-5.8 12.9-12.9 12.9H97V45.2zm-6.5 0c0 7.1-5.8 12.9-12.9 12.9s-12.9-5.8-12.9-12.9V12.9C64.7 5.8 70.5 0 77.6 0s12.9 5.8 12.9 12.9v32.3z"/>
+      <path fill="#ECB22E" d="M77.6 97c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9-12.9-5.8-12.9-12.9V97h12.9zm0-6.5c-7.1 0-12.9-5.8-12.9-12.9s5.8-12.9 12.9-12.9h32.3c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9H77.6z"/>
     </svg>
   ),
   Trash: (p) => <Ico {...p} d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/>,
@@ -86,6 +126,7 @@ const Icons = {
   AlertTriangle: (p) => <Ico {...p} d="M10.3 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0zM12 9v4M12 17h.01"/>,
   Inbox: (p) => <Ico {...p} d="M22 12h-6l-2 3h-4l-2-3H2M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>,
   Refresh: (p) => <Ico {...p} d="M21 12A9 9 0 1 1 12 3a9 9 0 0 1 8 4.6M21 3v6h-6"/>,
+  LogOut: (p) => <Ico {...p} d={<><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></>}/>,
   ArrowRight: (p) => <Ico {...p} d="M5 12h14M13 5l7 7-7 7"/>,
   ArrowUp: (p) => <Ico {...p} d="M5 10l7-7 7 7M12 3v18"/>,
   ArrowDown: (p) => <Ico {...p} d="M19 14l-7 7-7-7M12 3v18"/>,
@@ -100,6 +141,7 @@ const Icons = {
   CornerDown: (p) => <Ico {...p} d="M9 10l-5 5 5 5M20 4v7a4 4 0 0 1-4 4H4"/>,
   Trending: (p) => <Ico {...p} d="M22 7l-9 9-5-5L1 17M16 7h6v6"/>,
   Eye: (p) => <Ico {...p} d={<><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></>} />,
+  EyeOff: (p) => <Ico {...p} d={<><path d="M9.9 4.24A9.1 9.1 0 0 1 12 4c7 0 11 8 11 8a18 18 0 0 1-2.16 3.19M6.1 6.1A18 18 0 0 0 1 12s4 8 11 8a9 9 0 0 0 5.9-2.1"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2M1 1l22 22"/></>} />,
   PlusCircle: (p) => <Ico {...p} d={<><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></>} />,
   Save: (p) => <Ico {...p} d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2zM17 21v-8H7v8M7 3v5h8"/>,
   Mic: (p) => <Ico {...p} d={<><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4M8 22h8"/></>} />,
@@ -140,6 +182,7 @@ function Button({ variant = "primary", size = "md", className = "", children, ic
     destructive: "bg-[hsl(var(--destructive)/0.15)] text-[hsl(0_84%_70%)] border border-[hsl(var(--destructive)/0.3)] hover:bg-[hsl(var(--destructive)/0.25)]",
     link: "text-[hsl(var(--primary))] hover:underline",
   };
+  delete props.icon; delete props.iconRight;
   return (
     <button className={cn(base, sizes[size], variants[variant], className)} {...props}>
       {Icon && <Icon size={size === "sm" ? 14 : 16} />}
@@ -205,6 +248,7 @@ function Badge({ children, variant = "muted", className = "", dot = false }) {
 }
 
 function Input({ className = "", icon: Icon, ...props }) {
+  delete props.icon;
   return (
     <div className="relative">
       {Icon && <Icon size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[hsl(var(--muted-foreground))]" />}
@@ -275,7 +319,7 @@ function Logo({ size = 32, withText = true }) {
   return (
     <div className="flex items-center gap-2.5">
       <img
-        src="assets/logo-dark.png"
+        src={(window.__resources && window.__resources.logoDark) || "assets/logo-dark.png"}
         alt="DPM Elevate"
         width={size} height={size}
         style={{ width: size, height: size }}

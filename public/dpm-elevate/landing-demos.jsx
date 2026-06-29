@@ -58,7 +58,7 @@ function LiveCalendarDemo({ t }) {
   return (
     <div className="rounded-[12px] border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-3.5">
       <div className="flex items-center justify-between mb-3">
-        <div className="text-[14px] font-semibold tracking-tight">{c.month_label}</div>
+        <div className="text-[14px] font-semibold tracking-tight">{window.DPMDate ? window.DPMDate.monthYear(undefined, window.__dpmLang === "fr" ? "fr" : "en") : c.month_label}</div>
         <div className="inline-flex items-center gap-0.5 rounded-[8px] border border-[hsl(var(--border))] bg-[hsl(var(--muted)/0.4)] p-0.5">
           {views.map((v) => (
             <button key={v.value} onClick={() => setView(v.value)}

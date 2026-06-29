@@ -1,12 +1,16 @@
 /* global React, ReactDOM, useState, useEffect,
           Sidebar, RightSidebar, defaultNavIdForRoute, TaskModal,
-          LandingPage, LoginPage, OnboardingPage,
+          LandingPage, LoginPage, SignupPage, OnboardingPage,
           HomePage, DailyPlanningPage, PlannerPage,
           CalendarPage, TasksPage, MatrixPage,
           HabitsPage, GoalsPage,
           DashboardPage, SettingsPage, RulesPage,
           TweaksPanel, useTweaks, TweakSection, TweakRadio, TweakToggle, TweakSelect, cn,
           useVif, SpaceTitleBar, useCurrentSpace,
+          CommandPalette, CommandTrigger, ToastHost, SyncCenterPage,
+          AIPlanningPage, AutomationsBuilderPage, CollaborationPage,
+          PrivacyPage, BillingPage, NotificationsPage,
+          QuickCreateHost, OfflineBanner, AppErrorBoundary,
           Icons, Logo */
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
@@ -21,6 +25,7 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
 const PAGES = [
   { id: "landing", label: "Landing", chrome: false },
   { id: "login", label: "Login", chrome: false },
+  { id: "signup", label: "Signup", chrome: false },
   { id: "onboarding", label: "Onboarding", chrome: false },
   { id: "home", label: "Home", chrome: true, screen: "04 Home" },
   { id: "planner", label: "Planner", chrome: true, screen: "11 Planner" },
@@ -32,6 +37,13 @@ const PAGES = [
   { id: "goals", label: "Goals", chrome: true, screen: "08 Goals" },
   { id: "dashboard", label: "Analytics dashboard", chrome: true, screen: "09 Dashboard" },
   { id: "rules", label: "Rules", chrome: true, screen: "Rules" },
+  { id: "sync", label: "Sync Center", chrome: true, screen: "Sync Center" },
+  { id: "ai-planning", label: "AI Planning", chrome: true, screen: "AI Planning" },
+  { id: "automations", label: "Automations", chrome: true, screen: "Automations" },
+  { id: "collaboration", label: "Collaboration", chrome: true, screen: "Collaboration" },
+  { id: "notifications", label: "Notifications", chrome: true, screen: "Notifications" },
+  { id: "billing", label: "Plan & Billing", chrome: true, screen: "Billing" },
+  { id: "privacy", label: "Data & Privacy", chrome: true, screen: "Privacy" },
   { id: "settings", label: "Settings", chrome: true, screen: "13 Settings" },
   { id: "resources", label: "Help & Resources", chrome: true, screen: "P19 Resources" },
 ];
@@ -54,10 +66,25 @@ function App() {
   // Apply theme to <html>
   useEffect(() => {
     const root = document.documentElement;
+    // Suppress color/background transitions for one frame during the theme
+    // swap. Without this, the many `transition-colors` elements animate their
+    // inherited color + background from the old theme's values, and that
+    // transition can latch at its start frame — leaving dark text/surfaces
+    // stranded over a light page (white-on-white text, black cards). We let
+    // the new theme paint instantly, then restore transitions next frame.
+    const killer = document.createElement("style");
+    killer.textContent = "*,*::before,*::after{transition:none !important;}";
+    document.head.appendChild(killer);
     root.classList.toggle("dark", t.theme === "dark");
     root.classList.toggle("light", t.theme === "light");
     // Re-derive the accent's lightness for the new theme (keeps fills AA).
     window.applyAccent?.(window.__dpmAccent || "violet");
+    // Force a reflow so the no-transition state is committed before restore.
+    void document.body.offsetHeight;
+    const raf = requestAnimationFrame(() => {
+      requestAnimationFrame(() => killer.remove());
+    });
+    return () => { cancelAnimationFrame(raf); killer.remove(); };
   }, [t.theme]);
 
   // Broadcast lang to any component using useT() / useLang().
@@ -65,6 +92,11 @@ function App() {
     window.__dpmLang = t.lang;
     window.dispatchEvent(new CustomEvent("dpm-lang-change", { detail: t.lang }));
   }, [t.lang]);
+
+  // Global theme toggle for the command palette (⌘K → "Toggle dark / light").
+  useEffect(() => {
+    window.__dpmToggleTheme = () => setTweak("theme", t.theme === "dark" ? "light" : "dark");
+  }, [t.theme]);
 
   // Tour route bridge — lets window.__dpmTour navigate + deep-link resources.
   useEffect(() => {
@@ -128,7 +160,7 @@ function App() {
     theme: t.theme, setTheme: (v) => setTweak("theme", typeof v === "function" ? v(t.theme) : v),
     lang: t.lang, setLang: (v) => setTweak("lang", typeof v === "function" ? v(t.lang) : v),
   };
-  const screen = renderScreen(route, setRoute, t.emptyState, openTask, appCtl);
+  const screen = <AppErrorBoundary>{renderScreen(route, setRoute, t.emptyState, openTask, appCtl)}</AppErrorBoundary>;
 
   // Auth pages: full-bleed, no shell
   if (!page.chrome) {
@@ -138,6 +170,8 @@ function App() {
           {screen}
         </div>
         <TaskModal open={taskOpen} onClose={() => setTaskOpen(false)} />
+        <CommandPalette />
+        <ToastHost />
         <DPMTweaks t={t} setTweak={setTweak} route={route} setRoute={setRoute} />
       </TaskModalCtx.Provider>
     );
@@ -150,6 +184,7 @@ function App() {
         <div className="h-full w-full bg-[hsl(var(--background))] flex items-center justify-center p-6 overflow-auto">
           <div className="w-[390px] h-[844px] rounded-[40px] border border-[hsl(var(--border))] bg-[hsl(var(--background))] shadow-2xl overflow-hidden flex flex-col relative">
             <div className="absolute top-0 left-0 right-0 h-[3px] z-40 pointer-events-none transition-colors duration-300" style={{ background: "hsl(var(--space-accent))" }} />
+            <OfflineBanner />
             <MobileHeader />
             <main className="dpm-mobile flex-1 overflow-y-auto px-4 py-4 pb-24">
               <div data-screen-label={page.screen}>
@@ -160,11 +195,14 @@ function App() {
             <MobileBottomNav route={route} setRoute={setRoute} onOpenTask={openTask} />
           </div>
           <TaskModal open={taskOpen} onClose={() => setTaskOpen(false)} />
+          <CommandPalette />
+          <ToastHost />
           <DPMTweaks t={t} setTweak={setTweak} route={route} setRoute={setRoute} />
           <TourLayer mobile={true} />
           <TourHelpButton mobile={true} onOpenResources={() => setRoute("resources")} />
           <SpacesModal />
           <SlotActionHost />
+          <QuickCreateHost />
         </div>
       </TaskModalCtx.Provider>
     );
@@ -176,6 +214,7 @@ function App() {
       <div className="h-full w-full flex bg-[hsl(var(--background))] overflow-hidden relative">
         {/* Ambient accent — liseré supérieur teinté par l'Espace courant (P20) */}
         <div className="absolute top-0 left-0 right-0 h-[3px] z-40 pointer-events-none transition-colors duration-300" style={{ background: "hsl(var(--space-accent))" }} />
+        <OfflineBanner />
         <Sidebar
           route={route} setRoute={_setRoute}
           navId={navId} setNavId={setNavId}
@@ -199,10 +238,13 @@ function App() {
           route={route}
         />
         <TaskModal open={taskOpen} onClose={() => setTaskOpen(false)} />
+        <CommandPalette />
+        <ToastHost />
         <DPMTweaks t={t} setTweak={setTweak} route={route} setRoute={setRoute} />
         <TourLayer mobile={false} />
         <SpacesModal />
         <SlotActionHost />
+        <QuickCreateHost />
       </div>
     </TaskModalCtx.Provider>
   );
@@ -212,6 +254,7 @@ function renderScreen(route, setRoute, emptyState, openTask, appCtl = {}) {
   switch (route) {
     case "landing": return <LandingPage setRoute={setRoute} theme={appCtl.theme} setTheme={appCtl.setTheme} lang={appCtl.lang} setLang={appCtl.setLang} />;
     case "login": return <LoginPage setRoute={setRoute} />;
+    case "signup": return <SignupPage setRoute={setRoute} />;
     case "onboarding": return <OnboardingPage setRoute={setRoute} />;
     case "home": return <HomePage setRoute={setRoute} emptyState={emptyState} onOpenTask={openTask} />;
     case "planner": return <PlannerPage setRoute={setRoute} onOpenTask={openTask} />;
@@ -223,6 +266,13 @@ function renderScreen(route, setRoute, emptyState, openTask, appCtl = {}) {
     case "goals": return <GoalsPage emptyState={emptyState} />;
     case "dashboard": return <DashboardPage />;
     case "rules": return <RulesPage />;
+    case "sync": return <SyncCenterPage setRoute={setRoute} />;
+    case "ai-planning": return <AIPlanningPage />;
+    case "automations": return <AutomationsBuilderPage />;
+    case "collaboration": return <CollaborationPage />;
+    case "notifications": return <NotificationsPage />;
+    case "billing": return <BillingPage />;
+    case "privacy": return <PrivacyPage />;
     case "settings": return <SettingsPage />;
     case "resources": return <ResourcesPage />;
     default: return <HomePage setRoute={setRoute} />;
@@ -248,6 +298,9 @@ function MobileHeader() {
       </button>
       {/* Espace switcher (P20) — toujours visible en tête sur mobile */}
       <div className="flex-1 min-w-0"><SpaceSwitcher variant="chip" /></div>
+      <button onClick={() => window.__dpmCmdK?.()} className="w-9 h-9 rounded-md hover:bg-[hsl(var(--accent))] flex items-center justify-center flex-shrink-0 text-[hsl(var(--muted-foreground))]" title="Quick capture">
+        <Icons.Sparkles size={16} />
+      </button>
       <button className="w-9 h-9 rounded-md hover:bg-[hsl(var(--accent))] flex items-center justify-center flex-shrink-0 relative">
         <Icons.Bell size={16} />
         <span className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-[hsl(var(--primary))]" />
@@ -300,6 +353,13 @@ function VifTweakToggle() {
   return <TweakToggle label="Affichage vif (accessibility)" value={on} onChange={setOn} />;
 }
 
+function ConnTweak() {
+  const [c, setC] = useState("online");
+  return <TweakRadio label="Connection" value={c} onChange={(v) => { setC(v); window.__dpmSetConn?.(v); }} options={[
+    { value: "online", label: "Online" }, { value: "reconnecting", label: "Recon." }, { value: "offline", label: "Offline" }
+  ]} />;
+}
+
 function DPMTweaks({ t, setTweak, route, setRoute }) {
   return (
     <TweaksPanel title="Tweaks">
@@ -339,6 +399,7 @@ function DPMTweaks({ t, setTweak, route, setRoute }) {
 
       <TweakSection label="States">
         <TweakToggle label="Empty state (Home/Cal/Tasks/Habits/Goals)" value={t.emptyState} onChange={v => setTweak("emptyState", v)} />
+        <ConnTweak />
       </TweakSection>
     </TweaksPanel>
   );

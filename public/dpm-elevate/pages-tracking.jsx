@@ -207,7 +207,17 @@ function HabitCard({ habit, onToggle, onRename, onEdit, onDelete }) {
   const inputRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
-  const days = ["L","M","M","J","V","S","D"];
+  const days = (() => {
+    const D = window.DPMDate;
+    const isFr = window.__dpmLang === "fr";
+    const FR = ["D","L","M","M","J","V","S"]; // by getDay() Sun..Sat
+    const EN = ["S","M","T","W","T","F","S"];
+    return Array.from({ length: 7 }, (_, i) => {
+      const date = D ? D.addDays(D.today(), i - 6)
+        : (() => { const x = new Date(); x.setDate(x.getDate() - (6 - i)); return x; })();
+      return (isFr ? FR : EN)[date.getDay()];
+    });
+  })();
 
   useEffect(() => { setVal(habit.name); }, [habit.name]);
   useEffect(() => {
@@ -315,6 +325,7 @@ function HabitCard({ habit, onToggle, onRename, onEdit, onDelete }) {
                    style={{
                      background: v ? `hsl(${habit.color})` : "hsl(var(--muted))",
                      color: v ? "white" : "hsl(var(--muted-foreground))",
+                     boxShadow: i === 6 ? "0 0 0 1.5px hsl(var(--foreground) / 0.45)" : "none",
                    }}>
                 {days[i]}
               </div>
@@ -2392,7 +2403,7 @@ function SettingsPage() {
 
       {/* Connexions */}
       <Card data-tour="feat-settings-integrations">
-        <SectionTitle action={<Button variant="ghost" size="sm" icon={Icons.Refresh}>Sync</Button>}>
+        <SectionTitle action={<Button variant="ghost" size="sm" icon={Icons.ArrowRight} onClick={() => window.__dpmNavigate?.("sync")}>Sync Center</Button>}>
           Connexions calendrier
         </SectionTitle>
         <div className="space-y-2">
@@ -2474,7 +2485,7 @@ function SettingsPage() {
 
       {/* Conflits */}
       <Card>
-        <SectionTitle action={<Button variant="ghost" size="sm">Resolve all</Button>}>
+        <SectionTitle action={<Button variant="ghost" size="sm" icon={Icons.ArrowRight} onClick={() => { window.__dpmSyncIntent = "conflicts"; window.__dpmNavigate?.("sync"); }}>Open Conflict Center</Button>}>
           Conflits de synchronisation · 2
         </SectionTitle>
         <div className="space-y-2">
