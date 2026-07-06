@@ -261,6 +261,28 @@
               </sc-if>
             </div>
 
+            <!-- MÉTÉO FINANCIÈRE -->
+            <div style="margin-bottom:14px;background:{{ meteo.bg }};border:1px solid {{ meteo.border }};border-radius:24px;padding:16px;box-shadow:0 10px 24px -18px rgba(20,73,47,.4);animation:popIn .4s ease both;">
+              <div style="display:flex;align-items:center;gap:13px;">
+                <div style="position:relative;width:58px;height:58px;flex:none;display:flex;align-items:flex-end;justify-content:center;">
+                  <span style="position:absolute;top:-6px;right:-6px;font-size:24px;animation:floatY 3.4s ease-in-out infinite;">{{ meteo.emoji }}</span>
+                  <div style="width:52px;"><dc-import name="Wiz" pose="{{ meteo.pose }}" hint-size="52px,62px"></dc-import></div>
+                </div>
+                <div style="flex:1;min-width:0;">
+                  <div style="display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:800;letter-spacing:.5px;color:{{ meteo.chip }};">🌤️ MÉTÉO FINANCIÈRE · {{ meteo.tag }}</div>
+                  <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:16.5px;font-weight:800;color:var(--ink);margin-top:3px;line-height:1.2;">{{ meteo.title }}</div>
+                </div>
+              </div>
+              <p style="margin:12px 0 0;font-size:13.5px;line-height:1.5;color:var(--body);">{{ meteo.phrase }}</p>
+              <div style="margin-top:11px;background:rgba(255,255,255,.55);border-radius:14px;padding:11px 13px;display:flex;gap:9px;align-items:flex-start;">
+                <span style="font-size:15px;line-height:1.2;flex:none;">💡</span>
+                <p style="margin:0;font-size:12.5px;line-height:1.45;color:var(--body);font-weight:600;">{{ meteo.reco }}</p>
+              </div>
+              <button onClick="{{ meteo.cta }}" style="margin-top:12px;width:100%;height:46px;border:none;border-radius:14px;background:#14492F;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:14.5px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;">{{ meteo.ctaLabel }}
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h13M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              </button>
+            </div>
+
             <sc-if value="{{ showPersonalizeBanner }}" hint-placeholder-val="{{ false }}">
               <div style="margin-bottom:14px;background:linear-gradient(135deg,var(--tint-amber),var(--tint-green));border:1px solid var(--bd-amber);border-radius:18px;padding:14px;display:flex;align-items:center;gap:12px;animation:popIn .35s ease both;">
                 <div style="width:42px;flex:none;"><dc-import name="Wiz" pose="wave" hint-size="42px,50px"></dc-import></div>
@@ -576,6 +598,33 @@
                 </div>
               </sc-for>
             </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;margin:22px 2px 12px;">
+              <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:800;color:var(--heading);margin:0;">Transactions récentes</h3>
+              <button onClick="{{ openAddTx }}" style="display:flex;align-items:center;gap:5px;background:var(--tint-green);border:none;border-radius:11px;padding:7px 11px;font-family:inherit;font-size:12.5px;font-weight:700;color:var(--ac-green);cursor:pointer;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="var(--ac-green)" stroke-width="2.4" stroke-linecap="round"></path></svg>Ajouter</button>
+            </div>
+            <sc-if value="{{ hasTx }}" hint-placeholder-val="{{ true }}">
+              <div style="background:var(--surface);border-radius:20px;border:1px solid var(--border);overflow:hidden;">
+                <sc-for list="{{ transactions }}" as="tx" hint-placeholder-count="3">
+                  <button onClick="{{ tx.edit }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:13px 16px;border:none;border-bottom:1px solid var(--border);background:none;cursor:pointer;text-align:left;">
+                    <div style="width:40px;height:40px;border-radius:12px;background:var(--chip);display:flex;align-items:center;justify-content:center;font-size:18px;flex:none;">{{ tx.emoji }}</div>
+                    <div style="flex:1;min-width:0;">
+                      <div style="font-size:14px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ tx.note }}</div>
+                      <div style="font-size:11.5px;color:var(--muted2);display:flex;align-items:center;gap:6px;margin-top:1px;">{{ tx.catName }} · {{ tx.date }}<sc-if value="{{ tx.recurring }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:3px;color:var(--ac-blue);font-weight:700;">🔁 Récurrent</span></sc-if></div>
+                    </div>
+                    <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:14.5px;font-weight:800;color:var(--ink);white-space:nowrap;">{{ tx.amountF }}</div>
+                  </button>
+                </sc-for>
+                <div style="padding:11px 16px;font-size:11.5px;color:var(--muted2);text-align:center;">Touche une transaction pour la modifier ou la supprimer.</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ noTx }}" hint-placeholder-val="{{ false }}">
+              <button onClick="{{ openAddTx }}" style="width:100%;border:1.5px dashed var(--bd-green);background:var(--surface);border-radius:18px;padding:20px;cursor:pointer;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px;">
+                <span style="font-size:26px;">🧾</span>
+                <div style="font-size:13.5px;font-weight:700;color:var(--ink);">Aucune transaction pour l'instant</div>
+                <div style="font-size:12px;color:var(--muted);">Ajoute-en une pour suivre où va ton argent.</div>
+              </button>
+            </sc-if>
 
             <div style="margin-top:16px;background:linear-gradient(135deg,var(--tint-blue),var(--tint-green));border:1px solid var(--tint-blue);border-radius:20px;padding:16px;display:flex;gap:13px;">
               <div style="width:44px;flex:none;"><dc-import name="Wiz" pose="thinking" hint-size="44px,52px"></dc-import></div>
@@ -1369,6 +1418,7 @@
 
             <div style="font-size:12px;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:22px 4px 10px;">Compte</div>
             <div style="background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;">
+              <button onClick="{{ goSettings }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:15px 16px;border:none;border-bottom:1px solid var(--border);background:none;cursor:pointer;text-align:left;"><span style="font-size:18px;">⚙️</span><div style="flex:1;font-size:14.5px;font-weight:600;color:var(--ink);">Paramètres</div><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--muted2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
               <a href="Espace%20Famille.dc.html" style="width:100%;display:flex;align-items:center;gap:13px;padding:15px 16px;border-bottom:1px solid var(--border);text-decoration:none;cursor:pointer;text-align:left;"><span style="font-size:18px;">👨‍👩‍👧</span><div style="flex:1;"><div style="font-size:14.5px;font-weight:600;color:var(--ink);">Espace Famille</div><div style="font-size:11.5px;color:var(--muted2);">Wiz4Kids, profils enfants & contrôles</div></div><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--muted2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
               <button onClick="{{ goPrivacy }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:15px 16px;border:none;border-bottom:1px solid var(--border);background:none;cursor:pointer;text-align:left;"><span style="font-size:18px;">🔒</span><div style="flex:1;font-size:14.5px;font-weight:600;color:var(--ink);">Confidentialité & données</div><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--muted2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
               <button style="width:100%;display:flex;align-items:center;gap:13px;padding:15px 16px;border:none;border-bottom:1px solid var(--border);background:none;cursor:pointer;text-align:left;"><span style="font-size:18px;">❓</span><div style="flex:1;font-size:14.5px;font-weight:600;color:var(--ink);">Aide & support</div><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--muted2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
@@ -1414,8 +1464,8 @@
 
             <div style="margin-top:22px;background:var(--tint-red);border:1px solid var(--bd-red);border-radius:18px;padding:17px;">
               <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:800;color:#C0432E;">Supprimer mon compte</div>
-              <p style="font-size:13px;color:#9C6259;line-height:1.45;margin:6px 0 13px;">Cette action est définitive. Toutes tes données seront effacées sans possibilité de récupération.</p>
-              <button onClick="{{ confirmDelete }}" style="width:100%;height:48px;border:1.5px solid #E59A8C;border-radius:14px;background:var(--surface);color:#C0432E;font-family:inherit;font-size:14.5px;font-weight:700;cursor:pointer;">Supprimer définitivement</button>
+              <p style="font-size:13px;color:#9C6259;line-height:1.45;margin:6px 0 13px;">On te laisse 30 jours pour changer d'avis avant l'effacement définitif. Tu gardes le contrôle.</p>
+              <button onClick="{{ goDeleteAccount }}" style="width:100%;height:48px;border:1.5px solid #E59A8C;border-radius:14px;background:var(--surface);color:#C0432E;font-family:inherit;font-size:14.5px;font-weight:700;cursor:pointer;">Supprimer mon compte</button>
             </div>
           </div>
         </sc-if>
@@ -1489,9 +1539,254 @@
 
         <!-- SCREENS-MARKER-2 -->
 
+        <!-- ===================== EMAIL VERIFY ===================== -->
+        <sc-if value="{{ isEmailVerify }}" hint-placeholder-val="{{ false }}">
+          <div style="min-height:736px;display:flex;flex-direction:column;padding:14px 26px 30px;animation:screenIn .34s ease both;">
+            <button onClick="{{ backToIntro }}" style="border:none;background:var(--chip);width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--heading);flex:none;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+              <div style="width:150px;animation:floatY 4s ease-in-out infinite;"><dc-import name="Wiz" pose="secure" hint-size="150px,180px"></dc-import></div>
+              <div style="font-size:34px;margin-top:6px;">📩</div>
+              <h1 style="font-family:'Bricolage Grotesque',sans-serif;font-size:26px;font-weight:800;color:var(--heading);margin:12px 0 0;letter-spacing:-.4px;">Vérifie ton courriel</h1>
+              <p style="font-size:15px;line-height:1.55;color:var(--muted);margin:10px 8px 0;max-width:300px;">On a envoyé un lien de confirmation à <b style="color:var(--heading);">alex@exemple.ca</b>. Ouvre-le pour activer ton compte.</p>
+              <div style="display:flex;gap:10px;margin-top:22px;">
+                <sc-for list="{{ pinDots }}" as="d" hint-placeholder-count="4"><div style="width:44px;height:54px;border-radius:13px;border:1.5px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:800;color:var(--heading);">•</div></sc-for>
+              </div>
+            </div>
+            <button onClick="{{ verifyEmail }}" style="width:100%;height:58px;border:none;border-radius:18px;background:#14492F;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:17px;font-weight:700;cursor:pointer;box-shadow:0 12px 24px -10px rgba(20,73,47,.7);">J'ai vérifié mon courriel</button>
+            <button onClick="{{ resendEmail }}" style="margin-top:14px;width:100%;height:46px;border:none;background:none;color:var(--muted);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;">Renvoyer le courriel</button>
+          </div>
+        </sc-if>
+
+        <!-- ===================== NOTIF PERMISSION ===================== -->
+        <sc-if value="{{ isNotifPerm }}" hint-placeholder-val="{{ false }}">
+          <div style="min-height:736px;display:flex;flex-direction:column;padding:14px 26px 30px;animation:screenIn .34s ease both;">
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+              <div style="width:210px;height:210px;border-radius:50%;background:var(--tint-green);display:flex;align-items:flex-end;justify-content:center;position:relative;animation:popIn .5s ease both;">
+                <span style="position:absolute;top:26px;right:34px;font-size:30px;animation:floatY 3.2s ease-in-out infinite;">🔔</span>
+                <div style="width:140px;margin-bottom:2px;"><dc-import name="Wiz" pose="wave" hint-size="140px,168px"></dc-import></div>
+              </div>
+              <h1 style="font-family:'Bricolage Grotesque',sans-serif;font-size:25px;font-weight:800;color:var(--heading);margin:20px 0 0;letter-spacing:-.4px;line-height:1.2;">Reste sur la bonne voie</h1>
+              <p style="font-size:15px;line-height:1.55;color:var(--muted);margin:10px 8px 0;max-width:300px;">Active les rappels doux de Wiz pour ne rien manquer — toujours à ton rythme, jamais de spam.</p>
+              <div style="width:100%;margin-top:22px;display:flex;flex-direction:column;gap:10px;">
+                <div style="display:flex;align-items:center;gap:11px;background:var(--surface);border:1px solid var(--border);border-radius:15px;padding:13px 15px;text-align:left;"><span style="font-size:18px;">🎯</span><span style="font-size:13.5px;font-weight:600;color:var(--body);">Un rappel quand un objectif avance</span></div>
+                <div style="display:flex;align-items:center;gap:11px;background:var(--surface);border:1px solid var(--border);border-radius:15px;padding:13px 15px;text-align:left;"><span style="font-size:18px;">💚</span><span style="font-size:13.5px;font-weight:600;color:var(--body);">Un encouragement de temps en temps</span></div>
+                <div style="display:flex;align-items:center;gap:11px;background:var(--surface);border:1px solid var(--border);border-radius:15px;padding:13px 15px;text-align:left;"><span style="font-size:18px;">⚠️</span><span style="font-size:13.5px;font-weight:600;color:var(--body);">Une alerte douce si ton budget dérape</span></div>
+              </div>
+            </div>
+            <button onClick="{{ allowNotif }}" style="width:100%;height:58px;border:none;border-radius:18px;background:#14492F;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:17px;font-weight:700;cursor:pointer;box-shadow:0 12px 24px -10px rgba(20,73,47,.7);">Activer les notifications</button>
+            <button onClick="{{ skipNotif }}" style="margin-top:12px;width:100%;height:46px;border:none;background:none;color:var(--muted);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;">Plus tard</button>
+          </div>
+        </sc-if>
+
+        <!-- ===================== APP LOCK ===================== -->
+        <sc-if value="{{ isAppLock }}" hint-placeholder-val="{{ false }}">
+          <div style="min-height:736px;display:flex;flex-direction:column;padding:24px 30px 30px;animation:screenIn .3s ease both;">
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+              <div style="width:96px;height:96px;border-radius:28px;background:var(--tint-green);display:flex;align-items:flex-end;justify-content:center;overflow:hidden;"><div style="width:76px;margin-bottom:-2px;"><dc-import name="Wiz" pose="secure" hint-size="76px,90px"></dc-import></div></div>
+              <h1 style="font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:800;color:var(--heading);margin:18px 0 0;">Wise &amp; Wealthy verrouillé</h1>
+              <p style="font-size:14px;color:var(--muted);margin:6px 0 0;">Entre ton NIP pour continuer.</p>
+              <div style="display:flex;gap:16px;margin-top:24px;">
+                <sc-for list="{{ pinDots }}" as="d" hint-placeholder-count="4"><div style="width:16px;height:16px;border-radius:50%;background:{{ d.bg }};transition:background .15s;"></div></sc-for>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
+              <sc-for list="{{ pinKeys }}" as="k" hint-placeholder-count="12">
+                <button onClick="{{ k.press }}" style="height:64px;border-radius:18px;background:{{ k.bg }};border:{{ k.border }};font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:800;color:var(--heading);cursor:pointer;display:flex;align-items:center;justify-content:center;">{{ k.label }}</button>
+              </sc-for>
+            </div>
+            <button onClick="{{ useBiometric }}" style="margin-top:16px;width:100%;height:50px;border:none;background:none;color:var(--ac-green);font-family:inherit;font-size:14.5px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 4a8 8 0 0 0-8 8m8-8a8 8 0 0 1 8 8M8 12a4 4 0 0 1 8 0v3m-4-3v5m-4-2v1m8-4v3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path></svg>Utiliser Face ID</button>
+          </div>
+        </sc-if>
+
+        <!-- ===================== SETTINGS ===================== -->
+        <sc-if value="{{ isSettings }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:6px 20px 110px;animation:screenIn .3s ease both;">
+            <div style="display:flex;align-items:center;gap:13px;padding:8px 0 6px;"><button onClick="{{ goProfile }}" style="border:none;background:var(--surface);border:1px solid var(--border);width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--heading);flex:none;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:800;color:var(--heading);letter-spacing:-.4px;">Paramètres</div></div>
+
+            <div style="font-size:12px;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:20px 4px 10px;">Compte</div>
+            <div style="background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;">
+              <button onClick="{{ goAccount }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:15px 16px;border:none;border-bottom:1px solid var(--border);background:none;cursor:pointer;text-align:left;"><span style="font-size:18px;">👤</span><div style="flex:1;font-size:14.5px;font-weight:600;color:var(--ink);">Mon compte</div><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--muted2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+              <button onClick="{{ goPaywall }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:15px 16px;border:none;background:none;cursor:pointer;text-align:left;"><span style="font-size:18px;">👑</span><div style="flex:1;font-size:14.5px;font-weight:600;color:var(--ink);">Abonnement</div><span style="font-size:12px;font-weight:700;color:var(--muted);background:var(--chip);padding:3px 9px;border-radius:8px;">Gratuit</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" style="margin-left:4px;"><path d="M9 6l6 6-6 6" stroke="var(--muted2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+            </div>
+
+            <div style="font-size:12px;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:22px 4px 10px;">Notifications</div>
+            <div style="background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;">
+              <sc-for list="{{ notifTypeRows }}" as="n" hint-placeholder-count="6">
+                <div style="display:flex;align-items:center;gap:13px;padding:14px 16px;border-bottom:1px solid var(--border);"><span style="font-size:17px;width:22px;text-align:center;">{{ n.emoji }}</span><div style="flex:1;font-size:14px;font-weight:600;color:var(--ink);">{{ n.label }}</div><button onClick="{{ n.toggle }}" style="width:46px;height:27px;border-radius:14px;border:none;cursor:pointer;background:{{ n.knob }};position:relative;flex:none;"><span style="position:absolute;top:3px;left:3px;width:21px;height:21px;border-radius:50%;background:var(--surface);transition:transform .2s;transform:{{ n.shift }};box-shadow:0 1px 3px rgba(0,0,0,.2);"></span></button></div>
+              </sc-for>
+              <div style="display:flex;align-items:center;gap:13px;padding:14px 16px;"><span style="font-size:17px;width:22px;text-align:center;">🌙</span><div style="flex:1;"><div style="font-size:14px;font-weight:600;color:var(--ink);">Heures de silence</div><div style="font-size:11.5px;color:var(--muted2);">Aucune notification entre 22 h et 7 h</div></div><button onClick="{{ toggleQuietHours }}" style="width:46px;height:27px;border-radius:14px;border:none;cursor:pointer;background:{{ quietKnob }};position:relative;flex:none;"><span style="position:absolute;top:3px;left:3px;width:21px;height:21px;border-radius:50%;background:var(--surface);transition:transform .2s;transform:{{ quietShift }};box-shadow:0 1px 3px rgba(0,0,0,.2);"></span></button></div>
+            </div>
+
+            <div style="font-size:12px;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:22px 4px 10px;">Sécurité &amp; confidentialité</div>
+            <div style="background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;">
+              <div style="display:flex;align-items:center;gap:13px;padding:15px 16px;border-bottom:1px solid var(--border);"><span style="font-size:18px;">🔐</span><div style="flex:1;"><div style="font-size:14.5px;font-weight:600;color:var(--ink);">Verrouillage de l'app</div><div style="font-size:11.5px;color:var(--muted2);">NIP ou biométrie à l'ouverture</div></div><button onClick="{{ toggleAppLock }}" style="width:46px;height:27px;border-radius:14px;border:none;cursor:pointer;background:{{ appLockKnob }};position:relative;flex:none;"><span style="position:absolute;top:3px;left:3px;width:21px;height:21px;border-radius:50%;background:var(--surface);transition:transform .2s;transform:{{ appLockShift }};box-shadow:0 1px 3px rgba(0,0,0,.2);"></span></button></div>
+              <button onClick="{{ previewAppLock }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:14px 16px;border:none;border-bottom:1px solid var(--border);background:none;cursor:pointer;text-align:left;"><span style="font-size:18px;">🔢</span><div style="flex:1;font-size:14px;font-weight:600;color:var(--ink);">Modifier mon NIP</div><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--muted2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+              <div style="display:flex;align-items:center;gap:13px;padding:15px 16px;border-bottom:1px solid var(--border);"><span style="font-size:18px;">🙈</span><div style="flex:1;font-size:14.5px;font-weight:600;color:var(--ink);">Masquer les montants</div><button onClick="{{ toggleDiscreet }}" style="width:46px;height:27px;border-radius:14px;border:none;cursor:pointer;background:{{ discreetKnob }};position:relative;flex:none;"><span style="position:absolute;top:3px;left:3px;width:21px;height:21px;border-radius:50%;background:var(--surface);transition:transform .2s;transform:{{ discreetShift }};box-shadow:0 1px 3px rgba(0,0,0,.2);"></span></button></div>
+              <button onClick="{{ goPrivacy }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:14px 16px;border:none;background:none;cursor:pointer;text-align:left;"><span style="font-size:18px;">🔒</span><div style="flex:1;font-size:14px;font-weight:600;color:var(--ink);">Confidentialité &amp; données</div><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--muted2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+            </div>
+
+            <div style="font-size:12px;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:22px 4px 10px;">Préférences</div>
+            <div style="background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;">
+              <button onClick="{{ openLangSheet }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:15px 16px;border:none;border-bottom:1px solid var(--border);background:none;cursor:pointer;text-align:left;"><span style="font-size:18px;">🌍</span><div style="flex:1;font-size:14.5px;font-weight:600;color:var(--ink);">Langue</div><div style="font-size:13.5px;color:var(--muted);font-weight:600;">{{ langName }}</div><svg width="17" height="17" viewBox="0 0 24 24" fill="none" style="margin-left:4px;"><path d="M9 6l6 6-6 6" stroke="var(--muted2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+              <div style="display:flex;align-items:center;gap:13px;padding:15px 16px;border-bottom:1px solid var(--border);"><span style="font-size:18px;">🌙</span><div style="flex:1;font-size:14.5px;font-weight:600;color:var(--ink);">Thème sombre</div><button onClick="{{ toggleDark }}" style="width:46px;height:27px;border-radius:14px;border:none;cursor:pointer;background:{{ darkKnob }};position:relative;flex:none;"><span style="position:absolute;top:3px;left:3px;width:21px;height:21px;border-radius:50%;background:var(--surface);transition:transform .2s;transform:{{ darkShift }};box-shadow:0 1px 3px rgba(0,0,0,.2);"></span></button></div>
+              <div style="display:flex;align-items:center;gap:13px;padding:15px 16px;"><span style="font-size:18px;">📴</span><div style="flex:1;"><div style="font-size:14.5px;font-weight:600;color:var(--ink);">Simuler le mode hors-ligne</div><div style="font-size:11.5px;color:var(--muted2);">Pour tester l'état sans connexion</div></div><button onClick="{{ goOffline }}" style="border:none;background:var(--chip);border-radius:10px;padding:8px 12px;font-family:inherit;font-size:12.5px;font-weight:700;color:var(--heading);cursor:pointer;flex:none;">Voir</button></div>
+            </div>
+
+            <div style="font-size:12px;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:22px 4px 10px;">Légal</div>
+            <div style="background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;">
+              <button style="width:100%;display:flex;align-items:center;gap:13px;padding:15px 16px;border:none;border-bottom:1px solid var(--border);background:none;cursor:pointer;text-align:left;"><span style="font-size:18px;">📄</span><div style="flex:1;font-size:14px;font-weight:600;color:var(--ink);">Conditions d'utilisation</div><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--muted2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+              <button style="width:100%;display:flex;align-items:center;gap:13px;padding:15px 16px;border:none;border-bottom:1px solid var(--border);background:none;cursor:pointer;text-align:left;"><span style="font-size:18px;">🔏</span><div style="flex:1;font-size:14px;font-weight:600;color:var(--ink);">Politique de confidentialité</div><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--muted2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+              <div style="padding:14px 16px;display:flex;gap:10px;align-items:flex-start;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" style="flex:none;margin-top:1px;color:var(--muted);"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"></circle><path d="M12 11v5M12 8h.01" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path></svg><p style="margin:0;font-size:11.5px;line-height:1.55;color:var(--muted);">Conforme à la <b style="color:var(--body);">Loi 25</b> (Québec) sur la protection des renseignements personnels. Contenu validé par l'AMF et nos conseillers juridiques.</p></div>
+            </div>
+
+            <button onClick="{{ backToIntro }}" style="margin-top:20px;width:100%;height:50px;border:1px solid var(--bd-red);border-radius:15px;background:var(--tint-red);color:#D9543F;font-family:inherit;font-size:14.5px;font-weight:700;cursor:pointer;">Se déconnecter</button>
+          </div>
+        </sc-if>
+
+        <!-- ===================== MON COMPTE ===================== -->
+        <sc-if value="{{ isAccount }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:6px 20px 110px;animation:screenIn .3s ease both;">
+            <div style="display:flex;align-items:center;gap:13px;padding:8px 0 14px;"><button onClick="{{ goSettings }}" style="border:none;background:var(--surface);border:1px solid var(--border);width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--heading);flex:none;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;color:var(--heading);">Mon compte</div></div>
+
+            <sc-if value="{{ deleteScheduled }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-bottom:16px;background:var(--tint-amber);border:1px solid var(--bd-amber);border-radius:18px;padding:15px;display:flex;gap:12px;align-items:center;animation:popIn .3s ease both;">
+                <span style="font-size:24px;flex:none;">🗓️</span>
+                <div style="flex:1;"><div style="font-size:13.5px;font-weight:800;color:#B5852A;">Suppression programmée</div><div style="font-size:12px;color:#7A6A45;margin-top:2px;line-height:1.4;">Ton compte sera effacé dans 30 jours. Tu peux encore tout annuler.</div></div>
+                <button onClick="{{ cancelDelete }}" style="border:none;background:#14492F;color:#fff;border-radius:11px;padding:9px 13px;font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer;flex:none;">Récupérer</button>
+              </div>
+            </sc-if>
+
+            <div style="font-size:12px;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:4px 4px 10px;">Informations</div>
+            <div style="background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;">
+              <label style="display:flex;align-items:center;gap:13px;padding:14px 16px;border-bottom:1px solid var(--border);"><span style="font-size:12px;font-weight:600;color:var(--muted);width:64px;flex:none;">Prénom</span><input value="Alex" style="flex:1;border:none;outline:none;background:none;font-family:inherit;font-size:14.5px;font-weight:600;color:var(--ink);"></label>
+              <label style="display:flex;align-items:center;gap:13px;padding:14px 16px;border-bottom:1px solid var(--border);"><span style="font-size:12px;font-weight:600;color:var(--muted);width:64px;flex:none;">Courriel</span><input value="alex@exemple.ca" style="flex:1;border:none;outline:none;background:none;font-family:inherit;font-size:14.5px;font-weight:600;color:var(--ink);"></label>
+              <div style="display:flex;align-items:center;gap:13px;padding:14px 16px;"><span style="font-size:12px;font-weight:600;color:var(--muted);width:64px;flex:none;">Objectif</span><span style="flex:1;font-size:14.5px;font-weight:600;color:var(--ink);">Mieux budgéter</span></div>
+            </div>
+
+            <div style="font-size:12px;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:22px 4px 10px;">Connexion</div>
+            <div style="background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;">
+              <button style="width:100%;display:flex;align-items:center;gap:13px;padding:15px 16px;border:none;border-bottom:1px solid var(--border);background:none;cursor:pointer;text-align:left;"><span style="font-size:18px;">🔑</span><div style="flex:1;font-size:14px;font-weight:600;color:var(--ink);">Changer mon mot de passe</div><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--muted2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+              <div style="display:flex;align-items:center;gap:13px;padding:15px 16px;"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.5 12.2c0-.7-.1-1.4-.2-2H12v3.9h5.9a5 5 0 0 1-2.2 3.3v2.7h3.5c2-1.9 3.3-4.7 3.3-7.9Z"></path><path fill="#34A853" d="M12 23c3 0 5.5-1 7.3-2.7l-3.5-2.7c-1 .7-2.3 1.1-3.8 1.1-2.9 0-5.4-2-6.3-4.6H2.1v2.8A11 11 0 0 0 12 23Z"></path><path fill="#FBBC05" d="M5.7 14.1a6.6 6.6 0 0 1 0-4.2V7.1H2.1a11 11 0 0 0 0 9.8l3.6-2.8Z"></path><path fill="#EA4335" d="M12 5.4c1.6 0 3 .6 4.2 1.6l3-3A11 11 0 0 0 2.1 7.1l3.6 2.8C6.6 7.3 9.1 5.4 12 5.4Z"></path></svg><div style="flex:1;font-size:14px;font-weight:600;color:var(--ink);">Google connecté</div><span style="font-size:12px;font-weight:700;color:var(--ac-green);">Actif</span></div>
+            </div>
+
+            <div style="margin-top:24px;background:var(--tint-red);border:1px solid var(--bd-red);border-radius:18px;padding:17px;">
+              <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:800;color:#C0432E;">Supprimer mon compte</div>
+              <p style="font-size:13px;color:#9C6259;line-height:1.45;margin:6px 0 13px;">On te laisse 30 jours pour changer d'avis. Rien n'est effacé immédiatement.</p>
+              <button onClick="{{ goDeleteAccount }}" style="width:100%;height:48px;border:1.5px solid #E59A8C;border-radius:14px;background:var(--surface);color:#C0432E;font-family:inherit;font-size:14.5px;font-weight:700;cursor:pointer;">Supprimer mon compte</button>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ===================== DELETE ACCOUNT (30 jours) ===================== -->
+        <sc-if value="{{ isDeleteAccount }}" hint-placeholder-val="{{ false }}">
+          <div style="min-height:736px;display:flex;flex-direction:column;padding:6px 20px 30px;animation:screenIn .3s ease both;">
+            <div style="display:flex;align-items:center;gap:13px;padding:8px 0 14px;"><button onClick="{{ goAccount }}" style="border:none;background:var(--surface);border:1px solid var(--border);width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--heading);flex:none;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;color:var(--heading);">Supprimer mon compte</div></div>
+
+            <sc-if value="{{ deleteScheduled }}" hint-placeholder-val="{{ false }}">
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+                <div style="width:140px;"><dc-import name="Wiz" pose="secure" hint-size="140px,168px"></dc-import></div>
+                <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:44px;font-weight:800;color:var(--heading);margin-top:12px;line-height:1;">30 jours</div>
+                <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:800;color:var(--heading);margin:12px 0 0;">Suppression programmée</h2>
+                <p style="font-size:14px;color:var(--muted);margin:10px 12px 0;line-height:1.55;">Ton compte sera définitivement effacé dans 30 jours. D'ici là, tu peux revenir quand tu veux — tout sera exactement comme avant. 💚</p>
+                <button onClick="{{ cancelDelete }}" style="margin-top:26px;width:100%;height:56px;border:none;border-radius:16px;background:#14492F;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 12px 22px -10px rgba(20,73,47,.6);">Récupérer mon compte</button>
+                <button onClick="{{ goAccount }}" style="margin-top:12px;width:100%;height:48px;border:none;background:none;color:var(--muted);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;">Retour</button>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ deleteNotScheduled }}" hint-placeholder-val="{{ true }}">
+              <div style="flex:1;display:flex;flex-direction:column;">
+                <div style="display:flex;align-items:center;gap:12px;margin-top:6px;">
+                  <div style="width:52px;flex:none;"><dc-import name="Wiz" pose="thinking" hint-size="52px,62px"></dc-import></div>
+                  <div style="background:var(--chip);border-radius:16px;border-top-left-radius:5px;padding:12px 15px;font-size:14px;color:var(--body);line-height:1.45;">On est tristes de te voir partir. Prends le temps qu'il te faut — rien n'est définitif tout de suite.</div>
+                </div>
+                <div style="margin-top:20px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:18px;box-shadow:0 8px 22px -16px rgba(20,73,47,.4);">
+                  <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:800;color:var(--heading);margin-bottom:12px;">Voici ce qui se passe</div>
+                  <div style="display:flex;flex-direction:column;gap:13px;">
+                    <div style="display:flex;gap:12px;align-items:flex-start;"><span style="font-size:18px;flex:none;">🗓️</span><p style="margin:0;font-size:13.5px;line-height:1.45;color:var(--body);"><b style="color:var(--ink);">Délai de 30 jours</b> — ton compte reste récupérable pendant tout ce temps.</p></div>
+                    <div style="display:flex;gap:12px;align-items:flex-start;"><span style="font-size:18px;flex:none;">↩️</span><p style="margin:0;font-size:13.5px;line-height:1.45;color:var(--body);"><b style="color:var(--ink);">Reviens quand tu veux</b> — reconnecte-toi et tout sera restauré.</p></div>
+                    <div style="display:flex;gap:12px;align-items:flex-start;"><span style="font-size:18px;flex:none;">🧹</span><p style="margin:0;font-size:13.5px;line-height:1.45;color:var(--body);"><b style="color:var(--ink);">Après 30 jours</b> — toutes tes données sont effacées, sans possibilité de retour.</p></div>
+                  </div>
+                </div>
+                <button onClick="{{ scheduleDelete }}" style="margin-top:auto;width:100%;height:56px;border:1.5px solid var(--bd-red);border-radius:16px;background:var(--tint-red);color:#C0432E;font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:700;cursor:pointer;">Programmer la suppression</button>
+                <button onClick="{{ goAccount }}" style="margin-top:12px;width:100%;height:52px;border:none;border-radius:16px;background:#14492F;color:#fff;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;">Finalement, je reste 💚</button>
+              </div>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <!-- ===================== BUDGET VIDE ===================== -->
+        <sc-if value="{{ isBudgetEmpty }}" hint-placeholder-val="{{ false }}">
+          <div style="min-height:736px;display:flex;flex-direction:column;padding:6px 20px 110px;animation:screenIn .3s ease both;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0 16px;">
+              <button onClick="{{ backFromSub }}" style="border:none;background:var(--surface);border:1px solid var(--border);width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--heading);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+              <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;color:var(--heading);">Budget</div>
+              <div style="width:42px;"></div>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+              <div style="width:180px;animation:floatY 4s ease-in-out infinite;"><dc-import name="Wiz" pose="idea" hint-size="180px,216px"></dc-import></div>
+              <h1 style="font-family:'Bricolage Grotesque',sans-serif;font-size:23px;font-weight:800;color:var(--heading);margin:16px 0 0;letter-spacing:-.3px;line-height:1.25;">On commence en douceur 🌱</h1>
+              <p style="font-size:15px;line-height:1.55;color:var(--muted);margin:10px 10px 0;max-width:300px;">Ajoute ton revenu mensuel pour que Wiz puisse t'aider à répartir ton argent, sans stress.</p>
+            </div>
+            <button onClick="{{ openSheetIncome }}" style="width:100%;height:58px;border:none;border-radius:18px;background:#14492F;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 12px 24px -10px rgba(20,73,47,.7);display:flex;align-items:center;justify-content:center;gap:8px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#fff" stroke-width="2.3" stroke-linecap="round"></path></svg>Ajouter mon revenu</button>
+            <button onClick="{{ openBudgetSetup }}" style="margin-top:12px;width:100%;height:52px;border:1.5px solid var(--bd-green);border-radius:16px;background:var(--surface);color:var(--ac-green);font-family:inherit;font-size:14.5px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;">✨ Laisser Wiz créer mon budget</button>
+            <button onClick="{{ goBudget }}" style="margin-top:10px;width:100%;height:46px;border:none;background:none;color:var(--muted);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;">Voir un budget d'exemple</button>
+          </div>
+        </sc-if>
+
+        <!-- ===================== THANK YOU (post-achat) ===================== -->
+        <sc-if value="{{ isThankYou }}" hint-placeholder-val="{{ false }}">
+          <div style="min-height:736px;display:flex;flex-direction:column;padding:14px 26px 32px;text-align:center;animation:screenIn .4s ease both;position:relative;overflow:hidden;background:linear-gradient(180deg,#F1FAF1,var(--bg) 340px);">
+            <div style="position:absolute;inset:0;pointer-events:none;">
+              <sc-for list="{{ confetti }}" as="c" hint-placeholder-count="0"><span style="position:absolute;top:-20px;left:{{ c.left }};width:9px;height:9px;border-radius:2px;background:{{ c.color }};animation:confettiFall {{ c.dur }} ease-in {{ c.delay }} forwards;"></span></sc-for>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+              <div style="width:180px;animation:popIn .5s ease both;"><dc-import name="Wiz" pose="celebrate" hint-size="180px,216px"></dc-import></div>
+              <div style="display:inline-flex;align-items:center;gap:7px;background:#14492F;color:#fff;font-size:12px;font-weight:800;padding:7px 14px;border-radius:20px;margin-top:14px;">👑 PREMIUM ACTIVÉ</div>
+              <h1 style="font-family:'Bricolage Grotesque',sans-serif;font-size:26px;font-weight:800;color:var(--heading);margin:14px 0 0;line-height:1.18;letter-spacing:-.4px;">Bienvenue dans Premium&nbsp;!</h1>
+              <p style="font-size:15px;line-height:1.55;color:var(--muted);margin:10px 12px 0;max-width:300px;">Merci de ta confiance 💚 Wiz est maintenant illimité et prêt à t'accompagner encore plus loin.</p>
+              <div style="width:100%;margin-top:22px;display:flex;flex-direction:column;gap:10px;text-align:left;">
+                <div style="display:flex;align-items:center;gap:11px;background:var(--surface);border:1px solid var(--border);border-radius:15px;padding:13px 15px;"><span style="width:26px;height:26px;border-radius:50%;background:var(--tint-green);display:flex;align-items:center;justify-content:center;color:#2E9E47;font-weight:800;flex:none;">✓</span><span style="font-size:13.5px;font-weight:600;color:var(--body);">Questions illimitées à Wiz</span></div>
+                <div style="display:flex;align-items:center;gap:11px;background:var(--surface);border:1px solid var(--border);border-radius:15px;padding:13px 15px;"><span style="width:26px;height:26px;border-radius:50%;background:var(--tint-green);display:flex;align-items:center;justify-content:center;color:#2E9E47;font-weight:800;flex:none;">✓</span><span style="font-size:13.5px;font-weight:600;color:var(--body);">Rapports &amp; analyses détaillés</span></div>
+                <div style="display:flex;align-items:center;gap:11px;background:var(--surface);border:1px solid var(--border);border-radius:15px;padding:13px 15px;"><span style="width:26px;height:26px;border-radius:50%;background:var(--tint-green);display:flex;align-items:center;justify-content:center;color:#2E9E47;font-weight:800;flex:none;">✓</span><span style="font-size:13.5px;font-weight:600;color:var(--body);">Parcours personnalisés &amp; alertes</span></div>
+              </div>
+            </div>
+            <button onClick="{{ finishThankYou }}" style="width:100%;height:58px;border:none;border-radius:18px;background:#14492F;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:17px;font-weight:700;cursor:pointer;box-shadow:0 14px 26px -10px rgba(20,73,47,.7);">Commencer avec Premium 🚀</button>
+          </div>
+        </sc-if>
+
+        <!-- ===================== OFFLINE ===================== -->
+        <sc-if value="{{ isOffline }}" hint-placeholder-val="{{ false }}">
+          <div style="min-height:736px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px 30px;animation:screenIn .3s ease both;">
+            <div style="width:170px;"><dc-import name="Wiz" pose="thinking" hint-size="170px,204px"></dc-import></div>
+            <div style="font-size:34px;margin-top:6px;">📴</div>
+            <h1 style="font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:800;color:var(--heading);margin:12px 0 0;letter-spacing:-.4px;">Tu es hors ligne</h1>
+            <p style="font-size:15px;line-height:1.55;color:var(--muted);margin:10px 8px 0;max-width:300px;">Pas de panique — tes données sont bien en sécurité. Vérifie ta connexion et réessaie.</p>
+            <button onClick="{{ retryOffline }}" style="margin-top:26px;width:100%;height:56px;border:none;border-radius:16px;background:#14492F;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 12px 22px -10px rgba(20,73,47,.6);display:flex;align-items:center;justify-content:center;gap:8px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 1 1 2.3 5.6M4 12V7m0 5h5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>Réessayer</button>
+          </div>
+        </sc-if>
+
+        <!-- ===================== ERROR ===================== -->
+        <sc-if value="{{ isError }}" hint-placeholder-val="{{ false }}">
+          <div style="min-height:736px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px 30px;animation:screenIn .3s ease both;">
+            <div style="width:170px;"><dc-import name="Wiz" pose="thinking" hint-size="170px,204px"></dc-import></div>
+            <div style="font-size:34px;margin-top:6px;">😅</div>
+            <h1 style="font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:800;color:var(--heading);margin:12px 0 0;letter-spacing:-.4px;">Oups… un petit pépin</h1>
+            <p style="font-size:15px;line-height:1.55;color:var(--muted);margin:10px 8px 0;max-width:300px;">Je n'ai pas réussi à récupérer tes données. Ce n'est pas de ta faute — réessaie dans un instant.</p>
+            <button onClick="{{ retryError }}" style="margin-top:26px;width:100%;height:56px;border:none;border-radius:16px;background:#14492F;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 12px 22px -10px rgba(20,73,47,.6);display:flex;align-items:center;justify-content:center;gap:8px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 1 1 2.3 5.6M4 12V7m0 5h5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>Réessayer</button>
+          </div>
+        </sc-if>
+
         <!-- SCREENS-MARKER -->
 
       </div>
+
+      <!-- ===================== OFFLINE BANNER ===================== -->
+      <sc-if value="{{ offlineBanner }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;left:14px;right:14px;top:56px;z-index:70;background:#E9A23B;color:#3A2A0A;padding:10px 13px;border-radius:14px;display:flex;align-items:center;gap:9px;box-shadow:0 12px 26px -12px rgba(0,0,0,.4);animation:toastIn .3s ease both;">
+          <span style="font-size:16px;flex:none;">📴</span><span style="flex:1;font-size:12.5px;font-weight:700;line-height:1.3;">Hors ligne — les données peuvent être anciennes.</span>
+          <button onClick="{{ clearOffline }}" style="border:none;background:rgba(58,42,10,.16);border-radius:9px;padding:6px 10px;font-family:inherit;font-size:12px;font-weight:800;color:#3A2A0A;cursor:pointer;flex:none;">Rétablir</button>
+        </div>
+      </sc-if>
 
       <!-- ===================== TAB BAR ===================== -->
       <sc-if value="{{ showTabBar }}" hint-placeholder-val="{{ false }}">
@@ -1715,13 +2010,66 @@
         </div>
       </sc-if>
 
+            <sc-if value="{{ sheetIsAddTx }}" hint-placeholder-val="{{ false }}">
+              <div>
+                <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:800;color:var(--heading);margin:0;">Nouvelle transaction 💸</h3>
+                <p style="font-size:13.5px;color:var(--muted);margin:6px 0 0;">Note une dépense pour suivre ton budget.</p>
+                <div style="position:relative;margin-top:18px;">
+                  <input value="{{ sheetTxAmount }}" onInput="{{ setTxAmount }}" type="number" inputmode="decimal" placeholder="0" style="width:100%;height:64px;border-radius:18px;border:1.5px solid var(--border);background:var(--chip);padding:0 44px 0 18px;font-family:'Bricolage Grotesque',sans-serif;font-size:26px;font-weight:800;color:var(--ink);outline:none;">
+                  <span style="position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:22px;font-weight:800;color:var(--muted2);">$</span>
+                </div>
+                <div style="font-size:13px;font-weight:600;color:var(--body);margin:16px 0 8px;">Catégorie</div>
+                <div class="ww-scroll" style="display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;">
+                  <sc-for list="{{ txCatChips }}" as="c" hint-placeholder-count="6">
+                    <button onClick="{{ c.pick }}" style="flex:none;display:flex;align-items:center;gap:6px;height:40px;padding:0 14px;border-radius:20px;border:1.5px solid {{ c.border }};background:{{ c.bg }};color:{{ c.color }};font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;">{{ c.emoji }} {{ c.name }}</button>
+                  </sc-for>
+                </div>
+                <label style="display:block;margin-top:14px;"><span style="font-size:13px;font-weight:600;color:var(--body);display:block;margin-bottom:7px;">Note</span><input value="{{ sheetTxNote }}" onInput="{{ setTxNote }}" placeholder="Ex. Épicerie" style="width:100%;height:52px;border-radius:15px;border:1.5px solid var(--border);background:var(--chip);padding:0 16px;font-family:inherit;font-size:15px;color:var(--ink);outline:none;"></label>
+                <div style="display:flex;gap:12px;margin-top:14px;align-items:flex-end;">
+                  <label style="flex:1;"><span style="font-size:13px;font-weight:600;color:var(--body);display:block;margin-bottom:7px;">Date</span><input value="{{ sheetTxDate }}" onInput="{{ setTxDate }}" style="width:100%;height:52px;border-radius:15px;border:1.5px solid var(--border);background:var(--chip);padding:0 16px;font-family:inherit;font-size:14.5px;color:var(--ink);outline:none;"></label>
+                  <div style="flex:none;display:flex;align-items:center;gap:9px;height:52px;padding:0 14px;border-radius:15px;background:var(--chip);border:1.5px solid var(--border);">
+                    <span style="font-size:13px;font-weight:600;color:var(--body);">🔁 Récurrent</span>
+                    <button onClick="{{ toggleTxRecurring }}" style="width:46px;height:27px;border-radius:14px;border:none;cursor:pointer;background:{{ txRecurKnob }};position:relative;flex:none;"><span style="position:absolute;top:3px;left:3px;width:21px;height:21px;border-radius:50%;background:#fff;transition:transform .2s;transform:{{ txRecurShift }};box-shadow:0 1px 3px rgba(0,0,0,.2);"></span></button>
+                  </div>
+                </div>
+                <button onClick="{{ saveTx }}" style="margin-top:18px;width:100%;height:54px;border:none;border-radius:16px;background:#14492F;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:700;cursor:pointer;">Ajouter la transaction</button>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ sheetIsEditTx }}" hint-placeholder-val="{{ false }}">
+              <div>
+                <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:800;color:var(--heading);margin:0;">Modifier la transaction</h3>
+                <p style="font-size:13.5px;color:var(--muted);margin:6px 0 0;">Ajuste le montant, la catégorie ou la note.</p>
+                <div style="position:relative;margin-top:18px;">
+                  <input value="{{ sheetTxAmount }}" onInput="{{ setTxAmount }}" type="number" inputmode="decimal" style="width:100%;height:64px;border-radius:18px;border:1.5px solid var(--border);background:var(--chip);padding:0 44px 0 18px;font-family:'Bricolage Grotesque',sans-serif;font-size:26px;font-weight:800;color:var(--ink);outline:none;">
+                  <span style="position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:22px;font-weight:800;color:var(--muted2);">$</span>
+                </div>
+                <div style="font-size:13px;font-weight:600;color:var(--body);margin:16px 0 8px;">Catégorie</div>
+                <div class="ww-scroll" style="display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;">
+                  <sc-for list="{{ txCatChips }}" as="c" hint-placeholder-count="6">
+                    <button onClick="{{ c.pick }}" style="flex:none;display:flex;align-items:center;gap:6px;height:40px;padding:0 14px;border-radius:20px;border:1.5px solid {{ c.border }};background:{{ c.bg }};color:{{ c.color }};font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;">{{ c.emoji }} {{ c.name }}</button>
+                  </sc-for>
+                </div>
+                <label style="display:block;margin-top:14px;"><span style="font-size:13px;font-weight:600;color:var(--body);display:block;margin-bottom:7px;">Note</span><input value="{{ sheetTxNote }}" onInput="{{ setTxNote }}" style="width:100%;height:52px;border-radius:15px;border:1.5px solid var(--border);background:var(--chip);padding:0 16px;font-family:inherit;font-size:15px;color:var(--ink);outline:none;"></label>
+                <div style="display:flex;gap:12px;margin-top:14px;align-items:flex-end;">
+                  <label style="flex:1;"><span style="font-size:13px;font-weight:600;color:var(--body);display:block;margin-bottom:7px;">Date</span><input value="{{ sheetTxDate }}" onInput="{{ setTxDate }}" style="width:100%;height:52px;border-radius:15px;border:1.5px solid var(--border);background:var(--chip);padding:0 16px;font-family:inherit;font-size:14.5px;color:var(--ink);outline:none;"></label>
+                  <div style="flex:none;display:flex;align-items:center;gap:9px;height:52px;padding:0 14px;border-radius:15px;background:var(--chip);border:1.5px solid var(--border);">
+                    <span style="font-size:13px;font-weight:600;color:var(--body);">🔁 Récurrent</span>
+                    <button onClick="{{ toggleTxRecurring }}" style="width:46px;height:27px;border-radius:14px;border:none;cursor:pointer;background:{{ txRecurKnob }};position:relative;flex:none;"><span style="position:absolute;top:3px;left:3px;width:21px;height:21px;border-radius:50%;background:#fff;transition:transform .2s;transform:{{ txRecurShift }};box-shadow:0 1px 3px rgba(0,0,0,.2);"></span></button>
+                  </div>
+                </div>
+                <button onClick="{{ saveTx }}" style="margin-top:18px;width:100%;height:54px;border:none;border-radius:16px;background:#14492F;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:700;cursor:pointer;">Enregistrer</button>
+                <button onClick="{{ deleteTx }}" style="margin-top:10px;width:100%;height:50px;border:1.5px solid var(--bd-red);border-radius:15px;background:var(--tint-red);color:#D9543F;font-family:inherit;font-size:14.5px;font-weight:700;cursor:pointer;">Supprimer la transaction</button>
+              </div>
+            </sc-if>
+
       <!-- SHEET-MARKER -->
 
     </div>
   </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;intro&quot;,&quot;dashboard&quot;,&quot;wiz&quot;,&quot;budget&quot;,&quot;lessons&quot;,&quot;goals&quot;,&quot;paywall&quot;,&quot;privacy&quot;,&quot;profile&quot;],&quot;default&quot;:&quot;intro&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Aperçu&quot;,&quot;label&quot;:&quot;Écran de départ&quot;},&quot;discreetDefault&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Aperçu&quot;,&quot;label&quot;:&quot;Mode discret au lancement&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;intro&quot;,&quot;dashboard&quot;,&quot;wiz&quot;,&quot;budget&quot;,&quot;budgetEmpty&quot;,&quot;lessons&quot;,&quot;goals&quot;,&quot;paywall&quot;,&quot;thankYou&quot;,&quot;emailVerify&quot;,&quot;notifPerm&quot;,&quot;appLock&quot;,&quot;settings&quot;,&quot;account&quot;,&quot;deleteAccount&quot;,&quot;offline&quot;,&quot;errorState&quot;,&quot;privacy&quot;,&quot;profile&quot;],&quot;default&quot;:&quot;intro&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Aperçu&quot;,&quot;label&quot;:&quot;Écran de départ&quot;},&quot;weather&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;soleil&quot;,&quot;nuages&quot;,&quot;pluie&quot;,&quot;alerte&quot;],&quot;default&quot;:&quot;nuages&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Aperçu&quot;,&quot;label&quot;:&quot;Météo financière&quot;},&quot;discreetDefault&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Aperçu&quot;,&quot;label&quot;:&quot;Mode discret au lancement&quot;}}">
 class Component extends DCLogic {
   constructor(props){
     super(props);
@@ -1831,6 +2179,17 @@ class Component extends DCLogic {
       sheetContribute: '',
       toast: null,
       celebrateGoal: null,
+      transactions:[
+        {id:'tx1', amount:54.20, catId:'ali', note:'Épicerie IGA', recurring:false, date:"Aujourd'hui"},
+        {id:'tx2', amount:16.49, catId:'loi', note:'Netflix', recurring:true, date:'Hier'},
+        {id:'tx3', amount:42.00, catId:'tra', note:'Essence', recurring:false, date:'27 juin'},
+      ],
+      editTxId:null, sheetTxAmount:'', sheetTxCat:'ali', sheetTxNote:'', sheetTxRecurring:false, sheetTxDate:"Aujourd'hui",
+      notifAsked:false, notifGranted:null,
+      offline:false, deleteScheduled:false, isPremium:false,
+      pinValue:'', appLockOn:false,
+      notifTypes:{budget:true, encourage:true, objectif:true, lecon:true, depassement:true, rapport:false},
+      quietHours:true,
     };
     this._fmtCache = {};
   }
@@ -1899,7 +2258,7 @@ class Component extends DCLogic {
 
   // ---- auth ----
   toggleAuthMode(){ this.setState({authMode: this.state.authMode==='signup'?'login':'signup'}); }
-  submitAuth(){ if(this.state.authMode==='signup') this.go('onboard'); else this.go('dashboard'); }
+  submitAuth(){ if(this.state.authMode==='signup') this.go('emailVerify'); else this.go('dashboard'); }
   exploreNoAccount(){ this.go('dashboard'); }
 
   // ---- onboarding ----
@@ -1936,7 +2295,7 @@ class Component extends DCLogic {
     this._confetti = arr;
   }
 
-  enterApp(){ this.go('dashboard'); }
+  enterApp(){ if(!this.state.notifAsked){ this.setState({notifAsked:true}); this.go('notifPerm'); } else this.go('dashboard'); }
 
   // ---- nav ----
   goDashboard(){ this.go('dashboard'); }
@@ -2130,8 +2489,38 @@ class Component extends DCLogic {
   toggleSetting(k){ const st=Object.assign({},this.state.settings); st[k]=!st[k]; this.setState({settings:st}); }
   toggleDiscreet(){ const st=Object.assign({},this.state.settings); st.discreet=!st.discreet; this.setState({settings:st}); this.showToast(st.discreet?'Mode discret activé — montants masqués':'Montants affichés', st.discreet?'🙈':'👁️'); }
   setPlan(p){ this.setState({plan:p}); }
-  goPremium(){ this.showToast('Bienvenue dans Premium ! ✨','👑'); setTimeout(()=>this.go('dashboard'),700); }
+  goPremium(){ this.setState({isPremium:true}); this.spawnConfetti(); this.forceUpdate(); this.go('thankYou'); }
   confirmDelete(){ this.showToast('Demande de suppression enregistrée','🗑️'); }
+
+  // ===== PRD additions =====
+  verifyEmail(){ this.go('onboard'); }
+  resendEmail(){ this.showToast('Courriel de vérification renvoyé 📩','📩'); }
+  allowNotif(){ const st=Object.assign({},this.state.settings,{notifications:true}); this.setState({settings:st, notifGranted:true}); this.showToast('Notifications activées 🔔','🔔'); this.go('dashboard'); }
+  skipNotif(){ this.setState({notifGranted:false}); this.go('dashboard'); }
+  goSettings(){ this.go('settings'); }
+  goAccount(){ this.go('account'); }
+  goDeleteAccount(){ this.go('deleteAccount'); }
+  scheduleDelete(){ this.setState({deleteScheduled:true}, ()=>this.scrollTop()); this.showToast('Suppression programmée dans 30 jours 🗓️','🗓️'); }
+  cancelDelete(){ this.setState({deleteScheduled:false}, ()=>this.scrollTop()); this.showToast('Suppression annulée — bon retour ! 💚','💚'); }
+  finishThankYou(){ this.go('dashboard'); }
+  setOffline(v){ this.setState({offline:v}); this.showToast(v?'Mode hors-ligne simulé 📴':'Connexion rétablie ✅', v?'📴':'✅'); }
+  retryOffline(){ this.setState({offline:false}); this.go('dashboard'); this.showToast('Connexion rétablie ✅','✅'); }
+  retryError(){ this.go('dashboard'); this.showToast('Données rechargées ✅','✅'); }
+  toggleAppLock(){ const v=!this.state.appLockOn; this.setState({appLockOn:v}); this.showToast(v?'Verrouillage activé 🔒':'Verrouillage désactivé 🔓', v?'🔒':'🔓'); }
+  previewAppLock(){ this.setState({pinValue:''}, ()=>this.go('appLock')); }
+  enterPin(d){ if(this.state.pinValue.length>=4 && d!=='del') return; let p=this.state.pinValue||''; if(d==='del') p=p.slice(0,-1); else p=p+d; this.setState({pinValue:p}); if(p.length===4){ clearTimeout(this._pinT); this._pinT=setTimeout(()=>{ this.setState({pinValue:''}); this.go('dashboard'); this.showToast('Déverrouillé 🔓','🔓'); }, 260); } }
+  useBiometric(){ this.go('dashboard'); this.showToast('Déverrouillé par biométrie 🔓','🔓'); }
+  toggleNotifType(k){ const nt=Object.assign({},this.state.notifTypes); nt[k]=!nt[k]; this.setState({notifTypes:nt}); }
+  toggleQuietHours(){ this.setState({quietHours:!this.state.quietHours}); }
+  // transactions
+  openAddTx(){ this.setState({sheet:'addTx', editTxId:null, sheetTxAmount:'', sheetTxCat:(this.state.categories[0]||{}).id, sheetTxNote:'', sheetTxRecurring:false, sheetTxDate:"Aujourd'hui"}); }
+  openEditTx(tx){ this.setState({sheet:'editTx', editTxId:tx.id, sheetTxAmount:String(tx.amount).replace('.',','), sheetTxCat:tx.catId, sheetTxNote:tx.note||'', sheetTxRecurring:!!tx.recurring, sheetTxDate:tx.date}); }
+  pickTxCat(id){ this.setState({sheetTxCat:id}); }
+  toggleTxRecurring(){ this.setState({sheetTxRecurring:!this.state.sheetTxRecurring}); }
+  saveTx(){ const amt=parseFloat(String(this.state.sheetTxAmount||'').replace(',','.'))||0; if(!amt){ this.showToast('Entre un montant valide ⚠️','⚠️'); return; } const catId=this.state.sheetTxCat||(this.state.categories[0]||{}).id;
+    if(this.state.editTxId){ const transactions=this.state.transactions.map(t=> t.id===this.state.editTxId? Object.assign({},t,{amount:amt, catId, note:this.state.sheetTxNote, recurring:this.state.sheetTxRecurring, date:this.state.sheetTxDate}) : t); this.setState({transactions, sheet:null, editTxId:null}); this.showToast('Transaction modifiée ✏️','✏️'); }
+    else { const tx={id:'tx'+Date.now(), amount:amt, catId, note:(this.state.sheetTxNote||'').trim(), recurring:this.state.sheetTxRecurring, date:this.state.sheetTxDate||"Aujourd'hui"}; this.setState({transactions:[tx].concat(this.state.transactions), sheet:null}); this.showToast('Transaction ajoutée 💸','💸'); } }
+  deleteTx(){ this.setState({transactions:this.state.transactions.filter(t=>t.id!==this.state.editTxId), sheet:null, editTxId:null}); this.showToast('Transaction supprimée 🗑️','🗑️'); }
 
   renderVals(){
     const s = this.state;
@@ -2208,14 +2597,14 @@ class Component extends DCLogic {
     const aha = ahaMap[s.goal] || ahaMap.budget;
 
     // tab bar
-    const appScreens = ['dashboard','budget','wiz','goals','profile','lessons','lessonRead','notifications','goalDetail','privacy','newsDetail','exercise','budgetSetup','results','progress','subs','flashcards','routines','training','missions'];
+    const appScreens = ['dashboard','budget','budgetEmpty','wiz','goals','profile','lessons','lessonRead','notifications','goalDetail','privacy','newsDetail','exercise','budgetSetup','results','progress','subs','flashcards','routines','training','missions','settings','account','deleteAccount'];
     const showTabBar = appScreens.indexOf(screen)>=0;
     const tabColor = (active)=> active?'#14492F':'var(--muted2)';
     const homeT = ['dashboard','notifications'].indexOf(screen)>=0;
-    const budgetT = ['budget','budgetSetup','results','subs','missions'].indexOf(screen)>=0;
+    const budgetT = ['budget','budgetEmpty','budgetSetup','results','subs','missions'].indexOf(screen)>=0;
     const wizT = screen==='wiz';
     const goalsT = ['goals','goalDetail'].indexOf(screen)>=0;
-    const profileT = ['profile','privacy','progress'].indexOf(screen)>=0;
+    const profileT = ['profile','privacy','progress','settings','account','deleteAccount'].indexOf(screen)>=0;
     const lessonsT = ['lessons','lessonRead','newsDetail','exercise','flashcards','routines'].indexOf(screen)>=0;
 
     // budget computed (with period scaling)
@@ -2621,6 +3010,44 @@ class Component extends DCLogic {
       setGoalName:(e)=>this.setField('sheetGoalName',e), setGoalTarget:(e)=>this.setField('sheetGoalTarget',e), setGoalDate:(e)=>this.setField('sheetGoalDate',e), setContribute:(e)=>this.setField('sheetContribute',e),
       saveIncome:()=>this.saveIncome(), addCategory:()=>this.addCategory(), addGoal:()=>this.addGoal(), contribute:()=>this.contribute(),
       activeGoalName: activeGoal? activeGoal.name : '',
+      // ===== PRD additions =====
+      isEmailVerify:screen==='emailVerify', isNotifPerm:screen==='notifPerm', isAppLock:screen==='appLock',
+      isSettings:screen==='settings', isAccount:screen==='account', isDeleteAccount:screen==='deleteAccount',
+      isThankYou:screen==='thankYou', isOffline:screen==='offline', isError:screen==='errorState', isBudgetEmpty:screen==='budgetEmpty',
+      verifyEmail:()=>this.verifyEmail(), resendEmail:()=>this.resendEmail(),
+      allowNotif:()=>this.allowNotif(), skipNotif:()=>this.skipNotif(),
+      goSettings:()=>this.goSettings(), goAccount:()=>this.goAccount(), goDeleteAccount:()=>this.goDeleteAccount(),
+      scheduleDelete:()=>this.scheduleDelete(), cancelDelete:()=>this.cancelDelete(), deleteScheduled:s.deleteScheduled, deleteNotScheduled:!s.deleteScheduled,
+      finishThankYou:()=>this.finishThankYou(), isPremium:s.isPremium,
+      offline:s.offline, offlineBanner:s.offline && showTabBar, setOffline:(v)=>this.setOffline(v), retryOffline:()=>this.retryOffline(), retryError:()=>this.retryError(), clearOffline:()=>this.setState({offline:false}),
+      goOffline:()=>this.go('offline'), goError:()=>this.go('errorState'),
+      offlineKnob:s.offline?'#E9A23B':'var(--muted2)', offlineShift:s.offline?'translateX(20px)':'translateX(0)',
+      appLockOn:s.appLockOn, toggleAppLock:()=>this.toggleAppLock(), previewAppLock:()=>this.previewAppLock(),
+      appLockKnob:s.appLockOn?'#36B34A':'var(--muted2)', appLockShift:s.appLockOn?'translateX(20px)':'translateX(0)',
+      enterPin:(d)=>this.enterPin(d), useBiometric:()=>this.useBiometric(),
+      pinDots:[0,1,2,3].map(i=>({filled:(s.pinValue||'').length>i, bg:(s.pinValue||'').length>i?'#14492F':'var(--track)'})),
+      pinKeys:['1','2','3','4','5','6','7','8','9','','0','del'].map(k=>({ label: k==='del'?'⌫':k, bg: k===''?'transparent':'var(--surface)', border: k===''?'none':'1px solid var(--border)', press:()=>{ if(k==='del'||/^[0-9]$/.test(k)) this.enterPin(k); } })),
+      quietHours:s.quietHours, toggleQuietHours:()=>this.toggleQuietHours(),
+      quietKnob:s.quietHours?'#36B34A':'var(--muted2)', quietShift:s.quietHours?'translateX(20px)':'translateX(0)',
+      notifTypeRows:[{k:'budget',label:'Rappel budget',emoji:'📊'},{k:'encourage',label:'Encouragements',emoji:'💚'},{k:'objectif',label:'Objectifs',emoji:'🎯'},{k:'lecon',label:'Nouvelles leçons',emoji:'📚'},{k:'depassement',label:'Dépassement',emoji:'⚠️'},{k:'rapport',label:'Rapport mensuel',emoji:'🗓️'}].map(r=>({...r, on:!!s.notifTypes[r.k], knob:s.notifTypes[r.k]?'#36B34A':'var(--muted2)', shift:s.notifTypes[r.k]?'translateX(20px)':'translateX(0)', toggle:()=>this.toggleNotifType(r.k)})),
+      // météo financière
+      meteo: (()=>{ const w=(this.props&&this.props.weather)||'nuages'; const map={
+        soleil:{emoji:'☀️', pose:'happy', tag:'BEAU TEMPS', title:'Tout est stable ce mois-ci', phrase:'Tes dépenses suivent ton plan. Continue comme ça — tu construis de belles habitudes.', reco:"Ajoute un petit montant à ton fonds d'urgence pendant que c'est calme.", ctaLabel:'Voir mes objectifs', cta:()=>this.goGoals(), bg:'linear-gradient(135deg,var(--tint-amber),var(--tint-green))', border:'var(--bd-amber)', accent:'#E8A93B', chip:'#B5852A'},
+        nuages:{emoji:'⛅', pose:'idea', tag:'QUELQUES NUAGES', title:'Attention aux dépenses impulsives', phrase:'Tes restos montent un peu cette semaine. Rien de grave — juste un œil à garder.', reco:'Lis une capsule de 3 min sur les cartes de crédit.', ctaLabel:'Lire la capsule', cta:()=>this.goLessons(), bg:'linear-gradient(135deg,var(--tint-blue),var(--tint-green))', border:'var(--bd-green)', accent:'#4C8DF6', chip:'#3B6FD4'},
+        pluie:{emoji:'🌧️', pose:'thinking', tag:'BUDGET SERRÉ', title:'Le mois est un peu serré', phrase:'Tes dépenses approchent de tes revenus. On va ajuster en douceur, sans stress.', reco:'Ajuste une catégorie ou demande un plan à Wiz.', ctaLabel:'Demander à Wiz', cta:()=>this.goWiz(), bg:'linear-gradient(135deg,var(--tint-purple),var(--tint-blue))', border:'var(--tint-purple)', accent:'#6B5BE6', chip:'#6B5BE6'},
+        alerte:{emoji:'⛈️', pose:'secure', tag:'ALERTE MÉTÉO', title:'Dépassement important repéré', phrase:'Tu as dépassé ton budget de façon notable ce mois-ci. Pas de panique — on reprend le contrôle ensemble.', reco:'Ouvre ton budget pour voir où agir en premier.', ctaLabel:'Ouvrir mon budget', cta:()=>this.goBudget(), bg:'linear-gradient(135deg,var(--tint-red),var(--tint-amber))', border:'var(--bd-red)', accent:'#E5604D', chip:'#C0432E'},
+      }; return map[w]||map.nuages; })(),
+      // budget empty
+      goBudgetEmpty:()=>this.go('budgetEmpty'), openAddTx:()=>this.openAddTx(),
+      // transactions
+      transactions: s.transactions.map(tx=>{ const c=s.categories.find(x=>x.id===tx.catId)||{name:'Autre',emoji:'🏷️',color:'var(--muted)'}; return {...tx, catName:c.name, emoji:c.emoji, color:c.color, amountF:(s.settings.discreet?'•••• $':'-'+tx.amount.toFixed(2).replace('.',',')+' $'), recurLabel:tx.recurring?'Récurrent':'Ponctuel', edit:()=>this.openEditTx(tx)}; }),
+      hasTx: s.transactions.length>0, noTx: s.transactions.length===0,
+      txCatChips: s.categories.map(c=>({id:c.id, name:c.name, emoji:c.emoji, sel:s.sheetTxCat===c.id, pick:()=>this.pickTxCat(c.id), bg:s.sheetTxCat===c.id?'var(--chip)':'var(--surface)', border:s.sheetTxCat===c.id?'#36B34A':'var(--border)', color:s.sheetTxCat===c.id?'var(--ac-green)':'var(--body)'})),
+      sheetIsAddTx:s.sheet==='addTx', sheetIsEditTx:s.sheet==='editTx',
+      sheetTxAmount:s.sheetTxAmount, sheetTxNote:s.sheetTxNote, sheetTxDate:s.sheetTxDate, sheetTxRecurring:s.sheetTxRecurring,
+      setTxAmount:(e)=>this.setField('sheetTxAmount',e), setTxNote:(e)=>this.setField('sheetTxNote',e), setTxDate:(e)=>this.setField('sheetTxDate',e),
+      toggleTxRecurring:()=>this.toggleTxRecurring(), txRecurKnob:s.sheetTxRecurring?'#36B34A':'var(--muted2)', txRecurShift:s.sheetTxRecurring?'translateX(20px)':'translateX(0)',
+      saveTx:()=>this.saveTx(), deleteTx:()=>this.deleteTx(),
     };
   }
 }
