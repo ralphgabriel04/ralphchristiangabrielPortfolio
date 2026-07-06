@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kim Dubois — Audit & feuille de route V4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Mulish:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #20242b; --muted: #5d646e; --faint: #8a909a;
+    --gold: #b8893a; --gold-soft: #f3e8d4; --blue: #3f6079; --blue-soft: #e6edf2;
+    --green: #1f7a4d; --green-soft: #e2f0e8; --red: #9a4b3a; --red-soft: #f3e4df;
+    --line: #e4e2dc; --paper: #fbfaf7; --card: #fff;
+    --font-title: "Fraunces", Georgia, serif; --font-body: "Mulish", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: var(--font-body); font-size: 14px; line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page { max-width: 860px; margin: 0 auto; padding: 64px 56px 96px; }
+
+  .doc-head { border-bottom: 2px solid var(--ink); padding-bottom: 26px; margin-bottom: 40px; }
+  .doc-kicker { font-size: 11.5px; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); font-weight: 800; }
+  h1 { font-family: var(--font-title); font-weight: 600; font-size: 40px; line-height: 1.08; margin: 14px 0 10px; letter-spacing: -.01em; }
+  .doc-sub { color: var(--muted); font-size: 15px; max-width: 60ch; margin: 0; }
+  .doc-meta { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill { font-size: 11px; font-weight: 700; letter-spacing: .03em; padding: 5px 11px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); color: var(--muted); }
+
+  h2 { font-family: var(--font-title); font-weight: 600; font-size: 25px; margin: 46px 0 4px; letter-spacing: -.01em; display: flex; align-items: baseline; gap: 12px; }
+  h2 .n { font-size: 13px; font-weight: 800; color: var(--gold); font-family: var(--font-body); letter-spacing: .04em; }
+  h2 + .lede { color: var(--muted); margin: 0 0 18px; font-size: 14px; }
+  h3 { font-size: 13px; letter-spacing: .04em; text-transform: uppercase; color: var(--faint); font-weight: 800; margin: 26px 0 12px; }
+
+  ul.clean { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 9px; }
+  ul.clean li { padding-left: 26px; position: relative; }
+  ul.clean li::before { content: ""; position: absolute; left: 6px; top: 9px; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+
+  .status-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+  .status-list li { display: grid; grid-template-columns: 96px 1fr; gap: 14px; align-items: start; padding: 13px 16px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
+  .tag { font-size: 10.5px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; padding: 4px 0; text-align: center; border-radius: 6px; }
+  .tag.done { background: var(--green-soft); color: var(--green); }
+  .tag.partial { background: var(--gold-soft); color: var(--gold); }
+  .tag.todo { background: var(--blue-soft); color: var(--blue); }
+  .status-list b { font-weight: 700; }
+  .status-list .d { color: var(--muted); display: block; margin-top: 2px; font-size: 13px; }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
+  .card h4 { margin: 0 0 8px; font-size: 14.5px; font-weight: 800; }
+  .card p { margin: 0; color: var(--muted); font-size: 13px; }
+
+  .callout { border-left: 3px solid var(--gold); background: var(--card); border-radius: 0 12px 12px 0; padding: 16px 20px; margin: 18px 0; }
+  .callout b { font-weight: 800; }
+
+  .struct { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+  .struct li { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 11px 16px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; font-size: 13.5px; }
+  .struct .cat { font-weight: 700; }
+  .struct .cnt { font-size: 12px; color: var(--faint); font-weight: 700; white-space: nowrap; }
+  .struct .soon { color: var(--blue); }
+
+  hr { border: 0; border-top: 1px solid var(--line); margin: 44px 0 0; }
+  .foot { margin-top: 22px; font-size: 12px; color: var(--faint); }
+  a { color: var(--blue); }
+
+  @media print {
+    body { background: #fff; font-size: 12px; }
+    .page { padding: 0; max-width: none; }
+    .card, .struct li, .status-list li, .callout { break-inside: avoid; }
+    h2 { break-after: avoid; }
+  }
+  @media (max-width: 680px) {
+    .page { padding: 40px 22px 64px; }
+    .grid2 { grid-template-columns: 1fr; }
+    .status-list li { grid-template-columns: 1fr; gap: 6px; }
+    .tag { justify-self: start; padding: 4px 10px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="doc-head">
+    <div class="doc-kicker">Kim Dubois Photographe Animalière</div>
+    <h1>Audit & feuille de route — V4</h1>
+    <p class="doc-sub">État du prototype, corrections appliquées dans cette session, et ce qu'il reste à brancher pour une vraie mise en ligne professionnelle.</p>
+    <div class="doc-meta">
+      <span class="pill">Maquette interactive HTML</span>
+      <span class="pill">FR / EN</span>
+      <span class="pill">Pré-lancement · noindex actif</span>
+    </div>
+  </header>
+
+  <h2><span class="n">01</span> Audit rapide</h2>
+  <p class="lede">La V3 était déjà solide. Les limites restantes étaient surtout du contenu provisoire et des éléments à connecter, pas des défauts structurels.</p>
+  <ul class="clean">
+    <li>Témoignages : un seul avis réel (Instagram), les autres étaient des exemples non identifiés comme tels.</li>
+    <li>Blog : un seul article réel, cinq fiches « À venir » aussi visibles que le vrai contenu.</li>
+    <li>Portfolio : pas de catégorie Chevaux ; deux photos commerciales présentes mais non affichées.</li>
+    <li>Coordonnées fictives (courriel / téléphone) sans mention de leur caractère provisoire.</li>
+    <li>Boutique : lien Etsy sans indication que c'est une solution temporaire.</li>
+    <li>Dossier <code>uploads/</code> : ~150 captures inutilisées alourdissant le projet.</li>
+    <li>Filigrane décoratif du héros non débrayable.</li>
+    <li>Formulaires, infolettre, galeries privées, codes promo : maquette seulement, rien n'est encore envoyé/persisté côté serveur.</li>
+  </ul>
+
+  <h2><span class="n">02</span> Corrections appliquées cette session</h2>
+  <ul class="status-list">
+    <li><span class="tag done">Fait</span><div><b>Filigrane du héros configurable</b><span class="d">Nouveau réglage Tweaks « Filigrane (logo) » : discret · marqué · masqué.</span></div></li>
+    <li><span class="tag done">Fait</span><div><b>Catégorie Chevaux préparée</b><span class="d">Onglet visible dans le portfolio complet, avec un état « bientôt » sobre (aucune fausse image).</span></div></li>
+    <li><span class="tag done">Fait</span><div><b>Photos commerciales récupérées</b><span class="d">Trio Mavericks et séance créative tutu ajoutés à la catégorie Commerciale.</span></div></li>
+    <li><span class="tag done">Fait</span><div><b>Témoignages clarifiés</b><span class="d">Badge « Avis vérifié » sur le vrai, « Exemple » sur les autres ; note plus discrète.</span></div></li>
+    <li><span class="tag done">Fait</span><div><b>Blog assaini</b><span class="d">Les fiches « À venir » sont désaturées avec un badge sobre, distinctes du vrai article.</span></div></li>
+    <li><span class="tag done">Fait</span><div><b>Boutique clarifiée</b><span class="d">Mention « hébergée sur Etsy pour l'instant, boutique intégrée à venir » près du bouton.</span></div></li>
+    <li><span class="tag done">Fait</span><div><b>Coordonnées marquées provisoires</b><span class="d">Note « à confirmer avant le lancement » sous le courriel et le téléphone.</span></div></li>
+    <li><span class="tag done">Fait</span><div><b>Nettoyage des assets</b><span class="d">Dossier <code>uploads/</code> supprimé (~150 fichiers non référencés).</span></div></li>
+    <li><span class="tag done">Fait</span><div><b>Rappel de lancement</b><span class="d">Commentaire explicite dans le code pour retirer le <code>noindex</code> le jour J.</span></div></li>
+  </ul>
+
+  <h2><span class="n">03</span> Structure finale du portfolio</h2>
+  <p class="lede">Grille maçonnée respectant les ratios naturels (portrait/paysage/carré, jamais étiré). Filtres masqués automatiquement quand une catégorie est vide.</p>
+  <ul class="struct">
+    <li><span class="cat">Chiens</span><span class="cnt">studio + extérieur</span></li>
+    <li><span class="cat">Chats</span><span class="cnt">studio + extérieur</span></li>
+    <li><span class="cat">Studio</span><span class="cnt">fonds colorés</span></li>
+    <li><span class="cat">Extérieur</span><span class="cnt">en nature / ville</span></li>
+    <li><span class="cat">Exposition féline</span><span class="cnt">18 images</span></li>
+    <li><span class="cat">Commerciale</span><span class="cnt">+ 2 images récupérées</span></li>
+    <li><span class="cat">Avant le pont de l'arc-en-ciel</span><span class="cnt">séance mémoire</span></li>
+    <li><span class="cat">Avec humains</span><span class="cnt">transversal</span></li>
+    <li><span class="cat soon">Chevaux</span><span class="cnt soon">à venir — en attente d'images</span></li>
+  </ul>
+  <div class="callout">Les tags sont déduits automatiquement du chemin de chaque image : une photo apparaît dans toutes ses catégories pertinentes. Pour activer Chevaux, déposez les images dans <code>assets/photos/chevaux/</code> et ajoutez leurs entrées dans <code>data.js</code>.</div>
+
+  <h2><span class="n">04</span> Performance</h2>
+  <div class="grid2">
+    <div class="card"><h4>Déjà en place</h4><p>Virtualisation des images (montées à l'approche du viewport, allégées au loin), <code>loading="lazy"</code>, <code>decoding="async"</code>, réservation de hauteur anti-saut, fondu au chargement.</p></div>
+    <div class="card"><h4>À prévoir au lancement</h4><p>Versions responsives des photos (<code>srcset</code> / WebP-AVIF), CDN avec cache long, dimensions intrinsèques (width/height) pour fiabiliser le CLS, <code>fetchpriority="high"</code> sur l'image du héros.</p></div>
+  </div>
+
+  <h2><span class="n">05</span> SEO</h2>
+  <ul class="clean">
+    <li>Retirer la balise <code>noindex</code> le jour du lancement (rappel ajouté au code).</li>
+    <li>Ajouter <code>sitemap.xml</code>, <code>robots.txt</code> et une URL canonique par page.</li>
+    <li>Données structurées <code>LocalBusiness</code> + <code>Photograph</code> (Schema.org) : Montréal, zones desservies, avis.</li>
+    <li>Image Open Graph dédiée + balises Twitter Card pour le partage social.</li>
+    <li>Pages d'atterrissage locales (Laval, Longueuil, Brossard…) pour le SEO de proximité.</li>
+    <li>Alt déjà soigné sur chaque photo — atout fort pour Google Images, à conserver.</li>
+  </ul>
+
+  <h2><span class="n">06</span> Admin</h2>
+  <p class="lede">Le mode administrateur couvre déjà l'essentiel ; à consolider côté persistance.</p>
+  <div class="grid2">
+    <div class="card"><h4>Codes promo / ambassadeurs</h4><p>Code, ambassadeur·rice, type d'avantage (photo gratuite, rabais fixe, %, crédit boutique, crédit séance), dates début/fin, lien d'affiliation, suivi des réservations. ✔ en place.</p></div>
+    <div class="card"><h4>Styles planifiés</h4><p>Créer, renommer, prévisualiser, activer, planifier (début/fin), retour au style par défaut, historique. ✔ en place. Exemples : Noël, Automne, Saint-Valentin, Expo féline, Lancement boutique.</p></div>
+  </div>
+  <div class="callout">Aujourd'hui ces réglages vivent dans le navigateur (localStorage). Pour une vraie exploitation : les persister côté serveur afin qu'ils soient partagés entre appareils et visibles par tous les visiteurs.</div>
+
+  <h2><span class="n">07</span> Rendre le site publiable</h2>
+  <ul class="status-list">
+    <li><span class="tag todo">À brancher</span><div><b>Formulaire de contact</b><span class="d">Connecter à un service d'envoi (courriel transactionnel ou backend) pour recevoir de vraies demandes.</span></div></li>
+    <li><span class="tag todo">À brancher</span><div><b>Infolettre</b><span class="d">Relier à une plateforme (Mailchimp, Brevo…) avec double opt-in.</span></div></li>
+    <li><span class="tag todo">À brancher</span><div><b>Galeries privées</b><span class="d">Espace client réel : authentification, livraison HD, commandes.</span></div></li>
+    <li><span class="tag todo">À brancher</span><div><b>Codes promo & styles</b><span class="d">Persistance serveur / CMS pour un usage multi-appareils.</span></div></li>
+    <li><span class="tag partial">À confirmer</span><div><b>Contenu réel</b><span class="d">Vraies coordonnées, vrais avis, articles de blog, décision boutique (Etsy vs intégrée).</span></div></li>
+    <li><span class="tag partial">À confirmer</span><div><b>Prix</b><span class="d">Les tarifs affichés sont des points de départ, à valider avant le lancement.</span></div></li>
+  </ul>
+
+  <h2><span class="n">08</span> À retirer · corriger · connecter</h2>
+  <div class="grid2">
+    <div class="card"><h4>Retirer</h4><p>Balise noindex (au lancement), badges « Exemple », mentions « maquette / à confirmer », états « à venir » une fois le contenu réel en place.</p></div>
+    <div class="card"><h4>Corriger</h4><p>Coordonnées réelles, tarifs validés, décision boutique, ajout des photos de chevaux pour activer la catégorie.</p></div>
+    <div class="card"><h4>Connecter</h4><p>Formulaire, infolettre, galeries privées, persistance serveur des codes promo et styles planifiés.</p></div>
+    <div class="card"><h4>Conserver</h4><p>Images HD, protection clic droit + crédit, masonry à ratios naturels, bilingue, admin, alt soignés.</p></div>
+  </div>
+
+  <hr />
+  <p class="foot">Document généré pour accompagner la maquette « Kim Dubois — Accueil ». Tout le contenu textuel et les prix restent à confirmer avant publication officielle.</p>
+
+</div>
+</body>
+</html>
