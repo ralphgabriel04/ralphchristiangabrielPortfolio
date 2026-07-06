@@ -435,7 +435,7 @@
   animation: lb-in .2s var(--ease) both;
 }
 @keyframes lb-in { from { opacity: 0; } to { opacity: 1; } }
-.lb-figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 14px; max-height: 90vh; }
+.lb-figure { grid-column: 2; margin: 0; display: flex; flex-direction: column; align-items: center; gap: 14px; max-height: 90vh; }
 .lb-img { max-width: 100%; max-height: 80vh; width: auto; border-radius: var(--r-md); box-shadow: 0 40px 100px -30px rgba(0,0,0,.7); object-fit: contain; }
 .lb-ph { display: grid; place-items: center; width: min(70vw, 520px); aspect-ratio: 4/3; background: var(--blue-deep); border-radius: var(--r-md); }
 .lb-cap { display: flex; flex-direction: column; align-items: center; gap: 2px; color: #fff; text-align: center; }
@@ -449,6 +449,7 @@
 @media (max-width: 760px) {
   .pf-more { width: 100%; }
   .pf-lightbox { grid-template-columns: 1fr; }
+  .lb-figure { grid-column: 1; }
   .lb-nav { position: absolute; bottom: 22px; }
   .lb-prev { left: 22px; } .lb-next { right: 22px; }
 }
