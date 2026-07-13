@@ -51,6 +51,23 @@ export const projects: Project[] = [
     media: { enabled: true, type: "image", src: "/media/cadence.gif" }
   },
   {
+    id: "vibe",
+    year: "2026 · présent",
+    status: { fr: "Prototype haute-fidélité · En développement actif", en: "High-fidelity prototype · Actively in development" },
+    name: "Vibe Montréal",
+    tag: { fr: "Découverte locale intelligente · Prototype mobile + web", en: "Smart local discovery · Mobile + web prototype" },
+    stack: ["Claude Design → Claude Code", "HTML/CSS/JS (runtime dc)", "Prototype interactif mobile + web/bureau", "Design system dark mode (tokens CSS)", "Poppins + Montserrat", "STM Pulse (carte métro interactive)", "Vibe AI (assistant conversationnel simulé)", "Recommandations mood-first (7 ambiances)", "Fiches lieux enrichies (% match · budget · marche)", "Spots cachés · communauté (badge Découvreur)", "Responsive mobile / desktop", "Stack cible : Next.js + TypeScript + Tailwind", "Supabase · PostgreSQL · Auth + Storage", "OpenAI API · Google Maps API", "STM GTFS · API événements Montréal"],
+    summary: {
+      fr: "Guide local intelligent qui aide à décider quoi faire maintenant à Montréal selon le mood, l'heure, le budget, la localisation et la station STM. L'utilisateur choisit une ambiance — Chill, Romantique, Étudier, Aventure, Budget, Social ou Solo — et reçoit cafés, restos, bars, activités, parcs, rooftops et spots cachés ouverts autour de lui. Deux différenciateurs : STM Pulse, une carte du métro de Montréal qui transforme chaque station en interface de découverte (événements, spots, temps de marche, budget, ambiance autour de l'arrêt), et Vibe AI, un assistant conversationnel qui change une envie vague (« quoi faire ce soir en 2h ? », « date pas cher ») en plan concret. Une couche communauté légère (mini-reviews, votes de vibe, nouveaux spots proposés avec badge Découvreur). Prototype haute-fidélité couvrant accueil mood-first, Vibe AI, STM Pulse, Explorer, fiches lieux enrichies, communauté et version bureau — mobile-first, mais navigable sur web et bureau.",
+      en: "Smart local guide that helps you decide what to do right now in Montréal based on mood, time of day, budget, location and STM metro station. Users pick a vibe — Chill, Romantic, Study, Adventure, Budget, Social or Solo — and get cafés, restaurants, bars, activities, parks, rooftops and hidden spots open around them. Two differentiators: STM Pulse, a Montréal metro map that turns each station into a discovery interface (events, spots, walking time, budget, vibe around the stop), and Vibe AI, a conversational assistant that turns a vague urge (\"what to do tonight in 2h?\", \"cheap date\") into a concrete plan. A light community layer (mini-reviews, vibe votes, new spots submitted with a Discoverer badge). A high-fidelity prototype spanning a mood-first home, Vibe AI, STM Pulse, Explore, enriched place pages, community and a desktop version — mobile-first, yet navigable on web and desktop."
+    },
+    metrics: {
+      fr: ["Mobile + web / bureau", "STM Pulse · carte métro interactive", "Vibe AI · plans en langage naturel", "7 ambiances · spots cachés + communauté"],
+      en: ["Mobile + web / desktop", "STM Pulse · interactive metro map", "Vibe AI · natural-language plans", "7 moods · hidden spots + community"]
+    },
+    media: { enabled: true, type: "image", src: "/media/vibe.jpg" }
+  },
+  {
     id: "fastercom-tms",
     year: "Déc. 2025 · Mars 2026",
     status: { fr: "B2B · NDA partiel", en: "B2B · partial NDA" },
@@ -154,6 +171,7 @@ export const projects: Project[] = [
 export const caseStudyIds = new Set([
   "the-mad-space",
   "cadence",
+  "vibe",
   "fastercom-tms",
   "dpm-elevate",
   "wise-wealthy",
@@ -166,6 +184,7 @@ export const caseStudyIds = new Set([
 export const projectRoles: Record<string, { fr: string; en: string }> = {
   "the-mad-space": { fr: "Ingénieur Full-Stack (Contractuel)", en: "Full-Stack Engineer (Contract)" },
   "cadence": { fr: "Co-fondateur · Tech Lead", en: "Co-founder · Tech Lead" },
+  "vibe": { fr: "Fondateur · Product Design · Prototypage · Stratégie produit", en: "Founder · Product Design · Prototyping · Product Strategy" },
   "fastercom-tms": { fr: "Développeur Intégrateur de Solutions", en: "Solutions Integration Developer" },
   "dpm-elevate": { fr: "Fondateur · Design & Prototypage", en: "Founder · Design & Prototyping" },
   "wise-wealthy": { fr: "Conception produit · Modèle d'affaires & Prototypage", en: "Product Design · Business Model & Prototyping" },
@@ -182,6 +201,11 @@ export const projectLinks: Record<string, { label: string; url: string; type: "g
   "cadence": [
     { label: "Landing page", url: "https://cadence-web-fawn.vercel.app", type: "live" },
     { label: "GitHub", url: "https://github.com/ralphgabriel04/cadence-mobile", type: "github" },
+  ],
+  "vibe": [
+    { label: "Maquette live (mobile)", url: "/vibe/index.html", type: "live" },
+    { label: "Version web / bureau", url: "/vibe/Vibe%20Web.dc.html", type: "demo" },
+    { label: "Composant fiche lieu", url: "/vibe/PlaceCard.dc.html", type: "demo" },
   ],
   "dpm-elevate": [
     { label: "Live", url: "/dpm-elevate/index.html", type: "live" },
@@ -204,6 +228,28 @@ export const projectLinks: Record<string, { label: string; url: string; type: "g
 
 /** Extra animated previews shown as a gallery on the detail page (beyond the hero media) */
 export const projectGalleries: Record<string, { src: string; caption: { fr: string; en: string } }[]> = {
+  "vibe": [
+    {
+      src: "/media/vibe-accueil.jpg",
+      caption: { fr: "Accueil mood-first — « Quelle est ta vibe ce soir ? »", en: "Mood-first home — \"What's your vibe tonight?\"" },
+    },
+    {
+      src: "/media/vibe-stm.jpg",
+      caption: { fr: "STM Pulse — carte du métro interactive (mobile)", en: "STM Pulse — interactive metro map (mobile)" },
+    },
+    {
+      src: "/media/vibe-ai.jpg",
+      caption: { fr: "Vibe AI — assistant conversationnel", en: "Vibe AI — conversational assistant" },
+    },
+    {
+      src: "/media/vibe-lieu.jpg",
+      caption: { fr: "Fiche lieu enrichie — % match, budget, temps de marche", en: "Enriched place page — % match, budget, walking time" },
+    },
+    {
+      src: "/media/vibe-web.jpg",
+      caption: { fr: "Explorer — version web / bureau", en: "Explore — web / desktop version" },
+    },
+  ],
   "wise-wealthy": [
     {
       src: "/media/wise-wealthy-kids.gif",

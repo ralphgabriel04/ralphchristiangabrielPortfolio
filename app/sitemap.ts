@@ -5,6 +5,7 @@ const BASE_URL = "https://ralphgabriel.dev";
 const projects = [
   "the-mad-space",
   "cadence",
+  "vibe",
   "fastercom-tms",
   "dpm-elevate",
   "financej",

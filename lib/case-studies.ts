@@ -77,6 +77,72 @@ export const caseStudies: Record<string, CaseStudy> = {
       }
     }
   },
+  "vibe": {
+    fr: {
+      problem: {
+        title: "Le problème",
+        body: "Trouver quoi faire à Montréal demande souvent de jongler entre Google Maps, TikTok, Instagram, Eventbrite, Yelp et les sites d'événements. Ces outils donnent beaucoup d'informations, mais peu d'aide à la décision. L'utilisateur sait rarement quoi choisir selon son humeur, le moment, son budget, sa position ou la station STM où il se trouve. Le public visé — jeunes, étudiants, touristes urbains et personnes spontanées — veut sortir sans perdre du temps à chercher, mais aucun produit ne répond simplement à la vraie question : « qu'est-ce que je fais maintenant ? ».",
+        type: "text"
+      },
+      constraints: {
+        title: "Les contraintes",
+        body: "Le prototype devait rester simple, visuel et interactif tout en montrant une vision produit complète : découverte locale, IA, communauté, spots cachés et carte STM. Il fallait éviter de créer une simple copie de Google Maps ou Yelp — l'app devait être plus vivante que Google Maps, plus spontanée qu'Eventbrite et plus orientée mood que Yelp. Le défi était de rendre l'expérience claire, rapide et mobile-first, tout en restant navigable sur web et bureau, et en simulant des données (spots, événements, réseau STM, réponses de l'assistant) qui seront plus tard branchées à des APIs réelles.",
+        type: "text"
+      },
+      approach: {
+        title: "La solution",
+        body: "Vibe propose une expérience centrée sur le mood et le moment. L'utilisateur choisit son ambiance, puis reçoit des recommandations adaptées : plan express, spot du moment, lieux ouverts, endroits cachés et suggestions autour des stations STM. Vibe AI permet de demander un plan personnalisé (« quoi faire ce soir en 2h ? », « date pas cher », « café calme pour étudier », « quoi faire autour de ma station STM ? »), tandis que STM Pulse transforme le métro en interface de découverte locale : on sélectionne une station et on voit quoi faire autour — événements, activités, spots recommandés, temps de marche, budget et ambiance. La communauté ajoute une couche sociale avec validations, mini-reviews, votes de vibe et nouveaux spots proposés par les utilisateurs, récompensés par un badge Découvreur. Le tout existe en deux surfaces cohérentes : une app mobile (cadre téléphone) et une version web/bureau, pour que l'utilisateur navigue le produit peu importe l'appareil.",
+        type: "text"
+      },
+      stack: {
+        title: "Stack technique",
+        items: ["Prototype : HTML/CSS/JS (runtime dc)", "Claude Design → Claude Code", "Design Components · prototype interactif", "Responsive mobile / desktop", "Design system dark mode (tokens CSS)", "Poppins + Montserrat", "Simulation IA (Vibe AI)", "Simulation données STM (STM Pulse)", "Cible : React / Next.js", "Tailwind CSS", "Supabase · PostgreSQL", "Auth + Storage photos", "OpenAI API", "Google Maps API", "STM GTFS / données transport", "API événements Montréal"],
+        type: "list"
+      },
+      outcomes: {
+        title: "Résultats",
+        body: "Le prototype V3 présente une expérience cohérente avec plusieurs parcours clés : accueil mood-first, Vibe AI, STM Pulse, communauté, ajout de spot, fiches lieux enrichies (% match, budget, temps de marche, ambiance, preuve sociale) et version bureau. L'application montre clairement son différenciateur : aider l'utilisateur à décider rapidement quoi faire et où descendre dans Montréal selon sa vibe du moment. Honnêteté de l'état : c'est un prototype haute-fidélité — pas de backend, données simulées et assistant mis en scène. Évaluation interne : ≈ 8,4/10 comme prototype haute-fidélité, ≈ 7/10 comme produit réel, car il manque encore backend, données réelles, modération, géolocalisation réelle et API STM/événements.",
+        type: "text"
+      },
+      learnings: {
+        title: "Apprentissages",
+        body: "Le concept est clair, mémorable et différenciant : STM Pulse (le métro comme interface de découverte) et Vibe AI (transformer une envie vague en plan concret) portent l'identité, et le badge Découvreur renforce la dimension communautaire. La leçon la plus honnête : Vibe est passé d'un simple concept d'app locale à une vraie étude de cas produit, mais reste un prototype, pas encore un produit. Les prochaines étapes sont claires — brancher des données réelles (horaires, événements, stations, géolocalisation), prévoir la modération des spots proposés, ajouter un onboarding court pour expliquer STM Pulse, unifier parfaitement mobile et web, corriger les détails techniques (petites erreurs SVG sur la carte STM, remplacer les transition: all par des transitions ciblées) et clarifier le modèle économique : freemium, partenariats locaux, premium et deals étudiants.",
+        type: "text"
+      }
+    },
+    en: {
+      problem: {
+        title: "The problem",
+        body: "Finding what to do in Montréal usually means juggling Google Maps, TikTok, Instagram, Eventbrite, Yelp and event sites. These tools give plenty of information but little help deciding. Users rarely know what to pick based on their mood, the moment, their budget, their location or the STM station they're at. The target audience — young people, students, urban tourists and spontaneous people — wants to go out without wasting time searching, yet no product simply answers the real question: \"what do I do right now?\".",
+        type: "text"
+      },
+      constraints: {
+        title: "Constraints",
+        body: "The prototype had to stay simple, visual and interactive while showing a complete product vision: local discovery, AI, community, hidden spots and an STM map. It had to avoid being a mere copy of Google Maps or Yelp — the app needed to feel more alive than Google Maps, more spontaneous than Eventbrite and more mood-driven than Yelp. The challenge was to make the experience clear, fast and mobile-first, while staying navigable on web and desktop, and simulating data (spots, events, STM network, assistant answers) that would later be wired to real APIs.",
+        type: "text"
+      },
+      approach: {
+        title: "The solution",
+        body: "Vibe centres the experience on mood and moment. Users pick their vibe, then get tailored recommendations: an express plan, the spot of the moment, open places, hidden gems and suggestions around STM stations. Vibe AI lets you ask for a personalised plan (\"what to do tonight in 2h?\", \"cheap date\", \"quiet café to study\", \"what to do around my STM station?\"), while STM Pulse turns the metro into a local discovery interface: select a station and see what to do around it — events, activities, recommended spots, walking time, budget and vibe. The community adds a social layer with validations, mini-reviews, vibe votes and new spots submitted by users, rewarded with a Discoverer badge. All of it lives across two coherent surfaces: a mobile app (phone frame) and a web/desktop version, so users can navigate the product on any device.",
+        type: "text"
+      },
+      stack: {
+        title: "Tech stack",
+        items: ["Prototype: HTML/CSS/JS (dc runtime)", "Claude Design → Claude Code", "Design Components · interactive prototype", "Responsive mobile / desktop", "Dark-mode design system (CSS tokens)", "Poppins + Montserrat", "Simulated AI (Vibe AI)", "Simulated STM data (STM Pulse)", "Target: React / Next.js", "Tailwind CSS", "Supabase · PostgreSQL", "Auth + photo storage", "OpenAI API", "Google Maps API", "STM GTFS / transit data", "Montréal events API"],
+        type: "list"
+      },
+      outcomes: {
+        title: "Outcomes",
+        body: "The V3 prototype presents a coherent experience with several key journeys: a mood-first home, Vibe AI, STM Pulse, community, add-a-spot, enriched place pages (% match, budget, walking time, vibe, social proof) and a desktop version. The app clearly shows its differentiator: helping users quickly decide what to do and where to get off in Montréal based on their current vibe. An honest status: this is a high-fidelity prototype — no backend, simulated data and a staged assistant. Internal rating: ≈ 8.4/10 as a high-fidelity prototype, ≈ 7/10 as a real product, since it still lacks a backend, real data, moderation, real geolocation and STM/events APIs.",
+        type: "text"
+      },
+      learnings: {
+        title: "Learnings",
+        body: "The concept is clear, memorable and differentiating: STM Pulse (the metro as a discovery interface) and Vibe AI (turning a vague urge into a concrete plan) carry the identity, and the Discoverer badge strengthens the community dimension. The most honest lesson: Vibe went from a simple local-app concept to a real product case study, but it's still a prototype, not yet a product. The next steps are clear — wire in real data (schedules, events, stations, geolocation), plan moderation for submitted spots, add a short onboarding to explain STM Pulse, perfectly unify mobile and web, fix the technical details (small SVG glitches on the STM map, replace transition: all with targeted transitions) and clarify the business model: freemium, local partnerships, premium and student deals.",
+        type: "text"
+      }
+    }
+  },
   "fastercom-tms": {
     fr: {
       problem: {
