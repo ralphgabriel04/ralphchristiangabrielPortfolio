@@ -215,6 +215,7 @@ export const projectLinks: Record<string, { label: string; url: string; type: "g
     { label: "Mes finances", url: "/wise-wealthy/Finances.dc.html", type: "demo" },
     { label: "Wise & Wealthy Kids", url: "/wise-wealthy/Wise%20%26%20Wealthy%20Kids.dc.html", type: "demo" },
     { label: "Espace Famille", url: "/wise-wealthy/Espace%20Famille.dc.html", type: "demo" },
+    { label: "App adulte — ancienne version (archive V7)", url: "/wise-wealthy/Wise%20%26%20Wealthy%20(archive%20V7).dc.html", type: "demo" },
   ],
   "crcc": [
     { label: "Maquette live", url: "/crcc/index.html", type: "live" },

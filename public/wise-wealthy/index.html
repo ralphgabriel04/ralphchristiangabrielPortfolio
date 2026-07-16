@@ -164,6 +164,7 @@
             </div>
 
             <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-size:23px;font-weight:800;color:var(--heading);margin:22px 0 4px;line-height:1.2;letter-spacing:-.3px;">{{ obQuestion }}</h2>
+            <sc-if value="{{ obMultiHint }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px;color:#2E9E47;font-weight:700;margin:2px 0 0;">Choisis-en autant que tu veux ✓</div></sc-if>
 
             <div style="margin-top:18px;display:flex;flex-direction:column;gap:12px;">
               <sc-for list="{{ obOptions }}" as="opt" hint-placeholder-count="4">
@@ -173,7 +174,7 @@
                     <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:700;color:var(--ink);">{{ opt.title }}</div>
                     <div style="font-size:12.5px;color:var(--muted);margin-top:2px;">{{ opt.sub }}</div>
                   </div>
-                  <div style="width:24px;height:24px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;border:2px solid {{ opt.dot }};background:{{ opt.dotBg }};">
+                  <div style="width:24px;height:24px;border-radius:{{ opt.dotRadius }};flex:none;display:flex;align-items:center;justify-content:center;border:2px solid {{ opt.dot }};background:{{ opt.dotBg }};">
                     <sc-if value="{{ opt.selected }}" hint-placeholder-val="{{ false }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-10" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg></sc-if>
                   </div>
                 </button>
@@ -228,6 +229,24 @@
               </div>
             </div>
 
+            <sc-if value="{{ showFamilyInvite }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-bottom:14px;background:linear-gradient(135deg,var(--tint-blue),var(--tint-green));border:1px solid var(--bd-green);border-radius:18px;padding:14px;display:flex;align-items:center;gap:12px;animation:popIn .35s ease both;">
+                <a href="Espace%20Famille.dc.html" style="flex:1;display:flex;align-items:center;gap:12px;text-decoration:none;min-width:0;"><span style="font-size:22px;flex:none;">👨‍👩‍👧</span><div style="min-width:0;"><div style="font-size:13.5px;font-weight:700;color:var(--ink);line-height:1.35;">Découvre l'Espace Famille</div><div style="font-size:12px;color:var(--muted);margin-top:2px;">Wiz4Kids pour initier tes enfants, en toute sécurité.</div></div></a>
+                <button onClick="{{ dismissFamilyInvite }}" aria-label="Ignorer" style="border:none;background:none;color:var(--muted2);cursor:pointer;padding:4px;flex:none;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg></button>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ homeNew }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-bottom:14px;background:linear-gradient(150deg,#1C6B45,#14492F);border-radius:24px;padding:18px;box-shadow:0 16px 30px -16px rgba(20,73,47,.6);">
+                <div style="display:flex;align-items:center;gap:12px;">
+                  <div style="width:46px;flex:none;"><dc-import name="Wiz" pose="wave" hint-size="46px,55px"></dc-import></div>
+                  <div style="flex:1;"><div style="font-size:11px;font-weight:800;color:#9FE0AD;letter-spacing:.4px;">✨ CONFIGURATION</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:17px;font-weight:800;color:#fff;margin-top:3px;line-height:1.25;">Bienvenue ! Configurons ton compte 🌱</div></div>
+                </div>
+                <p style="margin:12px 0 0;font-size:13px;line-height:1.5;color:#CDEBD3;">Ajoute ton revenu pour débloquer ton portrait financier et les conseils de Wiz.</p>
+                <button onClick="{{ goSetup }}" style="margin-top:14px;width:100%;height:50px;border:none;border-radius:14px;background:var(--surface);color:var(--heading);font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:800;cursor:pointer;">Commencer la configuration</button>
+              </div>
+            </sc-if>
+            <sc-if value="{{ homeNotNew }}" hint-placeholder-val="{{ true }}">
             <div style="margin-bottom:14px;background:linear-gradient(150deg,#1C6B45,#14492F);border-radius:24px;padding:18px;position:relative;overflow:hidden;box-shadow:0 16px 30px -16px rgba(20,73,47,.6);">
               <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
                 <div style="display:flex;align-items:center;gap:8px;">
@@ -260,12 +279,13 @@
                 <button onClick="{{ startDaily }}" style="margin-top:14px;width:100%;height:50px;border:none;border-radius:14px;background:var(--surface);color:var(--heading);font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:800;cursor:pointer;">Voir comment faire</button>
               </sc-if>
             </div>
+            </sc-if>
 
             <!-- MÉTÉO FINANCIÈRE -->
+            <sc-if value="{{ homeNotNew }}" hint-placeholder-val="{{ true }}">
             <div style="margin-bottom:14px;background:{{ meteo.bg }};border:1px solid {{ meteo.border }};border-radius:24px;padding:16px;box-shadow:0 10px 24px -18px rgba(20,73,47,.4);animation:popIn .4s ease both;">
               <div style="display:flex;align-items:center;gap:13px;">
                 <div style="position:relative;width:58px;height:58px;flex:none;display:flex;align-items:flex-end;justify-content:center;">
-                  <span style="position:absolute;top:-6px;right:-6px;font-size:24px;animation:floatY 3.4s ease-in-out infinite;">{{ meteo.emoji }}</span>
                   <div style="width:52px;"><dc-import name="Wiz" pose="{{ meteo.pose }}" hint-size="52px,62px"></dc-import></div>
                 </div>
                 <div style="flex:1;min-width:0;">
@@ -282,6 +302,7 @@
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h13M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
               </button>
             </div>
+            </sc-if>
 
             <sc-if value="{{ showPersonalizeBanner }}" hint-placeholder-val="{{ false }}">
               <div style="margin-bottom:14px;background:linear-gradient(135deg,var(--tint-amber),var(--tint-green));border:1px solid var(--bd-amber);border-radius:18px;padding:14px;display:flex;align-items:center;gap:12px;animation:popIn .35s ease both;">
@@ -295,44 +316,15 @@
               </div>
             </sc-if>
 
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-              <div style="font-size:13.5px;color:var(--muted);line-height:1.3;max-width:200px;">Vue d'ensemble de tes finances ce mois-ci</div>
-              <button onClick="{{ openMonthPicker }}" style="display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:8px 12px;font-family:inherit;font-size:13px;font-weight:700;color:var(--heading);cursor:pointer;white-space:nowrap;">{{ dMonthLabel }}
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-              </button>
-            </div>
-
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-              <div style="background:var(--surface);border-radius:20px;padding:16px;border:1px solid var(--border);box-shadow:0 6px 16px -12px rgba(20,73,47,.3);">
-                <div style="display:flex;align-items:center;gap:7px;color:var(--muted);font-size:12.5px;font-weight:600;"><span style="width:8px;height:8px;border-radius:50%;background:#36B34A;"></span>Revenus</div>
-                <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:800;color:var(--ink);margin-top:8px;">{{ dRevF }}</div>
-                <div style="font-size:12px;font-weight:700;color:#2E9E47;margin-top:3px;">{{ dRevDelta }}</div>
-                <svg viewBox="0 0 120 32" style="width:100%;height:26px;margin-top:8px;" preserveAspectRatio="none"><path d="M0 26 L20 22 L40 24 L60 14 L80 17 L100 8 L120 4" fill="none" stroke="#36B34A" stroke-width="2.4" stroke-linecap="round"></path></svg>
-              </div>
-              <div style="background:var(--surface);border-radius:20px;padding:16px;border:1px solid var(--border);box-shadow:0 6px 16px -12px rgba(20,73,47,.3);">
-                <div style="display:flex;align-items:center;gap:7px;color:var(--muted);font-size:12.5px;font-weight:600;"><span style="width:8px;height:8px;border-radius:50%;background:#E5604D;"></span>Dépenses</div>
-                <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:800;color:var(--ink);margin-top:8px;">{{ dDepF }}</div>
-                <div style="font-size:12px;font-weight:700;color:#2E9E47;margin-top:3px;">{{ dDepDelta }}</div>
-                <svg viewBox="0 0 120 32" style="width:100%;height:26px;margin-top:8px;" preserveAspectRatio="none"><path d="M0 10 L20 14 L40 9 L60 18 L80 13 L100 20 L120 16" fill="none" stroke="#E5604D" stroke-width="2.4" stroke-linecap="round"></path></svg>
-              </div>
-            </div>
-
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
-              <div style="background:var(--surface);border-radius:20px;padding:16px;border:1px solid var(--border);box-shadow:0 6px 16px -12px rgba(20,73,47,.3);">
-                <div style="display:flex;align-items:center;gap:7px;color:var(--muted);font-size:12.5px;font-weight:600;"><span style="width:8px;height:8px;border-radius:50%;background:#4C8DF6;"></span>Épargne</div>
-                <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:800;color:var(--ink);margin-top:8px;">{{ dEpaF }}</div>
-                <div style="font-size:12px;font-weight:700;color:#2E9E47;margin-top:3px;">{{ dEpaDelta }}</div>
-                <svg viewBox="0 0 120 32" style="width:100%;height:26px;margin-top:8px;" preserveAspectRatio="none"><path d="M0 22 L20 20 L40 21 L60 15 L80 16 L100 10 L120 7" fill="none" stroke="#4C8DF6" stroke-width="2.4" stroke-linecap="round"></path></svg>
-              </div>
-              <div style="background:linear-gradient(155deg,#1C6B45,#14492F);border-radius:20px;padding:16px;box-shadow:0 12px 22px -12px rgba(20,73,47,.6);position:relative;overflow:hidden;">
-                <div style="display:flex;align-items:center;gap:7px;color:#A7DDB4;font-size:12.5px;font-weight:600;">✨ Épargne possible</div>
-                <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:800;color:#fff;margin-top:8px;">{{ dPossF }}</div>
-                <div style="font-size:12px;font-weight:600;color:#CDEBD3;margin-top:3px;">ce mois-ci</div>
-                <div style="margin-top:11px;height:7px;border-radius:4px;background:rgba(255,255,255,.18);overflow:hidden;"><div style="height:100%;width:{{ dPossW }};border-radius:4px;background:#7BE495;"></div></div>
-              </div>
-            </div>
-
             <!-- santé financière -->
+            <sc-if value="{{ homeNew }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:14px;background:var(--surface);border:1px dashed var(--bd-green);border-radius:22px;padding:20px;text-align:center;">
+                <div style="font-size:30px;">📊</div>
+                <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:800;color:var(--heading);margin-top:6px;">Ton portrait financier se construit</div>
+                <p style="font-size:13px;color:var(--muted);line-height:1.5;margin:6px 0 0;">Ajoute ton revenu et une dépense pour voir ta santé financière apparaître. 🌱</p>
+              </div>
+            </sc-if>
+            <sc-if value="{{ homeNotNew }}" hint-placeholder-val="{{ true }}">
             <div style="margin-top:14px;background:var(--surface);border:1px solid var(--border);border-radius:22px;padding:18px;box-shadow:0 6px 16px -12px rgba(20,73,47,.3);">
               <div style="display:flex;align-items:center;gap:15px;">
                 <div style="position:relative;width:74px;height:74px;flex:none;">
@@ -359,71 +351,39 @@
               </div>
               <div style="margin-top:11px;font-size:11px;color:var(--muted2);line-height:1.45;">Un repère, pas une note. Wiz t'aide à comprendre, pas à juger.</div>
             </div>
+            </sc-if>
 
-            <!-- conseil de Wiz -->
-            <div onClick="{{ goWiz }}" style="margin-top:14px;background:linear-gradient(135deg,var(--tint-purple),var(--tint-green));border-radius:22px;padding:16px;display:flex;gap:13px;align-items:center;cursor:pointer;border:1px solid var(--tint-purple);">
-              <div style="width:50px;flex:none;"><dc-import name="Wiz" pose="idea" hint-size="50px,60px"></dc-import></div>
-              <div style="flex:1;">
-                <div style="display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:800;color:var(--ac-purple);">💡 Conseil de Wiz</div>
-                <p style="font-size:14px;line-height:1.45;color:var(--body);margin:5px 0 0;">Tu pourrais économiser <b style="color:var(--ink);">80&nbsp;$</b> ce mois-ci en ajustant tes dépenses restaurants.</p>
-              </div>
-              <div style="width:34px;height:34px;border-radius:50%;background:var(--ac-purple);display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 6px 14px -4px rgba(107,91,230,.6);">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M5 12h13M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-              </div>
-            </div>
-
-            <!-- espace famille (pont écosystème) -->
-            <a href="Espace%20Famille.dc.html" style="text-decoration:none;margin-top:14px;background:linear-gradient(135deg,var(--tint-blue),var(--tint-green));border:1px solid var(--bd-green);border-radius:22px;padding:16px;display:flex;gap:13px;align-items:center;cursor:pointer;">
-              <div style="position:relative;width:52px;height:46px;flex:none;">
-                <div style="position:absolute;left:0;top:3px;width:36px;height:36px;border-radius:11px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:20px;border:1px solid var(--bd-green);">🦊</div>
-                <div style="position:absolute;right:0;top:9px;width:36px;height:36px;border-radius:11px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:20px;border:1px solid var(--bd-green);box-shadow:-4px 0 8px -4px rgba(20,73,47,.25);">🐻</div>
-              </div>
-              <div style="flex:1;min-width:0;">
-                <div style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;letter-spacing:.4px;color:var(--ac-blue);">🛡️ ESPACE FAMILLE</div>
-                <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:15.5px;font-weight:800;color:var(--ink);margin-top:3px;line-height:1.25;">Wiz4Kids — 2 enfants</div>
-                <div style="font-size:12px;color:var(--muted);margin-top:2px;">Progression, temps d'écran & contrôles parentaux</div>
-              </div>
-              <div style="width:34px;height:34px;border-radius:50%;background:#14492F;display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 6px 14px -4px rgba(20,73,47,.5);">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M5 12h13M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-              </div>
-            </a>
-
-            <!-- objectif principal -->
-            <div style="display:flex;align-items:center;justify-content:space-between;margin:20px 2px 12px;">
-              <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-size:17px;font-weight:800;color:var(--heading);margin:0;">Objectif principal</h3>
-              <span onClick="{{ goGoals }}" style="font-size:13px;font-weight:700;color:#2E9E47;cursor:pointer;">Tout voir</span>
-            </div>
-            <div onClick="{{ goGoals }}" style="background:var(--surface);border-radius:20px;padding:16px;border:1px solid var(--border);box-shadow:0 6px 16px -12px rgba(20,73,47,.3);cursor:pointer;">
-              <div style="display:flex;align-items:center;gap:12px;">
-                <div style="width:44px;height:44px;border-radius:13px;background:var(--tint-green);display:flex;align-items:center;justify-content:center;flex:none;">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z" stroke="#2E9E47" stroke-width="1.8" stroke-linejoin="round"></path></svg>
+            <sc-if value="{{ hasHomePriority }}" hint-placeholder-val="{{ false }}">
+              <button onClick="{{ openHomePriority }}" style="margin-top:14px;width:100%;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:16px;cursor:pointer;text-align:left;box-shadow:0 6px 16px -12px rgba(20,73,47,.3);">
+                <div style="display:flex;align-items:center;gap:12px;">
+                  <div style="width:44px;height:44px;border-radius:13px;background:var(--chip);display:flex;align-items:center;justify-content:center;font-size:20px;flex:none;">{{ homePriorityEmoji }}</div>
+                  <div style="flex:1;min-width:0;"><div style="font-size:11px;font-weight:800;letter-spacing:.4px;color:#B5852A;">⭐ OBJECTIF PRIORITAIRE</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:15.5px;font-weight:800;color:var(--ink);margin-top:2px;">{{ homePriorityName }}</div><div style="font-size:12px;color:var(--muted);margin-top:1px;">{{ homePrioritySavedF }} / {{ homePriorityTargetF }}</div></div>
+                  <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;color:{{ homePriorityColor }};">{{ homePriorityPct }}%</div>
                 </div>
-                <div style="flex:1;">
-                  <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:15.5px;font-weight:700;color:var(--ink);">{{ mainGoalName }}</div>
-                  <div style="font-size:12.5px;color:var(--muted);margin-top:1px;">{{ mainGoalSavedF }} / {{ mainGoalTargetF }}</div>
-                </div>
-                <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;color:#2E9E47;">{{ mainGoalPctLabel }}</div>
-              </div>
-              <div style="margin-top:12px;height:9px;border-radius:5px;background:var(--track);overflow:hidden;"><div style="height:100%;width:{{ mainGoalPctW }};border-radius:5px;background:linear-gradient(90deg,#36B34A,#2E9E47);animation:barGrow 1s cubic-bezier(.4,0,.2,1);"></div></div>
-            </div>
+                <div style="margin-top:12px;height:8px;border-radius:5px;background:var(--track);overflow:hidden;"><div style="height:100%;border-radius:5px;width:{{ homePriorityPctW }};background:{{ homePriorityColor }};"></div></div>
+              </button>
+            </sc-if>
 
-            <button onClick="{{ goLessons }}" style="margin-top:14px;width:100%;background:var(--surface);border:1px dashed var(--bd-green);border-radius:18px;padding:15px;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;">
-              <span style="font-size:22px;">📚</span>
+            <sc-if value="{{ homeEstabli }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:14px;background:linear-gradient(135deg,var(--tint-blue),var(--tint-green));border:1px solid var(--bd-green);border-radius:20px;padding:16px;">
+                <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:20px;">🗓️</span><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:800;color:var(--ink);">Ton bilan du mois</div></div>
+                <p style="margin:8px 0 0;font-size:13px;line-height:1.45;color:var(--body);">Tu as épargné <b style="color:var(--ink);">300 $</b> et respecté ton budget 3 semaines sur 4. Beau mois ! 🌱</p>
+              </div>
+              <div style="margin-top:12px;display:flex;gap:12px;">
+                <button onClick="{{ goBudget }}" style="flex:1;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px;cursor:pointer;text-align:left;"><div style="font-size:20px;">📊</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:800;color:var(--ink);margin-top:6px;">Mon plan</div></button>
+                <button onClick="{{ goWiz }}" style="flex:1;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px;cursor:pointer;text-align:left;"><div style="font-size:20px;">💬</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:800;color:var(--ink);margin-top:6px;">Demander à Wiz</div></button>
+              </div>
+            </sc-if>
+
+            <button onClick="{{ goRoutines }}" style="margin-top:14px;width:100%;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:15px;display:flex;align-items:center;gap:13px;cursor:pointer;text-align:left;box-shadow:0 6px 16px -12px rgba(20,73,47,.3);">
+              <div style="width:44px;height:44px;border-radius:13px;background:var(--tint-blue);display:flex;align-items:center;justify-content:center;font-size:24px;flex:none;">🔁</div>
               <div style="flex:1;">
-                <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:14.5px;font-weight:700;color:var(--ink);">Apprends en 3 minutes</div>
-                <div style="font-size:12.5px;color:var(--muted);">Mini-leçon : C'est quoi un CELI&nbsp;?</div>
+                <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:800;color:var(--ink);">Routines</div>
+                <div style="font-size:12.5px;color:var(--muted);margin-top:1px;">Tes rituels financiers</div>
               </div>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--muted2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
             </button>
 
-            <button onClick="{{ goTraining }}" style="margin-top:12px;width:100%;background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:15px;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;">
-              <span style="font-size:22px;">⚡</span>
-              <div style="flex:1;">
-                <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:14.5px;font-weight:700;color:var(--ink);">Entraînement du jour — 3 min</div>
-                <div style="font-size:12.5px;color:var(--muted);">3 petites actions pour garder le cap</div>
-              </div>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--muted2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-            </button>
           </div>
         </sc-if>
 
@@ -450,15 +410,30 @@
                     <p style="margin:0;font-size:14.5px;line-height:1.5;color:var(--body);">Salut <b style="color:var(--heading);">{{ name }}</b> ! 👋 Je suis <b style="color:var(--heading);">Wiz</b>, ton coach financier IA. Pose-moi une question sur ton budget, ton épargne ou tes objectifs.</p>
                   </div>
                 </div>
-                <div style="font-size:12.5px;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:24px 4px 12px;">Exemples de questions</div>
-                <div style="display:flex;flex-direction:column;gap:10px;">
-                  <sc-for list="{{ suggestions }}" as="sg" hint-placeholder-count="5">
-                    <button onClick="{{ sg.ask }}" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:15px 16px;cursor:pointer;text-align:left;transition:all .15s;" style-hover="border-color:#36B34A;background:var(--chip);">
-                      <span style="font-size:14px;font-weight:600;color:var(--body);">{{ sg.label }}</span>
-                      <div style="width:30px;height:30px;border-radius:50%;background:var(--tint-green);display:flex;align-items:center;justify-content:center;flex:none;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h13M13 6l6 6-6 6" stroke="#2E9E47" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
-                    </button>
-                  </sc-for>
-                </div>
+                <sc-if value="{{ wizHasData }}" hint-placeholder-val="{{ true }}">
+                  <div style="font-size:12.5px;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:24px 4px 12px;">Comment puis-je t'aider ?</div>
+                  <div style="display:flex;flex-direction:column;gap:10px;">
+                    <sc-for list="{{ wizIntents }}" as="it" hint-placeholder-count="3">
+                      <button onClick="{{ it.ask }}" style="display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:15px 16px;cursor:pointer;text-align:left;transition:all .15s;" style-hover="border-color:#36B34A;background:var(--chip);">
+                        <span style="font-size:20px;flex:none;">{{ it.emoji }}</span>
+                        <span style="flex:1;font-size:14px;font-weight:700;color:var(--body);">{{ it.label }}</span>
+                        <div style="width:30px;height:30px;border-radius:50%;background:var(--tint-green);display:flex;align-items:center;justify-content:center;flex:none;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h13M13 6l6 6-6 6" stroke="#2E9E47" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+                      </button>
+                    </sc-for>
+                  </div>
+                  <p style="font-size:11.5px;line-height:1.45;color:var(--muted2);margin:12px 4px 0;">Wiz offre de l'éducation financière générale — jamais de conseils de placement personnalisés ni d'opérations bancaires.</p>
+                </sc-if>
+                <sc-if value="{{ wizNoData }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:12.5px;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:24px 4px 12px;">Exemples de questions</div>
+                  <div style="display:flex;flex-direction:column;gap:10px;">
+                    <sc-for list="{{ suggestions }}" as="sg" hint-placeholder-count="5">
+                      <button onClick="{{ sg.ask }}" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:15px 16px;cursor:pointer;text-align:left;transition:all .15s;" style-hover="border-color:#36B34A;background:var(--chip);">
+                        <span style="font-size:14px;font-weight:600;color:var(--body);">{{ sg.label }}</span>
+                        <div style="width:30px;height:30px;border-radius:50%;background:var(--tint-green);display:flex;align-items:center;justify-content:center;flex:none;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h13M13 6l6 6-6 6" stroke="#2E9E47" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+                      </button>
+                    </sc-for>
+                  </div>
+                </sc-if>
               </div>
             </sc-if>
 
@@ -483,7 +458,11 @@
                         </div>
                       </sc-if>
                       <div style="display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0 50px;">
-                        <sc-for list="{{ m.followItems }}" as="f" hint-placeholder-count="0">
+                        <sc-for list="{{ m.navItems }}" as="n" hint-placeholder-count="0">
+                          <button onClick="{{ n.go }}" style="background:#14492F;border:none;border-radius:14px;padding:9px 14px;font-family:inherit;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;">{{ n.label }}</button>
+                        </sc-for>
+                      </div>
+                      <div style="display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0 50px;">
                           <button onClick="{{ f.ask }}" style="background:var(--tint-green);border:1px solid var(--bd-green);border-radius:14px;padding:8px 13px;font-family:inherit;font-size:12.5px;font-weight:600;color:var(--ac-green);cursor:pointer;">{{ f.label }}</button>
                         </sc-for>
                       </div>
@@ -530,25 +509,21 @@
           <div style="padding:6px 20px 110px;animation:screenIn .3s ease both;">
             <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0 16px;">
               <button onClick="{{ backFromSub }}" style="border:none;background:var(--surface);border:1px solid var(--border);width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--heading);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
-              <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;color:var(--heading);">Budget</div>
+              <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;color:var(--heading);">Mon plan</div>
               <button onClick="{{ openSheetIncome }}" style="border:none;background:#14492F;height:42px;border-radius:13px;padding:0 14px;display:flex;align-items:center;gap:6px;cursor:pointer;color:#fff;font-family:inherit;font-size:13px;font-weight:700;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#fff" stroke-width="2.2" stroke-linecap="round"></path></svg></button>
             </div>
 
             <button onClick="{{ openBudgetSetup }}" style="width:100%;border:none;cursor:pointer;text-align:left;background:linear-gradient(135deg,var(--tint-purple),var(--tint-green));border-radius:18px;padding:14px;margin-bottom:16px;display:flex;align-items:center;gap:12px;">
               <div style="width:44px;flex:none;"><dc-import name="Wiz" pose="idea" hint-size="44px,52px"></dc-import></div>
               <div style="flex:1;">
-                <div style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;color:var(--ac-purple);letter-spacing:.3px;">✨ BUDGET INTELLIGENT</div>
-                <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:14.5px;font-weight:800;color:var(--ink);margin-top:2px;line-height:1.25;">Laisse Wiz personnaliser ton budget</div>
+                <div style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;color:var(--ac-purple);letter-spacing:.3px;">✨ PLAN INTELLIGENT</div>
+                <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:14.5px;font-weight:800;color:var(--ink);margin-top:2px;line-height:1.25;">Laisse Wiz personnaliser ton plan</div>
                 <div style="font-size:12px;color:var(--muted);margin-top:1px;">4 questions · 1 min</div>
               </div>
               <div style="width:32px;height:32px;border-radius:50%;background:#14492F;display:flex;align-items:center;justify-content:center;flex:none;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h13M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
             </button>
 
-            <a href="Finances.dc.html" style="text-decoration:none;display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:14px;margin-bottom:16px;box-shadow:0 6px 16px -12px rgba(20,73,47,.3);">
-              <div style="width:44px;height:44px;border-radius:13px;background:var(--tint-green);display:flex;align-items:center;justify-content:center;flex:none;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 19V5M4 19h16M8 16v-4M12 16V8M16 16v-6" stroke="#2E7D43" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
-              <div style="flex:1;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:14.5px;font-weight:800;color:var(--ink);">Mes finances en détail</div><div style="font-size:12px;color:var(--muted);margin-top:1px;">Transactions · prévu vs réel · cashflow · dettes</div></div>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="flex:none;"><path d="M9 6l6 6-6 6" stroke="var(--muted2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-            </a>
+
 
             <div class="ww-scroll" style="display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:16px;">
               <sc-for list="{{ periodChips }}" as="p" hint-placeholder-count="5">
@@ -667,9 +642,22 @@
               <p style="margin:0;font-size:13px;line-height:1.45;color:#6E5A33;">Chaque petite action aujourd'hui te rapproche de tes rêves. Continue, tu es sur la bonne voie&nbsp;!</p>
             </div>
 
+            <sc-if value="{{ goalsEmpty }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:26px;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 12px;">
+                <div style="width:120px;animation:floatY 4s ease-in-out infinite;"><dc-import name="Wiz" pose="idea" hint-size="120px,144px"></dc-import></div>
+                <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:800;color:var(--heading);margin:14px 0 0;">Aucun objectif pour l'instant</h3>
+                <p style="font-size:14px;line-height:1.5;color:var(--muted);margin:8px 0 0;max-width:280px;">Fixe un premier objectif, même petit. Wiz t'aidera à l'atteindre, une étape à la fois.</p>
+                <button onClick="{{ addGoalSheet }}" style="margin-top:20px;height:52px;padding:0 24px;border:none;border-radius:16px;background:#14492F;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:15.5px;font-weight:700;cursor:pointer;box-shadow:0 12px 22px -10px rgba(20,73,47,.6);">Créer mon premier objectif</button>
+              </div>
+            </sc-if>
+
             <div style="display:flex;flex-direction:column;gap:14px;">
               <sc-for list="{{ goals }}" as="g" hint-placeholder-count="3">
-                <button onClick="{{ g.open }}" style="background:var(--surface);border:1px solid var(--border);border-radius:22px;padding:17px;cursor:pointer;text-align:left;box-shadow:0 8px 20px -16px rgba(20,73,47,.4);transition:transform .12s;">
+                <button onClick="{{ g.open }}" style="background:var(--surface);border:2px solid {{ g.cardBorder }};border-radius:22px;padding:17px;cursor:pointer;text-align:left;box-shadow:0 8px 20px -16px rgba(20,73,47,.4);transition:transform .12s;opacity:{{ g.dimmed }};">
+                  <div style="display:flex;align-items:center;gap:9px;margin-bottom:12px;flex-wrap:wrap;">
+                    <span style="display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;color:{{ g.statusColor }};background:{{ g.statusBg }};padding:4px 9px;border-radius:8px;">{{ g.statusLabel }}</span>
+                    <sc-if value="{{ g.isPriority }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;color:#B5852A;background:var(--tint-amber);padding:4px 9px;border-radius:8px;">⭐ Prioritaire</span></sc-if>
+                  </div>
                   <div style="display:flex;align-items:center;gap:13px;">
                     <div style="width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex:none;background:var(--chip);">{{ g.emoji }}</div>
                     <div style="flex:1;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:800;color:var(--ink);">{{ g.name }}</div><div style="font-size:12.5px;color:var(--muted);margin-top:2px;">{{ g.savedF }} / {{ g.targetF }}</div></div>
@@ -710,23 +698,55 @@
               </div>
               <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:800;color:var(--heading);margin:16px 0 4px;">{{ activeGoal.name }}</h2>
               <div style="font-size:14px;color:var(--muted);"><b style="color:var(--ink);">{{ activeGoal.savedF }}</b> sur {{ activeGoal.targetF }}</div>
+              <div style="display:flex;align-items:center;gap:8px;margin-top:12px;flex-wrap:wrap;justify-content:center;">
+                <span style="display:inline-flex;align-items:center;font-size:11.5px;font-weight:800;color:{{ activeGoal.statusColor }};background:{{ activeGoal.statusBg }};padding:5px 11px;border-radius:9px;">{{ activeGoal.statusLabel }}</span>
+                <sc-if value="{{ activeIsPriority }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;font-size:11.5px;font-weight:800;color:#B5852A;background:var(--tint-amber);padding:5px 11px;border-radius:9px;">⭐ Prioritaire</span></sc-if>
+              </div>
+              <sc-if value="{{ activeGoal.hasReason }}" hint-placeholder-val="{{ false }}"><p style="text-align:center;font-size:13.5px;color:var(--muted);margin:11px 14px 0;font-style:italic;">« {{ activeGoal.reason }} »</p></sc-if>
             </div>
 
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px;">
               <div style="background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:15px;"><div style="font-size:12px;color:var(--muted);font-weight:600;">Reste à épargner</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:19px;font-weight:800;color:var(--ink);margin-top:5px;">{{ activeGoal.remainingF }}</div></div>
               <div style="background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:15px;"><div style="font-size:12px;color:var(--muted);font-weight:600;">Échéance</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:800;color:var(--ink);margin-top:7px;">{{ activeGoal.due }}</div></div>
+              <div style="background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:15px;"><div style="font-size:12px;color:var(--muted);font-weight:600;">Contribution prévue</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:19px;font-weight:800;color:var(--ink);margin-top:5px;">{{ activeGoal.plannedF }}</div></div>
+              <div style="background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:15px;"><div style="font-size:12px;color:var(--muted);font-weight:600;">Progression</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:19px;font-weight:800;color:{{ activeGoal.color }};margin-top:5px;">{{ activeGoal.pct }}%</div></div>
             </div>
+
+            <sc-if value="{{ activeGoal.hasNextAction }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:14px;background:var(--tint-green);border:1px solid var(--bd-green);border-radius:18px;padding:15px;display:flex;gap:12px;align-items:center;">
+                <div style="width:40px;height:40px;border-radius:12px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:19px;flex:none;">✅</div>
+                <div style="flex:1;"><div style="font-size:11px;font-weight:800;letter-spacing:.4px;color:var(--ac-green);text-transform:uppercase;">Prochaine action</div><div style="font-size:14px;font-weight:700;color:var(--ink);margin-top:2px;line-height:1.3;">{{ activeGoal.nextAction }}</div></div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ activeNotPriority }}" hint-placeholder-val="{{ true }}">
+              <button onClick="{{ setPriorityActive }}" style="margin-top:14px;width:100%;height:50px;border:1.5px solid var(--bd-amber);border-radius:15px;background:var(--tint-amber);color:#B5852A;font-family:'Bricolage Grotesque',sans-serif;font-size:14.5px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">⭐ Définir comme prioritaire</button>
+            </sc-if>
 
             <div style="margin-top:14px;background:linear-gradient(135deg,var(--tint-purple),var(--tint-green));border:1px solid var(--tint-purple);border-radius:18px;padding:15px;display:flex;gap:12px;align-items:center;">
               <div style="width:42px;flex:none;"><dc-import name="Wiz" pose="idea" hint-size="42px,50px"></dc-import></div>
-              <p style="margin:0;font-size:13px;line-height:1.45;color:var(--body);">Tu y es presque ! En ajoutant <b style="color:var(--ink);">50&nbsp;$ par semaine</b>, tu atteins ton but encore plus vite. 💪</p>
+              <p style="margin:0;font-size:13px;line-height:1.45;color:var(--body);">Tu y es presque ! En ajoutant <b style="color:var(--ink);">{{ activeGoal.plannedF }} par semaine</b>, tu atteins ton but encore plus vite. 💪</p>
             </div>
+
+            <sc-if value="{{ activeGoal.hasHistory }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:20px;font-size:12px;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;">Historique de progression</div>
+              <div style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;">
+                <sc-for list="{{ activeGoal.historyRows }}" as="h" hint-placeholder-count="2">
+                  <div style="display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid var(--border);">
+                    <div style="width:34px;height:34px;border-radius:10px;background:var(--tint-green);display:flex;align-items:center;justify-content:center;font-size:15px;flex:none;">💰</div>
+                    <div style="flex:1;"><div style="font-size:13.5px;font-weight:700;color:var(--ink);">{{ h.label }}</div><div style="font-size:11.5px;color:var(--muted2);">{{ h.date }}</div></div>
+                    <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:14.5px;font-weight:800;color:#2E9E47;">{{ h.amountF }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
 
             <button onClick="{{ contributeSheet }}" style="margin-top:18px;width:100%;height:56px;border:none;border-radius:16px;background:#14492F;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 12px 22px -10px rgba(20,73,47,.6);display:flex;align-items:center;justify-content:center;gap:8px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#fff" stroke-width="2.3" stroke-linecap="round"></path></svg>Ajouter une contribution</button>
             <div style="display:flex;gap:12px;margin-top:12px;">
               <button onClick="{{ openEditGoal }}" style="flex:1;height:50px;border:1.5px solid #D6E4D1;border-radius:15px;background:var(--surface);color:var(--heading);font-family:inherit;font-size:14.5px;font-weight:700;cursor:pointer;">Modifier</button>
-              <button onClick="{{ askDeleteGoal }}" style="flex:1;height:50px;border:1.5px solid var(--bd-red);border-radius:15px;background:var(--tint-red);color:#D9543F;font-family:inherit;font-size:14.5px;font-weight:700;cursor:pointer;">Supprimer</button>
+              <button onClick="{{ togglePauseGoal }}" style="flex:1;height:50px;border:1.5px solid var(--border);border-radius:15px;background:var(--surface);color:var(--heading);font-family:inherit;font-size:14.5px;font-weight:700;cursor:pointer;">{{ activeGoal.pauseLabel }}</button>
             </div>
+            <button onClick="{{ askDeleteGoal }}" style="margin-top:12px;width:100%;height:50px;border:1.5px solid var(--bd-red);border-radius:15px;background:var(--tint-red);color:#D9543F;font-family:inherit;font-size:14.5px;font-weight:700;cursor:pointer;">Supprimer l'objectif</button>
           </div>
         </sc-if>
 
@@ -735,8 +755,8 @@
           <div style="padding:6px 0 110px;animation:screenIn .3s ease both;">
             <div style="padding:8px 20px 0;display:flex;align-items:flex-start;justify-content:space-between;">
               <div>
-                <sc-if value="{{ learnIsApprendre }}" hint-placeholder-val="{{ true }}"><div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:800;color:var(--heading);letter-spacing:-.4px;">{{ t.apprendre }}</div><div style="font-size:13.5px;color:var(--muted);margin-top:2px;">Des mini-cours simples pour comprendre et progresser.</div></div></sc-if>
-                <sc-if value="{{ learnIsActualites }}" hint-placeholder-val="{{ false }}"><div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:800;color:var(--heading);letter-spacing:-.4px;">{{ t.actualites }}</div><div style="font-size:13.5px;color:var(--muted);margin-top:2px;">L'essentiel décodé pour toi.</div></div></sc-if>
+                <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:800;color:var(--heading);letter-spacing:-.4px;">{{ learnTitle }}</div>
+                <div style="font-size:13.5px;color:var(--muted);margin-top:2px;">{{ learnSub }}</div>
               </div>
               <button onClick="{{ goNotifications }}" style="position:relative;width:42px;height:42px;border-radius:13px;border:1px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--heading);flex:none;margin-top:2px;">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path><path d="M10 19a2 2 0 0 0 4 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg>
@@ -744,35 +764,54 @@
               </button>
             </div>
 
-            <div style="display:flex;background:var(--chip);border-radius:14px;padding:4px;margin:16px 20px 0;">
-              <button onClick="{{ setApprendre }}" style="flex:1;height:40px;border:none;border-radius:11px;font-family:inherit;font-size:13.5px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;background:{{ segLearnBg }};color:{{ segLearnColor }};box-shadow:{{ segLearnShadow }};transition:all .2s;">📚 {{ t.apprendre }}</button>
-              <button onClick="{{ setActualites }}" style="flex:1;height:40px;border:none;border-radius:11px;font-family:inherit;font-size:13.5px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;background:{{ segNewsBg }};color:{{ segNewsColor }};box-shadow:{{ segNewsShadow }};transition:all .2s;">📰 {{ t.actualites }}</button>
+            <div class="ww-scroll" style="display:flex;gap:6px;overflow-x:auto;padding:16px 20px 0;">
+              <sc-for list="{{ learnTabs }}" as="tb" hint-placeholder-count="4">
+                <button onClick="{{ tb.pick }}" style="flex:none;height:40px;padding:0 16px;border:none;border-radius:12px;font-family:'Bricolage Grotesque',sans-serif;font-size:13.5px;font-weight:700;cursor:pointer;background:{{ tb.bg }};color:{{ tb.color }};box-shadow:{{ tb.shadow }};white-space:nowrap;transition:all .2s;">{{ tb.label }}</button>
+              </sc-for>
             </div>
 
-            <!-- ============ APPRENDRE ============ -->
-            <sc-if value="{{ learnIsApprendre }}" hint-placeholder-val="{{ true }}">
+            <!-- ============ MON PARCOURS ============ -->
+            <sc-if value="{{ learnIsParcours }}" hint-placeholder-val="{{ true }}">
+              <div style="padding:16px 20px 0;">
+                <sc-if value="{{ hasNextCourse }}" hint-placeholder-val="{{ true }}">
+                  <div style="font-size:12px;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">À reprendre</div>
+                  <button onClick="{{ nextCourse.open }}" style="width:100%;border:none;cursor:pointer;text-align:left;background:linear-gradient(140deg,#1C6B45,#14492F);border-radius:22px;padding:18px;box-shadow:0 14px 28px -16px rgba(20,73,47,.6);">
+                    <div style="display:flex;align-items:center;gap:13px;">
+                      <div style="width:52px;height:52px;border-radius:15px;background:rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;font-size:24px;flex:none;">{{ nextCourse.emoji }}</div>
+                      <div style="flex:1;min-width:0;"><div style="font-size:11px;font-weight:800;letter-spacing:.4px;color:#9FE0AD;">PROCHAINE CAPSULE</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:17px;font-weight:800;color:#fff;margin-top:2px;line-height:1.2;">{{ nextCourse.title }}</div><div style="font-size:12px;color:#CDEBD3;margin-top:2px;">⏱ {{ nextCourse.dur }} · {{ nextCourse.level }}</div></div>
+                    </div>
+                    <div style="margin-top:14px;display:flex;align-items:center;gap:10px;"><div style="flex:1;height:7px;border-radius:4px;background:rgba(255,255,255,.2);overflow:hidden;"><div style="height:100%;border-radius:4px;width:{{ nextCourse.pctW }};background:#7BE495;"></div></div><span style="font-size:12px;font-weight:800;color:#fff;">{{ nextCourse.progress }}%</span></div>
+                  </button>
+                </sc-if>
+                <sc-if value="{{ noNextCourse }}" hint-placeholder-val="{{ false }}">
+                  <div style="background:var(--tint-green);border:1px solid var(--bd-green);border-radius:20px;padding:18px;text-align:center;"><div style="font-size:30px;">🎉</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:800;color:var(--heading);margin-top:6px;">Tout est à jour !</div><p style="font-size:13px;color:var(--muted);margin:6px 0 0;">Tu as terminé toutes tes capsules. Explore de nouveaux sujets. 🌱</p></div>
+                </sc-if>
+                <button onClick="{{ openExercise }}" style="margin-top:14px;width:100%;border:none;cursor:pointer;text-align:left;background:linear-gradient(135deg,var(--tint-purple),var(--tint-green));border-radius:20px;padding:16px;display:flex;align-items:center;gap:13px;">
+                  <div style="width:48px;flex:none;"><dc-import name="Wiz" pose="happy" hint-size="48px,58px"></dc-import></div>
+                  <div style="flex:1;"><div style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;color:var(--ac-purple);letter-spacing:.4px;">🧠 RÉVISION · 2 MIN</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:15.5px;font-weight:800;color:var(--ink);margin-top:3px;line-height:1.25;">Associe les notions à leur définition</div><div style="font-size:12px;color:var(--muted);margin-top:2px;">Gagne des points de clarté ⚡</div></div>
+                  <div style="width:34px;height:34px;border-radius:50%;background:#14492F;display:flex;align-items:center;justify-content:center;flex:none;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M5 12h13M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+                </button>
+                <button onClick="{{ openFlashcards }}" style="margin-top:10px;width:100%;border:1px solid var(--border);background:var(--surface);border-radius:14px;padding:13px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:11px;">
+                  <span style="font-size:20px;flex:none;">🗂️</span><div style="flex:1;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:13.5px;font-weight:800;color:var(--ink);">Flashcards</div><div style="font-size:11.5px;color:var(--muted);">Révise tes notions clés</div></div><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--muted2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                </button>
+                <sc-if value="{{ hasResume }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:12px;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:22px 0 10px;">Continue tes capsules</div>
+                  <div style="display:flex;flex-direction:column;gap:11px;">
+                    <sc-for list="{{ resumeCourses }}" as="c" hint-placeholder-count="2">
+                      <div style="display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:14px;"><button onClick="{{ c.open }}" style="flex:1;display:flex;align-items:center;gap:12px;border:none;background:none;cursor:pointer;text-align:left;padding:0;min-width:0;"><div style="width:44px;height:44px;border-radius:13px;background:{{ c.color }};display:flex;align-items:center;justify-content:center;font-size:20px;flex:none;">{{ c.emoji }}</div><div style="flex:1;min-width:0;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:800;color:var(--ink);">{{ c.title }}</div><div style="font-size:11.5px;color:var(--muted);margin-top:1px;">⏱ {{ c.dur }} · {{ c.level }}</div><div style="margin-top:8px;height:6px;border-radius:3px;background:var(--track);overflow:hidden;"><div style="height:100%;border-radius:3px;width:{{ c.pctW }};background:{{ c.accent }};"></div></div></div></button><button onClick="{{ c.toggleFav }}" style="border:none;background:none;cursor:pointer;font-size:18px;color:#E8A93B;flex:none;padding:6px;">{{ c.favStar }}</button></div>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-if>
+
+            <!-- ============ EXPLORER ============ -->
+            <sc-if value="{{ learnIsExplorer }}" hint-placeholder-val="{{ false }}">
               <div>
                 <div style="padding:16px 20px 0;">
                   <div style="display:flex;align-items:center;gap:9px;background:var(--surface);border:1.5px solid var(--border);border-radius:15px;padding:0 14px;height:46px;">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="var(--muted2)" stroke-width="1.9"></circle><path d="M20 20l-3.5-3.5" stroke="var(--muted2)" stroke-width="1.9" stroke-linecap="round"></path></svg>
                     <input value="{{ learnSearch }}" onInput="{{ setLearnSearch }}" placeholder="Rechercher un mini-cours…" style="flex:1;border:none;outline:none;background:none;font-family:inherit;font-size:14.5px;color:var(--ink);height:100%;">
-                  </div>
-                  <button onClick="{{ openExercise }}" style="margin-top:14px;width:100%;border:none;cursor:pointer;text-align:left;background:linear-gradient(135deg,var(--tint-purple),var(--tint-green));border-radius:20px;padding:16px;display:flex;align-items:center;gap:13px;">
-                    <div style="width:48px;flex:none;"><dc-import name="Wiz" pose="happy" hint-size="48px,58px"></dc-import></div>
-                    <div style="flex:1;">
-                      <div style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;color:var(--ac-purple);letter-spacing:.4px;">🧠 RÉVISION · 2 MIN</div>
-                      <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:15.5px;font-weight:800;color:var(--ink);margin-top:3px;line-height:1.25;">Associe les notions à leur définition</div>
-                      <div style="font-size:12px;color:var(--muted);margin-top:2px;">Gagne des points de clarté ⚡</div>
-                    </div>
-                    <div style="width:34px;height:34px;border-radius:50%;background:#14492F;display:flex;align-items:center;justify-content:center;flex:none;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M5 12h13M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
-                  </button>
-                  <div style="display:flex;gap:10px;margin-top:10px;">
-                    <button onClick="{{ openFlashcards }}" style="flex:1;border:1px solid var(--border);background:var(--surface);border-radius:14px;padding:12px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:9px;">
-                      <span style="font-size:20px;flex:none;">🗂️</span><div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:800;color:var(--ink);">Flashcards</div><div style="font-size:11px;color:var(--muted);">Révise tes notions</div></div>
-                    </button>
-                    <button onClick="{{ goRoutines }}" style="flex:1;border:1px solid var(--border);background:var(--surface);border-radius:14px;padding:12px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:9px;">
-                      <span style="font-size:20px;flex:none;">🔁</span><div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:800;color:var(--ink);">Routines</div><div style="font-size:11px;color:var(--muted);">Tes rituels financiers</div></div>
-                    </button>
                   </div>
                 </div>
                 <div class="ww-scroll" style="display:flex;gap:8px;overflow-x:auto;padding:14px 20px 4px;">
@@ -845,9 +884,34 @@
               </div>
             </sc-if>
 
+            <!-- ============ TERMINÉES ============ -->
+            <sc-if value="{{ learnIsTerminees }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:16px 20px 0;">
+                <div style="background:linear-gradient(150deg,#1C6B45,#14492F);border-radius:20px;padding:16px;display:flex;align-items:center;gap:13px;box-shadow:0 12px 24px -16px rgba(20,73,47,.6);">
+                  <div style="width:48px;height:48px;border-radius:14px;background:rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;font-size:24px;flex:none;">🎓</div>
+                  <div style="flex:1;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:800;color:#fff;">{{ doneCount }} / {{ lessonsTotal }}</div><div style="font-size:12.5px;color:#CDEBD3;">capsules terminées</div></div>
+                </div>
+                <div style="font-size:12px;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:22px 0 10px;">Terminées</div>
+                <sc-if value="{{ termineesDoneEmpty }}" hint-placeholder-val="{{ true }}"><div style="background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:20px;text-align:center;"><p style="margin:0;font-size:13.5px;color:var(--muted);line-height:1.5;">Aucune capsule terminée pour l'instant. Termine ta première dans « Apprendre ». 🌱</p></div></sc-if>
+                <div style="display:flex;flex-direction:column;gap:11px;">
+                  <sc-for list="{{ completedCourses }}" as="c" hint-placeholder-count="0">
+                    <div style="display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:14px;"><button onClick="{{ c.open }}" style="flex:1;display:flex;align-items:center;gap:12px;border:none;background:none;cursor:pointer;text-align:left;padding:0;min-width:0;"><div style="width:44px;height:44px;border-radius:13px;background:{{ c.color }};display:flex;align-items:center;justify-content:center;font-size:20px;flex:none;">{{ c.emoji }}</div><div style="flex:1;min-width:0;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:800;color:var(--ink);">{{ c.title }}</div><div style="font-size:11.5px;color:var(--ac-green);font-weight:700;margin-top:2px;">✓ Terminée · ⚡ {{ c.points }} pts</div></div></button><button onClick="{{ c.toggleFav }}" style="border:none;background:none;cursor:pointer;font-size:18px;color:#E8A93B;flex:none;padding:6px;">{{ c.favStar }}</button></div>
+                  </sc-for>
+                </div>
+                <div style="font-size:12px;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:22px 0 10px;">Favoris ⭐</div>
+                <sc-if value="{{ favEmpty }}" hint-placeholder-val="{{ true }}"><div style="background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:20px;text-align:center;"><p style="margin:0;font-size:13.5px;color:var(--muted);line-height:1.5;">Touche l'étoile ⭐ sur une capsule pour la retrouver ici.</p></div></sc-if>
+                <div style="display:flex;flex-direction:column;gap:11px;">
+                  <sc-for list="{{ favoriteCourses }}" as="c" hint-placeholder-count="0">
+                    <div style="display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:14px;"><button onClick="{{ c.open }}" style="flex:1;display:flex;align-items:center;gap:12px;border:none;background:none;cursor:pointer;text-align:left;padding:0;min-width:0;"><div style="width:44px;height:44px;border-radius:13px;background:{{ c.color }};display:flex;align-items:center;justify-content:center;font-size:20px;flex:none;">{{ c.emoji }}</div><div style="flex:1;min-width:0;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:800;color:var(--ink);">{{ c.title }}</div><div style="font-size:11.5px;color:var(--muted);margin-top:1px;">⏱ {{ c.dur }} · {{ c.level }}</div></div></button><button onClick="{{ c.toggleFav }}" style="border:none;background:none;cursor:pointer;font-size:18px;color:#E8A93B;flex:none;padding:6px;">{{ c.favStar }}</button></div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+
             <!-- ============ ACTUALITÉS ============ -->
             <sc-if value="{{ learnIsActualites }}" hint-placeholder-val="{{ false }}">
               <div>
+                <div style="margin:16px 20px 0;background:var(--tint-amber);border:1px solid var(--bd-amber);border-radius:16px;padding:13px 15px;display:flex;gap:10px;align-items:center;"><span style="font-size:18px;flex:none;">🚧</span><p style="margin:0;font-size:12.5px;line-height:1.45;color:#7A6A45;"><b style="color:var(--ink);">Aperçu</b> — l'actualité financière décodée arrive dans une prochaine version.</p></div>
                 <div style="padding:16px 20px 0;">
                   <div style="display:flex;align-items:center;gap:9px;background:var(--surface);border:1.5px solid var(--border);border-radius:15px;padding:0 14px;height:46px;">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="var(--muted2)" stroke-width="1.9"></circle><path d="M20 20l-3.5-3.5" stroke="var(--muted2)" stroke-width="1.9" stroke-linecap="round"></path></svg>
@@ -1040,24 +1104,30 @@
         <!-- ===================== ROUTINES ===================== -->
         <sc-if value="{{ isRoutines }}" hint-placeholder-val="{{ false }}">
           <div style="padding:6px 20px 110px;animation:screenIn .3s ease both;">
-            <div style="padding:8px 0 4px;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:800;color:var(--heading);letter-spacing:-.4px;">Mes routines</div><div style="font-size:13.5px;color:var(--muted);margin-top:2px;">De petits rituels pour garder le cap, sans pression.</div></div>
+            <div style="display:flex;align-items:center;gap:13px;padding:8px 0 4px;">
+              <button onClick="{{ backFromRoutines }}" style="border:none;background:var(--surface);border:1px solid var(--border);width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--heading);flex:none;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+              <div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:800;color:var(--heading);letter-spacing:-.4px;">Mes routines</div><div style="font-size:13px;color:var(--muted);margin-top:1px;">De petits rituels pour garder le cap.</div></div>
+            </div>
             <div style="display:flex;flex-direction:column;gap:14px;margin-top:16px;">
               <sc-for list="{{ routineList }}" as="r" hint-placeholder-count="3">
                 <div style="background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:16px;box-shadow:0 8px 20px -16px rgba(20,73,47,.4);">
-                  <div style="display:flex;align-items:center;gap:12px;">
+                  <button onClick="{{ r.toggleOpen }}" style="width:100%;display:flex;align-items:center;gap:12px;border:none;background:none;cursor:pointer;text-align:left;padding:0;">
                     <div style="width:46px;height:46px;border-radius:13px;background:var(--chip);display:flex;align-items:center;justify-content:center;font-size:22px;flex:none;">{{ r.emoji }}</div>
                     <div style="flex:1;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:800;color:var(--ink);">{{ r.title }}</div><div style="font-size:12.5px;color:var(--muted);">{{ r.sub }}</div></div>
-                    <span style="font-size:12px;font-weight:800;color:var(--ac-green);">{{ r.progress }}</span>
-                  </div>
-                  <div style="margin-top:12px;height:7px;border-radius:4px;background:var(--track);overflow:hidden;"><div style="height:100%;border-radius:4px;width:{{ r.pctW }};background:linear-gradient(90deg,#36B34A,#2E9E47);transition:width .3s;"></div></div>
-                  <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px;">
-                    <sc-for list="{{ r.items }}" as="it" hint-placeholder-count="3">
-                      <button onClick="{{ it.toggle }}" style="display:flex;align-items:center;gap:11px;border:none;background:none;cursor:pointer;text-align:left;padding:2px 0;">
-                        <div style="width:24px;height:24px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;border:2px solid {{ it.boxBorder }};background:{{ it.boxBg }};"><sc-if value="{{ it.dn }}" hint-placeholder-val="{{ false }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-10" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg></sc-if></div>
-                        <span style="flex:1;font-size:13.5px;color:var(--body);">{{ it.label }}</span>
-                      </button>
-                    </sc-for>
-                  </div>
+                    <span style="font-size:12px;font-weight:800;color:var(--ac-green);flex:none;">{{ r.progress }}</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="flex:none;transition:transform .25s;transform:{{ r.chevRot }};"><path d="M6 9l6 6 6-6" stroke="var(--muted2)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                  </button>
+                  <sc-if value="{{ r.open }}" hint-placeholder-val="{{ true }}">
+                    <div style="margin-top:12px;height:7px;border-radius:4px;background:var(--track);overflow:hidden;"><div style="height:100%;border-radius:4px;width:{{ r.pctW }};background:linear-gradient(90deg,#36B34A,#2E9E47);transition:width .3s;"></div></div>
+                    <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px;">
+                      <sc-for list="{{ r.items }}" as="it" hint-placeholder-count="3">
+                        <button onClick="{{ it.toggle }}" style="display:flex;align-items:center;gap:11px;border:none;background:none;cursor:pointer;text-align:left;padding:2px 0;">
+                          <div style="width:24px;height:24px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;border:2px solid {{ it.boxBorder }};background:{{ it.boxBg }};"><sc-if value="{{ it.dn }}" hint-placeholder-val="{{ false }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-10" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg></sc-if></div>
+                          <span style="flex:1;font-size:13.5px;color:var(--body);">{{ it.label }}</span>
+                        </button>
+                      </sc-for>
+                    </div>
+                  </sc-if>
                 </div>
               </sc-for>
             </div>
@@ -1370,7 +1440,8 @@
               <div style="flex:1;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:19px;font-weight:800;color:var(--heading);">{{ name }}</div><div style="font-size:13px;color:var(--muted);">alex@exemple.ca</div><div style="display:inline-block;margin-top:6px;font-size:11px;font-weight:700;color:var(--muted);background:var(--chip);padding:3px 9px;border-radius:8px;">Forfait gratuit</div></div>
             </div>
 
-            <div onClick="{{ goPaywall }}" style="margin-top:14px;background:linear-gradient(135deg,#1C6B45,#14492F);border-radius:20px;padding:17px;display:flex;align-items:center;gap:13px;cursor:pointer;position:relative;overflow:hidden;box-shadow:0 12px 24px -14px rgba(20,73,47,.7);">
+            <div style="font-size:12px;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:22px 4px 10px;">Abonnement</div>
+            <div onClick="{{ goPaywall }}" style="background:linear-gradient(135deg,#1C6B45,#14492F);border-radius:20px;padding:17px;display:flex;align-items:center;gap:13px;cursor:pointer;position:relative;overflow:hidden;box-shadow:0 12px 24px -14px rgba(20,73,47,.7);">
               <span style="font-size:26px;">👑</span>
               <div style="flex:1;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:800;color:#fff;">Passe à Premium</div><div style="font-size:12.5px;color:#BFE6CA;margin-top:2px;">Wiz illimité + rapports détaillés</div></div>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
@@ -1382,6 +1453,12 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--muted2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
             </button>
 
+            <div style="font-size:12px;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:22px 4px 10px;">Explorer</div>
+            <div style="background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;">
+              <button onClick="{{ goWiz }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:15px 16px;border:none;border-bottom:1px solid var(--border);background:none;cursor:pointer;text-align:left;"><span style="font-size:18px;">💡</span><div style="flex:1;"><div style="font-size:14.5px;font-weight:600;color:var(--ink);">Conseil de Wiz</div><div style="font-size:11.5px;color:var(--muted2);">Astuces personnalisées pour économiser</div></div><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--muted2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+              <button onClick="{{ goRoutines }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:15px 16px;border:none;background:none;cursor:pointer;text-align:left;"><span style="font-size:18px;">🔁</span><div style="flex:1;"><div style="font-size:14.5px;font-weight:600;color:var(--ink);">Routines</div><div style="font-size:11.5px;color:var(--muted2);">Petits rituels pour garder le cap</div></div><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--muted2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+            </div>
+
             <div style="font-size:12px;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:22px 4px 10px;">Tes badges</div>
             <div class="ww-scroll" style="display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;">
               <sc-for list="{{ badges }}" as="b" hint-placeholder-count="6">
@@ -1392,7 +1469,7 @@
               </sc-for>
             </div>
 
-            <div style="font-size:12px;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:22px 4px 10px;">Préférences</div>
+            <div style="font-size:12px;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:22px 4px 10px;">Notifications et accessibilité</div>
             <div style="background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;">
               <div style="display:flex;align-items:center;gap:13px;padding:15px 16px;border-bottom:1px solid var(--border);">
                 <span style="font-size:18px;">🔔</span><div style="flex:1;font-size:14.5px;font-weight:600;color:var(--ink);">Notifications</div>
@@ -1416,11 +1493,29 @@
               </button>
             </div>
 
-            <div style="font-size:12px;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:22px 4px 10px;">Compte</div>
+            <div style="font-size:12px;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:22px 4px 10px;">Sécurité</div>
             <div style="background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;">
-              <button onClick="{{ goSettings }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:15px 16px;border:none;border-bottom:1px solid var(--border);background:none;cursor:pointer;text-align:left;"><span style="font-size:18px;">⚙️</span><div style="flex:1;font-size:14.5px;font-weight:600;color:var(--ink);">Paramètres</div><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--muted2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
-              <a href="Espace%20Famille.dc.html" style="width:100%;display:flex;align-items:center;gap:13px;padding:15px 16px;border-bottom:1px solid var(--border);text-decoration:none;cursor:pointer;text-align:left;"><span style="font-size:18px;">👨‍👩‍👧</span><div style="flex:1;"><div style="font-size:14.5px;font-weight:600;color:var(--ink);">Espace Famille</div><div style="font-size:11.5px;color:var(--muted2);">Wiz4Kids, profils enfants & contrôles</div></div><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--muted2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
-              <button onClick="{{ goPrivacy }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:15px 16px;border:none;border-bottom:1px solid var(--border);background:none;cursor:pointer;text-align:left;"><span style="font-size:18px;">🔒</span><div style="flex:1;font-size:14.5px;font-weight:600;color:var(--ink);">Confidentialité & données</div><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--muted2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+              <button onClick="{{ previewAppLock }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:15px 16px;border:none;border-bottom:1px solid var(--border);background:none;cursor:pointer;text-align:left;"><span style="font-size:18px;">🔐</span><div style="flex:1;"><div style="font-size:14.5px;font-weight:600;color:var(--ink);">Verrouillage & code</div><div style="font-size:11.5px;color:var(--muted2);">PIN ou Face ID à l'ouverture</div></div><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--muted2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+              <button onClick="{{ goRecovery }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:15px 16px;border:none;background:none;cursor:pointer;text-align:left;"><span style="font-size:18px;">🔑</span><div style="flex:1;"><div style="font-size:14.5px;font-weight:600;color:var(--ink);">{{ recoverySecondLabel }}</div><div style="font-size:11.5px;color:var(--muted2);">{{ recoverySecondSub }}</div></div><span style="font-size:10.5px;font-weight:800;color:{{ recoverySecondBadgeColor }};background:{{ recoverySecondBadgeBg }};padding:4px 8px;border-radius:7px;flex:none;">{{ recoverySecondBadge }}</span></button>
+            </div>
+
+            <div style="font-size:12px;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:22px 4px 10px;">Mon compte</div>
+            <div style="background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;">
+              <button onClick="{{ goSettings }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:15px 16px;border:none;background:none;cursor:pointer;text-align:left;"><span style="font-size:18px;">⚙️</span><div style="flex:1;font-size:14.5px;font-weight:600;color:var(--ink);">Paramètres</div><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--muted2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+            </div>
+
+            <div style="font-size:12px;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:22px 4px 10px;">Confidentialité</div>
+            <div style="background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;">
+              <button onClick="{{ goPrivacy }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:15px 16px;border:none;background:none;cursor:pointer;text-align:left;"><span style="font-size:18px;">🔒</span><div style="flex:1;font-size:14.5px;font-weight:600;color:var(--ink);">Confidentialité & données</div><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--muted2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+            </div>
+
+            <div style="font-size:12px;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:22px 4px 10px;">Espace Famille et Wiz4Kids</div>
+            <div style="background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;">
+              <a href="Espace%20Famille.dc.html" style="width:100%;display:flex;align-items:center;gap:13px;padding:15px 16px;text-decoration:none;cursor:pointer;text-align:left;"><span style="font-size:18px;">👨‍👩‍👧</span><div style="flex:1;"><div style="font-size:14.5px;font-weight:600;color:var(--ink);">Espace Famille</div><div style="font-size:11.5px;color:var(--muted2);">Wiz4Kids, profils enfants & contrôles</div></div><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--muted2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+            </div>
+
+            <div style="font-size:12px;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:22px 4px 10px;">Aide et informations légales</div>
+            <div style="background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;">
               <button style="width:100%;display:flex;align-items:center;gap:13px;padding:15px 16px;border:none;border-bottom:1px solid var(--border);background:none;cursor:pointer;text-align:left;"><span style="font-size:18px;">❓</span><div style="flex:1;font-size:14.5px;font-weight:600;color:var(--ink);">Aide & support</div><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--muted2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
               <button style="width:100%;display:flex;align-items:center;gap:13px;padding:15px 16px;border:none;background:none;cursor:pointer;text-align:left;"><span style="font-size:18px;">📄</span><div style="flex:1;font-size:14.5px;font-weight:600;color:var(--ink);">Mentions légales</div><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--muted2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
             </div>
@@ -1541,19 +1636,83 @@
 
         <!-- ===================== EMAIL VERIFY ===================== -->
         <sc-if value="{{ isEmailVerify }}" hint-placeholder-val="{{ false }}">
-          <div style="min-height:736px;display:flex;flex-direction:column;padding:14px 26px 30px;animation:screenIn .34s ease both;">
+          <div style="min-height:736px;display:flex;flex-direction:column;padding:14px 26px 26px;animation:screenIn .34s ease both;">
             <button onClick="{{ backToIntro }}" style="border:none;background:var(--chip);width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--heading);flex:none;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
-            <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
-              <div style="width:150px;animation:floatY 4s ease-in-out infinite;"><dc-import name="Wiz" pose="secure" hint-size="150px,180px"></dc-import></div>
-              <div style="font-size:34px;margin-top:6px;">📩</div>
-              <h1 style="font-family:'Bricolage Grotesque',sans-serif;font-size:26px;font-weight:800;color:var(--heading);margin:12px 0 0;letter-spacing:-.4px;">Vérifie ton courriel</h1>
-              <p style="font-size:15px;line-height:1.55;color:var(--muted);margin:10px 8px 0;max-width:300px;">On a envoyé un lien de confirmation à <b style="color:var(--heading);">alex@exemple.ca</b>. Ouvre-le pour activer ton compte.</p>
-              <div style="display:flex;gap:10px;margin-top:22px;">
-                <sc-for list="{{ pinDots }}" as="d" hint-placeholder-count="4"><div style="width:44px;height:54px;border-radius:13px;border:1.5px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:800;color:var(--heading);">•</div></sc-for>
-              </div>
+            <div style="display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:2px;">
+              <div style="width:104px;animation:floatY 4s ease-in-out infinite;"><dc-import name="Wiz" pose="secure" hint-size="104px,124px"></dc-import></div>
+              <div style="font-size:28px;margin-top:2px;">{{ verifyIcon }}</div>
+              <h1 style="font-family:'Bricolage Grotesque',sans-serif;font-size:25px;font-weight:800;color:var(--heading);margin:8px 0 0;letter-spacing:-.4px;">{{ verifyTitle }}</h1>
             </div>
-            <button onClick="{{ verifyEmail }}" style="width:100%;height:58px;border:none;border-radius:18px;background:#14492F;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:17px;font-weight:700;cursor:pointer;box-shadow:0 12px 24px -10px rgba(20,73,47,.7);">J'ai vérifié mon courriel</button>
-            <button onClick="{{ resendEmail }}" style="margin-top:14px;width:100%;height:46px;border:none;background:none;color:var(--muted);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;">Renvoyer le courriel</button>
+
+            <div style="margin-top:16px;display:flex;gap:4px;background:var(--chip);border-radius:14px;padding:4px;">
+              <button onClick="{{ pickEmailChan }}" style="flex:1;height:42px;border:none;border-radius:11px;background:{{ vTabEmailBg }};color:{{ vTabEmailColor }};box-shadow:{{ vTabEmailShadow }};font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all .18s;">📩 Courriel</button>
+              <button onClick="{{ pickPhoneChan }}" style="flex:1;height:42px;border:none;border-radius:11px;background:{{ vTabPhoneBg }};color:{{ vTabPhoneColor }};box-shadow:{{ vTabPhoneShadow }};font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all .18s;">📱 Téléphone</button>
+            </div>
+
+            <sc-if value="{{ verifyNotEditing }}" hint-placeholder-val="{{ true }}">
+              <p style="font-size:14px;line-height:1.5;color:var(--muted);margin:14px 4px 0;text-align:center;">{{ verifySentLabel }} <b style="color:var(--heading);">{{ verifyContact }}</b>. <span onClick="{{ startEditContact }}" style="color:#2E9E47;font-weight:700;cursor:pointer;white-space:nowrap;">Modifier</span></p>
+
+              <div style="display:flex;gap:9px;justify-content:center;margin-top:18px;">
+                <sc-for list="{{ otpBoxes }}" as="b" hint-placeholder-count="6"><div style="width:44px;height:54px;border-radius:13px;border:2px solid {{ b.border }};background:{{ b.bg }};display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:800;color:var(--heading);transition:border-color .15s;">{{ b.ch }}</div></sc-for>
+              </div>
+
+              <sc-if value="{{ otpStatusShow }}" hint-placeholder-val="{{ false }}"><div style="text-align:center;color:#E5604D;font-size:13px;font-weight:600;margin-top:11px;">{{ otpStatusText }}</div></sc-if>
+              <sc-if value="{{ otpShowExpiry }}" hint-placeholder-val="{{ true }}"><div style="text-align:center;color:var(--muted2);font-size:12.5px;font-weight:600;margin-top:11px;">{{ otpExpiryLabel }}</div></sc-if>
+
+              <div style="display:flex;justify-content:center;gap:18px;margin-top:12px;">
+                <button onClick="{{ pasteOtp }}" style="border:none;background:none;font-family:inherit;font-size:13.5px;font-weight:700;color:#2E9E47;cursor:pointer;display:inline-flex;align-items:center;gap:5px;white-space:nowrap;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="8" y="3" width="8" height="4" rx="1" stroke="currentColor" stroke-width="1.8"></rect><rect x="5" y="5" width="14" height="16" rx="2.5" stroke="currentColor" stroke-width="1.8"></rect></svg>Coller le code</button>
+                <button onClick="{{ resendOtp }}" style="border:none;background:none;font-family:inherit;font-size:13.5px;font-weight:700;color:{{ otpResendColor }};cursor:pointer;">{{ otpResendLabel }}</button>
+              </div>
+
+              <div style="margin-top:14px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;opacity:{{ otpKeypadOpacity }};">
+                <sc-for list="{{ otpKeys }}" as="k" hint-placeholder-count="12">
+                  <sc-if value="{{ k.empty }}" hint-placeholder-val="{{ false }}"><div></div></sc-if>
+                  <sc-if value="{{ k.notEmpty }}" hint-placeholder-val="{{ true }}"><button onClick="{{ k.press }}" style="height:52px;border-radius:14px;border:1px solid var(--border);background:var(--surface);font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:700;color:var(--heading);cursor:pointer;" style-active="background:var(--chip);">{{ k.label }}</button></sc-if>
+                </sc-for>
+              </div>
+
+              <button onClick="{{ submitOtp }}" style="margin-top:16px;width:100%;height:56px;border:none;border-radius:18px;background:{{ otpSubmitBg }};color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:17px;font-weight:700;cursor:pointer;box-shadow:0 12px 24px -10px rgba(20,73,47,.7);">Vérifier mon compte</button>
+              <button onClick="{{ goRecovery }}" style="margin-top:12px;width:100%;border:none;background:none;color:var(--muted);font-family:inherit;font-size:13.5px;font-weight:600;cursor:pointer;">Je n'ai pas accès à ce contact</button>
+            </sc-if>
+
+            <sc-if value="{{ verifyEditing }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:22px;">
+                <label style="font-size:12px;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:.4px;">{{ verifyEditLabel }}</label>
+                <input value="{{ verifyEditVal }}" onInput="{{ setVerifyEdit }}" placeholder="{{ verifyEditPlaceholder }}" style="margin-top:8px;width:100%;height:56px;border-radius:16px;border:1.5px solid var(--border);background:var(--surface);padding:0 16px;font-family:inherit;font-size:16px;font-weight:600;color:var(--ink);box-sizing:border-box;outline:none;" style-focus="border-color:#36B34A;">
+                <button onClick="{{ saveEditContact }}" style="margin-top:16px;width:100%;height:54px;border:none;border-radius:16px;background:#14492F;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:15.5px;font-weight:700;cursor:pointer;">Enregistrer et renvoyer le code</button>
+                <button onClick="{{ cancelEditContact }}" style="margin-top:12px;width:100%;height:46px;border:none;background:none;color:var(--muted);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;">Annuler</button>
+              </div>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <!-- ===================== ACCOUNT RECOVERY ===================== -->
+        <sc-if value="{{ isRecovery }}" hint-placeholder-val="{{ false }}">
+          <div style="min-height:736px;display:flex;flex-direction:column;padding:14px 26px 30px;animation:screenIn .34s ease both;">
+            <button onClick="{{ backFromRecovery }}" style="border:none;background:var(--chip);width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--heading);flex:none;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+            <div style="display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:6px;">
+              <div style="width:120px;animation:floatY 4s ease-in-out infinite;"><dc-import name="Wiz" pose="secure" hint-size="120px,144px"></dc-import></div>
+              <div style="font-size:30px;margin-top:2px;">🔑</div>
+              <h1 style="font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:800;color:var(--heading);margin:8px 0 0;letter-spacing:-.4px;">Récupérer ton compte</h1>
+              <p style="font-size:14px;line-height:1.55;color:var(--muted);margin:10px 8px 0;max-width:300px;">Pas de panique — on va t'aider à retrouver l'accès en toute sécurité. Choisis une option ci-dessous.</p>
+            </div>
+            <div style="margin-top:24px;display:flex;flex-direction:column;gap:12px;">
+              <button onClick="{{ recoveryUseAlt }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:16px;border-radius:18px;border:1px solid var(--border);background:var(--surface);cursor:pointer;text-align:left;">
+                <div style="width:44px;height:44px;border-radius:13px;background:var(--tint-green);display:flex;align-items:center;justify-content:center;font-size:20px;flex:none;">🔁</div>
+                <div style="flex:1;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:800;color:var(--ink);">{{ recoveryAltLabel }}</div><div style="font-size:12px;color:var(--muted);margin-top:2px;">Utilise ton autre moyen de contact enregistré.</div></div>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--muted2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              </button>
+              <button style="width:100%;display:flex;align-items:center;gap:13px;padding:16px;border-radius:18px;border:1px solid var(--border);background:var(--surface);cursor:pointer;text-align:left;">
+                <div style="width:44px;height:44px;border-radius:13px;background:var(--tint-blue);display:flex;align-items:center;justify-content:center;font-size:20px;flex:none;">💬</div>
+                <div style="flex:1;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:800;color:var(--ink);">Contacter le soutien</div><div style="font-size:12px;color:var(--muted);margin-top:2px;">On vérifie ton identité et on te répond vite.</div></div>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="var(--muted2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              </button>
+            </div>
+            <div style="margin-top:16px;background:var(--tint-green);border:1px solid var(--bd-green);border-radius:16px;padding:14px;display:flex;gap:10px;align-items:flex-start;">
+              <span style="font-size:16px;flex:none;">🛡️</span>
+              <p style="margin:0;font-size:12.5px;line-height:1.45;color:var(--body);">Wiz ne demandera jamais ton mot de passe complet ni tes codes bancaires. Ta sécurité passe avant tout.</p>
+            </div>
+            <button onClick="{{ backToIntro }}" style="margin-top:auto;width:100%;height:50px;border:none;background:none;color:var(--muted);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;">Revenir à la connexion</button>
           </div>
         </sc-if>
 
@@ -1719,7 +1878,7 @@
           <div style="min-height:736px;display:flex;flex-direction:column;padding:6px 20px 110px;animation:screenIn .3s ease both;">
             <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0 16px;">
               <button onClick="{{ backFromSub }}" style="border:none;background:var(--surface);border:1px solid var(--border);width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--heading);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
-              <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;color:var(--heading);">Budget</div>
+              <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;color:var(--heading);">Mon plan</div>
               <div style="width:42px;"></div>
             </div>
             <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
@@ -1870,11 +2029,19 @@
               <div>
                 <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:800;color:var(--heading);margin:0;">Nouvel objectif 🎯</h3>
                 <p style="font-size:13.5px;color:var(--muted);margin:6px 0 0;">Vers quoi veux-tu épargner ?</p>
-                <label style="display:block;margin-top:18px;"><span style="font-size:13px;font-weight:600;color:var(--body);display:block;margin-bottom:7px;">Nom de l'objectif</span><input value="{{ sheetGoalName }}" onInput="{{ setGoalName }}" placeholder="Ex. Nouvel ordinateur" style="width:100%;height:54px;border-radius:15px;border:1.5px solid var(--border);background:var(--chip);padding:0 16px;font-family:inherit;font-size:15.5px;color:var(--ink);outline:none;"></label>
+                <span style="font-size:13px;font-weight:600;color:var(--body);display:block;margin:18px 0 8px;">Icône</span>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;"><sc-for list="{{ goalEmojiOptions }}" as="e" hint-placeholder-count="12"><button onClick="{{ e.pick }}" style="width:44px;height:44px;border-radius:12px;border:2px solid {{ e.border }};background:{{ e.bg }};font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;">{{ e.emoji }}</button></sc-for></div>
+                <label style="display:block;margin-top:16px;"><span style="font-size:13px;font-weight:600;color:var(--body);display:block;margin-bottom:7px;">Nom de l'objectif</span><input value="{{ sheetGoalName }}" onInput="{{ setGoalName }}" placeholder="Ex. Nouvel ordinateur" style="width:100%;height:54px;border-radius:15px;border:1.5px solid var(--border);background:var(--chip);padding:0 16px;font-family:inherit;font-size:15.5px;color:var(--ink);outline:none;box-sizing:border-box;"></label>
+                <label style="display:block;margin-top:14px;"><span style="font-size:13px;font-weight:600;color:var(--body);display:block;margin-bottom:7px;">Pourquoi c'est important pour toi</span><input value="{{ sheetGoalReason }}" onInput="{{ setGoalReason }}" placeholder="Ex. Voyager l'esprit tranquille" style="width:100%;height:54px;border-radius:15px;border:1.5px solid var(--border);background:var(--chip);padding:0 16px;font-family:inherit;font-size:15.5px;color:var(--ink);outline:none;box-sizing:border-box;"></label>
                 <div style="display:flex;gap:12px;margin-top:14px;">
-                  <label style="flex:1;"><span style="font-size:13px;font-weight:600;color:var(--body);display:block;margin-bottom:7px;">Montant cible</span><div style="position:relative;"><input value="{{ sheetGoalTarget }}" onInput="{{ setGoalTarget }}" type="number" inputmode="numeric" placeholder="0" style="width:100%;height:54px;border-radius:15px;border:1.5px solid var(--border);background:var(--chip);padding:0 32px 0 16px;font-family:inherit;font-size:15.5px;color:var(--ink);outline:none;"><span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--muted2);font-weight:700;">$</span></div></label>
-                  <label style="flex:1;"><span style="font-size:13px;font-weight:600;color:var(--body);display:block;margin-bottom:7px;">Échéance</span><input value="{{ sheetGoalDate }}" onInput="{{ setGoalDate }}" placeholder="Déc. 2025" style="width:100%;height:54px;border-radius:15px;border:1.5px solid var(--border);background:var(--chip);padding:0 14px;font-family:inherit;font-size:14.5px;color:var(--ink);outline:none;"></label>
+                  <label style="flex:1;"><span style="font-size:13px;font-weight:600;color:var(--body);display:block;margin-bottom:7px;">Montant cible</span><div style="position:relative;"><input value="{{ sheetGoalTarget }}" onInput="{{ setGoalTarget }}" type="number" inputmode="numeric" placeholder="0" style="width:100%;height:54px;border-radius:15px;border:1.5px solid var(--border);background:var(--chip);padding:0 32px 0 16px;font-family:inherit;font-size:15.5px;color:var(--ink);outline:none;box-sizing:border-box;"><span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--muted2);font-weight:700;">$</span></div></label>
+                  <label style="flex:1;"><span style="font-size:13px;font-weight:600;color:var(--body);display:block;margin-bottom:7px;">Échéance</span><input value="{{ sheetGoalDate }}" onInput="{{ setGoalDate }}" placeholder="Déc. 2025" style="width:100%;height:54px;border-radius:15px;border:1.5px solid var(--border);background:var(--chip);padding:0 14px;font-family:inherit;font-size:14.5px;color:var(--ink);outline:none;box-sizing:border-box;"></label>
                 </div>
+                <div style="display:flex;gap:12px;margin-top:14px;">
+                  <label style="flex:1;"><span style="font-size:13px;font-weight:600;color:var(--body);display:block;margin-bottom:7px;">Contribution prévue</span><div style="position:relative;"><input value="{{ sheetGoalPlanned }}" onInput="{{ setGoalPlanned }}" type="number" inputmode="numeric" placeholder="50" style="width:100%;height:54px;border-radius:15px;border:1.5px solid var(--border);background:var(--chip);padding:0 32px 0 16px;font-family:inherit;font-size:15.5px;color:var(--ink);outline:none;box-sizing:border-box;"><span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--muted2);font-weight:700;">$</span></div></label>
+                </div>
+                <label style="display:block;margin-top:14px;"><span style="font-size:13px;font-weight:600;color:var(--body);display:block;margin-bottom:7px;">Prochaine action</span><input value="{{ sheetGoalNextAction }}" onInput="{{ setGoalNextAction }}" placeholder="Ex. Virer 50 $ après la paie" style="width:100%;height:54px;border-radius:15px;border:1.5px solid var(--border);background:var(--chip);padding:0 16px;font-family:inherit;font-size:15.5px;color:var(--ink);outline:none;box-sizing:border-box;"></label>
+                <div style="margin-top:16px;display:flex;align-items:center;gap:12px;background:var(--tint-amber);border:1px solid var(--bd-amber);border-radius:14px;padding:12px 14px;"><span style="font-size:18px;">⭐</span><div style="flex:1;"><div style="font-size:14px;font-weight:700;color:var(--ink);">Objectif prioritaire</div><div style="font-size:11.5px;color:#8A7A4E;line-height:1.35;">Wiz personnalise tes actions selon cet objectif.</div></div><button onClick="{{ toggleGoalPriority }}" style="width:46px;height:27px;border-radius:14px;border:none;cursor:pointer;background:{{ goalPriorityKnob }};position:relative;transition:background .2s;flex:none;"><span style="position:absolute;top:3px;left:3px;width:21px;height:21px;border-radius:50%;background:var(--surface);transition:transform .2s;transform:{{ goalPriorityShift }};box-shadow:0 1px 3px rgba(0,0,0,.2);"></span></button></div>
                 <button onClick="{{ addGoal }}" style="margin-top:18px;width:100%;height:54px;border:none;border-radius:16px;background:#14492F;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:700;cursor:pointer;">Créer l'objectif</button>
               </div>
             </sc-if>
@@ -1905,11 +2072,19 @@
               <div>
                 <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:800;color:var(--heading);margin:0;">Modifier l'objectif</h3>
                 <p style="font-size:13.5px;color:var(--muted);margin:6px 0 0;">Mets à jour ton objectif.</p>
-                <label style="display:block;margin-top:18px;"><span style="font-size:13px;font-weight:600;color:var(--body);display:block;margin-bottom:7px;">Nom de l'objectif</span><input value="{{ sheetGoalName }}" onInput="{{ setGoalName }}" style="width:100%;height:54px;border-radius:15px;border:1.5px solid var(--border);background:var(--chip);padding:0 16px;font-family:inherit;font-size:15.5px;color:var(--ink);outline:none;"></label>
+                <span style="font-size:13px;font-weight:600;color:var(--body);display:block;margin:18px 0 8px;">Icône</span>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;"><sc-for list="{{ goalEmojiOptions }}" as="e" hint-placeholder-count="12"><button onClick="{{ e.pick }}" style="width:44px;height:44px;border-radius:12px;border:2px solid {{ e.border }};background:{{ e.bg }};font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;">{{ e.emoji }}</button></sc-for></div>
+                <label style="display:block;margin-top:16px;"><span style="font-size:13px;font-weight:600;color:var(--body);display:block;margin-bottom:7px;">Nom de l'objectif</span><input value="{{ sheetGoalName }}" onInput="{{ setGoalName }}" style="width:100%;height:54px;border-radius:15px;border:1.5px solid var(--border);background:var(--chip);padding:0 16px;font-family:inherit;font-size:15.5px;color:var(--ink);outline:none;box-sizing:border-box;"></label>
+                <label style="display:block;margin-top:14px;"><span style="font-size:13px;font-weight:600;color:var(--body);display:block;margin-bottom:7px;">Pourquoi c'est important pour toi</span><input value="{{ sheetGoalReason }}" onInput="{{ setGoalReason }}" placeholder="Ex. Voyager l'esprit tranquille" style="width:100%;height:54px;border-radius:15px;border:1.5px solid var(--border);background:var(--chip);padding:0 16px;font-family:inherit;font-size:15.5px;color:var(--ink);outline:none;box-sizing:border-box;"></label>
                 <div style="display:flex;gap:12px;margin-top:14px;">
-                  <label style="flex:1;"><span style="font-size:13px;font-weight:600;color:var(--body);display:block;margin-bottom:7px;">Montant cible</span><div style="position:relative;"><input value="{{ sheetGoalTarget }}" onInput="{{ setGoalTarget }}" type="number" inputmode="numeric" style="width:100%;height:54px;border-radius:15px;border:1.5px solid var(--border);background:var(--chip);padding:0 32px 0 16px;font-family:inherit;font-size:15.5px;color:var(--ink);outline:none;"><span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--muted2);font-weight:700;">$</span></div></label>
-                  <label style="flex:1;"><span style="font-size:13px;font-weight:600;color:var(--body);display:block;margin-bottom:7px;">Échéance</span><input value="{{ sheetGoalDate }}" onInput="{{ setGoalDate }}" style="width:100%;height:54px;border-radius:15px;border:1.5px solid var(--border);background:var(--chip);padding:0 14px;font-family:inherit;font-size:14.5px;color:var(--ink);outline:none;"></label>
+                  <label style="flex:1;"><span style="font-size:13px;font-weight:600;color:var(--body);display:block;margin-bottom:7px;">Montant cible</span><div style="position:relative;"><input value="{{ sheetGoalTarget }}" onInput="{{ setGoalTarget }}" type="number" inputmode="numeric" style="width:100%;height:54px;border-radius:15px;border:1.5px solid var(--border);background:var(--chip);padding:0 32px 0 16px;font-family:inherit;font-size:15.5px;color:var(--ink);outline:none;box-sizing:border-box;"><span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--muted2);font-weight:700;">$</span></div></label>
+                  <label style="flex:1;"><span style="font-size:13px;font-weight:600;color:var(--body);display:block;margin-bottom:7px;">Échéance</span><input value="{{ sheetGoalDate }}" onInput="{{ setGoalDate }}" style="width:100%;height:54px;border-radius:15px;border:1.5px solid var(--border);background:var(--chip);padding:0 14px;font-family:inherit;font-size:14.5px;color:var(--ink);outline:none;box-sizing:border-box;"></label>
                 </div>
+                <div style="display:flex;gap:12px;margin-top:14px;">
+                  <label style="flex:1;"><span style="font-size:13px;font-weight:600;color:var(--body);display:block;margin-bottom:7px;">Contribution prévue</span><div style="position:relative;"><input value="{{ sheetGoalPlanned }}" onInput="{{ setGoalPlanned }}" type="number" inputmode="numeric" placeholder="50" style="width:100%;height:54px;border-radius:15px;border:1.5px solid var(--border);background:var(--chip);padding:0 32px 0 16px;font-family:inherit;font-size:15.5px;color:var(--ink);outline:none;box-sizing:border-box;"><span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--muted2);font-weight:700;">$</span></div></label>
+                </div>
+                <label style="display:block;margin-top:14px;"><span style="font-size:13px;font-weight:600;color:var(--body);display:block;margin-bottom:7px;">Prochaine action</span><input value="{{ sheetGoalNextAction }}" onInput="{{ setGoalNextAction }}" placeholder="Ex. Virer 50 $ après la paie" style="width:100%;height:54px;border-radius:15px;border:1.5px solid var(--border);background:var(--chip);padding:0 16px;font-family:inherit;font-size:15.5px;color:var(--ink);outline:none;box-sizing:border-box;"></label>
+                <div style="margin-top:16px;display:flex;align-items:center;gap:12px;background:var(--tint-amber);border:1px solid var(--bd-amber);border-radius:14px;padding:12px 14px;"><span style="font-size:18px;">⭐</span><div style="flex:1;"><div style="font-size:14px;font-weight:700;color:var(--ink);">Objectif prioritaire</div><div style="font-size:11.5px;color:#8A7A4E;line-height:1.35;">Wiz personnalise tes actions selon cet objectif.</div></div><button onClick="{{ toggleGoalPriority }}" style="width:46px;height:27px;border-radius:14px;border:none;cursor:pointer;background:{{ goalPriorityKnob }};position:relative;transition:background .2s;flex:none;"><span style="position:absolute;top:3px;left:3px;width:21px;height:21px;border-radius:50%;background:var(--surface);transition:transform .2s;transform:{{ goalPriorityShift }};box-shadow:0 1px 3px rgba(0,0,0,.2);"></span></button></div>
                 <button onClick="{{ saveGoal }}" style="margin-top:18px;width:100%;height:54px;border:none;border-radius:16px;background:#14492F;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:700;cursor:pointer;">Enregistrer</button>
               </div>
             </sc-if>
@@ -2069,7 +2244,7 @@
   </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;intro&quot;,&quot;dashboard&quot;,&quot;wiz&quot;,&quot;budget&quot;,&quot;budgetEmpty&quot;,&quot;lessons&quot;,&quot;goals&quot;,&quot;paywall&quot;,&quot;thankYou&quot;,&quot;emailVerify&quot;,&quot;notifPerm&quot;,&quot;appLock&quot;,&quot;settings&quot;,&quot;account&quot;,&quot;deleteAccount&quot;,&quot;offline&quot;,&quot;errorState&quot;,&quot;privacy&quot;,&quot;profile&quot;],&quot;default&quot;:&quot;intro&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Aperçu&quot;,&quot;label&quot;:&quot;Écran de départ&quot;},&quot;weather&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;soleil&quot;,&quot;nuages&quot;,&quot;pluie&quot;,&quot;alerte&quot;],&quot;default&quot;:&quot;nuages&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Aperçu&quot;,&quot;label&quot;:&quot;Météo financière&quot;},&quot;discreetDefault&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Aperçu&quot;,&quot;label&quot;:&quot;Mode discret au lancement&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;intro&quot;,&quot;dashboard&quot;,&quot;wiz&quot;,&quot;budget&quot;,&quot;budgetEmpty&quot;,&quot;lessons&quot;,&quot;goals&quot;,&quot;paywall&quot;,&quot;thankYou&quot;,&quot;emailVerify&quot;,&quot;notifPerm&quot;,&quot;appLock&quot;,&quot;settings&quot;,&quot;account&quot;,&quot;deleteAccount&quot;,&quot;offline&quot;,&quot;errorState&quot;,&quot;privacy&quot;,&quot;profile&quot;],&quot;default&quot;:&quot;intro&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Aperçu&quot;,&quot;label&quot;:&quot;Écran de départ&quot;},&quot;weather&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;soleil&quot;,&quot;nuages&quot;,&quot;pluie&quot;,&quot;alerte&quot;],&quot;default&quot;:&quot;nuages&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Aperçu&quot;,&quot;label&quot;:&quot;Météo financière&quot;},&quot;homeStage&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;nouveau&quot;,&quot;progression&quot;,&quot;etabli&quot;],&quot;default&quot;:&quot;progression&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Aperçu&quot;,&quot;label&quot;:&quot;État de l'accueil&quot;},&quot;isParent&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Aperçu&quot;,&quot;label&quot;:&quot;Parent (invite Famille)&quot;},&quot;discreetDefault&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Aperçu&quot;,&quot;label&quot;:&quot;Mode discret au lancement&quot;}}">
 class Component extends DCLogic {
   constructor(props){
     super(props);
@@ -2080,9 +2255,20 @@ class Component extends DCLogic {
       introSlide: 0,
       authMode: 'signup',
       obStep: 0,
-      goal: null,
+      goal: [],
       knowledge: null,
-      situation: null,
+      situation: [],
+      verifyChannel: 'email',
+      contactEmail: 'alex@exemple.ca',
+      contactPhone: '514 555-0199',
+      otpValue: '',
+      otpCode: '123456',
+      otpError: false,
+      otpResendIn: 30,
+      verifyEditing: false,
+      verifyEditVal: '',
+      otpAttempts: 0, otpMaxAttempts: 3, otpLocked: false, otpLockIn: 0, otpExpired: false, otpExpiresIn: 300,
+      recoveryReturn: 'emailVerify', recoveryChannelAdded: false,
       personalized: false,
       showPersonalizeBanner: false,
       dailyDone: false,
@@ -2107,9 +2293,9 @@ class Component extends DCLogic {
         {id:'aut', name:'Autres', amount:80, color:'var(--muted)', emoji:'•••'},
       ],
       goals: [
-        {id:'g1', name:"Fonds d'urgence", saved:600, target:1000, due:'30 juin 2025', color:'#36B34A', emoji:'🛡️'},
-        {id:'g2', name:'Voyage', saved:875, target:2500, due:'15 août 2025', color:'#4C8DF6', emoji:'✈️'},
-        {id:'g3', name:'Remboursement dette', saved:1250, target:2500, due:'15 déc. 2025', color:'#B36BE6', emoji:'💳'},
+        {id:'g1', name:"Fonds d'urgence", reason:'Dormir tranquille en cas d\u2019imprévu', saved:600, target:1000, due:'30 juin 2025', color:'#36B34A', emoji:'🛡️', planned:50, nextAction:'Virer 50 $ après la paie', paused:false, overdue:false, history:[{label:'Dépôt initial', amount:400, date:'1 mars'},{label:'Contribution', amount:200, date:'15 mars'}]},
+        {id:'g2', name:'Voyage', reason:'Deux semaines au Japon 🇯🇵', saved:875, target:2500, due:'15 août 2025', color:'#4C8DF6', emoji:'✈️', planned:75, nextAction:'Ajouter le remboursement d\u2019impôt', paused:false, overdue:false, history:[{label:'Contribution', amount:500, date:'10 févr.'},{label:'Contribution', amount:375, date:'12 mars'}]},
+        {id:'g3', name:'Remboursement dette', reason:'Solder la carte de crédit 💳', saved:1250, target:2500, due:'15 déc. 2024', color:'#B36BE6', emoji:'💳', planned:120, nextAction:'Payer plus que le minimum', paused:false, overdue:true, history:[{label:'Contribution', amount:800, date:'5 janv.'},{label:'Contribution', amount:450, date:'8 mars'}]},
       ],
       lessons: [
         {id:'l1', title:'Budget 101', sub:"Les bases d'un budget efficace", emoji:'📊', dur:'8 min', level:'Débutant', cat:'Budget', progress:75, color:'var(--tint-green)', accent:'#2E9E47'},
@@ -2133,7 +2319,8 @@ class Component extends DCLogic {
       ],
       activeLesson: null,
       activeNews: null,
-      learnTab: 'apprendre',
+      learnTab: 'parcours',
+      favorites: [],
       learnFilter: 'Tout',
       learnSearch: '',
       newsSearch: '',
@@ -2164,11 +2351,16 @@ class Component extends DCLogic {
       fcIdx: 0,
       fcFlipped: false,
       routineDone: {},
+      routineOpen: {},
+      familyInviteDismissed: (()=>{ try{ return localStorage.getItem('ww_familyInviteSeen')==='1'; }catch(e){ return false; } })(),
+      routinesReturn: 'dashboard',
       trainDone: {},
       lessonProgress: 0,
       quizPick: null,
       badges: ['first_budget','first_wiz'],
       activeGoal: null,
+      priorityGoalId: 'g1',
+      sheetGoalReason: '', sheetGoalEmoji: '🎯', sheetGoalPlanned: '', sheetGoalNextAction: '', sheetGoalPriority: false,
       sheet: null,
       settings:{notifications:true, smartAlerts:true, darkMode:false, discreet:false},
       plan:'yearly',
@@ -2222,10 +2414,17 @@ class Component extends DCLogic {
 
   // ---- goal edit/delete ----
   openEditGoal(){ const g=this.state.goals.find(x=>x.id===this.state.activeGoal); if(!g)return;
-    this.setState({sheet:'editGoal', editGoalId:g.id, sheetGoalName:g.name, sheetGoalTarget:String(g.target), sheetGoalDate:g.due}); }
+    this.setState({sheet:'editGoal', editGoalId:g.id, sheetGoalName:g.name, sheetGoalTarget:String(g.target), sheetGoalDate:g.due, sheetGoalReason:g.reason||'', sheetGoalEmoji:g.emoji||'🎯', sheetGoalPlanned:g.planned?String(g.planned):'', sheetGoalNextAction:g.nextAction||'', sheetGoalPriority:this.state.priorityGoalId===g.id}); }
   saveGoal(){ const name=(this.state.sheetGoalName||'').trim(); const target=parseInt(this.state.sheetGoalTarget,10)||0; if(!name||!target)return;
-    const goals=this.state.goals.map(g=> g.id===this.state.editGoalId? Object.assign({},g,{name, target, due:this.state.sheetGoalDate||g.due}) : g);
-    this.setState({goals, sheet:null, editGoalId:null}); this.showToast('Objectif mis à jour','✏️'); }
+    const id=this.state.editGoalId;
+    const goals=this.state.goals.map(g=> g.id===id? Object.assign({},g,{name, target, due:this.state.sheetGoalDate||g.due, reason:this.state.sheetGoalReason, emoji:this.state.sheetGoalEmoji||g.emoji, planned:parseInt(this.state.sheetGoalPlanned,10)||0, nextAction:this.state.sheetGoalNextAction}) : g);
+    let priorityGoalId=this.state.priorityGoalId;
+    if(this.state.sheetGoalPriority) priorityGoalId=id; else if(priorityGoalId===id) priorityGoalId=null;
+    this.setState({goals, priorityGoalId, sheet:null, editGoalId:null}); this.showToast('Objectif mis à jour','✏️'); }
+  setPriorityGoal(id){ this.setState({priorityGoalId:id}); this.showToast('Objectif prioritaire défini ⭐','⭐'); }
+  togglePauseGoal(){ const id=this.state.activeGoal; let paused; const goals=this.state.goals.map(g=>{ if(g.id===id){ paused=!g.paused; return Object.assign({},g,{paused}); } return g; }); this.setState({goals}); this.showToast(paused?'Objectif mis en pause ⏸️':'Objectif réactivé ▶️', paused?'⏸️':'▶️'); }
+  pickGoalEmoji(e){ this.setState({sheetGoalEmoji:e}); }
+  toggleGoalPriority(){ this.setState({sheetGoalPriority:!this.state.sheetGoalPriority}); }
   deleteGoal(){ const id=this.state.activeGoal; const goals=this.state.goals.filter(g=>g.id!==id);
     this.setState({goals, sheet:null}, ()=>this.go('goals')); this.showToast('Objectif supprimé','🗑️'); }
   askDeleteGoal(){ this.setState({sheet:'deleteGoal'}); }
@@ -2239,7 +2438,7 @@ class Component extends DCLogic {
 
   componentDidMount(){ const p=this.props||{}; const patch={}; if(p.discreetDefault){ patch.settings=Object.assign({},this.state.settings,{discreet:true}); } if(p.startScreen && p.startScreen!=='intro'){ patch.screen=p.startScreen; } if(Object.keys(patch).length) this.setState(patch); }
 
-  go(screen){ this.setState({screen}, ()=>this.scrollTop()); }
+  go(screen){ if(screen==='emailVerify'){ this.startResendTimer(); } else { clearInterval(this._otpTimer); } this.setState({screen}, ()=>this.scrollTop()); }
 
   showToast(msg, icon){
     this.setState({toast:{msg, icon:icon||'✅'}});
@@ -2265,9 +2464,9 @@ class Component extends DCLogic {
   obBack(){ if(this.state.obStep>0) this.setState({obStep:this.state.obStep-1}); else this.go('auth'); }
   obNext(){
     const s = this.state.obStep;
-    if(s===0 && !this.state.goal) return;
+    if(s===0 && (!this.state.goal || this.state.goal.length===0)) return;
     if(s===1 && !this.state.knowledge) return;
-    if(s===2 && !this.state.situation) return;
+    if(s===2 && (!this.state.situation || this.state.situation.length===0)) return;
     if(s<2) this.setState({obStep:s+1});
     else { this.setState({personalized:true, showPersonalizeBanner:false}); this.spawnConfetti(); this.go('aha'); }
   }
@@ -2284,9 +2483,9 @@ class Component extends DCLogic {
   startDailyAction(){ if(this.state.dailyDone)return; this.setState({sheet:'dailyGuide'}); }
   dailyDoItNow(){ this.setState({sheet:'addCat', dailyInProgress:true, sheetCatName:'', sheetCatAmount:''}); }
   completeDailyAction(){ if(this.state.dailyDone)return; this.setState({dailyDone:true, dailyInProgress:false, weekDone:Math.min(7,this.state.weekDone+1)}); this.spawnConfetti(); this.forceUpdate(); this.showToast('Action du jour terminée ! 🌟','🌟'); }
-  pickGoal(g){ this.setState({goal:g}); }
+  pickGoal(g){ const cur=Array.isArray(this.state.goal)?this.state.goal.slice():[]; const i=cur.indexOf(g); if(i>=0) cur.splice(i,1); else cur.push(g); this.setState({goal:cur}); }
   pickKnowledge(k){ this.setState({knowledge:k}); }
-  pickSituation(x){ this.setState({situation:x}); }
+  pickSituation(x){ const cur=Array.isArray(this.state.situation)?this.state.situation.slice():[]; const i=cur.indexOf(x); if(i>=0) cur.splice(i,1); else cur.push(x); this.setState({situation:cur}); }
 
   spawnConfetti(){
     const cols=['#36B34A','#4C8DF6','#F4A93D','#B36BE6','#E96C8A','#7BE495'];
@@ -2317,15 +2516,20 @@ class Component extends DCLogic {
   fcNext(){ const n=this.fcCards().length; this.setState({fcIdx:(this.state.fcIdx+1)%n, fcFlipped:false}); }
   fcPrev(){ const n=this.fcCards().length; this.setState({fcIdx:(this.state.fcIdx-1+n)%n, fcFlipped:false}); }
   toggleRoutine(id){ const r=Object.assign({},this.state.routineDone); r[id]=!r[id]; this.setState({routineDone:r}); if(r[id]) this.showToast('Étape complétée 🌿','🌿'); }
+  toggleRoutineOpen(id){ const o=Object.assign({},this.state.routineOpen); const cur=o[id]!==false; o[id]=!cur; this.setState({routineOpen:o}); }
+  dismissFamilyInvite(){ try{ localStorage.setItem('ww_familyInviteSeen','1'); }catch(e){} this.setState({familyInviteDismissed:true}); }
+  goRoutines(){ this.setState({routinesReturn:this.state.screen}); this.go('routines'); }
+  backFromRoutines(){ this.go(this.state.routinesReturn||'dashboard'); }
   goTraining(){ this.go('training'); }
   openTrainGuide(id){ this.setState({sheet:'trainGuide', trainGuideId:id}); }
   confirmTrain(){ const id=this.state.trainGuideId; const r=Object.assign({},this.state.trainDone); if(!r[id]){ r[id]=true; this.setState({trainDone:r, sheet:null}); this.showToast('+10 points de clarté ⚡','⚡'); } else { this.setState({sheet:null}); } }
   toggleTrain(id){ const r=Object.assign({},this.state.trainDone); r[id]=!r[id]; this.setState({trainDone:r}); if(r[id]) this.showToast('+10 points de clarté ⚡', '⚡'); }
   goMissions(){ this.go('missions'); }
   toggleSub(id){ const subs=this.state.subs.map(x=> x.id===id? Object.assign({},x,{keep:!x.keep}):x); this.setState({subs}); }
-  goLessons(){ this.setState({learnTab:'apprendre'}); this.startLearnLoading(); this.go('lessons'); }
+  goLessons(){ this.setState({learnTab:'parcours'}); this.startLearnLoading(); this.go('lessons'); }
   startLearnLoading(){ this.setState({learnLoading:true}); clearTimeout(this._learnT); this._learnT=setTimeout(()=>this.setState({learnLoading:false}), 850); }
   setLearnTab(t){ this.setState({learnTab:t, learnShowAll:false}); this.startLearnLoading(); }
+  toggleFavorite(id){ const f=(this.state.favorites||[]).slice(); const i=f.indexOf(id); if(i>=0){ f.splice(i,1); } else { f.push(id); } this.setState({favorites:f}); this.showToast(i>=0?'Retiré des favoris':'Ajouté aux favoris ⭐', i>=0?'🩶':'⭐'); }
   setLearnFilter(f){ this.setState({learnFilter:f, learnShowAll:false}); }
   toggleShowAll(){ this.setState({learnShowAll:!this.state.learnShowAll}); }
   openNews(n){ this.setState({activeNews:n.id}, ()=>this.go('newsDetail')); }
@@ -2377,6 +2581,21 @@ class Component extends DCLogic {
   actExplain(){ this.setState({wizTyping:true}, ()=>this.scrollChat()); clearTimeout(this._wizT); this._wizT=setTimeout(()=>this.wizPush("Encore plus simple : mets ton argent dans 3 boîtes 🪣 — une pour les factures, une pour les envies, une pour plus tard. C'est tout !"), 900); }
   actExample(){ this.setState({wizTyping:true}, ()=>this.scrollChat()); clearTimeout(this._wizT); this._wizT=setTimeout(()=>this.wizPush("Exemple concret : sur 2 400 $, tu mets 1 200 $ pour le loyer et l'épicerie, 720 $ pour les sorties, et 480 $ de côté. 🌱"), 900); }
   actAction(){ this.showToast('Action ajoutée à ton plan ✅','✅'); }
+  openPriorityGoal(){ const id=this.state.priorityGoalId || (this.state.goals[0]||{}).id; if(id){ this.setState({activeGoal:id}, ()=>this.go('goalDetail')); } }
+  wizIntent(key){
+    if(this.state.questionsUsed >= this.state.freeLimit){ this.go('paywall'); return; }
+    const pg=(this.state.goals.find(g=>g.id===this.state.priorityGoalId)||this.state.goals[0]||{}).name||'ton objectif';
+    const map={
+      today:{ q:'Explique-moi le conseil du jour', a:"Le conseil du jour : tu pourrais mettre ~80 $ de côté en réduisant les restos cette semaine. 🍽️ Fixe-toi un plafond et cuisine deux soirs de plus — je peux en faire une action.", nav:[{label:'✅ Créer cette action', go:()=>this.actAction()}] },
+      plan:{ q:'Revoyons mon plan', a:"Ton plan suit la règle 50/30/20 : besoins, envies, épargne. Ce mois-ci tu es sur la bonne voie. On peut ajuster une catégorie ensemble si tu veux.", nav:[{label:'📊 Ouvrir mon plan', go:()=>this.goBudget()}] },
+      next:{ q:'Aide-moi à choisir ma prochaine action', a:"Vu ta priorité « "+pg+" », la meilleure prochaine étape est d'y verser ta contribution prévue. On ouvre l'objectif ?", nav:[{label:'🎯 Ouvrir l\'objectif prioritaire', go:()=>this.openPriorityGoal()},{label:'📚 Lancer une capsule', go:()=>this.goLessons()}] },
+    };
+    const item=map[key]; if(!item) return;
+    const chat=this.state.chat.concat([{from:'user', text:item.q}]);
+    this.setState({chat, wizTyping:true, questionsUsed:this.state.questionsUsed+1}, ()=>this.scrollChat());
+    clearTimeout(this._wizT);
+    this._wizT=setTimeout(()=>{ const c=this.state.chat.concat([{from:'wiz', text:item.a, followups:[], nav:item.nav}]); this.setState({chat:c, wizTyping:false}, ()=>this.scrollChat()); }, 900);
+  }
   setField(key,e){ const p={}; p[key]=e.target.value; this.setState(p); }
 
   wizLib(){
@@ -2400,7 +2619,7 @@ class Component extends DCLogic {
     const patch={sheet:s};
     if(s==='income') patch.sheetIncome=String(this.state.income);
     if(s==='addCat'){ patch.sheetCatName=''; patch.sheetCatAmount=''; }
-    if(s==='addGoal'){ patch.sheetGoalName=''; patch.sheetGoalTarget=''; patch.sheetGoalDate=''; }
+    if(s==='addGoal'){ patch.sheetGoalName=''; patch.sheetGoalTarget=''; patch.sheetGoalDate=''; patch.sheetGoalReason=''; patch.sheetGoalEmoji='🎯'; patch.sheetGoalPlanned=''; patch.sheetGoalNextAction=''; patch.sheetGoalPriority=false; }
     if(s==='contribute') patch.sheetContribute='';
     this.setState(patch);
   }
@@ -2424,13 +2643,16 @@ class Component extends DCLogic {
     const name=(this.state.sheetGoalName||'').trim(); const target=parseInt(this.state.sheetGoalTarget,10)||0;
     if(!name||!target) return;
     const cols=['#36B34A','#4C8DF6','#B36BE6','#F4A93D','#E96C8A'];
-    const g={id:'g'+Date.now(), name, saved:0, target, due:this.state.sheetGoalDate||'À définir', color:cols[this.state.goals.length%cols.length], emoji:'🎯'};
-    this.setState({goals:this.state.goals.concat([g]), sheet:null, activeGoal:g.id}, ()=>this.go('goalDetail'));
+    const id='g'+Date.now();
+    const g={id, name, saved:0, target, due:this.state.sheetGoalDate||'À définir', color:cols[this.state.goals.length%cols.length], emoji:this.state.sheetGoalEmoji||'🎯', reason:this.state.sheetGoalReason||'', planned:parseInt(this.state.sheetGoalPlanned,10)||0, nextAction:this.state.sheetGoalNextAction||'', paused:false, overdue:false, history:[]};
+    const patch={goals:this.state.goals.concat([g]), sheet:null, activeGoal:id};
+    if(this.state.sheetGoalPriority) patch.priorityGoalId=id;
+    this.setState(patch, ()=>this.go('goalDetail'));
     this.showToast('Objectif créé 🌱','🎯');
   }
   contribute(){
     const amt=parseInt(this.state.sheetContribute,10)||0; if(!amt) return;
-    const goals=this.state.goals.map(g=>{ if(g.id===this.state.activeGoal){ const ns=Math.min(g.target,g.saved+amt); return Object.assign({},g,{saved:ns}); } return g; });
+    const goals=this.state.goals.map(g=>{ if(g.id===this.state.activeGoal){ const ns=Math.min(g.target,g.saved+amt); const history=[{label:'Contribution', amount:amt, date:"Aujourd'hui"}].concat(g.history||[]); return Object.assign({},g,{saved:ns, history}); } return g; });
     const g=goals.find(x=>x.id===this.state.activeGoal);
     const reached = g && g.saved>=g.target;
     this.setState({goals, sheet:null, celebrateGoal: reached? g.id : null});
@@ -2495,6 +2717,21 @@ class Component extends DCLogic {
   // ===== PRD additions =====
   verifyEmail(){ this.go('onboard'); }
   resendEmail(){ this.showToast('Courriel de vérification renvoyé 📩','📩'); }
+  startResendTimer(){ clearInterval(this._otpTimer); this.setState({otpResendIn:30, otpExpiresIn:300, otpExpired:false, otpAttempts:0, otpLocked:false, otpLockIn:0, otpValue:'', otpError:false, verifyEditing:false}); this._otpTimer=setInterval(()=>this.otpTick(),1000); }
+  otpTick(){ const s=this.state; const patch={}; if((s.otpResendIn||0)>0) patch.otpResendIn=s.otpResendIn-1; if(s.otpLocked && (s.otpLockIn||0)>0){ patch.otpLockIn=s.otpLockIn-1; if(s.otpLockIn-1<=0){ patch.otpLocked=false; patch.otpAttempts=0; } } if(!s.otpExpired && (s.otpExpiresIn||0)>0){ patch.otpExpiresIn=s.otpExpiresIn-1; if(s.otpExpiresIn-1<=0){ patch.otpExpired=true; } } this.setState(patch); }
+  setVerifyChannel(ch){ if(this.state.verifyChannel===ch) return; this.setState({verifyChannel:ch}); this.startResendTimer(); this.showToast(ch==='phone'?'Code envoyé par SMS 📱':'Code envoyé par courriel 📩', ch==='phone'?'📱':'📩'); }
+  enterOtp(d){ if(this.state.verifyEditing||this.state.otpLocked||this.state.otpExpired) return; let v=this.state.otpValue||''; if(d==='del'){ v=v.slice(0,-1); } else { if(v.length>=6) return; v=v+d; } this.setState({otpValue:v, otpError:false}); if(v.length===6){ clearTimeout(this._otpCheck); this._otpCheck=setTimeout(()=>this.checkOtp(v),240); } }
+  checkOtp(v){ if(this.state.otpLocked||this.state.otpExpired) return; if(v===(this.state.otpCode||'123456')){ clearInterval(this._otpTimer); this.showToast('Compte vérifié ✅','✅'); this.go('onboard'); } else { const a=(this.state.otpAttempts||0)+1; if(a>=(this.state.otpMaxAttempts||3)){ this.setState({otpAttempts:a, otpLocked:true, otpLockIn:30, otpValue:'', otpError:true}); this.showToast('Trop de tentatives — patiente un instant 🔒','🔒'); } else { this.setState({otpAttempts:a, otpValue:'', otpError:true}); this.showToast('Code invalide — réessaie ⚠️','⚠️'); } } }
+  submitOtp(){ if(this.state.otpLocked){ this.showToast('Trop de tentatives — patiente 🔒','🔒'); return; } if(this.state.otpExpired){ this.showToast('Code expiré — renvoie un code 🔄','🔄'); return; } const v=this.state.otpValue||''; if(v.length<6){ this.setState({otpError:true}); this.showToast('Entre les 6 chiffres du code','⚠️'); return; } this.checkOtp(v); }
+  resendOtp(){ if((this.state.otpResendIn||0)>0 && !this.state.otpExpired) return; this.startResendTimer(); this.showToast(this.state.verifyChannel==='phone'?'Nouveau code SMS envoyé 📱':'Nouveau courriel envoyé 📩', this.state.verifyChannel==='phone'?'📱':'📩'); }
+  pasteOtp(){ if(this.state.otpLocked||this.state.otpExpired) return; const fill=(txt)=>{ const digits=(txt||'').replace(/\D/g,'').slice(0,6); if(digits.length){ this.setState({otpValue:digits, otpError:false}); if(digits.length===6){ clearTimeout(this._otpCheck); this._otpCheck=setTimeout(()=>this.checkOtp(digits),240); } this.showToast('Code collé 📋','📋'); } else { this.showToast('Aucun code dans le presse-papier','📋'); } }; try { if(navigator.clipboard && navigator.clipboard.readText){ navigator.clipboard.readText().then(fill).catch(()=>fill('123456')); } else { fill('123456'); } } catch(e){ fill('123456'); } }
+  goRecovery(){ this.setState({recoveryReturn:this.state.screen}); this.go('recovery'); }
+  backFromRecovery(){ this.go(this.state.recoveryReturn||'emailVerify'); }
+  recoveryUseAlt(){ const alt=this.state.verifyChannel==='phone'?'email':'phone'; this.setState({verifyChannel:alt}, ()=>{ this.startResendTimer(); this.go('emailVerify'); }); this.showToast('Code envoyé sur ton autre contact ✅','✅'); }
+  startEditContact(){ const cur=this.state.verifyChannel==='phone'?this.state.contactPhone:this.state.contactEmail; this.setState({verifyEditing:true, verifyEditVal:cur, otpError:false}); }
+  setVerifyEdit(e){ this.setState({verifyEditVal:e.target.value}); }
+  saveEditContact(){ const v=(this.state.verifyEditVal||'').trim(); if(!v){ this.showToast('Entre un contact valide ⚠️','⚠️'); return; } if(this.state.verifyChannel==='phone'){ this.setState({contactPhone:v}); } else { this.setState({contactEmail:v}); } this.setState({verifyEditing:false}); this.startResendTimer(); this.showToast('Contact mis à jour — nouveau code envoyé ✅','✅'); }
+  cancelEditContact(){ this.setState({verifyEditing:false}); }
   allowNotif(){ const st=Object.assign({},this.state.settings,{notifications:true}); this.setState({settings:st, notifGranted:true}); this.showToast('Notifications activées 🔔','🔔'); this.go('dashboard'); }
   skipNotif(){ this.setState({notifGranted:false}); this.go('dashboard'); }
   goSettings(){ this.go('settings'); }
@@ -2571,21 +2808,22 @@ class Component extends DCLogic {
       {key:'understand', emoji:'🔍', title:'Comprendre où va mon argent', sub:'Suivre mes habitudes', iconBg:'var(--tint-purple)'},
       {key:'emergency', emoji:'🛟', title:"Créer un fonds d'urgence", sub:'Me préparer aux imprévus', iconBg:'var(--tint-amber)'},
     ];
+    const primaryGoal = (Array.isArray(s.goal)? s.goal[0] : s.goal) || null;
     const stepDefs = [
-      {opts:goalOpts, sel:s.goal, pick:(k)=>this.pickGoal(k)},
-      {opts:knowOpts, sel:s.knowledge, pick:(k)=>this.pickKnowledge(k)},
-      {opts:situationOpts, sel:s.situation, pick:(k)=>this.pickSituation(k)},
+      {opts:goalOpts, sel:s.goal, multi:true, pick:(k)=>this.pickGoal(k)},
+      {opts:knowOpts, sel:s.knowledge, multi:false, pick:(k)=>this.pickKnowledge(k)},
+      {opts:situationOpts, sel:s.situation, multi:true, pick:(k)=>this.pickSituation(k)},
     ];
     const cur = stepDefs[s.obStep] || stepDefs[0];
-    const selectedKey = cur.sel;
     const obOptions = cur.opts.map(o=>{
-      const selected = selectedKey===o.key;
+      const selected = cur.multi ? (Array.isArray(cur.sel)?cur.sel.indexOf(o.key)>=0:false) : (cur.sel===o.key);
       return {emoji:o.emoji, title:o.title, sub:o.sub, iconBg:o.iconBg, selected,
         border: selected?'#36B34A':'var(--track)', bg: selected?'var(--chip)':'var(--surface)',
         dot: selected?'#36B34A':'var(--muted2)', dotBg: selected?'#36B34A':'var(--surface)',
+        dotRadius: cur.multi?'8px':'50%',
         pick: ()=> cur.pick(o.key)};
     });
-    const obReady = !!selectedKey;
+    const obReady = cur.multi ? (Array.isArray(cur.sel) && cur.sel.length>0) : !!cur.sel;
 
     // aha
     const ahaMap = {
@@ -2594,7 +2832,7 @@ class Component extends DCLogic {
       debt:{t:'On va alléger tes dettes, ensemble', b:"Première étape, sans pression : on cible la dette au taux le plus élevé tout en gardant un petit coussin. Chaque versement compte, et je serai là pour célébrer chaque palier. 💚"},
       invest:{t:'Tes premiers pas en investissement', b:"Pas besoin d'être expert ! 💡 Avec un CELI et 50 $/mois, tu peux faire travailler ton argent dès aujourd'hui. Je t'expliquerai chaque mot compliqué en chemin."},
     };
-    const aha = ahaMap[s.goal] || ahaMap.budget;
+    const aha = ahaMap[primaryGoal] || ahaMap.budget;
 
     // tab bar
     const appScreens = ['dashboard','budget','budgetEmpty','wiz','goals','profile','lessons','lessonRead','notifications','goalDetail','privacy','newsDetail','exercise','budgetSetup','results','progress','subs','flashcards','routines','training','missions','settings','account','deleteAccount'];
@@ -2638,9 +2876,9 @@ class Component extends DCLogic {
         {v:'mois', emoji:'📆', label:'Une fois par mois'},{v:'variable', emoji:'🔀', label:'Revenu variable'}]},
     ];
     let condQ = null;
-    if(s.goal==='debt') condQ={key:'cond', wiz:"Tu veux rembourser des dettes — concentrons-nous dessus.", q:'Quelle dette veux-tu prioriser ?', opts:[
+    if(primaryGoal==='debt') condQ={key:'cond', wiz:"Tu veux rembourser des dettes — concentrons-nous dessus.", q:'Quelle dette veux-tu prioriser ?', opts:[
       {v:'carte', emoji:'💳', label:'Carte de crédit'},{v:'etudiant', emoji:'🎓', label:'Prêt étudiant'},{v:'auto', emoji:'🚗', label:'Prêt auto'},{v:'marge', emoji:'🏦', label:'Marge de crédit'}]};
-    else if(s.goal==='save') condQ={key:'cond', wiz:"Épargner, c'est un super objectif !", q:'Pour quoi veux-tu épargner ?', opts:[
+    else if(primaryGoal==='save') condQ={key:'cond', wiz:"Épargner, c'est un super objectif !", q:'Pour quoi veux-tu épargner ?', opts:[
       {v:'urgence', emoji:'🛟', label:"Fonds d'urgence"},{v:'voyage', emoji:'✈️', label:'Voyage'},{v:'etudes', emoji:'📚', label:'Études'},{v:'achat', emoji:'🛍️', label:'Achat important'},{v:'retraite', emoji:'🌅', label:'Retraite'}]};
     else if(s.bs.emploi==='autonome') condQ={key:'cond', wiz:"En autonome, les taxes méritent un suivi.", q:'Veux-tu suivre tes taxes et provisions ?', opts:[
       {v:'oui', emoji:'✅', label:'Oui, ajoute une catégorie'},{v:'non', emoji:'🙅', label:"Non, pas pour l'instant"}]};
@@ -2664,10 +2902,10 @@ class Component extends DCLogic {
     if(bsv.vie==='parent'||bsv.vie==='famille') recList.push({name:'Enfants', amount:Math.round(inc*0.10), color:'#E96C8A', emoji:'🧸', why:'garde, école, activités'});
     if(bsv.emploi==='autonome') recList.push({name:'Taxes / provisions', amount:Math.round(inc*0.15), color:'#9450D4', emoji:'🧾', why:'mets de côté pour tes impôts'});
     if(bsv.emploi==='etudiant') recList.push({name:'Études', amount:Math.round(inc*0.08), color:'#3FB9A6', emoji:'📚', why:'frais et matériel'});
-    const saveLabel = (s.goal==='save'&&bsv.cond)? ({urgence:"Épargne : urgence",voyage:'Épargne : voyage',etudes:'Épargne : études',achat:'Épargne : achat',retraite:'Épargne : retraite'}[bsv.cond]) : 'Épargne';
+    const saveLabel = (primaryGoal==='save'&&bsv.cond)? ({urgence:"Épargne : urgence",voyage:'Épargne : voyage',etudes:'Épargne : études',achat:'Épargne : achat',retraite:'Épargne : retraite'}[bsv.cond]) : 'Épargne';
     recList.push({name:saveLabel, amount:Math.round(inc*(bsv.freq==='variable'?0.10:0.15)), color:'#2E9E47', emoji:'🐷', why: bsv.freq==='variable'?'coussin pour revenus variables':'objectif 15 %'});
-    if(bsv.cond && s.goal==='debt'){ const dm={carte:'Carte de crédit',etudiant:'Prêt étudiant',auto:'Prêt auto',marge:'Marge de crédit'}; recList.push({name:'Remboursement '+(dm[bsv.cond]||'dette'), amount:Math.round(inc*0.12), color:'#E5604D', emoji:'💳', why:'priorité : réduire ta dette'}); }
-    if(bsv.cond && s.goal==='save'){ }
+    if(bsv.cond && primaryGoal==='debt'){ const dm={carte:'Carte de crédit',etudiant:'Prêt étudiant',auto:'Prêt auto',marge:'Marge de crédit'}; recList.push({name:'Remboursement '+(dm[bsv.cond]||'dette'), amount:Math.round(inc*0.12), color:'#E5604D', emoji:'💳', why:'priorité : réduire ta dette'}); }
+    if(bsv.cond && primaryGoal==='save'){ }
     recList.push({name:'Loisirs', amount:Math.round(inc*0.08), color:'#B36BE6', emoji:'🎮', why:'pour souffler'});
     const recTotal = recList.reduce((a,c)=>a+c.amount,0);
     const recCats = recList.map((c,i)=>({...c, id:'p'+i, amountF:this.fmt(c.amount)}));
@@ -2700,17 +2938,37 @@ class Component extends DCLogic {
 
     // goals computed
     const CIRC = 2*Math.PI*54;
-    const goals = s.goals.map(g=>{ const pct = g.target? Math.min(100,Math.round(g.saved/g.target*100)):0; return {...g, pct, pctW:pct+'%', savedF:this.fmt(g.saved), targetF:this.fmt(g.target),
-      remainingF:this.fmt(Math.max(0,g.target-g.saved)),
+    const goalStatusMeta = {
+      atteint:{label:'Atteint 🎉', color:'#2E9E47', bg:'var(--tint-green)'},
+      retard:{label:'En retard', color:'#D9543F', bg:'var(--tint-red)'},
+      bonne_voie:{label:'En bonne voie', color:'#2E9E47', bg:'var(--tint-green)'},
+      paused:{label:'En pause', color:'var(--muted)', bg:'var(--chip)'},
+    };
+    const goals = s.goals.map(g=>{ const pct = g.target? Math.min(100,Math.round(g.saved/g.target*100)):0;
+      const status = g.paused?'paused':(pct>=100?'atteint':(g.overdue?'retard':'bonne_voie'));
+      const meta=goalStatusMeta[status]; const isPriority=s.priorityGoalId===g.id;
+      return {...g, pct, pctW:pct+'%', savedF:this.fmt(g.saved), targetF:this.fmt(g.target),
+      remainingF:this.fmt(Math.max(0,g.target-g.saved)), plannedF:this.fmt(g.planned||0), hasPlanned:!!(g.planned),
+      reason:g.reason||'', hasReason:!!(g.reason), nextAction:g.nextAction||'', hasNextAction:!!(g.nextAction),
+      historyRows:(g.history||[]).map(h=>({...h, amountF:'+'+this.fmt(h.amount)})), hasHistory:(g.history||[]).length>0,
+      status, statusLabel:meta.label, statusColor:meta.color, statusBg:meta.bg,
+      isPriority, notPriority:!isPriority, dimmed:g.paused?'.6':'1', cardBorder:isPriority?'#36B34A':'var(--border)', pauseLabel:g.paused?'Réactiver':'Mettre en pause', setPriority:()=>this.setPriorityGoal(g.id),
       circ:CIRC, ringOffset:(CIRC*(1-pct/100)).toFixed(1), open:()=>this.openGoal(g), done:pct>=100}; });
+    const priorityGoalObj = goals.find(g=>g.isPriority) || null;
+    const goalsSorted = priorityGoalObj ? [priorityGoalObj].concat(goals.filter(g=>!g.isPriority)) : goals;
+    const goalsEmpty = goals.length===0;
     const activeGoal = goals.find(g=>g.id===s.activeGoal) || goals[0];
 
     // lessons / Apprendre
     const RING = 2*Math.PI*16;
     const allCourses = s.lessons.map(l=>{ const p=l.progress||0; return {...l, done:p>=100, started:p>0, todo:p<100, points:Math.round(40+p*3),
+      fav:(s.favorites||[]).indexOf(l.id)>=0, favStar:(s.favorites||[]).indexOf(l.id)>=0?'⭐':'☆', toggleFav:()=>this.toggleFavorite(l.id),
       pctW:p+'%', ring:RING, ringOffset:(RING*(1-p/100)).toFixed(1), open:()=>this.openLesson(l)}; });
     const doneCount = allCourses.filter(l=>l.done).length;
-    const startedCourses = allCourses.filter(l=>l.started);
+    const startedCourses = allCourses.filter(l=>l.started && !l.done);
+    const nextCourse = allCourses.find(l=>l.started && !l.done) || allCourses.find(l=>!l.done) || null;
+    const completedCourses = allCourses.filter(l=>l.done);
+    const favoriteCourses = allCourses.filter(l=>l.fav);
     const lq = (s.learnSearch||'').trim().toLowerCase();
     const filtered = allCourses
       .filter(l=> s.learnFilter==='Tout' ? true : (s.learnFilter==='Débutant' ? l.level==='Débutant' : l.cat===s.learnFilter))
@@ -2738,9 +2996,16 @@ class Component extends DCLogic {
     // chat enriched
     const lastWizIdx = (()=>{ let idx=-1; s.chat.forEach((m,i)=>{ if(m.from==='wiz') idx=i; }); return idx; })();
     const chat = s.chat.map((m,i)=>({...m, isUser:m.from==='user', isWiz:m.from==='wiz', showActions:(m.from==='wiz' && i===lastWizIdx && !s.wizTyping),
+      navItems:(m.nav||[]).map(n=>({label:n.label, go:n.go})),
       followItems:(m.followups||[]).map(k=>({label:this.wizLib()[k].q, ask:()=>this.wizAsk(k)})) }));
     const suggKeys=['budget','invest','celi','save','debt'];
     const suggestions = suggKeys.map(k=>({label:this.wizLib()[k].q, ask:()=>this.wizAsk(k)}));
+    const wizHasData = !!(s.personalized || s.budgetPersonalized || (s.goals && s.goals.length>0));
+    const wizIntents = [
+      {key:'today', emoji:'💡', label:'Explique le conseil du jour'},
+      {key:'plan', emoji:'📊', label:'Revoyons mon plan'},
+      {key:'next', emoji:'🎯', label:'Choisir ma prochaine action'},
+    ].map(x=>({...x, ask:()=>this.wizIntent(x.key)}));
     const chatEmpty = s.chat.length===0;
     const limitReached = s.questionsUsed >= s.freeLimit;
     const questionsLeft = Math.max(0, s.freeLimit - s.questionsUsed);
@@ -2750,7 +3015,7 @@ class Component extends DCLogic {
     const appBg = 'var(--bg)';
     const L = s.lang;
     const t = {
-      accueil:L==='fr'?'Accueil':'Home', budget:L==='fr'?'Budget':'Budget', objectifs:L==='fr'?'Objectifs':'Goals',
+      accueil:L==='fr'?'Accueil':'Home', budget:L==='fr'?'Plan':'Plan', objectifs:L==='fr'?'Objectifs':'Goals',
       profil:L==='fr'?'Profil':'Profile', bonjour:L==='fr'?'Bonjour':'Hello',
       apprendre:L==='fr'?'Apprendre':'Learn', actualites:L==='fr'?'Actualités':'News',
       langName:L==='fr'?'Français (CA)':'English',
@@ -2781,6 +3046,15 @@ class Component extends DCLogic {
       name:s.name,
       isIntro: screen==='intro', isAuth: screen==='auth', isOnboard: screen==='onboard', isAha: screen==='aha',
       isDashboard: screen==='dashboard',
+      showFamilyInvite: !!(this.props&&this.props.isParent) && !s.familyInviteDismissed,
+      dismissFamilyInvite:()=>this.dismissFamilyInvite(),
+      homeStage:(this.props&&this.props.homeStage)||'progression',
+      homeNew:((this.props&&this.props.homeStage)||'progression')==='nouveau',
+      homeNotNew:((this.props&&this.props.homeStage)||'progression')!=='nouveau',
+      homeEstabli:((this.props&&this.props.homeStage)||'progression')==='etabli',
+      hasHomePriority:!!priorityGoalObj,
+      homePriorityName:priorityGoalObj?priorityGoalObj.name:'', homePriorityEmoji:priorityGoalObj?priorityGoalObj.emoji:'🎯', homePriorityPct:priorityGoalObj?priorityGoalObj.pct:0, homePriorityPctW:priorityGoalObj?priorityGoalObj.pctW:'0%', homePrioritySavedF:priorityGoalObj?priorityGoalObj.savedF:'', homePriorityTargetF:priorityGoalObj?priorityGoalObj.targetF:'', homePriorityColor:priorityGoalObj?priorityGoalObj.color:'#36B34A', openHomePriority:priorityGoalObj?priorityGoalObj.open:(()=>this.go('goals')),
+      goSetup:()=>this.openSheet('income'),
       dMonthLabel:dm.label, dRevF:this.fmt(dm.rev), dDepF:this.fmt(dm.dep), dEpaF:this.fmt(dm.epa), dPossF:this.fmt(dm.poss),
       dRevDelta:dRevDelta, dDepDelta:dDepDelta, dEpaDelta:dEpaDelta, dPossW:dPossW,
       openMonthPicker:()=>this.openMonthPicker(), dashMonthItems:dashMonthItems,
@@ -2820,12 +3094,17 @@ class Component extends DCLogic {
       }),
       tabLearn: lessonsT?'#14492F':'var(--muted2)',
       // apprendre / actualités
-      learnTab:s.learnTab, learnIsApprendre:s.learnTab==='apprendre', learnIsActualites:s.learnTab==='actualites',
-      setApprendre:()=>this.setLearnTab('apprendre'), setActualites:()=>this.setLearnTab('actualites'),
-      segLearnBg:s.learnTab==='apprendre'?'#fff':'transparent', segLearnColor:s.learnTab==='apprendre'?'#14492F':'var(--muted)', segLearnShadow:s.learnTab==='apprendre'?'0 2px 6px rgba(20,73,47,.12)':'none',
-      segNewsBg:s.learnTab==='actualites'?'#fff':'transparent', segNewsColor:s.learnTab==='actualites'?'#14492F':'var(--muted)', segNewsShadow:s.learnTab==='actualites'?'0 2px 6px rgba(20,73,47,.12)':'none',
-      learnFilters, courses, moreCount, hasMore:moreCount>0, learnEmpty, learnNoResults:(filtered.length===0 && !s.learnLoading), learnLoading:s.learnLoading, skeletons,
-      showCourses: s.learnTab==='apprendre' && !s.learnLoading && filtered.length>0,
+      learnTab:s.learnTab,
+      learnTabs:[{k:'parcours',label:'Mon parcours'},{k:'explorer',label:'Explorer'},{k:'terminees',label:'Terminées'},{k:'actualites',label:'Actualités'}].map(x=>({label:x.label, active:s.learnTab===x.k, bg:s.learnTab===x.k?'#fff':'transparent', color:s.learnTab===x.k?'#14492F':'var(--muted)', shadow:s.learnTab===x.k?'0 2px 6px rgba(20,73,47,.12)':'none', pick:()=>this.setLearnTab(x.k)})),
+      learnIsParcours:s.learnTab==='parcours', learnIsExplorer:s.learnTab==='explorer', learnIsTerminees:s.learnTab==='terminees', learnIsActualites:s.learnTab==='actualites',
+      learnTitle:({parcours:'Apprendre',explorer:'Explorer',terminees:'Terminées',actualites:'Actualités'})[s.learnTab],
+      learnSub:({parcours:'Continue là où tu t\'es arrêté.',explorer:'Explore par sujet, à ton rythme.',terminees:'Tes capsules terminées et tes favoris.',actualites:'Bientôt : l\'actualité décodée pour toi.'})[s.learnTab],
+      nextCourse, hasNextCourse:!!nextCourse, noNextCourse:!nextCourse,
+      resumeCourses:startedCourses, hasResume:startedCourses.length>0,
+      completedCourses, favoriteCourses, termineesDoneEmpty:completedCourses.length===0, favEmpty:favoriteCourses.length===0,
+      setApprendre:()=>this.setLearnTab('explorer'), setActualites:()=>this.setLearnTab('actualites'),
+      learnFilters, courses, moreCount, hasMore:moreCount>0, learnEmpty, learnNoResults:(s.learnTab==='explorer' && filtered.length===0 && !s.learnLoading), learnLoading:s.learnLoading, skeletons,
+      showCourses: s.learnTab==='explorer' && !s.learnLoading && filtered.length>0,
       showNews: s.learnTab==='actualites' && !s.learnLoading && news.length>0,
       toggleShowAll:()=>this.toggleShowAll(), showAll:s.learnShowAll,
       news, activeNews, relatedCourse, hasRelated:!!relatedCourse,
@@ -2856,7 +3135,7 @@ class Component extends DCLogic {
       obStep:s.obStep, obProgress: s.obStep===0?'33%':(s.obStep===1?'66%':'100%'), obStepLabel:(s.obStep+1)+'/3',
       obWizLine: s.obStep===0? "Pour bien t'aider, dis-moi…" : (s.obStep===1? "Génial ! Et niveau finances, tu te situes où ?" : "Parfait. Dernière question, promis !"),
       obQuestion: s.obStep===0? 'Quel est ton objectif principal ?' : (s.obStep===1? 'Quel est ton niveau de connaissances ?' : 'Qu\'est-ce qui te décrit le mieux ?'),
-      obOptions,
+      obOptions, obMultiHint: cur.multi,
       obNext:()=>this.obNext(), obBack:()=>this.obBack(),
       obSkipQuestion:()=>this.obSkipQuestion(), askSkipOnboarding:()=>this.askSkipOnboarding(),
       obNextLabel: s.obStep<2?'Continuer': 'Voir mon conseil ✨',
@@ -2879,7 +3158,7 @@ class Component extends DCLogic {
       fcTerm: this.fcCards()[s.fcIdx].t, fcDef: this.fcCards()[s.fcIdx].d, fcFlipped:s.fcFlipped, fcFront:!s.fcFlipped,
       fcFlip:()=>this.fcFlip(), fcNext:()=>this.fcNext(), fcPrev:()=>this.fcPrev(),
       fcCount: this.fcCards().length, fcPos: (s.fcIdx+1)+' / '+this.fcCards().length, fcProgressW: Math.round((s.fcIdx+1)/this.fcCards().length*100)+'%',
-      isRoutines: screen==='routines', goRoutines:()=>this.go('routines'),
+      isRoutines: screen==='routines', goRoutines:()=>this.goRoutines(), backFromRoutines:()=>this.backFromRoutines(),
       isTraining: screen==='training', goTraining:()=>this.goTraining(),
       trainItems: [
         {id:'t1', emoji:'📊', label:'Vérifie ton budget', sub:'30 sec', goScreen:()=>this.goBudget(), how:['Ouvre l\'onglet Budget','Repère la catégorie la plus élevée','Vois s\'il y a un petit ajustement possible']},
@@ -2902,7 +3181,7 @@ class Component extends DCLogic {
         {id:'paie', emoji:'💸', title:'Routine de paie', sub:'Ta paie est arrivée ? 3 étapes.', steps:['Mets de côté ton épargne','Vérifie tes dépenses fixes','Choisis ton objectif prioritaire']},
         {id:'lundi', emoji:'📅', title:'Routine du lundi', sub:'Planifie ta semaine en 2 min.', steps:['Regarde ton solde de la semaine','Prévois une dépense à surveiller']},
         {id:'mois', emoji:'🗓️', title:'Bilan de fin de mois', sub:'Fais le point avec Wiz.', steps:['Compare dépenses vs budget','Note une victoire du mois','Ajuste un objectif']},
-      ].map(r=>{ const done=r.steps.map((t,i)=>{ const dn=!!s.routineDone[r.id+i]; return {label:t, dn, toggle:()=>this.toggleRoutine(r.id+i), boxBg:dn?'#36B34A':'transparent', boxBorder:dn?'#36B34A':'var(--muted2)'}; }); const n=done.filter(x=>x.dn).length; return {...r, items:done, progress:n+'/'+r.steps.length, pctW:Math.round(n/r.steps.length*100)+'%', complete:n===r.steps.length}; }),
+      ].map(r=>{ const done=r.steps.map((t,i)=>{ const dn=!!s.routineDone[r.id+i]; return {label:t, dn, toggle:()=>this.toggleRoutine(r.id+i), boxBg:dn?'#36B34A':'transparent', boxBorder:dn?'#36B34A':'var(--muted2)'}; }); const n=done.filter(x=>x.dn).length; const open=s.routineOpen[r.id]!==false; return {...r, items:done, progress:n+'/'+r.steps.length, pctW:Math.round(n/r.steps.length*100)+'%', complete:n===r.steps.length, open, chevRot:open?'rotate(180deg)':'rotate(0deg)', toggleOpen:()=>this.toggleRoutineOpen(r.id)}; }),
       subsList: s.subs.map(x=>({...x, amtF:(s.settings.discreet?'•••• $':x.amount.toFixed(2).replace('.',',')+' $'), toggle:()=>this.toggleSub(x.id), keepLabel:x.keep?'Je garde':'À résilier', knobBg:x.keep?'var(--track)':'#E9A23B', knobShift:x.keep?'translateX(0)':'translateX(20px)', rowOpacity:x.keep?'1':'.55'})),
       subsTotalF: this.fmt(s.subs.filter(x=>x.keep).reduce((a,c)=>a+c.amount,0)),
       subsSave: s.subs.filter(x=>!x.keep).reduce((a,c)=>a+c.amount,0),
@@ -2932,7 +3211,14 @@ class Component extends DCLogic {
       onContentScroll:(e)=>this.onContentScroll(e),
       goalCelebrating: !!s.celebrateGoal && s.celebrateGoal===s.activeGoal,
       // goals
-      goals, activeGoal,
+      goals:goalsSorted, activeGoal, goalsEmpty, hasPriorityGoal:!!priorityGoalObj, priorityGoalName:priorityGoalObj?priorityGoalObj.name:'',
+      setPriorityActive:()=>this.setPriorityGoal(s.activeGoal), togglePauseGoal:()=>this.togglePauseGoal(),
+      activeIsPriority: activeGoal? s.priorityGoalId===activeGoal.id : false, activeNotPriority: activeGoal? s.priorityGoalId!==activeGoal.id : true,
+      goalEmojiOptions:['🎯','🛡️','✈️','🏠','🚗','💻','🎓','💍','🎁','💳','👶','🐶'].map(e=>({emoji:e, sel:s.sheetGoalEmoji===e, bg:s.sheetGoalEmoji===e?'var(--chip)':'var(--surface)', border:s.sheetGoalEmoji===e?'#36B34A':'var(--border)', pick:()=>this.pickGoalEmoji(e)})),
+      sheetGoalReason:s.sheetGoalReason, sheetGoalPlanned:s.sheetGoalPlanned, sheetGoalNextAction:s.sheetGoalNextAction,
+      setGoalReason:(e)=>this.setField('sheetGoalReason',e), setGoalPlanned:(e)=>this.setField('sheetGoalPlanned',e), setGoalNextAction:(e)=>this.setField('sheetGoalNextAction',e),
+      sheetGoalPriority:s.sheetGoalPriority, toggleGoalPriority:()=>this.toggleGoalPriority(),
+      goalPriorityKnob:s.sheetGoalPriority?'#36B34A':'var(--muted2)', goalPriorityShift:s.sheetGoalPriority?'translateX(20px)':'translateX(0)',
       // lessons
       lessons, activeLesson, doneCount, lessonsTotal:s.lessons.length,
       learnProgressW: (s.lessons.length? Math.round(doneCount/s.lessons.length*100):0)+'%',
@@ -2952,6 +3238,7 @@ class Component extends DCLogic {
       completeLesson:()=>this.completeLesson(),
       // chat
       chat, suggestions, chatEmpty, limitReached, questionsLeft, wizTyping:s.wizTyping,
+      wizHasData, wizNoData:!wizHasData, wizIntents,
       // settings
       notifOn:s.settings.notifications, smartOn:s.settings.smartAlerts, darkOn:s.settings.darkMode,
       notifKnob:s.settings.notifications?'#36B34A':'var(--muted2)', notifShift:s.settings.notifications?'translateX(20px)':'translateX(0)',
@@ -3012,9 +3299,40 @@ class Component extends DCLogic {
       activeGoalName: activeGoal? activeGoal.name : '',
       // ===== PRD additions =====
       isEmailVerify:screen==='emailVerify', isNotifPerm:screen==='notifPerm', isAppLock:screen==='appLock',
+      isRecovery:screen==='recovery', backFromRecovery:()=>this.backFromRecovery(), recoveryChannelAdded:s.recoveryChannelAdded,
+      recoverySecondLabel:s.recoveryChannelAdded?'Moyen de récupération ajouté':'Ajouter un moyen de récupération',
+      recoverySecondSub:s.recoveryChannelAdded?'Ton compte a un second canal de secours.':'Ajoute un courriel ou un numéro de secours.',
+      recoverySecondBadge:s.recoveryChannelAdded?'Activé':'Recommandé', recoverySecondBadgeColor:s.recoveryChannelAdded?'#2E9E47':'#B5852A', recoverySecondBadgeBg:s.recoveryChannelAdded?'var(--tint-green)':'var(--tint-amber)',
       isSettings:screen==='settings', isAccount:screen==='account', isDeleteAccount:screen==='deleteAccount',
       isThankYou:screen==='thankYou', isOffline:screen==='offline', isError:screen==='errorState', isBudgetEmpty:screen==='budgetEmpty',
       verifyEmail:()=>this.verifyEmail(), resendEmail:()=>this.resendEmail(),
+      setVerifyChannel:(c)=>this.setVerifyChannel(c), verifyChannel:s.verifyChannel,
+      vTabEmailBg:s.verifyChannel==='email'?'var(--surface)':'transparent', vTabEmailColor:s.verifyChannel==='email'?'var(--heading)':'var(--muted)', vTabEmailShadow:s.verifyChannel==='email'?'0 2px 6px -2px rgba(20,73,47,.25)':'none',
+      vTabPhoneBg:s.verifyChannel==='phone'?'var(--surface)':'transparent', vTabPhoneColor:s.verifyChannel==='phone'?'var(--heading)':'var(--muted)', vTabPhoneShadow:s.verifyChannel==='phone'?'0 2px 6px -2px rgba(20,73,47,.25)':'none',
+      pickEmailChan:()=>this.setVerifyChannel('email'), pickPhoneChan:()=>this.setVerifyChannel('phone'),
+      verifyTitle:s.verifyChannel==='phone'?'Vérifie ton téléphone':'Vérifie ton courriel',
+      verifyIcon:s.verifyChannel==='phone'?'📱':'📩',
+      verifyContact:s.verifyChannel==='phone'?s.contactPhone:s.contactEmail,
+      verifySentLabel:s.verifyChannel==='phone'?'On a envoyé un code à 6 chiffres par SMS au':'On a envoyé un code à 6 chiffres à',
+      otpBoxes:[0,1,2,3,4,5].map(i=>{ const ch=(s.otpValue||'')[i]; return {ch:ch||'', border: s.otpError?'#E5604D':(ch?'#14492F':'var(--border)'), bg: s.otpError?'var(--tint-red)':'var(--surface)'}; }),
+      otpErrorShow:s.otpError,
+      enterOtp:(d)=>this.enterOtp(d), submitOtp:()=>this.submitOtp(), resendOtp:()=>this.resendOtp(),
+      otpResendReady:(s.otpResendIn||0)<=0,
+      otpResendLabel:(s.otpResendIn||0)>0? ('Renvoyer le code dans 0:'+String(s.otpResendIn).padStart(2,'0')) : (s.verifyChannel==='phone'?'Renvoyer le code SMS':'Renvoyer le courriel'),
+      otpResendColor:(s.otpResendIn||0)>0?'var(--muted2)':'#2E9E47',
+      otpKeys:['1','2','3','4','5','6','7','8','9','','0','del'].map(k=>({ label:k==='del'?'⌫':k, empty:k==='', notEmpty:k!=='', press:()=>{ if(k==='del'||/^[0-9]$/.test(k)) this.enterOtp(k); } })),
+      otpLocked:s.otpLocked, otpExpired:s.otpExpired, otpBlocked:(s.otpLocked||s.otpExpired), otpKeypadOpacity:(s.otpLocked||s.otpExpired)?'.45':'1',
+      otpSubmitBg:(s.otpLocked||s.otpExpired)?'#BFD3B8':'#14492F',
+      otpStatusShow:(s.otpError||s.otpLocked||s.otpExpired),
+      otpStatusText:(function(){ if(s.otpLocked){ return 'Trop de tentatives. Nouvel essai dans 0:'+String(s.otpLockIn||0).padStart(2,'0'); } if(s.otpExpired){ return 'Code expiré. Renvoie un nouveau code pour continuer.'; } if(s.otpError){ const left=Math.max(0,(s.otpMaxAttempts||3)-(s.otpAttempts||0)); return 'Code incorrect. Il te reste '+left+(left>1?' essais.':' essai.'); } return ''; })(),
+      otpShowExpiry:(!s.otpExpired && !s.otpLocked && !s.otpError),
+      otpExpiryLabel:(function(){ const e=s.otpExpiresIn||0; return 'Le code expire dans '+Math.floor(e/60)+':'+String(e%60).padStart(2,'0'); })(),
+      pasteOtp:()=>this.pasteOtp(), goRecovery:()=>this.goRecovery(), recoveryUseAlt:()=>this.recoveryUseAlt(),
+      recoveryAltLabel:s.verifyChannel==='phone'?'Recevoir le code par courriel':'Recevoir le code par SMS',
+      verifyEditing:s.verifyEditing, verifyNotEditing:!s.verifyEditing, verifyEditVal:s.verifyEditVal,
+      verifyEditLabel:s.verifyChannel==='phone'?'Numéro de téléphone':'Adresse courriel',
+      verifyEditPlaceholder:s.verifyChannel==='phone'?'514 555-0199':'toi@exemple.ca',
+      startEditContact:()=>this.startEditContact(), setVerifyEdit:(e)=>this.setVerifyEdit(e), saveEditContact:()=>this.saveEditContact(), cancelEditContact:()=>this.cancelEditContact(),
       allowNotif:()=>this.allowNotif(), skipNotif:()=>this.skipNotif(),
       goSettings:()=>this.goSettings(), goAccount:()=>this.goAccount(), goDeleteAccount:()=>this.goDeleteAccount(),
       scheduleDelete:()=>this.scheduleDelete(), cancelDelete:()=>this.cancelDelete(), deleteScheduled:s.deleteScheduled, deleteNotScheduled:!s.deleteScheduled,
