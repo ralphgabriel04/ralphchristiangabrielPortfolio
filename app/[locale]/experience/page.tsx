@@ -10,8 +10,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: isFr ? "Expérience" : "Experience",
     description: isFr
-      ? "Parcours professionnel et formation. Fastercom, The Mad Space, Vidéotron. B. Ing. génie logiciel ÉTS."
-      : "Career and education. Fastercom, The Mad Space, Vidéotron. B.Eng. Software Engineering ÉTS.",
+      ? "Parcours professionnel et formation. Cadence (cofondateur), projets freelance, The Mad Space, Fastercom, Vidéotron. B. Ing. génie logiciel ÉTS."
+      : "Career and education. Cadence (co-founder), freelance projects, The Mad Space, Fastercom, Vidéotron. B.Eng. Software Engineering ÉTS.",
     alternates: {
       languages: { fr: "/fr/experience", en: "/en/experience" },
     },

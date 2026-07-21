@@ -68,20 +68,6 @@ export const projects: Project[] = [
     media: { enabled: true, type: "image", src: "/media/vibe.jpg" }
   },
   {
-    id: "fastercom-tms",
-    year: "Déc. 2025 · Mars 2026",
-    status: { fr: "B2B · NDA partiel", en: "B2B · partial NDA" },
-    name: "Fastercom TMS",
-    tag: { fr: "Intégration enterprise", en: "Enterprise integration" },
-    stack: ["Spring Boot", "Angular", "GitLab CI/CD", "Google Maps API"],
-    summary: {
-      fr: "Paramétrage et intégration de solutions TMS enterprise avec déploiement Test → Dev → Production.",
-      en: "TMS enterprise configuration and integration with Test → Dev → Production deployment."
-    },
-    metrics: { fr: ["Pipeline 3 environnements", "Géocodage Google Maps"], en: ["3-env pipeline", "Google Maps geocoding"] },
-    media: { enabled: true, type: "image", src: "/media/fastercom-tms.webp" }
-  },
-  {
     id: "dpm-elevate",
     year: "2025 · présent",
     status: { fr: "En développement actif", en: "Actively in development" },
@@ -133,6 +119,38 @@ export const projects: Project[] = [
     media: { enabled: true, type: "video", src: "/media/kim-dubois.mp4" }
   },
   {
+    id: "boa-traiteur",
+    year: "2026",
+    status: { fr: "Prototype client · Chef privé à Montréal", en: "Client prototype · Private chef in Montreal" },
+    name: "BOA — Chef privé",
+    tag: { fr: "Site de réservation chef privé & service à table · Prototype bilingue", en: "Private chef & table-service booking site · Bilingual prototype" },
+    stack: [
+      "Claude Design → Claude Code",
+      "HTML/CSS/JS (runtime dc)",
+      "Bilingue FR/EN (dictionnaire maison)",
+      "Thème clair/sombre (tokens CSS)",
+      "Newsreader + Hanken Grotesk + Allura",
+      "Palette bourgogne #6E1F2E + crème",
+      "Concierge culinaire (reco menu en 30 s)",
+      "Chatbot « Concierge BOA » (mocké)",
+      "Parcours de réservation multi-étapes",
+      "Dépôt 25 % · paiement mocké (carte · débit · Interac)",
+      "Réservation d'appel (RDV) + waitlist",
+      "Mode admin · image-slot (drag & drop)",
+      "Animations premium · prefers-reduced-motion",
+      "Cible : Next.js + Stripe/Square + Calendly",
+    ],
+    summary: {
+      fr: "Conception et prototype haute-fidélité de BOA, la marque de chef privé et service à table à Montréal du chef Max. Repris d'un PRD rempli par le client (document Word) et d'une analyse concurrentielle (Take a Chef, The Culinistas, Cozymeal, Tock), le site vend une expérience — « When the love for food meets unforgettable memories » — plutôt qu'un simple traiteur : soupers privés, mariages, anniversaires et corporatif, préparés et servis à domicile. La maquette couvre tout le parcours : accueil éditorial (hero, piliers « l'art de recevoir », trust strip, « ce qui est inclus »), un concierge culinaire qui recommande un menu en 30 secondes (occasion, convives, budget, restrictions), les menus (fixe / événement / appel requis), les expériences, les lieux, une galerie photos, la présentation du chef et le contact. Le cœur est un parcours de réservation multi-étapes : menu → date (délai minimum 2 semaines, frais de dernière minute signalés, waitlist « me prévenir ») → format (service à table / table du chef / événement), convives (plafond 20, +20 → appel obligatoire), adresse (Île de Montréal · frais selon distance) et allergies → résumé (dépôt 25 % non remboursable, solde selon entente, taxes non appliquées) → paiement mocké (carte / débit / Interac) → confirmation (dépôt reçu, rappel 48 h, notification à Max). S'y ajoutent un chatbot « Concierge BOA » à réponses guidées, un sélecteur FR/EN, un thème clair/sombre bourgogne & crème (Newsreader + Hanken Grotesk + Allura), des animations premium respectant prefers-reduced-motion, et un mode administrateur avec emplacements photo en drag & drop pour brancher les vraies images. Tout est mocké proprement — aucun paiement réel, aucune IA branchée — en attendant de trancher prix, calendrier (Calendly), processeur de paiement (Stripe / Square) et textes légaux (Loi 25) avec le client.",
+      en: "Design and high-fidelity prototype of BOA, chef Max's private-chef and table-service brand in Montreal. Built from a client-filled PRD (Word document) and a competitive analysis (Take a Chef, The Culinistas, Cozymeal, Tock), the site sells an experience — \"When the love for food meets unforgettable memories\" — rather than plain catering: private dinners, weddings, birthdays and corporate events, cooked and served at your home. The mockup covers the whole journey: an editorial home (hero, \"the art of hosting\" pillars, trust strip, \"what's included\"), a culinary concierge that recommends a menu in 30 seconds (occasion, guests, budget, restrictions), the menus (fixed / event / call required), experiences, venues, a photo gallery, the chef's story and contact. At its core is a multi-step booking flow: menu → date (2-week minimum lead time, last-minute fees flagged, \"notify me\" waitlist) → format (table service / chef's table / event), guests (capped at 20, 20+ → mandatory call), address (Island of Montreal · distance-based fee) and allergies → summary (25% non-refundable deposit, balance per agreement, taxes not applied) → mocked payment (card / debit / Interac) → confirmation (deposit received, 48h reminder, notification to Max). It also ships a guided \"BOA Concierge\" chatbot, an FR/EN switcher, a burgundy & cream light/dark theme (Newsreader + Hanken Grotesk + Allura), premium animations honouring prefers-reduced-motion, and an admin mode with drag-and-drop photo slots to wire in real images. Everything is cleanly mocked — no real payment, no live AI — pending decisions on pricing, calendar (Calendly), payment processor (Stripe / Square) and legal copy (Loi 25) with the client.",
+    },
+    metrics: {
+      fr: ["Bilingue FR/EN · clair/sombre", "Réservation multi-étapes + dépôt 25 %", "Concierge menu 30 s + chatbot BOA", "Mode admin · photos drag & drop"],
+      en: ["Bilingual FR/EN · light/dark", "Multi-step booking + 25% deposit", "30s menu concierge + BOA chatbot", "Admin mode · drag & drop photos"],
+    },
+    media: { enabled: true, type: "image", src: "/media/boa-traiteur.png" }
+  },
+  {
     id: "crcc",
     year: "2026",
     status: { fr: "Maquette de refonte livrée", en: "Redesign mockup delivered" },
@@ -172,10 +190,10 @@ export const caseStudyIds = new Set([
   "the-mad-space",
   "cadence",
   "vibe",
-  "fastercom-tms",
   "dpm-elevate",
   "wise-wealthy",
   "kim-dubois",
+  "boa-traiteur",
   "crcc",
   "financej",
 ])
@@ -185,10 +203,10 @@ export const projectRoles: Record<string, { fr: string; en: string }> = {
   "the-mad-space": { fr: "Ingénieur Full-Stack (Contractuel)", en: "Full-Stack Engineer (Contract)" },
   "cadence": { fr: "Co-fondateur · Tech Lead", en: "Co-founder · Tech Lead" },
   "vibe": { fr: "Fondateur · Product Design · Prototypage · Stratégie produit", en: "Founder · Product Design · Prototyping · Product Strategy" },
-  "fastercom-tms": { fr: "Développeur Intégrateur de Solutions", en: "Solutions Integration Developer" },
   "dpm-elevate": { fr: "Fondateur · Design & Prototypage", en: "Founder · Design & Prototyping" },
   "wise-wealthy": { fr: "Conception produit · Modèle d'affaires & Prototypage", en: "Product Design · Business Model & Prototyping" },
   "kim-dubois": { fr: "Freelance · Design, Prototypage & Relation client", en: "Freelance · Design, Prototyping & Client Relations" },
+  "boa-traiteur": { fr: "Freelance · Design produit, Prototypage & Relation client", en: "Freelance · Product Design, Prototyping & Client Relations" },
   "crcc": { fr: "Design & Prototypage (Refonte)", en: "Design & Prototyping (Redesign)" },
   "financej": { fr: "Développeur · Top contributeur (Projet académique — LOG240)", en: "Developer · Top contributor (Academic Project — LOG240)" },
 }
@@ -224,6 +242,9 @@ export const projectLinks: Record<string, { label: string; url: string; type: "g
   "kim-dubois": [
     { label: "Maquette live", url: "/kim-dubois/index.html", type: "live" },
     { label: "Instagram", url: "https://www.instagram.com/kimduboisphotographeanimaliere/", type: "demo" },
+  ],
+  "boa-traiteur": [
+    { label: "Maquette live", url: "/boa-traiteur/index.html", type: "live" },
   ],
 }
 

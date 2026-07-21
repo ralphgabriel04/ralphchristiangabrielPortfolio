@@ -84,6 +84,7 @@ export const testimonials: Testimonial[] = [
     avatar: "/images/testimonial-alexandre.png",
     category: "partner",
     featured: true,
+    projectLink: "cadence",
     createdAt: "2026-05-19",
   },
   {

@@ -55,7 +55,7 @@
   },
   "projects": {
     "heading": "Selected projects.",
-    "description": "Five projects spanning production work, enterprise integration, and academic architecture.",
+    "description": "Nine projects spanning production work, product design and prototyping, and academic architecture.",
     "caseStudyLink": "Case study",
     "allProjects": "All projects",
     "previousProject": "Previous project",
@@ -127,6 +127,18 @@
     "eduTitle": "Education",
     "certTitle": "Certifications",
     "items": [
+      {
+        "date": "2025 · present",
+        "role": "Co-founder · Tech Lead",
+        "org": "Cadence",
+        "desc": "Co-founding a coach ↔ athlete sports-coaching mobile app with Alexandre Boisvert. Tech-Lead planning: 169+ structured issues across 13 sprints, competitive audit of 8+ apps, Loi 25 · PIPEDA · GDPR-ready compliance. Stack: Expo/React Native, TypeScript, NativeWind, Supabase. Live Next.js landing page (cadence-web-fawn.vercel.app), source on GitHub."
+      },
+      {
+        "date": "2025 · present",
+        "role": "Product Designer & Freelance Developer",
+        "org": "Parallel projects",
+        "desc": "High-fidelity design and prototyping of web and mobile products, from client brief to implementation: Wise & Wealthy (AI financial coach), Kim Dubois Photographe (portfolio site, first paying client), Vibe Montréal (smart local discovery), DPM Elevate (life-management app — calendar, tasks, habits) and BOA (private-chef & table-service booking site). Design systems, bilingual FR/EN, light/dark, targeting Next.js + TypeScript."
+      },
       {
         "date": "Dec. 2025 · Mar. 2026",
         "role": "Solutions Integration Developer",

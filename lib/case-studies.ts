@@ -143,68 +143,68 @@ export const caseStudies: Record<string, CaseStudy> = {
       }
     }
   },
-  "fastercom-tms": {
+  "boa-traiteur": {
     fr: {
       problem: {
         title: "Le problème",
-        body: "Chaque client TMS a des exigences de configuration uniques dans des environnements hétérogènes. L'intégration B2B dans le domaine du transport nécessite une flexibilité extrême pour s'adapter aux processus métier spécifiques de chaque entreprise, tout en maintenant une base de code commune.",
+        body: "Max est chef privé à Montréal (marque BOA) mais n'a aucune présence en ligne qui vend l'expérience — service à table à domicile, soupers privés, mariages, corporatif — ni de moyen simple de recevoir des réservations qualifiées. Les visiteurs doivent comprendre une offre plus riche qu'un traiteur classique, choisir un menu sans se noyer dans les options, puis réserver avec un dépôt. Côté chef, il faut filtrer les demandes hors zone, hors délai ou trop grosses, et réduire les no-shows, sans logiciel de réservation coûteux.",
         type: "text"
       },
       constraints: {
         title: "Les contraintes",
-        body: "NDA partiel limitant les détails partageables. Stack imposée : Spring Boot côté back-end, Angular côté front-end. Pipeline GitLab CI/CD obligatoire avec déploiement sur 3 environnements (Test, Dev, Production). Intégration Google Maps pour le géocodage des adresses.",
+        body: "Aucun backend : tout est mocké proprement (aucun paiement réel, aucune IA branchée). Les règles métier viennent d'un PRD rempli par le client et doivent être respectées à la lettre : délai minimum de 2 semaines, dépôt 25 % non remboursable (sauf annulation par BOA), zone Île de Montréal avec frais selon distance, plafond de 20 convives (au-delà → appel obligatoire), taxes non appliquées pour l'instant. Bilingue FR/EN, identité de marque BOA (bourgogne #6E1F2E + crème, slogan « When the love for food meets unforgettable memories »), accessibilité et prefers-reduced-motion. Rien d'inventé : les points non tranchés (prix réels, calendrier, processeur de paiement, textes légaux Loi 25) sont signalés dans la maquette plutôt que devinés.",
         type: "text"
       },
       approach: {
         title: "La solution",
-        body: "Configuration pilotée par base de données permettant d'adapter le comportement du TMS par client sans modification de code. Intégration du géocodage Google Maps pour la validation et l'enrichissement des adresses. Pipeline de déploiement en 3 étapes avec promotion manuelle entre les environnements pour garantir la stabilité en production.",
+        body: "Une analyse concurrentielle (Take a Chef, The Culinistas, Cozymeal, Tock) a guidé chaque décision. Pour réduire la friction de choix, un concierge culinaire recommande un menu en 30 secondes à partir de l'occasion, du nombre de convives, du budget et des restrictions. Pour rassurer avant de payer, une section « ce qui est inclus » et un résumé détaillé (dépôt, solde, taxes, conditions) lèvent les zones grises. Pour réduire les no-shows, un dépôt à la réservation et une waitlist « me prévenir » sur les dates complètes. Le tout dans un parcours de réservation multi-étapes (menu → date → format & détails → résumé → paiement mocké → confirmation), doublé d'un chatbot « Concierge BOA » à réponses guidées, d'un sélecteur FR/EN par dictionnaire, d'un thème clair/sombre et d'un mode administrateur avec emplacements photo en drag & drop pour brancher les vraies images.",
         type: "text"
       },
       stack: {
         title: "Stack technique",
-        items: ["Spring Boot", "Angular", "GitLab CI/CD", "Google Maps API", "PostgreSQL"],
+        items: ["Claude Design → Claude Code", "HTML/CSS/JS (runtime dc)", "Dictionnaire i18n FR → EN", "CSS Custom Properties (thème clair/sombre)", "Newsreader + Hanken Grotesk + Allura", "image-slot.js (drag & drop)", "IntersectionObserver (reveal au scroll)", "prefers-reduced-motion"],
         type: "list"
       },
       outcomes: {
         title: "Résultats",
-        body: "Pipeline Test → Dev → Production opérationnel et stable. Géocodage Google Maps intégré pour la validation d'adresses. Configuration par client fonctionnelle sans modification du code source.",
+        body: "Un prototype v4 complet et cohérent, bilingue FR/EN et clair/sombre, couvrant tout le parcours de réservation de bout en bout (souper et événement) plus concierge, menus, expériences, lieux, galerie, à propos et contact. Les vraies règles d'affaires de Max sont encodées (délai 2 semaines, dépôt 25 %, zone Montréal, plafond 20 convives, frais de dernière minute). Les décisions restantes sont explicitement marquées « à confirmer », prêtes à devenir un vrai site avec Stripe/Square, Calendly et courriels automatiques.",
         type: "text"
       },
       learnings: {
         title: "Apprentissages",
-        body: "L'intégration B2B exige une flexibilité de configuration extrême par client. Un système de configuration piloté par la base de données est indispensable quand chaque client a des règles métier distinctes. La promotion manuelle entre environnements, bien que plus lente, offre une sécurité critique en contexte enterprise.",
+        body: "Pour un service haut de gamme, vendre l'expérience prime sur la liste de plats : le concierge et le ton éditorial convertissent mieux qu'un catalogue. Rassurer avant de payer (inclusions, dépôt clair, conditions) réduit l'hésitation, et un dépôt + waitlist attaquent directement les no-shows. Encoder les vraies règles du client dans le parcours — plutôt que de les inventer — rend la maquette immédiatement crédible et transforme le prototype en outil de décision : Max valide des règles concrètes, pas des hypothèses.",
         type: "text"
       }
     },
     en: {
       problem: {
         title: "The problem",
-        body: "Each TMS client has unique configuration requirements in heterogeneous environments. B2B integration in the transport domain requires extreme flexibility to adapt to each company's specific business processes while maintaining a shared codebase.",
+        body: "Max is a private chef in Montreal (the BOA brand) but has no online presence that sells the experience — table service at home, private dinners, weddings, corporate — nor a simple way to receive qualified bookings. Visitors have to grasp an offer richer than plain catering, pick a menu without drowning in options, then book with a deposit. On the chef's side, out-of-zone, out-of-lead-time or oversized requests need filtering, and no-shows reduced, without expensive booking software.",
         type: "text"
       },
       constraints: {
         title: "Constraints",
-        body: "Partial NDA limiting shareable details. Imposed stack: Spring Boot on the back-end, Angular on the front-end. Mandatory GitLab CI/CD pipeline with 3-environment deployment (Test, Dev, Production). Google Maps integration for address geocoding.",
+        body: "No backend: everything is cleanly mocked (no real payment, no live AI). Business rules come from a client-filled PRD and must be honoured exactly: 2-week minimum lead time, 25% non-refundable deposit (unless BOA cancels), Island of Montreal zone with distance-based fees, 20-guest cap (beyond → mandatory call), taxes not applied for now. Bilingual FR/EN, BOA brand identity (burgundy #6E1F2E + cream, tagline \"When the love for food meets unforgettable memories\"), accessibility and prefers-reduced-motion. Nothing invented: undecided points (real pricing, calendar, payment processor, Loi 25 legal copy) are flagged in the mockup rather than guessed.",
         type: "text"
       },
       approach: {
         title: "The solution",
-        body: "Database-driven configuration enabling per-client TMS behavior without code changes. Google Maps geocoding integration for address validation and enrichment. 3-stage deployment pipeline with manual promotion between environments to ensure production stability.",
+        body: "A competitive analysis (Take a Chef, The Culinistas, Cozymeal, Tock) drove every decision. To cut choice friction, a culinary concierge recommends a menu in 30 seconds from occasion, guest count, budget and restrictions. To reassure before paying, a \"what's included\" section and a detailed summary (deposit, balance, taxes, terms) remove the grey areas. To reduce no-shows, a deposit at booking and a \"notify me\" waitlist on full dates. All within a multi-step booking flow (menu → date → format & details → summary → mocked payment → confirmation), plus a guided \"BOA Concierge\" chatbot, a dictionary-based FR/EN switcher, a light/dark theme and an admin mode with drag-and-drop photo slots to wire in real images.",
         type: "text"
       },
       stack: {
         title: "Tech stack",
-        items: ["Spring Boot", "Angular", "GitLab CI/CD", "Google Maps API", "PostgreSQL"],
+        items: ["Claude Design → Claude Code", "HTML/CSS/JS (dc runtime)", "FR → EN i18n dictionary", "CSS Custom Properties (light/dark theme)", "Newsreader + Hanken Grotesk + Allura", "image-slot.js (drag & drop)", "IntersectionObserver (scroll reveal)", "prefers-reduced-motion"],
         type: "list"
       },
       outcomes: {
         title: "Outcomes",
-        body: "Test → Dev → Production pipeline operational and stable. Google Maps geocoding integrated for address validation. Per-client configuration working without source code modifications.",
+        body: "A complete, coherent v4 prototype, bilingual FR/EN and light/dark, covering the entire booking journey end to end (dinner and event) plus concierge, menus, experiences, venues, gallery, about and contact. Max's real business rules are encoded (2-week lead time, 25% deposit, Montreal zone, 20-guest cap, last-minute fees). Remaining decisions are explicitly marked \"to confirm\", ready to become a real site with Stripe/Square, Calendly and automated emails.",
         type: "text"
       },
       learnings: {
         title: "Learnings",
-        body: "B2B integration demands extreme per-client configuration flexibility. A database-driven configuration system is essential when each client has distinct business rules. Manual promotion between environments, while slower, provides critical safety in an enterprise context.",
+        body: "For a premium service, selling the experience beats listing dishes: the concierge and editorial tone convert better than a catalogue. Reassuring before payment (inclusions, a clear deposit, terms) reduces hesitation, and a deposit + waitlist tackle no-shows head-on. Encoding the client's real rules into the flow — rather than inventing them — makes the mockup instantly credible and turns the prototype into a decision tool: Max validates concrete rules, not assumptions.",
         type: "text"
       }
     }

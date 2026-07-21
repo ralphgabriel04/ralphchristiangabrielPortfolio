@@ -6,8 +6,11 @@ const projects = [
   "the-mad-space",
   "cadence",
   "vibe",
-  "fastercom-tms",
   "dpm-elevate",
+  "wise-wealthy",
+  "kim-dubois",
+  "boa-traiteur",
+  "crcc",
   "financej",
 ];
 

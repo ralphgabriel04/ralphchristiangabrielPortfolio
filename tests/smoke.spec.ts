@@ -25,7 +25,7 @@ for (const locale of LOCALES) {
     });
 
     test("project detail pages load", async ({ page }) => {
-      const slugs = ["the-mad-space", "cadence", "fastercom-tms", "dpm-elevate", "financej"];
+      const slugs = ["the-mad-space", "cadence", "boa-traiteur", "dpm-elevate", "financej"];
       for (const slug of slugs) {
         const res = await page.goto(`/${locale}/projects/${slug}`);
         expect(res?.status()).toBe(200);
