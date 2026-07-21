@@ -162,7 +162,7 @@ function Testimonials() {
           <figure className="tm-card" key={idx}>
             <div className="tm-photo photo-card">
               {/* ZONE PHOTO : portrait du client avec son animal */}
-              <PhotoZone color={t.color} label={t.author} alt={t.alt} monoSize={52} />
+              <PhotoZone color={t.color} label={t.author} alt={t.alt} src={t.src} monoSize={52} />
             </div>
             <div className="tm-body">
               <span className={"tm-badge" + (t.verified ? " is-verified" : "")}>

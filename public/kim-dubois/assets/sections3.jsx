@@ -60,7 +60,7 @@ function Blog() {
             <a key={post.title} href="#blog" className={"blog-card reveal" + (post.real ? " is-real" : " is-draft")} data-d={(i % 3) + 1}>
               <div className="blog-thumb photo-card">
                 {/* ZONE PHOTO : vignette d’article */}
-                <PhotoZone color={post.color} label={post.category} alt={post.alt} monoSize={48} />
+                <PhotoZone color={post.color} label={post.category} alt={post.alt} src={post.src} monoSize={48} />
                 {post.real ? <span className="blog-flag">{U.realArticle}</span> : <span className="blog-flag blog-flag--draft">{U.draftLabel}</span>}
               </div>
               <div className="blog-body">

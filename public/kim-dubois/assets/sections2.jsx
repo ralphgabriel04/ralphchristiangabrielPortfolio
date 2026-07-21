@@ -15,9 +15,16 @@ function PortfolioFilters({ filters, activeIdx, onSelect, label }) {
 
 /* Visionneuse plein écran — partagée (grille, carrousel, solo) */
 function Lightbox({ items, index, setIndex, onClose }) {
+  const [paused, setPaused] = useState(false);
   const go = useCallback((d) => setIndex((i) => {
     const n = i + d; return n < 0 ? items.length - 1 : n >= items.length ? 0 : n;
   }), [items.length, setIndex]);
+  // Défilement auto : image suivante après 5 s (en pause au survol)
+  useEffect(() => {
+    if (items.length <= 1 || paused) return;
+    const t = setTimeout(() => go(1), 5000);
+    return () => clearTimeout(t);
+  }, [index, items.length, paused, go]);
   useEffect(() => {
     const onKey = (e) => {
       if (e.key === "Escape") onClose();
@@ -27,21 +34,29 @@ function Lightbox({ items, index, setIndex, onClose }) {
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, [go, onClose]);
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = prev; };
+  }, []);
   const it = items[index];
   if (!it) return null;
-  return (
+  const node = (
     <div className="pf-lightbox" role="dialog" aria-modal="true" aria-label={it.alt} onClick={onClose}>
       <button className="lb-close" aria-label="Fermer" onClick={onClose}>×</button>
       {items.length > 1 && <button className="lb-nav lb-prev" aria-label="Précédente" onClick={(e) => { e.stopPropagation(); go(-1); }}>‹</button>}
-      <figure className="lb-figure" onClick={(e) => e.stopPropagation()}>
+      <figure className="lb-figure" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
         {it.src ? <img className="lb-img" src={it.src} alt={it.alt} draggable={false}
           onContextMenu={(e) => { e.preventDefault(); window.KDshowCredit && window.KDshowCredit({ title: it.title, cat: it.cat || (window.KD.portfolio && it.tags && it.tags.length ? window.KD.portfolio.filters[it.tags[0]] : "") }); }}
           onDragStart={(e) => e.preventDefault()} /> : <span className="lb-ph"><Monogram size={120} /></span>}
-        <figcaption className="lb-cap"><strong>{it.title}</strong><span>{it.cat}</span></figcaption>
+        <figcaption className="lb-cap" onClick={(e) => e.stopPropagation()}><strong>{it.title}</strong><span>{it.cat}</span></figcaption>
+        {items.length > 1 && <div className={"lb-progress" + (paused ? " is-paused" : "")} key={index}><span></span></div>}
+        {items.length > 1 && <button className="lb-play" aria-pressed={paused} onClick={(e) => { e.stopPropagation(); setPaused((p) => !p); }}>{paused ? "▶ Reprendre le défilement" : "∥ Arrêter le défilement"}</button>}
       </figure>
       {items.length > 1 && <button className="lb-nav lb-next" aria-label="Suivante" onClick={(e) => { e.stopPropagation(); go(1); }}>›</button>}
     </div>
   );
+  return ReactDOM.createPortal(node, document.body);
 }
 
 /* Grille de tuiles — MÊME disposition (span-2 toutes les 5 tuiles) + lightbox */
@@ -255,13 +270,27 @@ function PackageCard({ c, i, L }) {
   const U = window.KD.ui;
   const [open, setOpen] = useState(false);
   const bodyRef = useRef(null);
+  const ed = window.useEditor ? window.useEditor() : null;
+  const promo = ed && window.kdActivePromo ? window.kdActivePromo(ed.st.promos) : null;
+  const deal = promo && window.kdApplyPromoToPrice ? window.kdApplyPromoToPrice(c.price, promo) : null;
   return (
     <article className={"pk-card reveal" + (c.featured ? " featured" : "") + (open ? " is-open" : "")} data-d={(i % 3) + 1}>
       {c.featured && <span className="pk-flag">{U.mostChosen}</span>}
       <div className="pk-card-head">
         <span className="pk-region">{c.region}</span>
         <h3>{c.name}</h3>
-        <p className="pk-price">{c.price}</p>
+        {deal && deal.kind === "cut" ? (
+          <div className="pk-price pk-price--deal">
+            <p className="pk-price-row">
+              <span className="pk-price-was">{deal.wasText}</span>
+              <span className="pk-price-arrow" aria-hidden="true">→</span>
+              <span className="pk-price-now">{deal.nowText}</span>
+            </p>
+            <span className="pk-price-applied"><span className="pk-price-dot" aria-hidden="true">✓</span>{deal.applied}</span>
+          </div>
+        ) : (
+          <p className="pk-price">{c.price}{deal && (deal.kind === "gift" || deal.kind === "credit") && <span className="pk-price-chip pk-price-chip--bonus">{deal.note}</span>}</p>
+        )}
       </div>
       {c.who && <p className="pk-who"><span className="pk-who-label">{L.who}</span>{c.who}</p>}
       <ul className="pk-steps">

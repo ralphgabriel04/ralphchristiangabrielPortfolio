@@ -203,7 +203,7 @@ function TabStylesV3() {
                       onBlur={() => { renameStyle(sty.id, editName || sty.name); setEditId(null); }}
                       onKeyDown={(e) => { if (e.key === "Enter") { renameStyle(sty.id, editName || sty.name); setEditId(null); } }} />
                   ) : (
-                    <span className="style-name">{sty.name}</span>
+                    <span className="style-name" title="Double-cliquer pour renommer" onDoubleClick={() => { setEditId(sty.id); setEditName(sty.name); }}>{sty.name}</span>
                   )}
                   {status && <span className={"style-status " + status.k}>{status.label}</span>}
                   <span className="style-swatches" aria-hidden="true">
@@ -268,3 +268,96 @@ function TabStylesV3() {
 }
 
 Object.assign(window, { TabPromos, TabStylesV3, KD_PROMO_TYPES });
+
+/* ---------------- Bannière promo PUBLIQUE (site visible) ----------------
+   S'affiche automatiquement quand un code est actif. Le visuel change selon
+   le type d'avantage. Un lien ?ref=CODE met en avant ce code précis. */
+function kdPromoTheme(type) {
+  switch (type) {
+    case "free":    return { cls: "is-free",    ico: "★", tag: "Offert" };
+    case "shop":    return { cls: "is-shop",    ico: "❦", tag: "Boutique" };
+    case "session": return { cls: "is-session", ico: "❦", tag: "Séance" };
+    case "fixed":   return { cls: "is-fixed",   ico: "%", tag: "Économie" };
+    default:        return { cls: "is-percent", ico: "%", tag: "Rabais" };
+  }
+}
+
+function PromoBanner() {
+  const { st } = useEditor();
+  const active = (st.promos || []).filter((p) => kdPromoStatus(p).k === "active" && (p.code || "").trim());
+  const ref = React.useMemo(() => {
+    try { return (new URLSearchParams(location.search).get("ref") || "").trim().toUpperCase(); } catch (e) { return ""; }
+  }, []);
+  const promo = React.useMemo(() => {
+    if (!active.length) return null;
+    if (ref) { const m = active.find((p) => (p.code || "").trim().toUpperCase() === ref); if (m) return m; }
+    return active[0];
+  }, [active, ref]);
+
+  const [closed, setClosed] = React.useState(false);
+  React.useEffect(() => {
+    if (!promo) return;
+    try { setClosed(sessionStorage.getItem("kd-promo-x") === promo.id); } catch (e) {}
+  }, [promo && promo.id]);
+  if (!promo || closed) return null;
+
+  const th = kdPromoTheme(promo.type);
+  const advantage = kdPromoAdvantage(promo);
+  const matched = ref && (promo.code || "").trim().toUpperCase() === ref;
+  const close = () => {
+    setClosed(true);
+    try { sessionStorage.setItem("kd-promo-x", promo.id); } catch (e) {}
+  };
+  return (
+    <aside className={"promo-banner " + th.cls} role="region" aria-label="Offre en cours">
+      <span className="pb-ico" aria-hidden="true">{th.ico}</span>
+      <span className="pb-tag">{th.tag}</span>
+      <p className="pb-txt">
+        {matched && promo.ambassador
+          ? <React.Fragment>Grâce à <strong>{promo.ambassador}</strong>, profitez de </React.Fragment>
+          : "Offre en cours : "}
+        <strong className="pb-adv">{advantage}</strong>
+        <span className="pb-code"> avec le code <b>{(promo.code || "").trim()}</b></span>
+      </p>
+      <a className="pb-cta" href="#contact">Réserver ma séance</a>
+      <button className="pb-close" aria-label="Fermer l’offre" onClick={close}>×</button>
+    </aside>
+  );
+}
+
+Object.assign(window, { PromoBanner, kdPromoStatus, kdPromoAdvantage });
+
+/* Promo actif retenu pour l'affichage public (même logique que la bannière) */
+function kdActivePromo(promos) {
+  const active = (promos || []).filter((p) => kdPromoStatus(p).k === "active" && (p.code || "").trim());
+  if (!active.length) return null;
+  let ref = "";
+  try { ref = (new URLSearchParams(location.search).get("ref") || "").trim().toUpperCase(); } catch (e) {}
+  if (ref) { const m = active.find((p) => (p.code || "").trim().toUpperCase() === ref); if (m) return m; }
+  return active[0];
+}
+
+/* Applique un promo à une chaîne de prix ("dès 300 $", "dès 15 $ / photo", "sur soumission").
+   Renvoie null si aucun effet visuel, sinon { kind, wasText, nowText, chip, note }. */
+function kdApplyPromoToPrice(priceStr, promo) {
+  if (!promo) return null;
+  const s = String(priceStr || "");
+  if (promo.type === "free") return { kind: "gift", note: "1 photo offerte avec « " + (promo.code || "").trim() + " »" };
+  if (promo.type === "shop") return { kind: "credit", note: "+ " + (promo.value || 0) + " $ de crédit boutique" };
+  const m = s.match(/(\d[\d\s]*)\s*\$/);
+  if (!m) return null;                                  // « sur soumission »
+  const base = parseInt(m[1].replace(/\s/g, ""), 10);
+  if (!base) return null;
+  const perPhoto = /photo/i.test(s);
+  let now = base;
+  if (promo.type === "percent") now = Math.round(base * (1 - (promo.value || 0) / 100));
+  else if (promo.type === "fixed") now = Math.max(0, base - (promo.value || 0));
+  else if (promo.type === "session") { if (perPhoto) return null; now = Math.max(0, base - (promo.value || 0)); }
+  if (now === base) return null;
+  const suffix = perPhoto ? " $ / photo" : " $";
+  const prefix = s.slice(0, m.index).replace(/\s*$/, "");                     // « dès »
+  const applied = promo.type === "session" ? "Crédit appliqué" : "Rabais appliqué";
+  return { kind: "cut", wasText: base + suffix, nowText: (prefix ? prefix + " " : "") + now + suffix, applied };
+}
+
+Object.assign(window, { kdActivePromo, kdApplyPromoToPrice });

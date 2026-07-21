@@ -960,16 +960,65 @@ function pfTags(src) {
     if (base.indexOf("beagle") !== -1 || base.indexOf("boston") !== -1) add(1); else add(2);
     if (base.indexOf("comm-02") !== -1) add(8);
   } else if (s.indexOf("/studio/") !== -1) {
-    add(3);
+    const outdoorCat = base.indexOf("banc") !== -1 || base.indexOf("exterieur") !== -1;
+    if (!outdoorCat) add(3);
     if (base.charAt(0) === "c") add(2); else add(1);
-    if (base.indexOf("c03-chat-banc-jaune") !== -1) add(4);
+    if (outdoorCat) add(4);
   } else { add(1); add(4); } /* dossier dogs + héros : chiens en extérieur */
   return t;
 }
 
+/* ----- Nouvelles photos ajoutées au portfolio (bilingue, catégories via le chemin) ----- */
+KD_SHARED.extra = [
+  { src: "assets/photos/dogs/n01-chien-banc-orange.jpg", fr: { t: "Sur le banc d'architecte", a: "Chien assis sur un banc design en béton orange en milieu urbain, photo de Kim Dubois" }, en: { t: "On the design bench", a: "Dog sitting on an orange concrete design bench in an urban setting, photo by Kim Dubois" } },
+  { src: "assets/photos/dogs/n02-shiba-fleurs.jpg", fr: { t: "Shiba parmi les fleurs", a: "Shiba inu entouré d'arbustes en fleurs jaunes, photo de Kim Dubois" }, en: { t: "Shiba among blooms", a: "Shiba inu surrounded by yellow flowering shrubs, photo by Kim Dubois" } },
+  { src: "assets/photos/dogs/n03-danois-ville.jpg", fr: { t: "Deux dogues en ville", a: "Deux dogues allemands côte à côte dans une allée urbaine, photo de Kim Dubois" }, en: { t: "Two Danes in the city", a: "Two Great Danes side by side in an urban alley, photo by Kim Dubois" } },
+  { src: "assets/photos/dogs/n04-samoyede-lavande.jpg", fr: { t: "Samoyède en lavande", a: "Samoyède blanc assis dans un champ de lavande, photo de Kim Dubois" }, en: { t: "Samoyed in lavender", a: "White Samoyed sitting in a lavender field, photo by Kim Dubois" } },
+  { src: "assets/photos/dogs/n05-bouledogue-banc.jpg", fr: { t: "Bouledogue au parc", a: "Bouledogue français sur un banc de parc parmi les fleurs, photo de Kim Dubois" }, en: { t: "Bulldog at the park", a: "French bulldog on a park bench among blossoms, photo by Kim Dubois" } },
+  { src: "assets/photos/dogs/n06-bouledogue-fleurs.jpg", fr: { t: "Bouledogue au forsythia", a: "Bouledogue français entouré de forsythias jaunes, photo de Kim Dubois" }, en: { t: "Bulldog in forsythia", a: "French bulldog surrounded by yellow forsythia, photo by Kim Dubois" } },
+  { src: "assets/photos/dogs/n07-bouvier-ville.jpg", fr: { t: "Bouvier bernois en ville", a: "Bouvier bernois debout dans une allée urbaine verdoyante, photo de Kim Dubois" }, en: { t: "Bernese in the city", a: "Bernese mountain dog standing in a leafy urban alley, photo by Kim Dubois" } },
+  { src: "assets/photos/dogs/n08-sheltie-riviere.jpg", fr: { t: "Au bord de la rivière", a: "Sheltie aux poils mouillés au bord d'une rivière, photo de Kim Dubois" }, en: { t: "By the river", a: "Wet-coated sheltie at the edge of a river, photo by Kim Dubois" } },
+  { src: "assets/photos/dogs/n09-spitz-neige.jpg", fr: { t: "Course dans la neige", a: "Spitz japonais blanc courant dans la neige, photo de Kim Dubois" }, en: { t: "Run in the snow", a: "White Japanese spitz running through snow, photo by Kim Dubois" } },
+  { src: "assets/photos/dogs/n10-chien-silhouette.jpg", fr: { t: "Silhouette au crépuscule", a: "Chien à poil long en silhouette sur une promenade, photo de Kim Dubois" }, en: { t: "Dusk silhouette", a: "Long-haired dog silhouetted on a promenade, photo by Kim Dubois" } },
+  { src: "assets/photos/dogs/n11-malinois-neige.jpg", fr: { t: "Malinois en hiver", a: "Malinois belge sous la neige, regard attentif, photo de Kim Dubois" }, en: { t: "Malinois in winter", a: "Belgian Malinois in the snow, attentive gaze, photo by Kim Dubois" } },
+  { src: "assets/photos/dogs/n12-sheltie-ville-course.jpg", fr: { t: "Élan urbain", a: "Sheltie s'élançant devant les tours de Montréal au lever du soleil, photo de Kim Dubois" }, en: { t: "Urban dash", a: "Sheltie bounding in front of Montréal's towers at sunrise, photo by Kim Dubois" } },
+  { src: "assets/photos/dogs/n13-spitz-ville-coucher.jpg", fr: { t: "Coucher de soleil sur la ville", a: "Petit spitz en silhouette devant la ville au soleil couchant, photo de Kim Dubois" }, en: { t: "City sunset", a: "Small spitz silhouetted against the city at sunset, photo by Kim Dubois" } },
+  { src: "assets/photos/dogs/n14-akita-escalier.jpg", fr: { t: "Akita sous la neige", a: "Akita américain sur un escalier enneigé, photo de Kim Dubois" }, en: { t: "Akita in snow", a: "American Akita on snowy stairs, photo by Kim Dubois" } },
+  { src: "assets/photos/dogs/n15-berger-reflet.jpg", fr: { t: "Reflet sur le chemin", a: "Berger allemand sur un sentier mouillé, reflet dans l'eau, photo de Kim Dubois" }, en: { t: "Reflection on the path", a: "German shepherd on a wet trail, reflected in the water, photo by Kim Dubois" } },
+  { src: "assets/photos/dogs/n16-husky-sous-bois.jpg", fr: { t: "Husky en sous-bois", a: "Husky sibérien au bout d'un sentier en sous-bois lumineux, photo de Kim Dubois" }, en: { t: "Husky in the woods", a: "Siberian husky at the end of a bright woodland trail, photo by Kim Dubois" } },
+  { src: "assets/photos/dogs/n17-shihtzu-sentier2.jpg", fr: { t: "Shih tzu en promenade", a: "Shih tzu sur un sentier bordé de verdure, photo de Kim Dubois" }, en: { t: "Shih tzu on a walk", a: "Shih tzu on a greenery-lined path, photo by Kim Dubois" } },
+  { src: "assets/photos/dogs/n18-berger-tronc2.jpg", fr: { t: "Sur le tronc flotté", a: "Berger allemand debout sur un tronc flotté au bord de l'eau, photo de Kim Dubois" }, en: { t: "On the driftwood", a: "German shepherd standing on driftwood by the water, photo by Kim Dubois" } },
+  { src: "assets/photos/dogs/n19-chihuahua-jouet.jpg", fr: { t: "Chihuahua et son jouet", a: "Chihuahua tenant son jouet dans l'herbe fleurie, photo de Kim Dubois" }, en: { t: "Chihuahua and its toy", a: "Chihuahua holding its toy in flowery grass, photo by Kim Dubois" } },
+  { src: "assets/photos/studio/s10-canecorso-rose.jpg", fr: { t: "Cane Corso · fond corail", a: "Cane Corso gris sur fond corail en studio, photo de Kim Dubois" }, en: { t: "Cane Corso · coral backdrop", a: "Grey Cane Corso on a coral backdrop in studio, photo by Kim Dubois" } },
+  { src: "assets/photos/studio/s11-beagle-rose.jpg", fr: { t: "Studio · fond corail", a: "Beagle sur fond corail en studio, photo de Kim Dubois" }, en: { t: "Studio · coral backdrop", a: "Beagle on a coral backdrop in studio, photo by Kim Dubois" } },
+  { src: "assets/photos/studio/s12-basenji-stack.jpg", fr: { t: "Basenji en position", a: "Basenji en position d'exposition sur fond corail, photo de Kim Dubois" }, en: { t: "Basenji in stack", a: "Basenji in a show stack on a coral backdrop, photo by Kim Dubois" } },
+  { src: "assets/photos/studio/c10-rex-chatons.jpg", fr: { t: "Chatons Cornish Rex", a: "Deux chatons Cornish Rex blottis sur fond sombre en studio, photo de Kim Dubois" }, en: { t: "Cornish Rex kittens", a: "Two Cornish Rex kittens nestled on a dark studio backdrop, photo by Kim Dubois" } },
+  { src: "assets/photos/studio/c11-rex-chaton-blanc.jpg", fr: { t: "Chaton tout en douceur", a: "Chaton Cornish Rex blanc étendu sur fond sombre, photo de Kim Dubois" }, en: { t: "A gentle kitten", a: "White Cornish Rex kitten stretched out on a dark backdrop, photo by Kim Dubois" } },
+  { src: "assets/photos/studio/c12-rex-noir2.jpg", fr: { t: "Regard sur noir", a: "Cornish Rex sur fond noir en studio, photo de Kim Dubois" }, en: { t: "Gaze on black", a: "Cornish Rex on a black studio backdrop, photo by Kim Dubois" } },
+  { src: "assets/photos/studio/c13-rex-jaune2.jpg", fr: { t: "Studio · fond jaune", a: "Cornish Rex sur fond jaune vif en studio, photo de Kim Dubois" }, en: { t: "Studio · yellow backdrop", a: "Cornish Rex on a bright yellow backdrop in studio, photo by Kim Dubois" } },
+  { src: "assets/photos/studio/c14-rex-jaune-patte.jpg", fr: { t: "Petite patte levée", a: "Cornish Rex levant la patte sur fond jaune, photo de Kim Dubois" }, en: { t: "Little raised paw", a: "Cornish Rex lifting a paw on a yellow backdrop, photo by Kim Dubois" } },
+  { src: "assets/photos/studio/c15-rex-jaune-cri.jpg", fr: { t: "En pleine conversation", a: "Cornish Rex miaulant sur fond jaune en studio, photo de Kim Dubois" }, en: { t: "Mid-conversation", a: "Cornish Rex meowing on a yellow studio backdrop, photo by Kim Dubois" } },
+  { src: "assets/photos/studio/c16-chat-corail.jpg", fr: { t: "Jeu sur fond corail", a: "Chat joueur sur fond corail en studio, photo de Kim Dubois" }, en: { t: "Play on coral", a: "Playful cat on a coral studio backdrop, photo by Kim Dubois" } },
+  { src: "assets/photos/studio/c18-chat-lumiere2.jpg", fr: { t: "Lumière douce", a: "Chat noir et blanc au repos dans une lumière douce, photo de Kim Dubois" }, en: { t: "Soft light", a: "Black-and-white cat resting in soft light, photo by Kim Dubois" } },
+  { src: "assets/photos/studio/c17-chat-banc-jaune2.jpg", fr: { t: "Chat au banc jaune", a: "Chat gris assis sur un banc jaune en plein air, photo de Kim Dubois" }, en: { t: "Cat on a yellow bench", a: "Grey cat sitting on a yellow bench outdoors, photo by Kim Dubois" } },
+  { src: "assets/photos/expo/e19.jpg", fr: { t: "Au plumeau", a: "Sphynx suivant un plumeau sur la table de jugement, photo de Kim Dubois" }, en: { t: "On the wand", a: "Sphynx following a feather wand on the judging table, photo by Kim Dubois" } },
+  { src: "assets/photos/expo/e20.jpg", fr: { t: "À bout de bras", a: "Cornish Rex roux et blanc présenté à bout de bras, photo de Kim Dubois" }, en: { t: "At arm's length", a: "Orange-and-white Cornish Rex presented at arm's length, photo by Kim Dubois" } },
+  { src: "assets/photos/expo/e21.jpg", fr: { t: "Maine Coon en exposition", a: "Maine Coon sur la table d'exposition féline, photo de Kim Dubois" }, en: { t: "Maine Coon on show", a: "Maine Coon on the cat-show table, photo by Kim Dubois" } },
+  { src: "assets/photos/expo/e22.jpg", fr: { t: "Portrait de Maine Coon", a: "Portrait de Maine Coon sur la table de jugement, photo de Kim Dubois" }, en: { t: "Maine Coon portrait", a: "Maine Coon portrait on the judging table, photo by Kim Dubois" } },
+  { src: "assets/photos/expo/e23.jpg", fr: { t: "Petit dinosaure", a: "Cornish Rex en costume de dinosaure vert à l'exposition féline, photo de Kim Dubois" }, en: { t: "Little dinosaur", a: "Cornish Rex in a green dinosaur costume at the cat show, photo by Kim Dubois" } },
+  { src: "assets/photos/expo/e24.jpg", fr: { t: "Sphynx en présentation", a: "Sphynx présenté sur la table d'exposition, photo de Kim Dubois" }, en: { t: "Sphynx on show", a: "Sphynx presented on the show table, photo by Kim Dubois" } },
+  { src: "assets/photos/expo/e25.jpg", fr: { t: "Maine Coon dressé", a: "Maine Coon dressé sur ses pattes en présentation, photo de Kim Dubois" }, en: { t: "Maine Coon standing", a: "Maine Coon standing on its hind legs in presentation, photo by Kim Dubois" } },
+  { src: "assets/photos/expo/e26.jpg", fr: { t: "Robe chocolat", a: "Chat brun chocolat sur la table de jugement, photo de Kim Dubois" }, en: { t: "Chocolate coat", a: "Chocolate-brown cat on the judging table, photo by Kim Dubois" } },
+  { src: "assets/photos/comm/comm-07-rex-mavericks.jpg", fr: { t: "Gâteries en vedette", a: "Cornish Rex aux côtés d'un sachet de gâteries, photo commerciale de Kim Dubois" }, en: { t: "Treats in focus", a: "Cornish Rex beside a treat pouch, commercial photo by Kim Dubois" } },
+];
+
 /* ----- Données partagées injectées dans chaque langue ----- */
 [KD_FR, KD_EN].forEach((D) => {
   D.brand.since = 2014;
+  (function () {
+    const L = (D === KD_FR) ? "fr" : "en";
+    KD_SHARED.extra.forEach((x) => { D.portfolio.items.push({ src: x.src, title: x[L].t, alt: x[L].a, catIdx: 1 }); });
+  })();
   D.social = KD_SHARED.social;
   D.regions = KD_SHARED.regions;
   D.awards.categories = KD_SHARED.awardCategories;
@@ -986,6 +1035,23 @@ function pfTags(src) {
   D.products.items.forEach((p, i) => { p.color = KD_SHARED.productColors[i % KD_SHARED.productColors.length]; });
   D.process.steps.forEach((s, i) => { s.color = KD_SHARED.processColors[i % KD_SHARED.processColors.length]; });
   D.blog.posts.forEach((p, i) => { p.color = KD_SHARED.blogColors[i % KD_SHARED.blogColors.length]; });
+  const BLOG_SRC = [
+    "assets/photos/blog/b1-sheltie-fleurs.jpg",
+    "assets/photos/blog/b2-plein-air.jpg",
+    "assets/photos/blog/b3-attentif.jpg",
+    "assets/photos/blog/b4-preparation.jpg",
+    "assets/photos/blog/b5-douceur.jpg",
+    "assets/photos/blog/b6-expo.jpg",
+  ];
+  const TM_SRC = [
+    "assets/photos/testimonials/t1.jpg",
+    "assets/photos/testimonials/t2.jpg",
+    "assets/photos/testimonials/t3.jpg",
+    "assets/photos/testimonials/t4.jpg",
+    "assets/photos/testimonials/t5.jpg",
+  ];
+  D.blog.posts.forEach((p, i) => { if (BLOG_SRC[i]) p.src = BLOG_SRC[i]; });
+  D.testimonials.items.forEach((t, i) => { if (TM_SRC[i]) t.src = TM_SRC[i]; });
 });
 
 /* ----- Registre i18n + accès dynamique via window.KD ----- */

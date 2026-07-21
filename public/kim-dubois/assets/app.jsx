@@ -150,6 +150,7 @@ function Site() {
         audience={audience} onSetAudience={setAudience}
         onToggleTheme={() => setAppearance({ theme: theme === "dark" ? "light" : "dark" })}
         showAnno={showAnno} onToggleAnno={() => setShowAnno((v) => !v)} />
+      <PromoBanner />
       <main>
         {route === "portfolio" ? (
           <PortfolioPage />
