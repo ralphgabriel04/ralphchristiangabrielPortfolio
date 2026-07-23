@@ -141,7 +141,7 @@ export const testimonials: Testimonial[] = [
     name: "Loutfi Mohamed",
     role: { fr: "Coéquipier · ÉTS · 2026", en: "Teammate · ÉTS · 2026" },
     company: "ÉTS",
-    avatar: "/images/testimonial-loutfi.png",
+    avatar: "/images/testimonial-loutfi.jpg",
     category: "colleague",
     featured: true,
     projectLink: "financej",
