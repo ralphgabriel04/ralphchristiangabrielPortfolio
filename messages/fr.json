@@ -88,6 +88,15 @@
     "heading": "Projets sélectionnés.",
     "description": "Neuf projets qui montrent mon travail en production, en conception produit et prototypage, et en architecture académique.",
     "caseStudyLink": "Étude de cas",
+    "viewLive": "Voir en ligne",
+    "subtitle": "Systèmes livrés, produits en développement et prototypes. Filtrez par état.",
+    "filterAll": "Tous",
+    "state": {
+      "production": "En production",
+      "development": "En développement",
+      "prototype": "Prototype",
+      "planned": "Planifié"
+    },
     "allProjects": "Tous les projets",
     "previousProject": "Projet précédent",
     "nextProject": "Projet suivant",

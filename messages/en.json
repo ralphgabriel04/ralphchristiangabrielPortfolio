@@ -88,6 +88,15 @@
     "heading": "Selected projects.",
     "description": "Nine projects spanning production work, product design and prototyping, and academic architecture.",
     "caseStudyLink": "Case study",
+    "viewLive": "View live",
+    "subtitle": "Shipped systems, products in development and prototypes. Filter by state.",
+    "filterAll": "All",
+    "state": {
+      "production": "In production",
+      "development": "In development",
+      "prototype": "Prototype",
+      "planned": "Planned"
+    },
     "allProjects": "All projects",
     "previousProject": "Previous project",
     "nextProject": "Next project",

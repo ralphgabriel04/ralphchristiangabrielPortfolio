@@ -186,23 +186,38 @@ export const projects: Project[] = [
   }
 ]
 
-/** Editorial delivery-stage tone per project — drives the status-dot colour
- *  (shipped = green, active = amber, planned = blue). Explicit map, not keyword
- *  matching, so each project's stage is intentional. */
-export type ProjectTone = "shipped" | "active" | "planned"
-export const projectTones: Record<string, ProjectTone> = {
-  "the-mad-space": "shipped",
-  "cadence": "active",
-  "vibe": "active",
-  "dpm-elevate": "active",
-  "wise-wealthy": "planned",
-  "kim-dubois": "active",
-  "boa-traiteur": "active",
-  "crcc": "shipped",
-  "financej": "planned",
+/** Delivery state per project — drives the status pill, its dot colour and the
+ *  filter on the projects page. Explicit map (not derived from status strings)
+ *  so each project's stage is intentional. */
+export type ProjectState = "production" | "development" | "prototype" | "planned"
+
+export const projectStates: Record<string, ProjectState> = {
+  "the-mad-space": "production",
+  "cadence": "development",
+  "vibe": "prototype",
+  "dpm-elevate": "development",
+  "wise-wealthy": "prototype",
+  "kim-dubois": "prototype",
+  "boa-traiteur": "prototype",
+  "crcc": "prototype",
+  "financej": "production",
 }
-export const toneColor = (id: string): string =>
-  `var(--${projectTones[id] ?? "active"})`
+
+/** Display / filter order. */
+export const STATE_ORDER: ProjectState[] = ["production", "development", "prototype", "planned"]
+
+/** Dot / accent colour per state (production=green, development=amber,
+ *  prototype & planned=blue). */
+export const stateColor: Record<ProjectState, string> = {
+  production: "var(--shipped)",
+  development: "var(--active)",
+  prototype: "var(--planned)",
+  planned: "var(--planned)",
+}
+
+export const projectState = (id: string): ProjectState => projectStates[id] ?? "prototype"
+/** Dot colour for a project's state (name kept for existing call sites). */
+export const toneColor = (id: string): string => stateColor[projectState(id)]
 
 export const caseStudyIds = new Set([
   "the-mad-space",

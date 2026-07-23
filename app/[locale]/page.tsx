@@ -3,16 +3,11 @@ import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { ArrowRight, Download, Mail } from "lucide-react";
 import { projects } from "@/lib/projects";
-import { caseStudyIds, toneColor } from "@/lib/projects";
 import { Button } from "@/components/ui/button";
 import { Tag } from "@/components/ui/tag";
-import { Card } from "@/components/ui/card";
-import { SpotlightCard } from "@/components/ui/spotlight-card";
-import { Badge } from "@/components/ui/badge";
-import { PulseDot } from "@/components/ui/pulse-dot";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
-import { ProjectPlaceholder } from "@/components/ui/project-placeholder";
+import { ProjectRow } from "@/components/ui/project-row";
 import { TrackedLink } from "@/components/ui/tracked-link";
 import { TestimonialsCarousel } from "@/components/ui/testimonials-carousel";
 import { testimonials } from "@/lib/testimonials";
@@ -32,7 +27,6 @@ function HomeContent() {
   const t = useTranslations("hero");
   const tSec = useTranslations("sectionLabels");
   const tHome = useTranslations("home");
-  const tProjects = useTranslations("projects");
   const locale = useLocale() as "fr" | "en";
 
   const featured = projects.filter((p) => p.featured).slice(0, 3);
@@ -115,108 +109,41 @@ function HomeContent() {
 
       {/* ── Selected Projects ── */}
       <section className="border-t border-border-color">
-        <div className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] py-20">
+        <div className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] py-20 md:py-28">
           <Reveal>
-            <div className="mb-10 flex items-end justify-between gap-4">
-              <SectionHeading
-                kicker={tSec("selected")}
-                title={tHome("projectsHeading")}
-              />
+            <div className="flex items-end justify-between gap-4 border-b border-border-color pb-8">
+              <div>
+                <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
+                  {tSec("selected")}
+                </span>
+                <h2
+                  className="mt-3 text-4xl leading-[1.03] tracking-[-0.01em] md:text-[52px]"
+                  style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+                >
+                  {tHome("projectsHeading")}
+                </h2>
+              </div>
               <Link
                 href="/projects"
-                className="hidden text-sm text-muted-foreground hover:text-foreground transition-colors sm:inline-flex items-center gap-1"
+                className="hidden shrink-0 items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground sm:inline-flex"
               >
                 {tHome("seeAll")} <ArrowRight size={14} />
               </Link>
             </div>
           </Reveal>
 
-          <div className="grid gap-6">
-            {selectedProjects.map((project, i) => {
-              const hasMedia = project.media?.enabled ?? false;
-
-              return (
-                <Reveal key={project.id} delay={i * 80}>
-                  <SpotlightCard className="p-6 md:p-8">
-                    <div
-                      className={
-                        hasMedia
-                          ? "grid gap-6 md:grid-cols-[1fr_1fr]"
-                          : "flex flex-col gap-4"
-                      }
-                    >
-                      {hasMedia && project.media && (
-                        <ProjectPlaceholder
-                          type={project.media.type}
-                          label={project.id}
-                          src={project.media.src}
-                        />
-                      )}
-
-                      <div className="flex flex-col gap-4 justify-center">
-                        <div className="flex flex-wrap items-center gap-3">
-                          <span className="font-mono text-xs text-muted-foreground/40 tabular-nums">
-                            {String(i + 1).padStart(2, "0")}.
-                          </span>
-                          <span className="font-mono text-xs text-muted-foreground">
-                            {project.year}
-                          </span>
-                          <Badge>
-                            <PulseDot color={toneColor(project.id)} />
-                            {project.status[locale]}
-                          </Badge>
-                        </div>
-
-                        <h3 className="text-xl font-medium tracking-[-0.01em] md:text-2xl">
-                          {project.name}
-                        </h3>
-
-                        <p className="text-sm text-muted-foreground">
-                          {project.tag[locale]}
-                        </p>
-
-                        <p className="max-w-[65ch] text-sm leading-relaxed text-muted-foreground">
-                          {project.summary[locale]}
-                        </p>
-
-                        <div className="flex flex-wrap gap-1">
-                          {project.stack.map((tech) => (
-                            <Tag key={tech}>{tech}</Tag>
-                          ))}
-                        </div>
-
-                        <div className="flex flex-wrap items-center gap-4 pt-2">
-                          {project.metrics[locale].map((m, j) => (
-                            <span
-                              key={j}
-                              className="font-mono text-xs text-muted-foreground"
-                            >
-                              {m}
-                            </span>
-                          ))}
-                        </div>
-
-                        {caseStudyIds.has(project.id) && (
-                          <Link
-                            href={`/projects/${project.id}`}
-                            className="inline-flex items-center gap-1 text-sm font-medium text-accent hover:underline"
-                          >
-                            {tProjects("caseStudyLink")}{" "}
-                            <ArrowRight size={14} />
-                          </Link>
-                        )}
-                      </div>
-                    </div>
-                  </SpotlightCard>
-                </Reveal>
-              );
-            })}
+          <div className="mt-14 flex flex-col gap-16 md:mt-20 md:gap-24">
+            {selectedProjects.map((project, i) => (
+              <Reveal key={project.id} delay={i * 60}>
+                <ProjectRow project={project} index={i + 1} reverse={i % 2 === 1} />
+              </Reveal>
+            ))}
           </div>
 
-          <div className="mt-6 flex justify-center sm:hidden">
+          <div className="mt-14 flex justify-center sm:hidden">
             <Link
               href="/projects"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1"
+              className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
             >
               {tHome("seeAll")} <ArrowRight size={14} />
             </Link>
