@@ -66,7 +66,7 @@ export function Header() {
       <div className="mx-auto flex h-16 max-w-[var(--max-hero)] items-center justify-between gap-4 px-[var(--page-pad)]">
         {/* Left: Logo + Desktop Nav */}
         <div className="flex items-center gap-6">
-          <Link href="/" className="inline-flex items-center gap-2.5 p-1" aria-label="Home">
+          <Link href="/" className="inline-flex items-center gap-2.5 p-1">
             <span className="inline-flex h-7 w-7 items-center justify-center rounded-[6px] border border-border-strong font-mono text-xs font-medium tracking-[-0.02em]">
               RG
             </span>
@@ -164,7 +164,7 @@ export function Header() {
         inert={!drawerOpen ? true : undefined}
       >
         <div className="mb-8 flex items-center justify-between">
-          <Link href="/" className="inline-flex items-center gap-2.5" aria-label="Home" onClick={() => setDrawerOpen(false)}>
+          <Link href="/" className="inline-flex items-center gap-2.5" onClick={() => setDrawerOpen(false)}>
             <span className="inline-flex h-7 w-7 items-center justify-center rounded-[6px] border border-border-strong font-mono text-xs font-medium">RG</span>
             <span className="font-mono text-[13px] text-muted-foreground">ralphgabriel<span className="text-foreground">.dev</span></span>
           </Link>

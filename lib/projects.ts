@@ -48,7 +48,7 @@ export const projects: Project[] = [
       en: "Coach ↔ athlete mobile app co-founded with Alexandre (design). 169+ issues structured across 13 sprints, competitive audit of 8+ apps, Loi 25 + PIPEDA + GDPR-ready compliance. Beachhead: francophone gym coaches in Quebec."
     },
     metrics: { fr: ["169+ issues GitHub", "13 sprints planifiés", "74/74 features couvertes"], en: ["169+ GitHub issues", "13 sprints planned", "74/74 features covered"] },
-    media: { enabled: true, type: "image", src: "/media/cadence.gif" }
+    media: { enabled: true, type: "video", src: "/media/cadence.mp4" }
   },
   {
     id: "vibe",
@@ -82,7 +82,7 @@ export const projects: Project[] = [
       fr: ["20+ écrans · 25+ composants", "Tâches en 5 vues · palette ⌘K", "200+ clés i18n FR/EN", "WCAG AA conforme"],
       en: ["20+ screens · 25+ components", "Tasks across 5 views · ⌘K palette", "200+ i18n keys FR/EN", "WCAG AA compliant"]
     },
-    media: { enabled: true, type: "image", src: "/media/dpm-elevate.gif" }
+    media: { enabled: true, type: "video", src: "/media/dpm-elevate.mp4" }
   },
   {
     id: "wise-wealthy",
@@ -99,7 +99,7 @@ export const projects: Project[] = [
       fr: ["Suite : adulte · finances · Kids · Famille", "20+ écrans · assistant IA « Wiz »", "Freemium · premium 9,99–19,99 $/mois", "Bilingue FR/EN · clair/sombre"],
       en: ["Suite: adult · finances · Kids · Family", "20+ screens · \"Wiz\" AI assistant", "Freemium · premium $9.99–19.99/mo", "Bilingual FR/EN · light/dark"]
     },
-    media: { enabled: true, type: "image", src: "/media/wise-wealthy.gif" }
+    media: { enabled: true, type: "video", src: "/media/wise-wealthy.mp4" }
   },
   {
     id: "kim-dubois",
@@ -182,7 +182,7 @@ export const projects: Project[] = [
       fr: ["5 250+ LOC", "133 tests · 100% couverture", "85 commits · 6 devs", "28 commits (top contributeur)"],
       en: ["5,250+ LOC", "133 tests · 100% coverage", "85 commits · 6 devs", "28 commits (top contributor)"]
     },
-    media: { enabled: true, type: "image", src: "/media/financej.gif" }
+    media: { enabled: true, type: "video", src: "/media/financej.mp4" }
   }
 ]
 
@@ -274,11 +274,11 @@ export const projectGalleries: Record<string, { src: string; caption: { fr: stri
   ],
   "wise-wealthy": [
     {
-      src: "/media/wise-wealthy-kids.gif",
+      src: "/media/wise-wealthy-kids.mp4",
       caption: { fr: "Wise & Wealthy Kids — app ludique pour enfants", en: "Wise & Wealthy Kids — playful app for children" },
     },
     {
-      src: "/media/wise-wealthy-famille.gif",
+      src: "/media/wise-wealthy-famille.mp4",
       caption: { fr: "Espace Famille — verrou parent (Face ID / code PIN)", en: "Family Space — parent lock (Face ID / PIN code)" },
     },
   ],

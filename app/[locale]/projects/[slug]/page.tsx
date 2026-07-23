@@ -102,6 +102,7 @@ function ProjectDetailContent({ slug }: { slug: string }) {
       <Reveal delay={60}>
         <div className="mb-12">
           <SectionHeading
+            as="h1"
             kicker={hasCaseStudy ? tSec("caseStudy") : tSec("overview")}
             title={project.name}
           />
@@ -148,6 +149,7 @@ function ProjectDetailContent({ slug }: { slug: string }) {
                   loop
                   muted
                   playsInline
+                  preload="metadata"
                   className="w-full"
                 >
                   <source src={project.media.src} type="video/mp4" />
@@ -158,6 +160,8 @@ function ProjectDetailContent({ slug }: { slug: string }) {
                   alt={project.name}
                   width={1100}
                   height={620}
+                  priority
+                  sizes="(max-width: 1100px) 100vw, 1100px"
                   className="w-full"
                   unoptimized={project.media.src.endsWith(".gif")}
                 />
@@ -214,13 +218,27 @@ function ProjectDetailContent({ slug }: { slug: string }) {
                   key={item.src}
                   className="overflow-hidden rounded-lg border border-border-color"
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={item.src}
-                    alt={item.caption[locale]}
-                    loading="lazy"
-                    className="w-full"
-                  />
+                  {item.src.endsWith(".mp4") ? (
+                    <video
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      preload="metadata"
+                      aria-label={item.caption[locale]}
+                      className="w-full"
+                    >
+                      <source src={item.src} type="video/mp4" />
+                    </video>
+                  ) : (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img
+                      src={item.src}
+                      alt={item.caption[locale]}
+                      loading="lazy"
+                      className="w-full"
+                    />
+                  )}
                   <figcaption className="px-4 py-3 text-sm text-muted-foreground">
                     {item.caption[locale]}
                   </figcaption>

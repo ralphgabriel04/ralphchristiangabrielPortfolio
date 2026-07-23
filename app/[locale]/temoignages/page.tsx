@@ -60,7 +60,7 @@ function TestimonialsContent() {
               {t("headingPre")}
               <span
                 className="italic"
-                style={{ fontFamily: "'Instrument Serif', 'Georgia', serif", fontWeight: 400 }}
+                style={{ fontFamily: "var(--font-instrument-serif), 'Georgia', serif", fontWeight: 400 }}
               >
                 {t("headingItalic")}
               </span>

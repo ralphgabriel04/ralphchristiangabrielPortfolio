@@ -47,7 +47,7 @@ function ContactContent({ locale }: { locale: string }) {
   return (
     <section className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] py-20">
       <Reveal>
-        <SectionHeading kicker={tSec("contact")} title={t("title")} />
+        <SectionHeading as="h1" kicker={tSec("contact")} title={t("title")} />
         <p className="mt-2 mb-4 max-w-[55ch] text-sm text-muted-foreground">
           {t("lede")}
         </p>

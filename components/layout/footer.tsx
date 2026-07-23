@@ -13,7 +13,7 @@ export function Footer() {
         <div className="grid gap-8 sm:grid-cols-3">
           {/* Branding */}
           <div className="flex flex-col gap-3">
-            <Link href="/" className="inline-flex items-center gap-2.5" aria-label="Home">
+            <Link href="/" className="inline-flex items-center gap-2.5">
               <span className="inline-flex h-7 w-7 items-center justify-center rounded-[6px] border border-border-strong font-mono text-xs font-medium text-foreground">RG</span>
               <span className="font-mono text-[13px] text-muted-foreground">ralphgabriel<span className="text-foreground">.dev</span></span>
             </Link>
@@ -22,7 +22,7 @@ export function Footer() {
 
           {/* Navigation */}
           <nav aria-label="Footer" className="flex flex-col gap-2">
-            <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground/60 mb-1">Navigation</span>
+            <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-1">Navigation</span>
             <Link href="/projects" className="text-muted-foreground hover:text-foreground transition-colors">
               {locale === "fr" ? "Projets" : "Projects"}
             </Link>
@@ -42,7 +42,7 @@ export function Footer() {
 
           {/* Links */}
           <nav aria-label={locale === "fr" ? "Liens externes" : "External links"} className="flex flex-col gap-2">
-            <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground/60 mb-1">{locale === "fr" ? "Liens" : "Links"}</span>
+            <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-1">{locale === "fr" ? "Liens" : "Links"}</span>
             <a href="https://github.com/ralphgabriel04" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors" target="_blank" rel="noreferrer">
               <GitHubIcon size={14} /> GitHub
             </a>
@@ -61,7 +61,7 @@ export function Footer() {
         <hr className="h-px border-0 bg-border-color mt-8 mb-4" />
         <div className="flex flex-wrap items-center justify-between gap-2">
           <span className="font-mono text-xs">&copy; 2026 Ralph Christian Gabriel</span>
-          <span className="font-mono text-xs text-muted-foreground/60">
+          <span className="font-mono text-xs text-muted-foreground">
             Built with Next.js ·{" "}
             <a
               href="https://github.com/ralphgabriel04/ralphchristiangabrielPortfolio"

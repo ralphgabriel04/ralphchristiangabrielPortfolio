@@ -132,6 +132,21 @@ export const testimonials: Testimonial[] = [
     projectLink: "wise-wealthy",
     createdAt: "2026-07-06",
   },
+  {
+    id: "loutfi",
+    quote: {
+      fr: "Christian a été un pilier dans les deux projets académiques sur lesquels nous avons collaboré. Techniquement, il est très solide : que ce soit pour déployer une application avec Docker, résoudre des problèmes de configuration complexes, ou concevoir une architecture logicielle cohérente et bien pensée, il a toujours une longueur d'avance. Il a aussi naturellement pris le rôle de leader, organisant l'équipe avec un plan clair et des échéances précises, tout en gardant tout le monde sur la bonne voie. Ce qui m'a le plus marqué, c'est sa disponibilité : peu importe l'heure, il était toujours prêt à dépanner un bug ou un problème de déploiement, avec une aisance qui fait clairement de lui l'un des développeurs les plus compétents avec qui j'ai travaillé. Je recommande sans la moindre hésitation de collaborer avec lui.",
+      en: "Christian was a pillar on both academic projects we worked on together. Technically, he is rock-solid: whether deploying an application with Docker, resolving complex configuration problems, or designing a coherent, well-thought-out software architecture, he is always a step ahead. He also naturally took on the leader role, organizing the team with a clear plan and precise deadlines while keeping everyone on track. What struck me most was his availability: no matter the hour, he was always ready to troubleshoot a bug or a deployment issue, with an ease that clearly makes him one of the most competent developers I've worked with. I recommend collaborating with him without the slightest hesitation.",
+    },
+    name: "Loutfi Mohamed",
+    role: { fr: "Coéquipier · ÉTS · 2026", en: "Teammate · ÉTS · 2026" },
+    company: "ÉTS",
+    avatar: "/images/testimonial-loutfi.png",
+    category: "colleague",
+    featured: true,
+    projectLink: "financej",
+    createdAt: "2026-07-22",
+  },
 ]
 
 export const categoryLabels = {

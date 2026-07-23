@@ -1,4 +1,5 @@
 import type { ProjectMedia } from "@/lib/projects";
+import { LazyVideo } from "@/components/ui/lazy-video";
 
 function GanttPlaceholder() {
   return (
@@ -179,17 +180,10 @@ export function ProjectPlaceholder({
 }) {
   if (type === "video" && src) {
     return (
-      <div className="relative rounded-md border border-border-color overflow-hidden aspect-[4/3] md:aspect-auto bg-muted-2">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover"
-        >
-          <source src={src} type="video/mp4" />
-        </video>
-      </div>
+      <LazyVideo
+        src={src}
+        className="relative rounded-md border border-border-color overflow-hidden aspect-[4/3] md:aspect-auto bg-muted-2"
+      />
     );
   }
 
@@ -200,6 +194,8 @@ export function ProjectPlaceholder({
         <img
           src={src}
           alt={label}
+          loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover"
         />
       </div>

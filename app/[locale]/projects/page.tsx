@@ -45,7 +45,7 @@ function ProjectsContent() {
   return (
     <section className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] py-20">
       <Reveal>
-        <SectionHeading kicker={tSec("selected")} title={t("heading")} />
+        <SectionHeading as="h1" kicker={tSec("selected")} title={t("heading")} />
         <p className="mt-2 mb-12 max-w-[60ch] text-sm text-muted-foreground">
           {t("description")}
         </p>

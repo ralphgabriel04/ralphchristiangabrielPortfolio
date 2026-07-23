@@ -49,7 +49,7 @@ function AboutContent() {
     <>
       <section className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] py-20">
         <Reveal>
-          <SectionHeading kicker={tSec("about")} title={t("heading")} />
+          <SectionHeading as="h1" kicker={tSec("about")} title={t("heading")} />
         </Reveal>
 
         <div className="mt-12 grid gap-12 md:grid-cols-[280px_1fr] lg:grid-cols-[320px_1fr]">

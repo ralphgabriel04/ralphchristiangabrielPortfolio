@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/lib/site";
 
-const BASE_URL = "https://ralphgabriel.dev";
+const BASE_URL = SITE_URL;
 
 const projects = [
   "the-mad-space",
@@ -16,7 +17,7 @@ const projects = [
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const locales = ["fr", "en"];
-  const pages = ["", "/about", "/experience", "/contact", "/projects"];
+  const pages = ["", "/about", "/experience", "/contact", "/projects", "/temoignages"];
 
   const entries: MetadataRoute.Sitemap = [];
 

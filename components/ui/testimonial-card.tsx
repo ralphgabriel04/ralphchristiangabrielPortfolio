@@ -51,7 +51,7 @@ export function TestimonialCard({
       <span
         aria-hidden="true"
         className="text-[40px] leading-none text-accent/25 select-none"
-        style={{ fontFamily: "'Instrument Serif', 'Georgia', serif" }}
+        style={{ fontFamily: "var(--font-instrument-serif), 'Georgia', serif" }}
       >
         &ldquo;
       </span>

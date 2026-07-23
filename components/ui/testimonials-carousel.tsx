@@ -91,6 +91,7 @@ export function TestimonialsCarousel({
                 : "absolute inset-0 opacity-0 pointer-events-none translate-x-4"
             }`}
             aria-hidden={i !== page}
+            inert={i !== page ? true : undefined}
           >
             <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
               {group.map((t) => (

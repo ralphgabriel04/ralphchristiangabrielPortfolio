@@ -49,7 +49,7 @@ function ExperienceContent() {
   return (
     <section className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] py-20">
       <Reveal>
-        <SectionHeading kicker={tSec("experience")} title={t("heading")} />
+        <SectionHeading as="h1" kicker={tSec("experience")} title={t("heading")} />
       </Reveal>
 
       {/* Professional Experience */}

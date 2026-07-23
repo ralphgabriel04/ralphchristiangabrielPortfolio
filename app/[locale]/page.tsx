@@ -255,7 +255,7 @@ function TestimonialsSection() {
               {tHome("testimonialsHeadingPre")}
               <span
                 className="italic"
-                style={{ fontFamily: "'Instrument Serif', 'Georgia', serif", fontWeight: 400 }}
+                style={{ fontFamily: "var(--font-instrument-serif), 'Georgia', serif", fontWeight: 400 }}
               >
                 {tHome("testimonialsHeadingItalic")}
               </span>
