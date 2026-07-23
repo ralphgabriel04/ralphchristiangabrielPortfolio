@@ -182,6 +182,7 @@ export function ProjectPlaceholder({
     return (
       <LazyVideo
         src={src}
+        poster={src.replace(/\.mp4$/, "-poster.jpg")}
         className="relative rounded-md border border-border-color overflow-hidden aspect-[4/3] md:aspect-auto bg-muted-2"
       />
     );

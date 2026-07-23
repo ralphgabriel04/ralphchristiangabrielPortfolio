@@ -186,6 +186,24 @@ export const projects: Project[] = [
   }
 ]
 
+/** Editorial delivery-stage tone per project — drives the status-dot colour
+ *  (shipped = green, active = amber, planned = blue). Explicit map, not keyword
+ *  matching, so each project's stage is intentional. */
+export type ProjectTone = "shipped" | "active" | "planned"
+export const projectTones: Record<string, ProjectTone> = {
+  "the-mad-space": "shipped",
+  "cadence": "active",
+  "vibe": "active",
+  "dpm-elevate": "active",
+  "wise-wealthy": "planned",
+  "kim-dubois": "active",
+  "boa-traiteur": "active",
+  "crcc": "shipped",
+  "financej": "planned",
+}
+export const toneColor = (id: string): string =>
+  `var(--${projectTones[id] ?? "active"})`
+
 export const caseStudyIds = new Set([
   "the-mad-space",
   "cadence",

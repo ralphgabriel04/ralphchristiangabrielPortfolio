@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     },
   };
 }
-import { projects, caseStudyIds } from "@/lib/projects";
+import { projects, caseStudyIds, toneColor } from "@/lib/projects";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
 import { Badge } from "@/components/ui/badge";
 import { PulseDot } from "@/components/ui/pulse-dot";
@@ -83,7 +83,7 @@ function ProjectsContent() {
                           {project.year}
                         </span>
                         <Badge>
-                          <PulseDot />
+                          <PulseDot color={toneColor(project.id)} />
                           {project.status[locale]}
                         </Badge>
                       </div>

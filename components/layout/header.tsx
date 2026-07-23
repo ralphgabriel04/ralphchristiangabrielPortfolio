@@ -8,6 +8,7 @@ import { Sun, Moon, Menu, X, Calendar } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { PulseDot } from "@/components/ui/pulse-dot";
 import { Button } from "@/components/ui/button";
+import { SummaryDrawer } from "@/components/ui/summary-drawer";
 import { trackEvent } from "@/lib/analytics";
 
 export function Header() {
@@ -55,16 +56,23 @@ export function Header() {
         {tA("skipToContent")}
       </a>
     <header
-      className={`sticky top-0 z-50 w-full transition-[border-color,background-color] duration-200 ${
+      className={`sticky top-0 z-50 w-full transition-[border-color] duration-200 ${
         scrolled ? "border-b border-border-color" : "border-b border-transparent"
       }`}
-      style={{
-        background: "color-mix(in srgb, var(--background) 78%, transparent)",
-        backdropFilter: "saturate(180%) blur(12px)",
-        WebkitBackdropFilter: "saturate(180%) blur(12px)",
-      }}
     >
-      <div className="mx-auto flex h-16 max-w-[var(--max-hero)] items-center justify-between gap-4 px-[var(--page-pad)]">
+      {/* Blurred backdrop kept OFF <header> itself: an element with
+          backdrop-filter becomes a containing block for position:fixed
+          descendants, which would trap the mobile drawer inside the 64px bar. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background: "color-mix(in srgb, var(--background) 78%, transparent)",
+          backdropFilter: "saturate(180%) blur(12px)",
+          WebkitBackdropFilter: "saturate(180%) blur(12px)",
+        }}
+      />
+      <div className="relative mx-auto flex h-16 max-w-[var(--max-hero)] items-center justify-between gap-4 px-[var(--page-pad)]">
         {/* Left: Logo + Desktop Nav */}
         <div className="flex items-center gap-6">
           <Link href="/" className="inline-flex items-center gap-2.5 p-1">
@@ -75,7 +83,7 @@ export function Header() {
               ralphgabriel<span className="text-foreground">.dev</span>
             </span>
           </Link>
-          <nav className="hidden items-center gap-6 md:flex" aria-label={tA("primaryNav")}>
+          <nav className="hidden items-center gap-6 lg:flex" aria-label={tA("primaryNav")}>
             {links.map((l) => (
               <Link
                 key={l.href}
@@ -92,33 +100,55 @@ export function Header() {
           </nav>
         </div>
 
-        {/* Right: Badge + Lang + Theme + Cal + Mobile menu */}
+        {/* Right: desktop cluster (collapses as one on mobile) + Theme + Mobile menu */}
         <div className="flex items-center gap-3">
-          <Badge className="hidden md:inline-flex">
-            <PulseDot />
-            <span>{t("available")}</span>
-          </Badge>
+          {/* Single hidden→lg:flex wrapper guarantees the whole cluster collapses
+              below lg (tablets use the hamburger), regardless of each child's
+              own display utility. */}
+          <div className="hidden items-center gap-3 lg:flex">
+            <SummaryDrawer />
 
-          <div className="hidden items-center gap-0 md:flex" role="group" aria-label={tA("language")}>
-            <button
-              onClick={switchLocale}
-              className="cursor-pointer border-0 bg-transparent px-1.5 py-1 font-mono text-xs"
-              style={{ color: locale === "fr" ? "var(--foreground)" : "var(--muted-foreground)", fontWeight: locale === "fr" ? 600 : 400 }}
-              aria-label="Passer en français"
-              aria-current={locale === "fr" ? "true" : undefined}
+            {/* Availability badge only from xl — keeps the lg cluster within the
+                content width once --page-pad grows to 96px. (Wrapped so the
+                display utility wins over Badge's base inline-flex.) */}
+            <span className="hidden xl:inline-flex">
+              <Badge>
+                <PulseDot />
+                <span>{t("available")}</span>
+              </Badge>
+            </span>
+
+            <div className="flex items-center gap-0" role="group" aria-label={tA("language")}>
+              <button
+                onClick={switchLocale}
+                className="cursor-pointer border-0 bg-transparent px-1.5 py-1 font-mono text-xs"
+                style={{ color: locale === "fr" ? "var(--foreground)" : "var(--muted-foreground)", fontWeight: locale === "fr" ? 600 : 400 }}
+                aria-label="Passer en français"
+                aria-current={locale === "fr" ? "true" : undefined}
+              >
+                FR
+              </button>
+              <span className="text-[11px] text-muted-foreground" aria-hidden="true">/</span>
+              <button
+                onClick={switchLocale}
+                className="cursor-pointer border-0 bg-transparent px-1.5 py-1 font-mono text-xs"
+                style={{ color: locale === "en" ? "var(--foreground)" : "var(--muted-foreground)", fontWeight: locale === "en" ? 600 : 400 }}
+                aria-label="Switch to English"
+                aria-current={locale === "en" ? "true" : undefined}
+              >
+                EN
+              </button>
+            </div>
+
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => { trackEvent("book_call_click"); window.open("https://cal.com/ralphchristiangabriel/15min", "_blank"); }}
+              aria-label={t("book")}
             >
-              FR
-            </button>
-            <span className="text-[11px] text-muted-foreground" aria-hidden="true">/</span>
-            <button
-              onClick={switchLocale}
-              className="cursor-pointer border-0 bg-transparent px-1.5 py-1 font-mono text-xs"
-              style={{ color: locale === "en" ? "var(--foreground)" : "var(--muted-foreground)", fontWeight: locale === "en" ? 600 : 400 }}
-              aria-label="Switch to English"
-              aria-current={locale === "en" ? "true" : undefined}
-            >
-              EN
-            </button>
+              <Calendar size={16} />
+              <span className="hidden xl:inline">{t("book")}</span>
+            </Button>
           </div>
 
           {mounted && (
@@ -133,20 +163,9 @@ export function Header() {
           )}
 
           <Button
-            variant="secondary"
-            size="sm"
-            className="hidden md:inline-flex"
-            onClick={() => { trackEvent("book_call_click"); window.open("https://cal.com/ralphchristiangabriel/15min", "_blank"); }}
-            aria-label={t("book")}
-          >
-            <Calendar size={16} />
-            <span className="hidden lg:inline">{t("book")}</span>
-          </Button>
-
-          <Button
             variant="ghost"
             size="icon"
-            className="md:hidden"
+            className="lg:hidden"
             aria-label={tA("openMenu")}
             aria-expanded={drawerOpen}
             onClick={() => setDrawerOpen(true)}
@@ -188,6 +207,7 @@ export function Header() {
           ))}
         </div>
         <div className="mt-8 flex flex-col gap-3">
+          <SummaryDrawer className="self-start" />
           <Badge>
             <PulseDot />
             <span>{t("available")}</span>

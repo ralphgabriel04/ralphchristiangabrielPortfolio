@@ -3,7 +3,7 @@ import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { ArrowRight, Download, Mail } from "lucide-react";
 import { projects } from "@/lib/projects";
-import { caseStudyIds } from "@/lib/projects";
+import { caseStudyIds, toneColor } from "@/lib/projects";
 import { Button } from "@/components/ui/button";
 import { Tag } from "@/components/ui/tag";
 import { Card } from "@/components/ui/card";
@@ -162,7 +162,7 @@ function HomeContent() {
                             {project.year}
                           </span>
                           <Badge>
-                            <PulseDot />
+                            <PulseDot color={toneColor(project.id)} />
                             {project.status[locale]}
                           </Badge>
                         </div>

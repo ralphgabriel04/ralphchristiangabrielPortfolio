@@ -22,7 +22,7 @@ export default async function OGImage({
           justifyContent: "center",
           width: "100%",
           height: "100%",
-          backgroundColor: "#0a0a0a",
+          backgroundColor: "#141309",
           padding: "80px",
           fontFamily: "system-ui, sans-serif",
         }}
@@ -94,7 +94,7 @@ export default async function OGImage({
             { num: "2,000+", label: isFr ? "tickets résolus" : "tickets resolved" },
           ].map((m) => (
             <div key={m.label} style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-              <span style={{ fontSize: "36px", fontWeight: 600, color: "#5b9bd5" }}>
+              <span style={{ fontSize: "36px", fontWeight: 600, color: "#ff6a45" }}>
                 {m.num}
               </span>
               <span style={{ fontSize: "16px", color: "#737373" }}>{m.label}</span>

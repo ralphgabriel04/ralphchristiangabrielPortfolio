@@ -5,7 +5,7 @@ import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight, ExternalLink, ImageIcon } from "lucide-react";
-import { projects, projectRoles, projectLinks, projectGalleries } from "@/lib/projects";
+import { projects, projectRoles, projectLinks, projectGalleries, toneColor } from "@/lib/projects";
 import { caseStudies } from "@/lib/case-studies";
 import { Tag } from "@/components/ui/tag";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
@@ -109,7 +109,7 @@ function ProjectDetailContent({ slug }: { slug: string }) {
 
           <div className="mt-6 flex flex-wrap items-center gap-4">
             <Badge>
-              <PulseDot />
+              <PulseDot color={toneColor(project.id)} />
               {project.status[locale]}
             </Badge>
             <span className="font-mono text-xs text-muted-foreground">
@@ -150,6 +150,7 @@ function ProjectDetailContent({ slug }: { slug: string }) {
                   muted
                   playsInline
                   preload="metadata"
+                  poster={project.media.src.replace(/\.mp4$/, "-poster.jpg")}
                   className="w-full"
                 >
                   <source src={project.media.src} type="video/mp4" />
@@ -225,6 +226,7 @@ function ProjectDetailContent({ slug }: { slug: string }) {
                       muted
                       playsInline
                       preload="metadata"
+                      poster={item.src.replace(/\.mp4$/, "-poster.jpg")}
                       aria-label={item.caption[locale]}
                       className="w-full"
                     >

@@ -21,6 +21,24 @@
     "carouselNext": "Next",
     "carouselPage": "Page {n}"
   },
+  "summary": {
+    "trigger": "30-sec summary",
+    "title": "Ralph in 30 seconds",
+    "roleLabel": "Target role",
+    "role": "Full-Stack Developer — Junior / Intermediate",
+    "specLabel": "Specialization",
+    "spec": "Bilingual FR/EN Full-Stack · React / Next.js · TypeScript · Java / Spring · PostgreSQL",
+    "proofsLabel": "Proof",
+    "proof1": "The Mad Space — production e-commerce marketplace",
+    "proof2": "Cadence — co-founded mobile app (Tech Lead)",
+    "proof3": "2,000+ tickets resolved · 94% satisfaction (Vidéotron)",
+    "availabilityLabel": "Availability",
+    "availability": "Available · Greater Montréal (remote OK)",
+    "cv": "CV (PDF)",
+    "email": "Email",
+    "book": "Book a call",
+    "close": "Close"
+  },
   "hero": {
     "kicker": "Ralph Christian Gabriel",
     "title": ["Full-Stack Developer", "ÉTS · Software Engineering", "Montréal"],
