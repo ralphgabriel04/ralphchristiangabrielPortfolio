@@ -12,6 +12,7 @@ import { trackEvent } from "@/lib/analytics";
 
 export function Header() {
   const t = useTranslations("nav");
+  const tA = useTranslations("a11y");
   const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
@@ -51,7 +52,7 @@ export function Header() {
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[200] focus:rounded-md focus:bg-background focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-foreground focus:shadow-md focus:outline-2 focus:outline-ring"
       >
-        Skip to content
+        {tA("skipToContent")}
       </a>
     <header
       className={`sticky top-0 z-50 w-full transition-[border-color,background-color] duration-200 ${
@@ -74,7 +75,7 @@ export function Header() {
               ralphgabriel<span className="text-foreground">.dev</span>
             </span>
           </Link>
-          <nav className="hidden items-center gap-6 md:flex" aria-label="Primary">
+          <nav className="hidden items-center gap-6 md:flex" aria-label={tA("primaryNav")}>
             {links.map((l) => (
               <Link
                 key={l.href}
@@ -98,7 +99,7 @@ export function Header() {
             <span>{t("available")}</span>
           </Badge>
 
-          <div className="hidden items-center gap-0 md:flex" role="group" aria-label="Language">
+          <div className="hidden items-center gap-0 md:flex" role="group" aria-label={tA("language")}>
             <button
               onClick={switchLocale}
               className="cursor-pointer border-0 bg-transparent px-1.5 py-1 font-mono text-xs"
@@ -125,7 +126,7 @@ export function Header() {
               variant="ghost"
               size="icon"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+              aria-label={theme === "dark" ? tA("themeToLight") : tA("themeToDark")}
             >
               {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
             </Button>
@@ -146,7 +147,7 @@ export function Header() {
             variant="ghost"
             size="icon"
             className="md:hidden"
-            aria-label="Open menu"
+            aria-label={tA("openMenu")}
             aria-expanded={drawerOpen}
             onClick={() => setDrawerOpen(true)}
           >
@@ -168,7 +169,7 @@ export function Header() {
             <span className="inline-flex h-7 w-7 items-center justify-center rounded-[6px] border border-border-strong font-mono text-xs font-medium">RG</span>
             <span className="font-mono text-[13px] text-muted-foreground">ralphgabriel<span className="text-foreground">.dev</span></span>
           </Link>
-          <Button variant="ghost" size="icon" aria-label="Close menu" onClick={() => setDrawerOpen(false)}>
+          <Button variant="ghost" size="icon" aria-label={tA("closeMenu")} onClick={() => setDrawerOpen(false)}>
             <X size={20} />
           </Button>
         </div>

@@ -8,6 +8,19 @@
     "book": "Réserver un appel",
     "available": "Disponible"
   },
+  "a11y": {
+    "skipToContent": "Aller au contenu",
+    "primaryNav": "Navigation principale",
+    "footerNav": "Pied de page",
+    "language": "Langue",
+    "themeToLight": "Passer au thème clair",
+    "themeToDark": "Passer au thème sombre",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
+    "carouselPrevious": "Précédent",
+    "carouselNext": "Suivant",
+    "carouselPage": "Page {n}"
+  },
   "hero": {
     "kicker": "Ralph Christian Gabriel",
     "title": ["Développeur Full-Stack", "ÉTS · Génie Logiciel", "Montréal"],

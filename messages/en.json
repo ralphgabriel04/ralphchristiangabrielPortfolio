@@ -8,6 +8,19 @@
     "book": "Book a call",
     "available": "Available"
   },
+  "a11y": {
+    "skipToContent": "Skip to content",
+    "primaryNav": "Primary navigation",
+    "footerNav": "Footer",
+    "language": "Language",
+    "themeToLight": "Switch to light theme",
+    "themeToDark": "Switch to dark theme",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "carouselPrevious": "Previous",
+    "carouselNext": "Next",
+    "carouselPage": "Page {n}"
+  },
   "hero": {
     "kicker": "Ralph Christian Gabriel",
     "title": ["Full-Stack Developer", "ÉTS · Software Engineering", "Montréal"],

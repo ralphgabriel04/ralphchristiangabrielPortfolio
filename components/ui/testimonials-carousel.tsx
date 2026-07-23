@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useMemo } from "react";
+import { useTranslations } from "next-intl";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { type Testimonial } from "@/lib/testimonials";
 import { TestimonialCard } from "@/components/ui/testimonial-card";
@@ -33,6 +34,7 @@ export function TestimonialsCarousel({
   locale,
   autoPlayInterval = 5000,
 }: TestimonialsCarouselProps) {
+  const tA = useTranslations("a11y");
   const perPage = usePerPage();
   const [page, setPage] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -124,7 +126,7 @@ export function TestimonialsCarousel({
                     ? "w-6 bg-accent"
                     : "w-1.5 bg-border-strong hover:bg-muted-foreground"
                 }`}
-                aria-label={`Page ${i + 1}`}
+                aria-label={tA("carouselPage", { n: i + 1 })}
               />
             ))}
           </div>
@@ -133,14 +135,14 @@ export function TestimonialsCarousel({
             <button
               onClick={prev}
               className="h-9 w-9 rounded-full border border-border-color bg-background flex items-center justify-center transition-all duration-200 hover:border-border-strong hover:bg-muted cursor-pointer active:scale-95"
-              aria-label="Previous"
+              aria-label={tA("carouselPrevious")}
             >
               <ChevronLeft className="h-4 w-4" />
             </button>
             <button
               onClick={next}
               className="h-9 w-9 rounded-full border border-border-color bg-background flex items-center justify-center transition-all duration-200 hover:border-border-strong hover:bg-muted cursor-pointer active:scale-95"
-              aria-label="Next"
+              aria-label={tA("carouselNext")}
             >
               <ChevronRight className="h-4 w-4" />
             </button>

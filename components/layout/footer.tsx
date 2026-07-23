@@ -6,6 +6,7 @@ import { GitHubIcon, LinkedInIcon } from "@/components/ui/icons";
 export function Footer() {
   const locale = useLocale();
   const t = useTranslations("footer");
+  const tA = useTranslations("a11y");
 
   return (
     <footer className="border-t border-border-color px-[var(--page-pad)] py-12 text-[13px] text-muted-foreground">
@@ -21,7 +22,7 @@ export function Footer() {
           </div>
 
           {/* Navigation */}
-          <nav aria-label="Footer" className="flex flex-col gap-2">
+          <nav aria-label={tA("footerNav")} className="flex flex-col gap-2">
             <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-1">Navigation</span>
             <Link href="/projects" className="text-muted-foreground hover:text-foreground transition-colors">
               {locale === "fr" ? "Projets" : "Projects"}
