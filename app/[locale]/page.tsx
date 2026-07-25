@@ -9,6 +9,9 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
 import { ProjectRow } from "@/components/ui/project-row";
 import { TrackedLink } from "@/components/ui/tracked-link";
+import { HeroRole } from "@/components/ui/hero-role";
+import { TerminalTrigger } from "@/components/ui/terminal-trigger";
+import Image from "next/image";
 import { TestimonialsCarousel } from "@/components/ui/testimonials-carousel";
 import { testimonials } from "@/lib/testimonials";
 
@@ -47,58 +50,91 @@ function HomeContent() {
       {/* ── Hero ── */}
       <section className="mx-auto max-w-[var(--max-hero)] px-[var(--page-pad)] pt-16 pb-20">
         <Reveal>
-          <div className="flex max-w-[980px] flex-col gap-8">
-            <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
-              {t("kicker")}
-            </span>
-
-            <h1 className="text-4xl font-medium leading-[1.05] tracking-[-0.03em] md:text-5xl lg:text-6xl">
-              <span className="block">{t("title.0")}</span>
-              <span className="block text-muted-foreground">
-                {t("title.1")}{" "}
-                <span className="text-border-strong">·</span> {t("title.2")}
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-center lg:gap-16">
+            <div className="flex max-w-[980px] flex-col gap-7">
+              <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
+                {t("kicker")}
               </span>
-            </h1>
 
-            <p className="max-w-[55ch] text-lg text-muted-foreground">
-              {t("pitch")}
-            </p>
+              <h1 className="text-4xl font-medium leading-[1.05] tracking-[-0.03em] md:text-5xl lg:text-6xl">
+                <span className="block">{t("title.0")}</span>
+                <span className="block text-muted-foreground">
+                  {t("title.1")}{" "}
+                  <span className="text-border-strong">·</span> {t("title.2")}
+                </span>
+              </h1>
 
-            {/* Metrics */}
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-              {metrics.map((m, i) => (
-                <div key={i} className="flex flex-col gap-1">
-                  <span className="text-2xl font-semibold tracking-[-0.02em] text-accent md:text-3xl">
-                    {m.num}
-                  </span>
-                  <span className="text-sm text-muted-foreground">
-                    {m.label}
-                  </span>
-                </div>
-              ))}
+              <HeroRole />
+
+              <p className="max-w-[55ch] text-lg text-muted-foreground">
+                {t("pitch")}
+              </p>
+
+              {/* Metrics */}
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+                {metrics.map((m, i) => (
+                  <div key={i} className="flex flex-col gap-1">
+                    <span className="text-2xl font-semibold tracking-[-0.02em] text-accent md:text-3xl">
+                      {m.num}
+                    </span>
+                    <span className="text-sm text-muted-foreground">
+                      {m.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              {/* CTAs */}
+              <div className="flex flex-wrap items-center gap-3">
+                <Link href="/projects">
+                  <Button>
+                    {t("ctaPrimary")} <ArrowRight size={16} />
+                  </Button>
+                </Link>
+                <TrackedLink
+                  href={
+                    locale === "fr"
+                      ? "/cv/ralph-gabriel-cv-fr.pdf"
+                      : "/cv/ralph-gabriel-cv-en.pdf"
+                  }
+                  target="_blank"
+                  rel="noreferrer"
+                  event={`cv_download_${locale}`}
+                >
+                  <Button variant="secondary">
+                    <Download size={16} /> {t("ctaSecondary")}
+                  </Button>
+                </TrackedLink>
+                <TerminalTrigger
+                  ariaLabel={locale === "fr" ? "Ouvrir le terminal" : "Open the terminal"}
+                  className="inline-flex items-center gap-1.5 font-mono text-xs text-muted-foreground transition-colors hover:text-accent"
+                >
+                  <span style={{ color: "var(--accent)" }}>&gt;_</span> terminal{" "}
+                  <span className="opacity-60">⌘K</span>
+                </TerminalTrigger>
+              </div>
             </div>
 
-            {/* CTAs */}
-            <div className="flex flex-wrap items-center gap-3">
-              <Link href="/projects">
-                <Button>
-                  {t("ctaPrimary")} <ArrowRight size={16} />
-                </Button>
-              </Link>
-              <TrackedLink
-                href={
-                  locale === "fr"
-                    ? "/cv/ralph-gabriel-cv-fr.pdf"
-                    : "/cv/ralph-gabriel-cv-en.pdf"
-                }
-                target="_blank"
-                rel="noreferrer"
-                event={`cv_download_${locale}`}
-              >
-                <Button variant="secondary">
-                  <Download size={16} /> {t("ctaSecondary")}
-                </Button>
-              </TrackedLink>
+            {/* Portrait — terminal-framed */}
+            <div className="hidden lg:block">
+              <figure className="relative overflow-hidden rounded-2xl border border-border-color bg-muted shadow-md">
+                <Image
+                  src="/images/ralph-gabriel.png"
+                  alt="Ralph Christian Gabriel"
+                  width={600}
+                  height={580}
+                  priority
+                  sizes="300px"
+                  className="w-full object-cover"
+                />
+                <figcaption className="absolute inset-x-0 bottom-0 flex items-center gap-2 bg-gradient-to-t from-background/90 to-transparent px-3 py-2.5 font-mono text-[11px] text-foreground">
+                  <span
+                    className="h-1.5 w-1.5 rounded-full"
+                    style={{ background: "var(--shipped)" }}
+                  />
+                  RG.SYS · Montréal
+                </figcaption>
+              </figure>
             </div>
           </div>
         </Reveal>

@@ -19,7 +19,8 @@
     "closeMenu": "Fermer le menu",
     "carouselPrevious": "Précédent",
     "carouselNext": "Suivant",
-    "carouselPage": "Page {n}"
+    "carouselPage": "Page {n}",
+    "terminal": "Ouvrir le terminal (⌘K)"
   },
   "summary": {
     "trigger": "Résumé 30 s",

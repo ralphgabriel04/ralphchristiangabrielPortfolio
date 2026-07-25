@@ -58,21 +58,21 @@
 }
 
 .dark {
-  /* Editorial warm-paper / rust ink (dark) */
-  --background: #141309; /* paper */
-  --foreground: #efebdd; /* ink */
-  --muted: #1c1b12; /* surface */
-  --muted-2: #26241a; /* surface-2 */
-  --muted-foreground: #b9b39f; /* ink-2 — 9:1 on dark paper */
-  --border-color: rgba(239, 235, 221, 0.15);
-  --border-strong: rgba(239, 235, 221, 0.28);
-  --accent: #ff6a45; /* rust light — 6.4:1 as text on dark */
+  /* Warm-black terminal (dark) — RG.SYS palette */
+  --background: #0c0b09; /* near-black warm */
+  --foreground: #f1ebdf; /* terminal ink */
+  --muted: #161310; /* surface */
+  --muted-2: #201d17; /* surface-2 */
+  --muted-foreground: #b3aa98; /* ink-2 */
+  --border-color: rgba(236, 227, 211, 0.1);
+  --border-strong: rgba(236, 227, 211, 0.2);
+  --accent: #ff5a2e; /* ember — 6:1 as text on warm-black */
   --accent-foreground: #191811;
-  --ring: #ff6a45;
+  --ring: #ff5a2e;
 
-  --shipped: #4fc183;
-  --active: #e5a03a;
-  --planned: #8a97f2;
+  --shipped: #4fd588;
+  --active: #e5ae4e;
+  --planned: #85b6e8;
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow-md: 0 1px 2px rgba(0, 0, 0, 0.4), 0 18px 40px -20px rgba(0, 0, 0, 0.7);
@@ -143,6 +143,28 @@ body {
   100% {
     transform: scale(1.6);
     opacity: 0;
+  }
+}
+
+/* Terminal caret blink */
+@keyframes caret {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  50.01%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Terminal drawer slide-up */
+@keyframes term-up {
+  from {
+    transform: translate(-50%, 100%);
+  }
+  to {
+    transform: translate(-50%, 0);
   }
 }
 

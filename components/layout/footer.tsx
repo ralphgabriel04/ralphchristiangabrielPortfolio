@@ -2,6 +2,7 @@ import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Mail, Calendar } from "lucide-react";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/icons";
+import { TerminalTrigger } from "@/components/ui/terminal-trigger";
 
 export function Footer() {
   const locale = useLocale();
@@ -62,6 +63,13 @@ export function Footer() {
         <hr className="h-px border-0 bg-border-color mt-8 mb-4" />
         <div className="flex flex-wrap items-center justify-between gap-2">
           <span className="font-mono text-xs">&copy; 2026 Ralph Christian Gabriel</span>
+          <TerminalTrigger
+            ariaLabel={locale === "fr" ? "Ouvrir le terminal" : "Open the terminal"}
+            className="inline-flex items-center gap-1.5 font-mono text-xs text-muted-foreground transition-colors hover:text-accent"
+          >
+            <span style={{ color: "var(--accent)" }}>&gt;_</span> terminal
+            <span className="opacity-60">⌘K</span>
+          </TerminalTrigger>
           <span className="font-mono text-xs text-muted-foreground">
             Built with Next.js ·{" "}
             <a

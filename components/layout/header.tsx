@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { PulseDot } from "@/components/ui/pulse-dot";
 import { Button } from "@/components/ui/button";
 import { SummaryDrawer } from "@/components/ui/summary-drawer";
+import { openTerminal } from "@/components/ui/terminal";
 import { trackEvent } from "@/lib/analytics";
 
 export function Header() {
@@ -106,6 +107,17 @@ export function Header() {
               below lg (tablets use the hamburger), regardless of each child's
               own display utility. */}
           <div className="hidden items-center gap-3 lg:flex">
+            <button
+              type="button"
+              onClick={openTerminal}
+              aria-label={tA("terminal")}
+              title="⌘K"
+              className="inline-flex items-center gap-1.5 rounded-full border border-border-strong px-3 py-1.5 font-mono text-xs text-foreground transition-colors hover:border-accent hover:text-accent"
+            >
+              <span style={{ color: "var(--accent)" }}>&gt;_</span>
+              <span className="hidden xl:inline">terminal</span>
+            </button>
+
             <SummaryDrawer />
 
             {/* Availability badge only from xl — keeps the lg cluster within the
@@ -207,6 +219,14 @@ export function Header() {
           ))}
         </div>
         <div className="mt-8 flex flex-col gap-3">
+          <button
+            type="button"
+            onClick={() => { setDrawerOpen(false); openTerminal(); }}
+            aria-label={tA("terminal")}
+            className="inline-flex w-fit items-center gap-1.5 rounded-full border border-border-strong px-3 py-1.5 font-mono text-xs text-foreground transition-colors hover:border-accent hover:text-accent"
+          >
+            <span style={{ color: "var(--accent)" }}>&gt;_</span> terminal
+          </button>
           <SummaryDrawer className="self-start" />
           <Badge>
             <PulseDot />

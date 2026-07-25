@@ -21,6 +21,16 @@ export function SummaryDrawer({ className = "" }: { className?: string }) {
   const triggerRef = useRef<HTMLButtonElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
 
+  // Open when the terminal's `recruteur` command fires.
+  useEffect(() => {
+    const onOpen = () => {
+      triggerRef.current = document.activeElement as HTMLButtonElement;
+      setOpen(true);
+    };
+    window.addEventListener("rg:summary", onOpen);
+    return () => window.removeEventListener("rg:summary", onOpen);
+  }, []);
+
   useEffect(() => {
     if (!open) return;
     closeRef.current?.focus();
