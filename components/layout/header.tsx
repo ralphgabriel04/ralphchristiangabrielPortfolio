@@ -8,8 +8,8 @@ import { Sun, Moon, Menu, X, Calendar } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { PulseDot } from "@/components/ui/pulse-dot";
 import { Button } from "@/components/ui/button";
-import { SummaryDrawer } from "@/components/ui/summary-drawer";
 import { openTerminal } from "@/components/ui/terminal";
+import { PlainToggle } from "@/components/ui/plain-mode";
 import { trackEvent } from "@/lib/analytics";
 
 export function Header() {
@@ -57,7 +57,7 @@ export function Header() {
         {tA("skipToContent")}
       </a>
     <header
-      className={`sticky top-0 z-50 w-full transition-[border-color] duration-200 ${
+      className={`sticky top-0 z-50 w-full transition-[border-color] duration-200 print:hidden ${
         scrolled ? "border-b border-border-color" : "border-b border-transparent"
       }`}
     >
@@ -115,15 +115,23 @@ export function Header() {
               className="inline-flex items-center gap-1.5 rounded-full border border-border-strong px-3 py-1.5 font-mono text-xs text-foreground transition-colors hover:border-accent hover:text-accent"
             >
               <span style={{ color: "var(--accent)" }}>&gt;_</span>
-              <span className="hidden xl:inline">terminal</span>
+              <span className="hidden 2xl:inline">terminal</span>
             </button>
 
-            <SummaryDrawer />
+            <PlainToggle />
+
+            <Link
+              href="/recruteur"
+              data-mag
+              className="inline-flex items-center rounded-full bg-accent px-3.5 py-1.5 text-xs font-semibold text-[color:var(--accent-foreground)] transition-opacity hover:opacity-90"
+            >
+              {t("recruiter")}
+            </Link>
 
             {/* Availability badge only from xl — keeps the lg cluster within the
                 content width once --page-pad grows to 96px. (Wrapped so the
                 display utility wins over Badge's base inline-flex.) */}
-            <span className="hidden xl:inline-flex">
+            <span className="hidden 2xl:inline-flex">
               <Badge>
                 <PulseDot />
                 <span>{t("available")}</span>
@@ -159,7 +167,7 @@ export function Header() {
               aria-label={t("book")}
             >
               <Calendar size={16} />
-              <span className="hidden xl:inline">{t("book")}</span>
+              <span className="hidden 2xl:inline">{t("book")}</span>
             </Button>
           </div>
 
@@ -227,7 +235,14 @@ export function Header() {
           >
             <span style={{ color: "var(--accent)" }}>&gt;_</span> terminal
           </button>
-          <SummaryDrawer className="self-start" />
+          <PlainToggle className="self-start" />
+          <Link
+            href="/recruteur"
+            onClick={() => setDrawerOpen(false)}
+            className="inline-flex w-fit items-center rounded-full bg-accent px-3.5 py-2 text-sm font-semibold text-[color:var(--accent-foreground)]"
+          >
+            {t("recruiter")}
+          </Link>
           <Badge>
             <PulseDot />
             <span>{t("available")}</span>

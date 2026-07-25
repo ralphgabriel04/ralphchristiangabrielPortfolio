@@ -6,7 +6,29 @@
     "contact": "Contact",
     "testimonials": "Témoignages",
     "book": "Réserver un appel",
-    "available": "Disponible"
+    "available": "Disponible",
+    "recruiter": "Mode recruteur"
+  },
+  "recruteur": {
+    "metaTitle": "Vue recruteur",
+    "metaDesc": "Synthèse CV d'une page : preuves, systèmes livrés, parcours et contact. Imprimable.",
+    "back": "Retour à l'accueil",
+    "print": "Imprimer",
+    "role": "Développeur Full-Stack — Junior / Intermédiaire",
+    "tagline": "B. Ing. génie logiciel @ ÉTS · Grand Montréal · FR/EN",
+    "availability": "Disponible",
+    "proofs": [
+      { "value": "~15 000", "label": "LOC en production" },
+      { "value": "30+", "label": "endpoints API" },
+      { "value": "169+", "label": "issues planifiées · Cadence" },
+      { "value": "2 000+", "label": "tickets résolus · 94 % sat." }
+    ],
+    "systemsLabel": "Systèmes livrés & en cours",
+    "pathLabel": "Parcours",
+    "eduLabel": "Éducation",
+    "viewCase": "Étude de cas",
+    "demo": "Démo",
+    "cv": "CV PDF"
   },
   "a11y": {
     "skipToContent": "Aller au contenu",
@@ -20,7 +42,8 @@
     "carouselPrevious": "Précédent",
     "carouselNext": "Suivant",
     "carouselPage": "Page {n}",
-    "terminal": "Ouvrir le terminal (⌘K)"
+    "terminal": "Ouvrir le terminal (⌘K)",
+    "scrollTop": "Remonter en haut"
   },
   "summary": {
     "trigger": "Résumé 30 s",

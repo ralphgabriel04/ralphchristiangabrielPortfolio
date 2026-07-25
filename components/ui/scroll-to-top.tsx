@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { ArrowUp } from "lucide-react";
 
 export function ScrollToTop() {
+  const t = useTranslations("a11y");
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -16,8 +18,8 @@ export function ScrollToTop() {
   return (
     <button
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      aria-label="Scroll to top"
-      className={`fixed bottom-6 right-6 z-50 flex h-10 w-10 items-center justify-center rounded-full border border-border-color bg-background text-muted-foreground shadow-sm transition-all duration-200 hover:text-foreground hover:border-border-strong hover:shadow-md motion-reduce:transition-none ${
+      aria-label={t("scrollTop")}
+      className={`fixed bottom-6 right-6 z-50 flex h-10 w-10 items-center justify-center rounded-full border border-border-color bg-background text-muted-foreground shadow-sm transition-all duration-200 hover:text-foreground hover:border-border-strong hover:shadow-md motion-reduce:transition-none print:hidden ${
         visible
           ? "translate-y-0 opacity-100"
           : "translate-y-4 opacity-0 pointer-events-none"

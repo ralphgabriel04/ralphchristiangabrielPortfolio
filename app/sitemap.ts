@@ -17,7 +17,7 @@ const projects = [
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const locales = ["fr", "en"];
-  const pages = ["", "/about", "/experience", "/contact", "/projects", "/temoignages"];
+  const pages = ["", "/about", "/experience", "/contact", "/projects", "/temoignages", "/recruteur"];
 
   const entries: MetadataRoute.Sitemap = [];
 

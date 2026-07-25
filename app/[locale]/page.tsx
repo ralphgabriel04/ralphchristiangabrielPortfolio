@@ -2,15 +2,19 @@ import { useTranslations, useLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { ArrowRight, Download, Mail } from "lucide-react";
-import { projects } from "@/lib/projects";
 import { Button } from "@/components/ui/button";
-import { Tag } from "@/components/ui/tag";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
-import { ProjectRow } from "@/components/ui/project-row";
+import { SystemsSection } from "@/components/ui/systems-section";
 import { TrackedLink } from "@/components/ui/tracked-link";
 import { HeroRole } from "@/components/ui/hero-role";
 import { TerminalTrigger } from "@/components/ui/terminal-trigger";
+import { HeroCanvas } from "@/components/ui/hero-canvas";
+import { Marquee } from "@/components/ui/marquee";
+import { SectionRail } from "@/components/ui/section-rail";
+import { CountUp } from "@/components/ui/count-up";
+import { PlainBanner, Lexicon } from "@/components/ui/plain-mode";
+import { stackGroups, usedIn } from "@/lib/stack";
 import Image from "next/image";
 import { TestimonialsCarousel } from "@/components/ui/testimonials-carousel";
 import { testimonials } from "@/lib/testimonials";
@@ -32,13 +36,6 @@ function HomeContent() {
   const tHome = useTranslations("home");
   const locale = useLocale() as "fr" | "en";
 
-  const featured = projects.filter((p) => p.featured).slice(0, 3);
-  // If fewer than 3 featured, pad with non-featured
-  const selectedProjects =
-    featured.length >= 3
-      ? featured
-      : [...featured, ...projects.filter((p) => !p.featured)].slice(0, 3);
-
   const metrics = [
     { num: t("metrics.0.num"), label: t("metrics.0.label") },
     { num: t("metrics.1.num"), label: t("metrics.1.label") },
@@ -47,10 +44,20 @@ function HomeContent() {
 
   return (
     <>
+      <SectionRail />
       {/* ── Hero ── */}
-      <section className="mx-auto max-w-[var(--max-hero)] px-[var(--page-pad)] pt-16 pb-20">
+      <section className="relative overflow-hidden px-[var(--page-pad)] pt-16 pb-20">
+        <HeroCanvas />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(1100px 500px at 72% 18%, color-mix(in srgb, var(--accent) 9%, transparent), transparent 70%)",
+          }}
+        />
         <Reveal>
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-center lg:gap-16">
+          <div className="relative z-[1] mx-auto grid max-w-[var(--max-hero)] gap-10 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-center lg:gap-16">
             <div className="flex max-w-[980px] flex-col gap-7">
               <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
                 {t("kicker")}
@@ -66,6 +73,8 @@ function HomeContent() {
 
               <HeroRole />
 
+              <PlainBanner />
+
               <p className="max-w-[55ch] text-lg text-muted-foreground">
                 {t("pitch")}
               </p>
@@ -74,9 +83,10 @@ function HomeContent() {
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
                 {metrics.map((m, i) => (
                   <div key={i} className="flex flex-col gap-1">
-                    <span className="text-2xl font-semibold tracking-[-0.02em] text-accent md:text-3xl">
-                      {m.num}
-                    </span>
+                    <CountUp
+                      value={m.num}
+                      className="text-2xl font-semibold tracking-[-0.02em] text-accent md:text-3xl"
+                    />
                     <span className="text-sm text-muted-foreground">
                       {m.label}
                     </span>
@@ -86,7 +96,7 @@ function HomeContent() {
 
               {/* CTAs */}
               <div className="flex flex-wrap items-center gap-3">
-                <Link href="/projects">
+                <Link href="/projects" data-mag>
                   <Button>
                     {t("ctaPrimary")} <ArrowRight size={16} />
                   </Button>
@@ -140,14 +150,17 @@ function HomeContent() {
         </Reveal>
       </section>
 
+      {/* ── Marquee ── */}
+      <Marquee />
+
       {/* ── Now ── */}
       <NowSection />
 
-      {/* ── Selected Projects ── */}
-      <section className="border-t border-border-color">
+      {/* ── Systèmes ── */}
+      <section id="sec-systemes" className="scroll-mt-24 border-t border-border-color">
         <div className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] py-20 md:py-28">
           <Reveal>
-            <div className="flex items-end justify-between gap-4 border-b border-border-color pb-8">
+            <div className="flex items-end justify-between gap-4 border-b border-border-strong pb-8">
               <div>
                 <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
                   {tSec("selected")}
@@ -156,6 +169,7 @@ function HomeContent() {
                   className="mt-3 text-4xl leading-[1.03] tracking-[-0.01em] md:text-[52px]"
                   style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
                 >
+                  <span className="align-super font-mono text-[0.32em] tracking-widest text-accent">01</span>{" "}
                   {tHome("projectsHeading")}
                 </h2>
               </div>
@@ -168,13 +182,7 @@ function HomeContent() {
             </div>
           </Reveal>
 
-          <div className="mt-14 flex flex-col gap-16 md:mt-20 md:gap-24">
-            {selectedProjects.map((project, i) => (
-              <Reveal key={project.id} delay={i * 60}>
-                <ProjectRow project={project} index={i + 1} reverse={i % 2 === 1} />
-              </Reveal>
-            ))}
-          </div>
+          <SystemsSection />
 
           <div className="mt-14 flex justify-center sm:hidden">
             <Link
@@ -187,13 +195,19 @@ function HomeContent() {
         </div>
       </section>
 
-      {/* ── Testimonials ── */}
-      <TestimonialsSection />
-
       {/* ── Stack ── */}
       <StackSection />
 
-      {/* ── Contact CTA ── */}
+      {/* ── Lexique (plain mode) ── */}
+      <Lexicon />
+
+      {/* ── Parcours ── */}
+      <ParcoursSection />
+
+      {/* ── Témoignages ── */}
+      <TestimonialsSection />
+
+      {/* ── Contact ── */}
       <ContactSection />
     </>
   );
@@ -204,7 +218,7 @@ function TestimonialsSection() {
   const locale = useLocale() as "fr" | "en";
 
   return (
-    <section className="border-t border-border-color">
+    <section id="sec-temoignages" className="scroll-mt-24 border-t border-border-color">
       <div className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] py-24 md:py-32">
         {/* Centered header with decorative eyebrow */}
         <Reveal>
@@ -296,46 +310,133 @@ function NowSection() {
   );
 }
 
-// Stack data — static, same in FR and EN
-const stackData = [
-  { cat: "Languages", items: ["TypeScript", "JavaScript", "Java", "C#", "Python"] },
-  { cat: "Frontend", items: ["React", "Next.js", "Tailwind CSS", "Angular"] },
-  { cat: "Backend", items: ["Node.js", "Express", "Spring Boot", ".NET"] },
-  { cat: "Database", items: ["PostgreSQL", "Prisma", "MySQL", "Supabase", "SQLite"] },
-  { cat: "DevOps", items: ["Docker", "GitHub Actions", "GitLab CI/CD", "Vercel"] },
-  { cat: "Testing", items: ["JUnit", "Jest", "TDD"] },
-  { cat: "Architecture", items: ["MVC", "REST", "Observer", "Strategy", "Template Method", "DDD", "GRASP"] },
-];
+/** v2 numbered serif section header (01 · Systèmes …). */
+function NumberedHeading({ n, kicker, title }: { n: string; kicker: string; title: string }) {
+  return (
+    <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border-strong pb-5">
+      <div>
+        <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
+          {kicker}
+        </span>
+        <h2
+          className="mt-2 text-4xl leading-none tracking-[-0.01em] md:text-[52px]"
+          style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+        >
+          <span className="align-super font-mono text-[0.32em] tracking-widest text-accent">{n}</span>{" "}
+          {title}
+        </h2>
+      </div>
+    </div>
+  );
+}
 
 function StackSection() {
   const tSec = useTranslations("sectionLabels");
   const tHome = useTranslations("home");
+  const locale = useLocale() as "fr" | "en";
 
   return (
-    <section className="border-t border-border-color">
-      <div className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] py-20">
+    <section id="sec-stack" className="scroll-mt-24 border-t border-border-color">
+      <div className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] py-20 md:py-28">
         <Reveal>
-          <SectionHeading
-            kicker={tSec("stack")}
-            title={tHome("stackHeading")}
-          />
+          <NumberedHeading n="02" kicker={tSec("stack")} title={tHome("stackHeading")} />
         </Reveal>
-
-        <div className="mt-10 flex flex-col">
-          {stackData.map((category, i) => (
-            <Reveal key={category.cat} delay={i * 50}>
-              <div className="grid grid-cols-[100px_1fr] md:grid-cols-[140px_1fr] items-baseline gap-4 border-t border-border-color py-5">
-                <span className="font-mono text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
-                  {category.cat}
-                </span>
-                <div className="flex flex-wrap gap-1">
-                  {category.items.map((item) => (
-                    <Tag key={item}>{item}</Tag>
-                  ))}
+        <Reveal delay={80}>
+          <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-border-color bg-border-color sm:grid-cols-2 lg:grid-cols-4">
+            {stackGroups.map((g) => (
+              <div key={g.name.en} className="h-full bg-muted p-6">
+                <div className="mb-4 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+                  {g.name[locale]}
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {g.items.map((item) => {
+                    const tip = usedIn[item]?.[locale];
+                    return (
+                      <span
+                        key={item}
+                        tabIndex={0}
+                        title={tip ? `${locale === "fr" ? "Utilisé dans" : "Used in"} : ${tip}` : undefined}
+                        className="cursor-default rounded-lg border border-border-color px-3 py-2 font-mono text-[12.5px] text-muted-foreground transition-all hover:-translate-y-0.5 hover:border-accent hover:text-foreground focus-visible:border-accent focus-visible:text-foreground"
+                      >
+                        {item}
+                      </span>
+                    );
+                  })}
                 </div>
               </div>
+            ))}
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+type ExpItem = { date: string; role: string; org: string; desc?: string };
+type EduItem = { date: string; title: string; org: string };
+
+function ParcoursSection() {
+  const t = useTranslations("experience");
+  const locale = useLocale() as "fr" | "en";
+  const items = t.raw("items") as ExpItem[];
+  const education = t.raw("education") as EduItem[];
+
+  return (
+    <section id="sec-parcours" className="scroll-mt-24 border-t border-border-color">
+      <div className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] py-20 md:py-28">
+        <Reveal>
+          <NumberedHeading n="03" kicker={locale === "fr" ? "Parcours" : "Path"} title={t("heading")} />
+        </Reveal>
+        <div className="mt-12 grid gap-10 lg:grid-cols-2 lg:gap-16">
+          <div className="flex flex-col">
+            {items.map((e, i) => (
+              <Reveal key={i} delay={i * 50}>
+                <div className="flex gap-4 pb-7">
+                  <div className="flex w-[22px] flex-none flex-col items-center">
+                    <span className="mt-1.5 h-2.5 w-2.5 flex-none rounded-full border-2 border-accent bg-background" />
+                    <span
+                      className="w-px flex-1"
+                      style={{ background: "linear-gradient(var(--border-strong), var(--border-color))" }}
+                    />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="font-mono text-[11.5px] text-muted-foreground">{e.date}</div>
+                    <div className="mt-1 text-[16px] font-semibold">
+                      {e.role} <span className="font-normal text-muted-foreground">— {e.org}</span>
+                    </div>
+                    {e.desc && (
+                      <div className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+                        {e.desc}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+            <Link
+              href="/experience"
+              className="inline-flex items-center gap-1 self-start text-sm font-medium text-accent hover:underline"
+            >
+              {locale === "fr" ? "Parcours complet" : "Full path"} <ArrowRight size={14} />
+            </Link>
+          </div>
+
+          <div>
+            <Reveal delay={80}>
+              <div className="flex flex-col gap-3.5">
+                <div className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+                  {t("eduTitle")}
+                </div>
+                {education.map((e, i) => (
+                  <div key={i} className="rounded-xl border border-border-color bg-muted p-4">
+                    <div className="font-mono text-[11px] text-muted-foreground">{e.date}</div>
+                    <div className="mt-1 text-sm font-semibold">{e.title}</div>
+                    <div className="text-xs text-muted-foreground">{e.org}</div>
+                  </div>
+                ))}
+              </div>
             </Reveal>
-          ))}
+          </div>
         </div>
       </div>
     </section>
@@ -347,7 +448,7 @@ function ContactSection() {
   const tHome = useTranslations("home");
 
   return (
-    <section className="border-t border-border-color">
+    <section id="sec-contact" className="scroll-mt-24 border-t border-border-color">
       <div className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] py-20">
         <Reveal>
           <SectionHeading

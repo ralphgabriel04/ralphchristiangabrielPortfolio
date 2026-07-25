@@ -168,11 +168,11 @@ export function Terminal() {
           window.open(fr ? "/cv/ralph-gabriel-cv-fr.pdf" : "/cv/ralph-gabriel-cv-en.pdf", "_blank");
         } catch {}
       } else if (cmd === "recruteur" || cmd === "recruiter" || cmd === "summary") {
-        push([out(L("mode recruteur — résumé 30 s …", "recruiter mode — 30-second summary …"), COL.ok)]);
+        push([out(L("mode recruteur …", "recruiter mode …"), COL.ok)]);
         setTimeout(() => {
           close();
-          window.dispatchEvent(new CustomEvent("rg:summary"));
-        }, 260);
+          router.push("/recruteur");
+        }, 300);
       } else if (cmd === "theme") {
         setTheme(resolvedTheme === "dark" ? "light" : "dark");
         push([out(L("thème basculé", "theme toggled"), COL.ok)]);

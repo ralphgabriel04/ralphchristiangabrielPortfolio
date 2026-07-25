@@ -13,6 +13,10 @@ import { Footer } from "@/components/layout/footer";
 import { SideRail } from "@/components/ui/side-rail";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { Terminal } from "@/components/ui/terminal";
+import { Boot } from "@/components/ui/boot";
+import { ScrollProgress } from "@/components/ui/scroll-progress";
+import { CustomCursor } from "@/components/ui/custom-cursor";
+import { PlainModeProvider } from "@/components/ui/plain-mode";
 import { SITE_URL } from "@/lib/site";
 import "@/app/globals.css";
 
@@ -130,12 +134,17 @@ export default async function LocaleLayout({
       >
         <Providers>
           <NextIntlClientProvider>
+            <PlainModeProvider>
+            <Boot />
+            <ScrollProgress />
             <Header />
             <SideRail />
             <main id="main" className="min-h-screen">{children}</main>
             <Footer />
             <ScrollToTop />
             <Terminal />
+            <CustomCursor />
+            </PlainModeProvider>
           </NextIntlClientProvider>
         </Providers>
         {process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN && (

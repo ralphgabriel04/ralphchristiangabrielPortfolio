@@ -6,7 +6,29 @@
     "contact": "Contact",
     "testimonials": "Testimonials",
     "book": "Book a call",
-    "available": "Available"
+    "available": "Available",
+    "recruiter": "Recruiter mode"
+  },
+  "recruteur": {
+    "metaTitle": "Recruiter view",
+    "metaDesc": "One-page résumé: proof, shipped systems, path and contact. Printable.",
+    "back": "Back to home",
+    "print": "Print",
+    "role": "Full-Stack Developer — Junior / Intermediate",
+    "tagline": "B.Eng. software engineering @ ÉTS · Greater Montréal · FR/EN",
+    "availability": "Available",
+    "proofs": [
+      { "value": "~15,000", "label": "LOC in production" },
+      { "value": "30+", "label": "API endpoints" },
+      { "value": "169+", "label": "planned issues · Cadence" },
+      { "value": "2,000+", "label": "tickets resolved · 94% sat." }
+    ],
+    "systemsLabel": "Shipped & in-progress systems",
+    "pathLabel": "Path",
+    "eduLabel": "Education",
+    "viewCase": "Case study",
+    "demo": "Demo",
+    "cv": "CV PDF"
   },
   "a11y": {
     "skipToContent": "Skip to content",
@@ -20,7 +42,8 @@
     "carouselPrevious": "Previous",
     "carouselNext": "Next",
     "carouselPage": "Page {n}",
-    "terminal": "Open the terminal (⌘K)"
+    "terminal": "Open the terminal (⌘K)",
+    "scrollTop": "Scroll to top"
   },
   "summary": {
     "trigger": "30-sec summary",

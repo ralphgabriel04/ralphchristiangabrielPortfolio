@@ -3,6 +3,7 @@ import { Link } from "@/i18n/navigation";
 import { Mail, Calendar } from "lucide-react";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/icons";
 import { TerminalTrigger } from "@/components/ui/terminal-trigger";
+import { SysClock } from "@/components/ui/sys-clock";
 
 export function Footer() {
   const locale = useLocale();
@@ -10,7 +11,7 @@ export function Footer() {
   const tA = useTranslations("a11y");
 
   return (
-    <footer className="border-t border-border-color px-[var(--page-pad)] py-12 text-[13px] text-muted-foreground">
+    <footer className="border-t border-border-color px-[var(--page-pad)] py-12 text-[13px] text-muted-foreground print:hidden">
       <div className="mx-auto max-w-[var(--max-content)]">
         <div className="grid gap-8 sm:grid-cols-3">
           {/* Branding */}
@@ -61,7 +62,8 @@ export function Footer() {
         </div>
 
         <hr className="h-px border-0 bg-border-color mt-8 mb-4" />
-        <div className="flex flex-wrap items-center justify-between gap-2">
+        <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
+          <SysClock />
           <span className="font-mono text-xs">&copy; 2026 Ralph Christian Gabriel</span>
           <TerminalTrigger
             ariaLabel={locale === "fr" ? "Ouvrir le terminal" : "Open the terminal"}

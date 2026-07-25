@@ -130,6 +130,29 @@ body {
   }
 }
 
+/* Custom cursor active → hide the native one. */
+.rg-hide-cursor,
+.rg-hide-cursor * {
+  cursor: none !important;
+}
+
+/* Print — clean one-page CV (recruiter view). Chrome carries print:hidden. */
+@media print {
+  :root {
+    --background: #ffffff;
+    --muted: #ffffff;
+    --muted-2: #f5f4f1;
+  }
+  html,
+  body {
+    background: #ffffff;
+  }
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
 /* Pulse animation for availability dot */
 @keyframes pulse {
   0% {
@@ -143,6 +166,66 @@ body {
   100% {
     transform: scale(1.6);
     opacity: 0;
+  }
+}
+
+/* RG.SYS boot / hero motion */
+@keyframes rg-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes rg-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes rg-word {
+  from {
+    transform: translateY(105%);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes rg-bar {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes rg-mq {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes rg-float {
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+    opacity: 0.75;
+  }
+  50% {
+    transform: translate(-50%, 8px);
+    opacity: 0.35;
+  }
+}
+@keyframes rg-spin-slow {
+  to {
+    transform: rotate(360deg);
   }
 }
 

@@ -35,7 +35,7 @@ export function SideRail() {
 
   return (
     <aside
-      className="fixed bottom-0 left-6 z-40 hidden flex-col items-center gap-5 md:flex"
+      className="fixed bottom-0 left-6 z-40 hidden flex-col items-center gap-5 md:flex print:hidden"
       aria-label="Social links"
     >
       {links.map((link) => (
