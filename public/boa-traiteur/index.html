@@ -90,6 +90,7 @@
     body{padding-bottom:0}
     [data-desktopnav]{display:flex!important}
     [data-deskcta]{display:inline-block!important}
+    [data-deskcta][data-hidecta="1"]{display:none!important}
     [data-burger]{display:none!important}
     [data-sticky]{display:none!important}
     [data-themebtn]{display:grid!important}
@@ -248,7 +249,7 @@
 
 <!-- ================= HEADER ================= -->
 <header style="{{ headerStyle }}">
-  <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 20px">
+  <div style="max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 20px">
     <button onClick="{{ goHome }}" aria-label="Accueil" style="flex:none;display:flex;align-items:center;gap:11px;background:none;border:none;cursor:pointer;padding:0">
       <img src="chef-max-logo.svg" alt="BOA" style="width:60px;height:60px;border-radius:14px;object-fit:cover;display:block">
     </button>
@@ -263,7 +264,7 @@
         <button onClick="{{ setFr }}" style="{{ frBtn }}">FR</button>
         <button onClick="{{ setEn }}" style="{{ enBtn }}">EN</button>
       </div>
-      <button onClick="{{ goSouper }}" data-deskcta style="flex:none;white-space:nowrap;display:none;background:#6E1F2E;color:#fff;border:none;border-radius:999px;padding:12px 18px;font:600 14px/1 'Hanken Grotesk',sans-serif;cursor:pointer;min-height:44px" style-hover="background:#54121F">Réserver</button>
+      <button onClick="{{ goSouper }}" data-deskcta data-hidecta="{{ heroCtaHidden }}" style="flex:none;white-space:nowrap;display:none;background:#6E1F2E;color:#fff;border:none;border-radius:999px;padding:12px 18px;font:600 14px/1 'Hanken Grotesk',sans-serif;cursor:pointer;min-height:44px" style-hover="background:#54121F">Réserver</button>
       <button onClick="{{ toggleNav }}" aria-label="Menu" style="display:grid;place-items:center;width:44px;height:44px;border-radius:12px;border:1px solid rgba(38,34,30,.16);background:var(--card);cursor:pointer" data-burger>
         <span style="display:block;width:19px;height:2px;background:var(--ink);box-shadow:0 6px 0 var(--ink),0 -6px 0 var(--ink)"></span>
       </button>
@@ -3055,12 +3056,12 @@ class Component extends DCLogic {
     const EN=s.lang==='en', LOC=this._loc();
     const scr=(x)=>s.screen===x;
     const heroMode = s.screen==='home' && !s.scrolled;
-    const headerStyle='position:sticky;top:0;z-index:40;transition:background .35s ease,border-color .35s ease;'+(heroMode
+    const headerStyle='position:sticky;top:0;z-index:40;width:100vw;margin-left:calc(50% - 50vw);transition:background .35s ease,border-color .35s ease;'+(heroMode
       ? 'background:transparent;border-bottom:1px solid transparent'
       : 'background:var(--header);backdrop-filter:blur(12px);border-bottom:1px solid transparent');
     const logoMain='display:block;font:600 20px/1 \'Newsreader\',serif;letter-spacing:.14em;transition:color .35s ease;color:'+(heroMode?'#F8EBDD':'var(--ink)');
     const logoSub='display:block;white-space:nowrap;font-size:10px;letter-spacing:.15em;text-transform:uppercase;margin-top:3px;transition:color .35s ease;color:'+(heroMode?'#E7C9A8':'var(--ink4)')+(heroMode?';text-shadow:0 1px 3px rgba(23,16,13,.4)':'');
-    const navDef=[['menus','Menu'],['services','Services'],['experiences','Expérience'],['equipe','Équipe'],['faq','FAQ'],['contact','Soumission']];
+    const navDef=[['menus','Menu'],['services','Services'],['equipe','Équipe'],['faq','FAQ'],['contact','Soumission']];
     const navActive={menus:['menus','produits','menuDetail'],services:['services'],experiences:['experiences','expDetail','lieux','photos'],equipe:['equipe'],faq:['faq'],contact:['contact','soumission']};
     const navStyle=(id)=>{ const on=(navActive[id]||[id]).includes(s.screen);
       const col = heroMode ? (on?'#FFFFFF':'#EFE0CC') : (on?'var(--ink)':'var(--ink2)');
@@ -3613,7 +3614,7 @@ class Component extends DCLogic {
       splashOn:s.splashOn, splashWrapStyle:'position:fixed;inset:0;z-index:130;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#17100D;transition:opacity .7s ease,transform .7s ease;'+(s.splashFade?'opacity:0;transform:scale(1.035);pointer-events:none':'opacity:1'),
       isExperiences:scr('experiences'), isExpDetail:scr('expDetail'), isLieux:scr('lieux'),
       isProduits:scr('produits'), isSoumission:scr('soumission'), isServices:scr('services'),
-      headerStyle, logoMain, logoSub, adminLinkStyle,
+      headerStyle, logoMain, logoSub, adminLinkStyle, heroCtaHidden:(heroMode?'1':'0'),
       themeBtn, theme:s.theme, themeIcon:s.theme==='dark'?'☀':'☾', themeLabel:s.theme==='dark'?'Clair':'Sombre',
       toggleTheme:()=>this.setState({theme:this.state.theme==='dark'?'light':'dark'}),
       goPhotos:()=>this.go('photos'), goFaqPage:()=>this.go('faq'), goClub:()=>this.go('club'),
