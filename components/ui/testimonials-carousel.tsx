@@ -116,19 +116,36 @@ export function TestimonialsCarousel({
       {/* Navigation */}
       {pageCount > 1 && (
         <div className="flex items-center justify-between mt-6">
-          <div className="flex gap-1.5">
-            {pages.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => goTo(i)}
-                className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                  i === page
-                    ? "w-6 bg-accent"
-                    : "w-1.5 bg-border-strong hover:bg-muted-foreground"
-                }`}
-                aria-label={tA("carouselPage", { n: i + 1 })}
-              />
-            ))}
+          <div className="flex items-center gap-1.5">
+            {pages.map((_, i) => {
+              const active = i === page;
+              return (
+                <button
+                  key={i}
+                  onClick={() => goTo(i)}
+                  className={`relative h-1.5 overflow-hidden rounded-full transition-all duration-300 cursor-pointer ${
+                    active
+                      ? "w-6 bg-border-strong"
+                      : "w-1.5 bg-border-strong hover:bg-muted-foreground"
+                  }`}
+                  aria-label={tA("carouselPage", { n: i + 1 })}
+                  aria-current={active ? "true" : undefined}
+                >
+                  {active && (
+                    // Fills from 0 → 100% over `autoPlayInterval`, then the page
+                    // advances. Freezes while paused (hover) or a card is expanded.
+                    <span
+                      className="carousel-progress-fill absolute inset-y-0 left-0 block rounded-full bg-accent"
+                      style={{
+                        ["--carousel-dur" as string]: `${autoPlayInterval}ms`,
+                        animationPlayState:
+                          paused || expandedId ? "paused" : "running",
+                      }}
+                    />
+                  )}
+                </button>
+              );
+            })}
           </div>
 
           <div className="flex gap-2">

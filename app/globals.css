@@ -249,6 +249,26 @@ body {
   }
 }
 
+/* Testimonials carousel — the active dot fills over the autoplay delay, acting
+   as a visible countdown before the next testimonial appears. */
+@keyframes carousel-progress {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+.carousel-progress-fill {
+  animation: carousel-progress var(--carousel-dur, 5000ms) linear forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .carousel-progress-fill {
+    animation: none;
+    width: 100%;
+  }
+}
+
 /* Terminal drawer slide-up */
 @keyframes term-up {
   from {

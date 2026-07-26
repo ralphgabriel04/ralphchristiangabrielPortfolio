@@ -46,6 +46,9 @@ export function Terminal() {
   const [open, setOpen] = useState(false);
   const [lines, setLines] = useState<Line[]>([]);
   const [input, setInput] = useState("");
+  // Command history: oldest → newest. `histIdx` = position while browsing with ↑/↓ (null = live input).
+  const [history, setHistory] = useState<string[]>([]);
+  const [histIdx, setHistIdx] = useState<number | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
   const openerRef = useRef<HTMLElement | null>(null);
@@ -199,7 +202,33 @@ export function Terminal() {
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     run(input);
+    const entry = input.trim();
+    // Record non-empty commands, skipping an immediate duplicate of the last one.
+    if (entry) setHistory((p) => (p[p.length - 1] === entry ? p : [...p, entry]));
     setInput("");
+    setHistIdx(null);
+  };
+
+  // ↑/↓ browse previous commands, like a real shell.
+  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "ArrowUp") {
+      if (!history.length) return;
+      e.preventDefault();
+      const next = histIdx === null ? history.length - 1 : Math.max(0, histIdx - 1);
+      setHistIdx(next);
+      setInput(history[next] ?? "");
+    } else if (e.key === "ArrowDown") {
+      if (histIdx === null) return;
+      e.preventDefault();
+      if (histIdx >= history.length - 1) {
+        setHistIdx(null);
+        setInput("");
+      } else {
+        const next = histIdx + 1;
+        setHistIdx(next);
+        setInput(history[next] ?? "");
+      }
+    }
   };
 
   return (
@@ -247,6 +276,7 @@ export function Terminal() {
                 ref={inputRef}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
+                onKeyDown={onKeyDown}
                 placeholder={L("tape une commande…  (help)", "type a command…  (help)")}
                 autoComplete="off"
                 spellCheck={false}

@@ -6,9 +6,12 @@ interface RevealProps {
   children: ReactNode;
   delay?: number;
   className?: string;
+  /** Replay the reveal every time the element re-enters the viewport (scroll up
+   *  or down). Set to false for a one-shot reveal. */
+  repeat?: boolean;
 }
 
-export function Reveal({ children, delay = 0, className = "" }: RevealProps) {
+export function Reveal({ children, delay = 0, className = "", repeat = true }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
   const [shown, setShown] = useState(true); // SSR: visible by default
@@ -17,32 +20,27 @@ export function Reveal({ children, delay = 0, className = "" }: RevealProps) {
     const el = ref.current;
     if (!el) return;
 
+    setMounted(true);
+
     if (typeof IntersectionObserver === "undefined") {
-      return; // keep shown = true
-    }
-
-    // Check if element is already in viewport
-    const rect = el.getBoundingClientRect();
-    const inViewport = rect.top < window.innerHeight && rect.bottom > 0;
-
-    if (inViewport) {
-      // Already visible — animate in with delay
-      setMounted(true);
-      setShown(false);
-      setTimeout(() => setShown(true), delay + 50);
+      setShown(true);
       return;
     }
 
-    // Below fold — hide and observe
-    setMounted(true);
+    // Client: start hidden and let the observer drive the entrance — and, when
+    // `repeat`, the exit too, so the animation plays again on the next scroll-in.
     setShown(false);
 
+    let timer: ReturnType<typeof setTimeout>;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setTimeout(() => setShown(true), delay);
-            observer.disconnect();
+            timer = setTimeout(() => setShown(true), delay);
+            if (!repeat) observer.disconnect(); // one-shot: stop after first entrance
+          } else if (repeat) {
+            clearTimeout(timer);
+            setShown(false); // reset so the reveal replays next time it scrolls in
           }
         });
       },
@@ -50,8 +48,11 @@ export function Reveal({ children, delay = 0, className = "" }: RevealProps) {
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
-  }, [delay]);
+    return () => {
+      clearTimeout(timer);
+      observer.disconnect();
+    };
+  }, [delay, repeat]);
 
   return (
     <div

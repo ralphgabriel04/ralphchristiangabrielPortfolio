@@ -39,22 +39,29 @@ export function CountUp({
       sep ? String(n).replace(/\B(?=(\d{3})+(?!\d))/g, sep) : String(n);
 
     let raf = 0;
-    let done = false;
+    const run = () => {
+      cancelAnimationFrame(raf);
+      const dur = 1100;
+      let t0 = 0;
+      const tick = (t: number) => {
+        if (!t0) t0 = t;
+        const p = Math.min(1, (t - t0) / dur);
+        const eased = 1 - Math.pow(1 - p, 3);
+        setDisplay(prefix + fmt(Math.round(eased * target)) + suffix);
+        if (p < 1) raf = requestAnimationFrame(tick);
+      };
+      raf = requestAnimationFrame(tick);
+    };
     const io = new IntersectionObserver(
       (entries) => {
-        if (!entries[0]?.isIntersecting || done) return;
-        done = true;
-        io.disconnect();
-        const dur = 1100;
-        let t0 = 0;
-        const tick = (t: number) => {
-          if (!t0) t0 = t;
-          const p = Math.min(1, (t - t0) / dur);
-          const eased = 1 - Math.pow(1 - p, 3);
-          setDisplay(prefix + fmt(Math.round(eased * target)) + suffix);
-          if (p < 1) raf = requestAnimationFrame(tick);
-        };
-        raf = requestAnimationFrame(tick);
+        const entry = entries[0];
+        if (!entry) return;
+        if (entry.isIntersecting) {
+          run(); // (re)start the count-up each time it scrolls into view
+        } else {
+          cancelAnimationFrame(raf);
+          setDisplay(prefix + fmt(0) + suffix); // reset to 0 so it counts up again on re-entry
+        }
       },
       { threshold: 0.4 },
     );
