@@ -74,6 +74,215 @@ export const lexicon: { term: string; def: { fr: string; en: string } }[] = [
   },
 ];
 
+/** Plain-language descriptions for technical stack chips. In simple mode, a
+ *  matching chip gets a hover/focus tooltip explaining the tech in everyday
+ *  words. Matched by substring (lowercased), most specific first. */
+export const techPlain: { match: string[]; def: { fr: string; en: string } }[] = [
+  {
+    match: ["react native"],
+    def: {
+      fr: "Permet d'écrire une seule application qui fonctionne à la fois sur iPhone et sur Android.",
+      en: "Lets you write a single app that runs on both iPhone and Android.",
+    },
+  },
+  {
+    match: ["nativewind"],
+    def: {
+      fr: "Une façon rapide de styliser une app mobile, comme on le ferait pour un site web.",
+      en: "A fast way to style a mobile app, like you would a website.",
+    },
+  },
+  {
+    match: ["expo"],
+    def: {
+      fr: "Une boîte à outils qui accélère la création et le test d'applications mobiles.",
+      en: "A toolkit that speeds up building and testing mobile apps.",
+    },
+  },
+  {
+    match: ["next"],
+    def: {
+      fr: "L'outil qui construit des sites web rapides et bien référencés sur Google.",
+      en: "The tool that builds fast, search-friendly websites.",
+    },
+  },
+  {
+    match: ["react"],
+    def: {
+      fr: "La technologie qui rend les interfaces web interactives et fluides.",
+      en: "The technology that makes web interfaces interactive and smooth.",
+    },
+  },
+  {
+    match: ["typescript"],
+    def: {
+      fr: "Une version plus sûre de JavaScript qui attrape les erreurs avant les utilisateurs.",
+      en: "A safer version of JavaScript that catches mistakes before users do.",
+    },
+  },
+  {
+    match: ["javascript", "html/css/js", "vanilla"],
+    def: {
+      fr: "Les langages de base qui font fonctionner et vivre toutes les pages web.",
+      en: "The core languages that make every web page work and come alive.",
+    },
+  },
+  {
+    match: ["supabase"],
+    def: {
+      fr: "Une boîte à outils prête à l'emploi : base de données + connexion des utilisateurs.",
+      en: "A ready-to-use toolbox: database + user sign-in.",
+    },
+  },
+  {
+    match: ["postgres"],
+    def: {
+      fr: "Un classeur numérique robuste où l'application range ses données.",
+      en: "A robust digital filing cabinet where the app stores its data.",
+    },
+  },
+  {
+    match: ["prisma"],
+    def: {
+      fr: "Un traducteur qui aide le code à parler à la base de données sans erreur.",
+      en: "A translator that helps the code talk to the database without mistakes.",
+    },
+  },
+  {
+    match: ["mysql", "sqlite", "derby"],
+    def: {
+      fr: "Un endroit organisé où l'application garde toutes ses informations.",
+      en: "An organized place where the app keeps all its information.",
+    },
+  },
+  {
+    match: ["stripe"],
+    def: {
+      fr: "Le service qui encaisse les paiements par carte, en toute sécurité.",
+      en: "The service that securely handles card payments.",
+    },
+  },
+  {
+    match: ["spring"],
+    def: {
+      fr: "Un cadre de travail pour construire la partie serveur (coulisses) en Java.",
+      en: "A framework for building the server side (behind the scenes) in Java.",
+    },
+  },
+  {
+    match: ["swing"],
+    def: {
+      fr: "Un outil pour créer des logiciels de bureau (fenêtres, boutons) en Java.",
+      en: "A tool to build desktop software (windows, buttons) in Java.",
+    },
+  },
+  {
+    match: ["java"],
+    def: {
+      fr: "Un langage de programmation solide, très utilisé en entreprise.",
+      en: "A solid programming language, widely used in business.",
+    },
+  },
+  {
+    match: ["maven"],
+    def: {
+      fr: "Un assistant qui assemble le projet Java et gère ses composants.",
+      en: "An assistant that assembles the Java project and manages its parts.",
+    },
+  },
+  {
+    match: ["junit", "assertj", "jacoco", "jest", "tdd"],
+    def: {
+      fr: "Des vérifications automatiques qui s'assurent que le code fonctionne bien.",
+      en: "Automatic checks that make sure the code works correctly.",
+    },
+  },
+  {
+    match: ["angular"],
+    def: {
+      fr: "Une technologie pour construire des interfaces web structurées.",
+      en: "A technology for building structured web interfaces.",
+    },
+  },
+  {
+    match: ["tailwind"],
+    def: {
+      fr: "Une boîte à outils pour styliser un site rapidement et de façon cohérente.",
+      en: "A toolkit to style a site quickly and consistently.",
+    },
+  },
+  {
+    match: ["vercel"],
+    def: {
+      fr: "La plateforme qui met le site en ligne et le garde rapide partout dans le monde.",
+      en: "The platform that puts the site online and keeps it fast worldwide.",
+    },
+  },
+  {
+    match: ["node", "express", ".net", "deno"],
+    def: {
+      fr: "La technologie qui fait tourner la partie serveur (coulisses) de l'application.",
+      en: "The technology that runs the server side (behind the scenes) of the app.",
+    },
+  },
+  {
+    match: ["docker"],
+    def: {
+      fr: "Un moyen d'emballer une application pour qu'elle tourne pareil partout.",
+      en: "A way to package an app so it runs the same everywhere.",
+    },
+  },
+  {
+    match: ["openai", "vibe ai", "assistant"],
+    def: {
+      fr: "L'intelligence artificielle : un assistant qui comprend et répond en langage naturel.",
+      en: "Artificial intelligence: an assistant that understands and replies in plain language.",
+    },
+  },
+  {
+    match: ["gelato"],
+    def: {
+      fr: "Un partenaire qui imprime et expédie automatiquement les commandes.",
+      en: "A partner that automatically prints and ships orders.",
+    },
+  },
+  {
+    match: ["maps", "gtfs", "stm"],
+    def: {
+      fr: "Des services de cartes et de données de transport (métro, autobus) intégrés à l'app.",
+      en: "Map and transit-data services (metro, bus) built into the app.",
+    },
+  },
+  {
+    match: ["claude design", "claude code"],
+    def: {
+      fr: "Des outils d'IA que j'utilise pour concevoir et coder les maquettes plus vite.",
+      en: "AI tools I use to design and code the mockups faster.",
+    },
+  },
+  {
+    match: ["wcag", "aria"],
+    def: {
+      fr: "Les règles qui rendent un site utilisable par tout le monde, y compris avec un handicap.",
+      en: "The rules that make a site usable by everyone, including people with disabilities.",
+    },
+  },
+  {
+    match: ["i18n", "fr/en", "bilingue", "bilingual"],
+    def: {
+      fr: "Le site est offert en plusieurs langues, avec bascule instantanée.",
+      en: "The site is offered in several languages, with instant switching.",
+    },
+  },
+];
+
+/** Plain-language description for a stack chip, or null if none matches. */
+export function techPlainOf(tech: string): { fr: string; en: string } | null {
+  const t = tech.toLowerCase();
+  for (const e of techPlain) if (e.match.some((m) => t.includes(m))) return e.def;
+  return null;
+}
+
 /** Simplified, jargon-free summaries shown for a few projects in plain mode. */
 export const plainSummary: Record<string, { fr: string; en: string }> = {
   "the-mad-space": {

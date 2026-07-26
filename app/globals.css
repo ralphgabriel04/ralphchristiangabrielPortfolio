@@ -96,9 +96,17 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  /* Smooth in-page anchor scroll (hero "Voir les systèmes" → #sec-systemes). */
+  scroll-behavior: smooth;
   /* Block horizontal scroll (e.g. off-canvas drawer translate-x-full). */
   overflow-x: clip;
   max-width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
@@ -248,6 +256,34 @@ body {
   }
   to {
     transform: translate(-50%, 0);
+  }
+}
+
+/* Systems card — cursor-following glow ("lueur"). Layer is the last child of
+   the card so it tints the surface near the pointer without blocking clicks. */
+.rg-glow {
+  position: relative;
+}
+.rg-glow-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: radial-gradient(
+    240px circle at var(--gx, 50%) var(--gy, 50%),
+    color-mix(in srgb, var(--accent) 15%, transparent),
+    transparent 60%
+  );
+}
+.rg-glow:hover .rg-glow-layer {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .rg-glow-layer {
+    display: none;
   }
 }
 

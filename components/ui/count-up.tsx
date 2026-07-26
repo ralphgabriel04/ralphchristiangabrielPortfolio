@@ -5,7 +5,15 @@ import { useEffect, useRef, useState } from "react";
 /** Animates the numeric core of a metric string (e.g. "~15 000", "30+", "169+")
  *  from 0 to target when it scrolls into view. Preserves prefix/suffix and the
  *  thousands separator. Static under reduced-motion. */
-export function CountUp({ value, className }: { value: string; className?: string }) {
+export function CountUp({
+  value,
+  className,
+  style,
+}: {
+  value: string;
+  className?: string;
+  style?: React.CSSProperties;
+}) {
   const ref = useRef<HTMLSpanElement>(null);
   const [display, setDisplay] = useState(value);
 
@@ -58,7 +66,7 @@ export function CountUp({ value, className }: { value: string; className?: strin
   }, [value]);
 
   return (
-    <span ref={ref} className={className}>
+    <span ref={ref} className={className} style={style}>
       {display}
     </span>
   );

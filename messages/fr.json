@@ -7,7 +7,11 @@
     "testimonials": "Témoignages",
     "book": "Réserver un appel",
     "available": "Disponible",
-    "recruiter": "Mode recruteur"
+    "recruiter": "Mode recruteur",
+    "systems": "Systèmes",
+    "path": "Parcours",
+    "stack": "Stack",
+    "tools": "Outils"
   },
   "recruteur": {
     "metaTitle": "Vue recruteur",
@@ -64,11 +68,17 @@
     "close": "Fermer"
   },
   "hero": {
-    "kicker": "Ralph Christian Gabriel",
+    "kicker": "Portfolio — Ingénieur Full-Stack · Systèmes en production",
+    "name": "Ralph Christian Gabriel",
     "title": ["Développeur Full-Stack", "ÉTS · Génie Logiciel", "Montréal"],
-    "pitch": "Je livre des systèmes en production sur lesquels les entreprises comptent. Plateformes e-commerce, intégrations B2B et automatisation de workflows.",
+    "pitch": "Je conçois et je livre des systèmes web et mobiles — puis j'explique chaque décision d'architecture. Trois études de cas documentées, avec métriques avant/après.",
     "ctaPrimary": "Voir mes projets",
     "ctaSecondary": "Télécharger CV (FR)",
+    "ctaSystems": "Voir les systèmes",
+    "ctaRecruiter": "Vue recruteur — 30 s",
+    "ctaTerminal": "ou tape une commande",
+    "available": "Disponible — emploi ou contrat",
+    "location": "Grand Montréal · hybride",
     "metrics": [
       { "num": "~15 000", "label": "LOC en production" },
       { "num": "30+", "label": "endpoints API" },
@@ -101,7 +111,28 @@
     "contactHeading": "Vous avez un poste à pourvoir ou un projet en tête ?",
     "contactLede": "Disponible pour des postes Full-Stack Junior/Intermediate dans le Grand Montréal. Réponse sous 24h.",
     "contactCta": "Me contacter",
-    "toConfirm": "À confirmer"
+    "toConfirm": "À confirmer",
+    "proofQuad": [
+      { "value": "25→10 min", "label": "Traitement d'une commande", "source": "The Mad Space" },
+      { "value": "133", "label": "Tests — chef d'équipe de 6", "source": "FinanceJ · ÉTS" },
+      { "value": "2 000+", "label": "Tickets résolus", "source": "Support & opérations*" },
+      { "value": "94 %", "label": "Satisfaction client", "source": "Support & opérations*" }
+    ],
+    "proofNote": "* Rôle support & automatisation (Vidéotron).",
+    "contactAvailable": "Disponible — emploi ou contrat",
+    "contactHeadingPre": "Construisons quelque chose ",
+    "contactHeadingItalic": "qui tient.",
+    "contactSub": "Emploi, contrat ou simple question d'architecture — j'explique mes choix et je réponds vite.",
+    "contactCopy": "copier",
+    "contactCopied": "copié",
+    "contactBook": "Réserver un appel",
+    "contactCv": "CV PDF",
+    "contactResponse": "réponse sous 24 h",
+    "principles": [
+      { "title": "Production d'abord", "desc": "un système qui résiste, pas juste qui marche en local" },
+      { "title": "Décisions expliquées", "desc": "chaque choix d'architecture est un compromis assumé" },
+      { "title": "Livrer, mesurer, itérer", "desc": "des métriques avant/après sur chaque projet" }
+    ]
   },
   "now": {
     "kicker": "En ce moment",

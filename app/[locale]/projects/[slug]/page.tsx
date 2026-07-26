@@ -1,28 +1,47 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { useTranslations, useLocale } from "next-intl";
+import { useLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
-import { ArrowLeft, ArrowRight, ExternalLink, ImageIcon } from "lucide-react";
-import { projects, projectRoles, projectLinks, projectGalleries, toneColor } from "@/lib/projects";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import {
+  projects,
+  projectLinks,
+  projectGalleries,
+  projectState,
+  stateColor,
+  type ProjectState,
+} from "@/lib/projects";
 import { caseStudies } from "@/lib/case-studies";
-import { Tag } from "@/components/ui/tag";
-import { SpotlightCard } from "@/components/ui/spotlight-card";
-import { Badge } from "@/components/ui/badge";
-import { PulseDot } from "@/components/ui/pulse-dot";
-import { SectionHeading } from "@/components/ui/section-heading";
+import { CaseSections } from "@/components/ui/case-study";
 import { Reveal } from "@/components/ui/reveal";
-import { ProjectPlaceholder } from "@/components/ui/project-placeholder";
 import { TrackView } from "@/components/ui/track-view";
 
 const allSlugs = projects.map((p) => p.id);
+
+// Same order as the homepage "Systèmes" grid (featured, then archive) → SYS-XX.
+const FEATURED = ["the-mad-space", "cadence", "financej"];
+const ordered = [
+  ...FEATURED,
+  ...projects.map((p) => p.id).filter((id) => !FEATURED.includes(id)),
+];
+const STATE_ICON: Record<ProjectState, string> = {
+  production: "●",
+  development: "◐",
+  prototype: "◇",
+  planned: "○",
+};
 
 export function generateStaticParams() {
   return allSlugs.map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}): Promise<Metadata> {
   const { locale, slug } = await params;
   const project = projects.find((p) => p.id === slug);
   if (!project) return {};
@@ -46,179 +65,154 @@ export default async function ProjectDetailPage({
 }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
-
-  if (!allSlugs.includes(slug)) {
-    notFound();
-  }
-
+  if (!allSlugs.includes(slug)) notFound();
   return <ProjectDetailContent slug={slug} />;
 }
 
-const sectionKeys = [
-  "problem",
-  "constraints",
-  "approach",
-  "stack",
-  "outcomes",
-  "learnings",
-] as const;
-
 function ProjectDetailContent({ slug }: { slug: string }) {
-  const t = useTranslations("projects");
-  const tSec = useTranslations("sectionLabels");
   const locale = useLocale() as "fr" | "en";
+  const fr = locale === "fr";
 
   const project = projects.find((p) => p.id === slug);
   if (!project) return null;
 
-  // Track project view on mount
-
-  const study = caseStudies[slug];
-  const sections = study?.[locale];
-  const hasCaseStudy = !!sections;
-
-  const role = projectRoles[slug]?.[locale] ?? project.tag[locale];
+  const study = caseStudies[slug]?.[locale];
+  const state = projectState(slug);
+  const sysNum = String(ordered.indexOf(slug) + 1).padStart(2, "0");
   const gallery = projectGalleries[slug] ?? [];
 
-  // Find prev/next projects for navigation
-  const projectIndex = projects.findIndex((p) => p.id === slug);
-  const prevProject = projects[(projectIndex - 1 + projects.length) % projects.length];
-  const nextProject = projects[(projectIndex + 1) % projects.length];
+  const links = projectLinks[slug] ?? [];
+  const primary = links.find((l) => l.type === "live") ?? links[0];
+
+  const idx = projects.findIndex((p) => p.id === slug);
+  const nextProject = projects[(idx + 1) % projects.length];
 
   return (
-    <article className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] py-20">
+    <article className="mx-auto max-w-[980px] px-[var(--page-pad)] pb-24 pt-16 md:pt-24">
       <TrackView event="project_view" props={{ project: slug }} />
-      {/* Back link */}
+
+      {/* Back */}
       <Reveal>
         <Link
           href="/projects"
-          className="mb-8 inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          className="inline-flex items-center gap-1.5 font-mono text-[12.5px] text-muted-foreground transition-colors hover:text-foreground"
         >
-          <ArrowLeft size={14} /> {t("allProjects")}
+          <span aria-hidden="true">←</span> {fr ? "Retour" : "Back"}
         </Link>
       </Reveal>
 
       {/* Header */}
       <Reveal delay={60}>
-        <div className="mb-12">
-          <SectionHeading
-            as="h1"
-            kicker={hasCaseStudy ? tSec("caseStudy") : tSec("overview")}
-            title={project.name}
-          />
+        <div className="mt-7 flex flex-wrap items-center gap-x-3.5 gap-y-1 font-mono text-xs">
+          <span className="text-accent">SYS–{sysNum}</span>
+          <span className="text-muted-foreground">{fr ? "Étude de cas" : "Case study"}</span>
+          <span className="ml-auto flex items-center gap-2 text-muted-foreground">
+            <span style={{ color: stateColor[state] }}>{STATE_ICON[state]}</span>
+            {project.status[locale]}
+          </span>
+        </div>
 
-          <div className="mt-6 flex flex-wrap items-center gap-4">
-            <Badge>
-              <PulseDot color={toneColor(project.id)} />
-              {project.status[locale]}
-            </Badge>
-            <span className="font-mono text-xs text-muted-foreground">
-              {project.year}
-            </span>
-            <span className="text-sm text-muted-foreground">
-              {project.tag[locale]}
-            </span>
-          </div>
+        <h1
+          className="mt-3.5 text-[42px] leading-none tracking-[-0.01em] md:text-[72px]"
+          style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+        >
+          {project.name}
+        </h1>
 
-          {/* Meta strip */}
-          <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
-            <span className="font-medium text-foreground">{role}</span>
-          </div>
+        <p className="mt-4 max-w-[60ch] text-[16px] leading-relaxed text-muted-foreground">
+          {project.summary[locale]}
+        </p>
 
-          <div className="mt-4 flex flex-wrap gap-1">
-            {project.stack.map((tech) => (
-              <Tag key={tech}>{tech}</Tag>
+        {/* Meta strip */}
+        {study && (
+          <div className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border-color bg-border-color sm:grid-cols-4">
+            {study.meta.map((m, i) => (
+              <div key={i} className="bg-muted px-4 py-3.5">
+                <div className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted-foreground">
+                  {m.k}
+                </div>
+                <div className="mt-1 text-[13.5px] font-semibold">{m.v}</div>
+              </div>
             ))}
           </div>
+        )}
 
-          {/* Summary */}
-          <p className="mt-6 max-w-[65ch] text-base leading-relaxed text-muted-foreground">
-            {project.summary[locale]}
-          </p>
-        </div>
+        {/* Primary link */}
+        {primary && (
+          <div className="mt-5">
+            <a
+              href={primary.url}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent hover:underline"
+            >
+              {primary.label} <ArrowUpRight size={15} />
+            </a>
+          </div>
+        )}
       </Reveal>
 
-      {/* Media showcase */}
-      <Reveal delay={80}>
-        <div className="mb-16">
-          {project.media?.enabled && project.media.src ? (
-            <div className="overflow-hidden rounded-lg border border-border-color">
-              {project.media.type === "video" ? (
-                <video
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="metadata"
-                  poster={project.media.src.replace(/\.mp4$/, "-poster.jpg")}
-                  className="w-full"
-                >
-                  <source src={project.media.src} type="video/mp4" />
-                </video>
-              ) : project.media.type === "image" ? (
-                <Image
-                  src={project.media.src}
-                  alt={project.name}
-                  width={1100}
-                  height={620}
-                  priority
-                  sizes="(max-width: 1100px) 100vw, 1100px"
-                  className="w-full"
-                  unoptimized={project.media.src.endsWith(".gif")}
-                />
-              ) : (
-                <div className="aspect-video">
-                  <ProjectPlaceholder
-                    type={project.media.type}
-                    label={project.id}
-                  />
-                </div>
-              )}
-            </div>
-          ) : project.media?.enabled && project.media.type !== "video" && project.media.type !== "image" ? (
-            <div className="overflow-hidden rounded-lg border border-border-color aspect-video">
-              <ProjectPlaceholder
-                type={project.media.type}
-                label={project.id}
-              />
-            </div>
-          ) : (
-            <div className="grid gap-3 md:grid-cols-2">
-              <div className="md:row-span-2 flex flex-col items-center justify-center gap-2 rounded-lg border border-border-color bg-muted/30 text-muted-foreground"
-                style={{ aspectRatio: "16/9" }}
+      {/* Media */}
+      {project.media?.enabled && project.media.src && (
+        <Reveal delay={90}>
+          <figure className="mt-10 overflow-hidden rounded-2xl border border-border-color bg-muted">
+            {project.media.type === "video" ? (
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="metadata"
+                poster={project.media.src.replace(/\.mp4$/, "-poster.jpg")}
+                className="w-full"
               >
-                <ImageIcon size={32} strokeWidth={1.5} />
-                <span className="text-sm font-medium">{project.name}</span>
-                <span className="text-xs">{t("screenshotPlaceholder")}</span>
-              </div>
-              {[1, 2].map((n) => (
-                <div
-                  key={n}
-                  className="flex flex-col items-center justify-center gap-2 rounded-lg border border-border-color bg-muted/30 text-muted-foreground"
-                  style={{ aspectRatio: "16/9" }}
-                >
-                  <ImageIcon size={24} strokeWidth={1.5} />
-                  <span className="text-xs">{t("screenshotPlaceholder")}</span>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </Reveal>
+                <source src={project.media.src} type="video/mp4" />
+              </video>
+            ) : (
+              <Image
+                src={project.media.src}
+                alt={project.name}
+                width={1100}
+                height={620}
+                priority
+                sizes="(max-width: 980px) 100vw, 980px"
+                className="w-full"
+                unoptimized={project.media.src.endsWith(".gif")}
+              />
+            )}
+          </figure>
+        </Reveal>
+      )}
 
-      {/* Suite gallery (extra animated previews) */}
+      {/* Sections */}
+      {study ? (
+        <CaseSections sections={study.sections} locale={locale} />
+      ) : (
+        <Reveal>
+          <div className="mt-12 rounded-2xl border border-border-color bg-muted/40 px-6 py-12 text-center text-muted-foreground">
+            {fr
+              ? "Projet en développement. Étude de cas à venir."
+              : "Project in development. Case study coming soon."}
+          </div>
+        </Reveal>
+      )}
+
+      {/* Suite gallery */}
       {gallery.length > 0 && (
-        <Reveal delay={100}>
-          <div className="mb-16">
-            <h2 className="mb-5 text-sm font-medium uppercase tracking-[0.08em] text-muted-foreground">
-              {locale === "fr" ? "La suite" : "The suite"}
-            </h2>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <Reveal delay={80}>
+          <div className="pt-12 md:pt-16">
+            <div className="flex items-baseline gap-3.5 border-b border-border-strong pb-3">
+              <span className="font-mono text-xs text-accent">→</span>
+              <h2
+                className="text-2xl leading-[1.05] tracking-[-0.01em] md:text-[38px]"
+                style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+              >
+                {fr ? "La suite" : "The suite"}
+              </h2>
+            </div>
+            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {gallery.map((item) => (
-                <figure
-                  key={item.src}
-                  className="overflow-hidden rounded-lg border border-border-color"
-                >
+                <figure key={item.src} className="overflow-hidden rounded-2xl border border-border-color bg-muted">
                   {item.src.endsWith(".mp4") ? (
                     <video
                       autoPlay
@@ -234,14 +228,9 @@ function ProjectDetailContent({ slug }: { slug: string }) {
                     </video>
                   ) : (
                     /* eslint-disable-next-line @next/next/no-img-element */
-                    <img
-                      src={item.src}
-                      alt={item.caption[locale]}
-                      loading="lazy"
-                      className="w-full"
-                    />
+                    <img src={item.src} alt={item.caption[locale]} loading="lazy" className="w-full" />
                   )}
-                  <figcaption className="px-4 py-3 text-sm text-muted-foreground">
+                  <figcaption className="px-4 py-3 text-[13px] text-muted-foreground">
                     {item.caption[locale]}
                   </figcaption>
                 </figure>
@@ -251,107 +240,21 @@ function ProjectDetailContent({ slug }: { slug: string }) {
         </Reveal>
       )}
 
-      {/* Case study sections OR coming soon fallback */}
-      {hasCaseStudy ? (
-        <div className="flex flex-col gap-12">
-          {sectionKeys.map((key, i) => {
-            const section = sections[key];
-            if (!section) return null;
-
-            return (
-              <Reveal key={key} delay={i * 60}>
-                <SpotlightCard className="bg-muted/20 p-6 md:p-8" radius={400} opacity={0.06}>
-                  <div className="flex items-baseline gap-4 mb-4">
-                    <span className="font-mono text-xs text-muted-foreground">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <h3 className="text-2xl font-semibold tracking-[-0.02em]">
-                      {section.title}
-                    </h3>
-                  </div>
-                  {section.type === "text" && section.body && (
-                    <p className="max-w-[75ch] text-base leading-[1.75] text-muted-foreground">
-                      {section.body}
-                    </p>
-                  )}
-                  {section.type === "list" && section.items && (
-                    <div className="flex flex-wrap gap-2">
-                      {section.items.map((item) => (
-                        <Tag key={item}>{item}</Tag>
-                      ))}
-                    </div>
-                  )}
-                </SpotlightCard>
-              </Reveal>
-            );
-          })}
-        </div>
-      ) : (
-        <Reveal>
-          <div className="rounded-lg border border-border-color bg-muted/20 px-6 py-12 text-center">
-            <p className="text-base text-muted-foreground">
-              {t("caseStudyComingSoon")}
-            </p>
-          </div>
-        </Reveal>
-      )}
-
-      {/* External links */}
-      {projectLinks[slug] && projectLinks[slug].length > 0 && (
-        <Reveal delay={80}>
-          <div className="mt-12 flex flex-wrap gap-3">
-            {projectLinks[slug].map((link) => (
-              <a
-                key={link.url}
-                href={link.url}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-md border border-border-color px-4 py-2.5 text-sm font-medium text-foreground hover:border-border-strong hover:bg-muted transition-colors"
-              >
-                {link.label} <ExternalLink size={14} />
-              </a>
-            ))}
-          </div>
-        </Reveal>
-      )}
-
-      {/* Project navigation */}
-      <Reveal delay={100}>
-        <div className="mt-20 border-t border-border-color pt-10 grid grid-cols-2 gap-4">
-          {prevProject && (
-            <Link href={`/projects/${prevProject.id}`} className="group">
-              <div className="flex items-center gap-3">
-                <ArrowLeft
-                  size={20}
-                  className="text-muted-foreground group-hover:text-accent transition-colors shrink-0"
-                />
-                <div>
-                  <span className="text-sm text-muted-foreground">
-                    {t("previousProject")}
-                  </span>
-                  <h4 className="text-lg font-medium group-hover:text-accent transition-colors">
-                    {prevProject.name}
-                  </h4>
-                </div>
-              </div>
-            </Link>
-          )}
+      {/* Footer: back + next case */}
+      <Reveal delay={80}>
+        <div className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-border-color pt-6">
+          <Link
+            href="/projects"
+            className="font-mono text-[13px] font-semibold text-muted-foreground transition-colors hover:text-foreground"
+          >
+            ← {fr ? "Tous les projets" : "All projects"}
+          </Link>
           {nextProject && (
-            <Link href={`/projects/${nextProject.id}`} className="group col-start-2">
-              <div className="flex items-center justify-end gap-3 text-right">
-                <div>
-                  <span className="text-sm text-muted-foreground">
-                    {t("nextProject")}
-                  </span>
-                  <h4 className="text-lg font-medium group-hover:text-accent transition-colors">
-                    {nextProject.name}
-                  </h4>
-                </div>
-                <ArrowRight
-                  size={20}
-                  className="text-muted-foreground group-hover:text-accent transition-colors shrink-0"
-                />
-              </div>
+            <Link
+              href={`/projects/${nextProject.id}`}
+              className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-accent hover:underline"
+            >
+              {fr ? "Étude suivante" : "Next case"}: {nextProject.name} <ArrowRight size={14} />
             </Link>
           )}
         </div>

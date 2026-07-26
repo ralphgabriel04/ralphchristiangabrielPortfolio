@@ -7,7 +7,11 @@
     "testimonials": "Testimonials",
     "book": "Book a call",
     "available": "Available",
-    "recruiter": "Recruiter mode"
+    "recruiter": "Recruiter mode",
+    "systems": "Systems",
+    "path": "Path",
+    "stack": "Stack",
+    "tools": "Tools"
   },
   "recruteur": {
     "metaTitle": "Recruiter view",
@@ -64,11 +68,17 @@
     "close": "Close"
   },
   "hero": {
-    "kicker": "Ralph Christian Gabriel",
+    "kicker": "Portfolio — Full-Stack Engineer · Systems in production",
+    "name": "Ralph Christian Gabriel",
     "title": ["Full-Stack Developer", "ÉTS · Software Engineering", "Montréal"],
-    "pitch": "I ship production systems that businesses rely on. E-commerce platforms, B2B integrations, and workflow automation.",
+    "pitch": "I design and ship web and mobile systems — then I explain every architecture decision. Three documented case studies, with before/after metrics.",
     "ctaPrimary": "View projects",
     "ctaSecondary": "Download CV (EN)",
+    "ctaSystems": "See the systems",
+    "ctaRecruiter": "Recruiter view — 30 s",
+    "ctaTerminal": "or type a command",
+    "available": "Available — employment or contract",
+    "location": "Greater Montréal · hybrid",
     "metrics": [
       { "num": "~15,000", "label": "LOC in production" },
       { "num": "30+", "label": "API endpoints" },
@@ -101,7 +111,28 @@
     "contactHeading": "Have a role to fill or a project in mind?",
     "contactLede": "Available for Junior/Intermediate Full-Stack roles in Greater Montréal. 24h response.",
     "contactCta": "Get in touch",
-    "toConfirm": "To be confirmed"
+    "toConfirm": "To be confirmed",
+    "proofQuad": [
+      { "value": "25→10 min", "label": "Order processing time", "source": "The Mad Space" },
+      { "value": "133", "label": "Tests — team lead of 6", "source": "FinanceJ · ÉTS" },
+      { "value": "2,000+", "label": "Tickets resolved", "source": "Support & operations*" },
+      { "value": "94%", "label": "Customer satisfaction", "source": "Support & operations*" }
+    ],
+    "proofNote": "* Support & automation role (Vidéotron).",
+    "contactAvailable": "Available — employment or contract",
+    "contactHeadingPre": "Let's build something ",
+    "contactHeadingItalic": "that lasts.",
+    "contactSub": "A role, a contract or just an architecture question — I explain my choices and I reply fast.",
+    "contactCopy": "copy",
+    "contactCopied": "copied",
+    "contactBook": "Book a call",
+    "contactCv": "CV PDF",
+    "contactResponse": "reply within 24 h",
+    "principles": [
+      { "title": "Production first", "desc": "a system that holds up, not just one that runs locally" },
+      { "title": "Explained decisions", "desc": "every architecture choice is a deliberate trade-off" },
+      { "title": "Ship, measure, iterate", "desc": "before/after metrics on every project" }
+    ]
   },
   "now": {
     "kicker": "Now",

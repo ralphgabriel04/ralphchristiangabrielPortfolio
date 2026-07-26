@@ -1,43 +1,95 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useLocale } from "next-intl";
+import { usePlain } from "@/components/ui/plain-mode";
 
-/** Terminal-style rotating role line: `$ <role> ▍`. */
+const GLYPHS = "<>/{}[]#$%&*+=—·";
+
+/** Terminal role line `$ <role> ▍` that scramble-decodes to each new role
+ *  (RG.SYS effect), rotating every few seconds. Respects reduced-motion and
+ *  swaps to plainer wording in simple mode. */
 export function HeroRole() {
   const fr = useLocale() === "fr";
-  const roles = fr
-    ? [
-        "dev full-stack junior/intermédiaire",
-        "React · Next.js · TypeScript",
-        "Java · Spring · PostgreSQL",
-        "bilingue FR/EN · Grand Montréal",
-      ]
-    : [
-        "junior/intermediate full-stack dev",
-        "React · Next.js · TypeScript",
-        "Java · Spring · PostgreSQL",
-        "bilingual FR/EN · Greater Montréal",
-      ];
-  const [i, setI] = useState(0);
-  const [show, setShow] = useState(true);
+  const { plain } = usePlain();
+  const ref = useRef<HTMLSpanElement>(null);
+  const idx = useRef(0);
 
   useEffect(() => {
-    const t = setInterval(() => {
-      setShow(false);
-      const s = setTimeout(() => {
-        setI((v) => (v + 1) % roles.length);
-        setShow(true);
-      }, 220);
-      return () => clearTimeout(s);
-    }, 3000);
-    return () => clearInterval(t);
-  }, [roles.length]);
+    const el = ref.current;
+    if (!el) return;
+
+    const roles = plain
+      ? fr
+        ? [
+            "je construis des sites et des applications",
+            "futur ingénieur logiciel — étudiant à l'ÉTS",
+            "je conçois, je livre, et j'explique simplement",
+            "bilingue français/anglais — Grand Montréal",
+          ]
+        : [
+            "I build websites and applications",
+            "future software engineer — studying at ÉTS",
+            "I design, I deliver, and I explain simply",
+            "bilingual French/English — Greater Montréal",
+          ]
+      : fr
+        ? [
+            "dev full-stack — React · Next.js · Java",
+            "ingénieur logiciel en formation @ ÉTS",
+            "je conçois, je livre, j'explique",
+            "bilingue FR/EN — Grand Montréal",
+          ]
+        : [
+            "full-stack dev — React · Next.js · Java",
+            "software engineer in training @ ÉTS",
+            "I design, I ship, I explain",
+            "bilingual FR/EN — Greater Montréal",
+          ];
+
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) {
+      el.textContent = roles[0] ?? "";
+      return;
+    }
+
+    let scr: ReturnType<typeof setInterval> | undefined;
+    const scramble = (final: string) => {
+      let f = 0;
+      const total = 16;
+      if (scr) clearInterval(scr);
+      scr = setInterval(() => {
+        f++;
+        const n = Math.floor((final.length * f) / total);
+        let out = final.slice(0, n);
+        for (let i = n; i < final.length; i++) {
+          out += final[i] === " " ? " " : GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+        }
+        el.textContent = out;
+        if (f >= total) {
+          if (scr) clearInterval(scr);
+          el.textContent = final;
+        }
+      }, 34);
+    };
+
+    idx.current = 0;
+    scramble(roles[0] ?? "");
+    const rotate = setInterval(() => {
+      idx.current = (idx.current + 1) % roles.length;
+      scramble(roles[idx.current] ?? "");
+    }, 3200);
+
+    return () => {
+      if (scr) clearInterval(scr);
+      clearInterval(rotate);
+    };
+  }, [fr, plain]);
 
   return (
     <div className="font-mono text-sm text-muted-foreground md:text-[15px]" aria-live="off">
       <span style={{ color: "var(--accent)" }}>$</span>{" "}
-      <span style={{ opacity: show ? 1 : 0, transition: "opacity .2s ease" }}>{roles[i]}</span>
+      <span ref={ref} suppressHydrationWarning />
       <span
         className="ml-0.5 inline-block motion-safe:animate-[caret_1.1s_steps(1)_infinite]"
         style={{ color: "var(--accent)" }}

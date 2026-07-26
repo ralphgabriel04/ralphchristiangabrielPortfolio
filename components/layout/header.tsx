@@ -9,8 +9,19 @@ import { Badge } from "@/components/ui/badge";
 import { PulseDot } from "@/components/ui/pulse-dot";
 import { Button } from "@/components/ui/button";
 import { openTerminal } from "@/components/ui/terminal";
-import { PlainToggle } from "@/components/ui/plain-mode";
+import { PlainToggle, usePlain } from "@/components/ui/plain-mode";
 import { trackEvent } from "@/lib/analytics";
+
+/** Terminal-style path shown in the header logo, per current route (v2 logic):
+ *  home → ~/portfolio, case study → ~/etudes/{slug}, else → ~/{segments}.
+ *  `pathname` comes from next-intl and is already locale-stripped. */
+function toHeaderPath(pathname: string): string {
+  const p = pathname.replace(/\/+$/, "");
+  if (!p || p === "/") return "~/portfolio";
+  const seg = p.split("/").filter(Boolean);
+  if (seg[0] === "projects") return seg[1] ? `~/etudes/${seg[1]}` : "~/etudes";
+  return `~/${seg.join("/")}`;
+}
 
 export function Header() {
   const t = useTranslations("nav");
@@ -19,6 +30,7 @@ export function Header() {
   const pathname = usePathname();
   const router = useRouter();
   const { theme, setTheme } = useTheme();
+  const { plain } = usePlain();
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -34,13 +46,16 @@ export function Header() {
 
   useEffect(() => { setDrawerOpen(false); }, [pathname]);
 
+  // v2 single-page section nav. Plain-language mode swaps RG.SYS terms for
+  // plainer ones (Systèmes → Projets, Stack → Outils, Parcours → Expérience).
   const links = [
-    { href: "/projects" as const, label: t("projects") },
-    { href: "/about" as const, label: t("about") },
-    { href: "/experience" as const, label: t("experience") },
-    { href: "/temoignages" as const, label: t("testimonials") },
-    { href: "/contact" as const, label: t("contact") },
+    { id: "sec-systemes", label: plain ? t("projects") : t("systems") },
+    { id: "sec-stack", label: plain ? t("tools") : t("stack") },
+    { id: "sec-parcours", label: plain ? t("experience") : t("path") },
+    { id: "sec-contact", label: t("contact") },
   ];
+  const anchor = (id: string) => `/${locale}#${id}`;
+  const headerPath = toHeaderPath(pathname);
 
   const switchLocale = () => {
     const newLocale = locale === "fr" ? "en" : "fr";
@@ -81,32 +96,46 @@ export function Header() {
               RG
             </span>
             <span className="font-mono text-[13px] text-muted-foreground">
-              ralphgabriel<span className="text-foreground">.dev</span>
+              {headerPath}
             </span>
           </Link>
           <nav className="hidden items-center gap-6 lg:flex" aria-label={tA("primaryNav")}>
             {links.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className={`relative whitespace-nowrap px-1 py-2 text-sm transition-colors duration-150 ${
-                  pathname === l.href
-                    ? "text-foreground after:absolute after:bottom-0.5 after:left-1 after:right-1 after:h-px after:bg-current"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
+              <a
+                key={l.id}
+                href={anchor(l.id)}
+                className="relative whitespace-nowrap px-1 py-2 text-sm text-muted-foreground transition-colors duration-150 hover:text-foreground"
               >
                 {l.label}
-              </Link>
+              </a>
             ))}
           </nav>
         </div>
 
         {/* Right: desktop cluster (collapses as one on mobile) + Theme + Mobile menu */}
         <div className="flex items-center gap-3">
-          {/* Single hidden→lg:flex wrapper guarantees the whole cluster collapses
-              below lg (tablets use the hamburger), regardless of each child's
-              own display utility. */}
           <div className="hidden items-center gap-3 lg:flex">
+            <PlainToggle />
+
+            <button
+              onClick={switchLocale}
+              aria-label={locale === "fr" ? "Switch to English" : "Passer en français"}
+              className="inline-flex items-center rounded-full border border-border-strong px-3 py-1.5 font-mono text-xs text-muted-foreground transition-colors hover:border-accent hover:text-accent"
+            >
+              {locale === "fr" ? "FR → EN" : "EN → FR"}
+            </button>
+
+            {mounted && (
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                aria-label={theme === "dark" ? tA("themeToLight") : tA("themeToDark")}
+              >
+                {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+              </Button>
+            )}
+
             <button
               type="button"
               onClick={openTerminal}
@@ -115,10 +144,8 @@ export function Header() {
               className="inline-flex items-center gap-1.5 rounded-full border border-border-strong px-3 py-1.5 font-mono text-xs text-foreground transition-colors hover:border-accent hover:text-accent"
             >
               <span style={{ color: "var(--accent)" }}>&gt;_</span>
-              <span className="hidden 2xl:inline">terminal</span>
+              <span className="hidden xl:inline">terminal</span>
             </button>
-
-            <PlainToggle />
 
             <Link
               href="/recruteur"
@@ -127,61 +154,20 @@ export function Header() {
             >
               {t("recruiter")}
             </Link>
-
-            {/* Availability badge only from xl — keeps the lg cluster within the
-                content width once --page-pad grows to 96px. (Wrapped so the
-                display utility wins over Badge's base inline-flex.) */}
-            <span className="hidden 2xl:inline-flex">
-              <Badge>
-                <PulseDot />
-                <span>{t("available")}</span>
-              </Badge>
-            </span>
-
-            <div className="flex items-center gap-0" role="group" aria-label={tA("language")}>
-              <button
-                onClick={switchLocale}
-                className="cursor-pointer border-0 bg-transparent px-1.5 py-1 font-mono text-xs"
-                style={{ color: locale === "fr" ? "var(--foreground)" : "var(--muted-foreground)", fontWeight: locale === "fr" ? 600 : 400 }}
-                aria-label="Passer en français"
-                aria-current={locale === "fr" ? "true" : undefined}
-              >
-                FR
-              </button>
-              <span className="text-[11px] text-muted-foreground" aria-hidden="true">/</span>
-              <button
-                onClick={switchLocale}
-                className="cursor-pointer border-0 bg-transparent px-1.5 py-1 font-mono text-xs"
-                style={{ color: locale === "en" ? "var(--foreground)" : "var(--muted-foreground)", fontWeight: locale === "en" ? 600 : 400 }}
-                aria-label="Switch to English"
-                aria-current={locale === "en" ? "true" : undefined}
-              >
-                EN
-              </button>
-            </div>
-
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={() => { trackEvent("book_call_click"); window.open("https://cal.com/ralphchristiangabriel/15min", "_blank"); }}
-              aria-label={t("book")}
-            >
-              <Calendar size={16} />
-              <span className="hidden 2xl:inline">{t("book")}</span>
-            </Button>
           </div>
 
+          {/* Mobile: theme + hamburger */}
           {mounted && (
             <Button
               variant="ghost"
               size="icon"
+              className="lg:hidden"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               aria-label={theme === "dark" ? tA("themeToLight") : tA("themeToDark")}
             >
               {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
             </Button>
           )}
-
           <Button
             variant="ghost"
             size="icon"
@@ -206,7 +192,7 @@ export function Header() {
         <div className="mb-8 flex items-center justify-between">
           <Link href="/" className="inline-flex items-center gap-2.5" onClick={() => setDrawerOpen(false)}>
             <span className="inline-flex h-7 w-7 items-center justify-center rounded-[6px] border border-border-strong font-mono text-xs font-medium">RG</span>
-            <span className="font-mono text-[13px] text-muted-foreground">ralphgabriel<span className="text-foreground">.dev</span></span>
+            <span className="font-mono text-[13px] text-muted-foreground">{headerPath}</span>
           </Link>
           <Button variant="ghost" size="icon" aria-label={tA("closeMenu")} onClick={() => setDrawerOpen(false)}>
             <X size={20} />
@@ -214,16 +200,14 @@ export function Header() {
         </div>
         <div className="flex flex-col gap-4">
           {links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
+            <a
+              key={l.id}
+              href={anchor(l.id)}
               onClick={() => setDrawerOpen(false)}
-              className={`border-b border-border-color py-3 text-left text-[22px] ${
-                pathname === l.href ? "text-foreground" : "text-muted-foreground"
-              }`}
+              className="border-b border-border-color py-3 text-left text-[22px] text-muted-foreground"
             >
               {l.label}
-            </Link>
+            </a>
           ))}
         </div>
         <div className="mt-8 flex flex-col gap-3">
@@ -235,7 +219,7 @@ export function Header() {
           >
             <span style={{ color: "var(--accent)" }}>&gt;_</span> terminal
           </button>
-          <PlainToggle className="self-start" />
+          <PlainToggle className="self-start" expanded />
           <Link
             href="/recruteur"
             onClick={() => setDrawerOpen(false)}
@@ -247,11 +231,9 @@ export function Header() {
             <PulseDot />
             <span>{t("available")}</span>
           </Badge>
-          <div className="flex items-center gap-1">
-            <button onClick={switchLocale} className="cursor-pointer border-0 bg-transparent px-1.5 py-1 font-mono text-xs" style={{ color: locale === "fr" ? "var(--foreground)" : "var(--muted-foreground)", fontWeight: locale === "fr" ? 600 : 400 }} aria-label="Passer en français" aria-current={locale === "fr" ? "true" : undefined}>FR</button>
-            <span className="text-[11px] text-muted-foreground" aria-hidden="true">/</span>
-            <button onClick={switchLocale} className="cursor-pointer border-0 bg-transparent px-1.5 py-1 font-mono text-xs" style={{ color: locale === "en" ? "var(--foreground)" : "var(--muted-foreground)", fontWeight: locale === "en" ? 600 : 400 }} aria-label="Switch to English" aria-current={locale === "en" ? "true" : undefined}>EN</button>
-          </div>
+          <button onClick={switchLocale} className="w-fit cursor-pointer rounded-full border border-border-strong px-3 py-1.5 font-mono text-xs text-muted-foreground" aria-label={locale === "fr" ? "Switch to English" : "Passer en français"}>
+            {locale === "fr" ? "FR → EN" : "EN → FR"}
+          </button>
           <Button variant="secondary" onClick={() => { trackEvent("book_call_click"); window.open("https://cal.com/ralphchristiangabriel/15min", "_blank"); }}>
             <Calendar size={16} /> {t("book")}
           </Button>

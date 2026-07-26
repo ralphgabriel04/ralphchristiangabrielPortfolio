@@ -108,8 +108,9 @@ for (const locale of LOCALES) {
 
 test("theme toggle switches dark/light", async ({ page }) => {
   await page.goto("/en");
-  // Wait for hydration — theme button renders after mount
-  const themeBtn = page.locator('button[aria-label*="theme"]');
+  // Wait for hydration — theme button renders after mount. Responsive header
+  // has a desktop + a mobile theme toggle; target the first (desktop) one.
+  const themeBtn = page.locator('button[aria-label*="theme"]').first();
   await expect(themeBtn).toBeVisible({ timeout: 10000 });
   const htmlBefore = await page.locator("html").getAttribute("class") ?? "";
   await themeBtn.click();

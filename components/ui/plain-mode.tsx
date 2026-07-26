@@ -29,24 +29,45 @@ export function PlainModeProvider({ children }: { children: React.ReactNode }) {
 
 export const usePlain = () => useContext(Ctx);
 
-/** Header toggle ◍ — plain vs technical language. */
-export function PlainToggle({ className = "" }: { className?: string }) {
+/** Swaps a technical term for a plain one when plain-language mode is on.
+ *  e.g. <PlainSwap tech="Systèmes" plain="Projets" /> */
+export function PlainSwap({ tech, plain }: { tech: string; plain: string }) {
+  const { plain: isPlain } = usePlain();
+  return <>{isPlain ? plain : tech}</>;
+}
+
+/** Header toggle — plain vs technical language. Shows the current mode
+ *  ("Mode technique" / "Mode simple"), like the v2 header. */
+export function PlainToggle({
+  className = "",
+  expanded = false,
+}: {
+  className?: string;
+  expanded?: boolean;
+}) {
   const { plain, toggle } = usePlain();
   const fr = useLocale() === "fr";
+  const label = plain
+    ? fr
+      ? "Mode simple"
+      : "Simple mode"
+    : fr
+      ? "Mode technique"
+      : "Technical mode";
   return (
     <button
       type="button"
       onClick={toggle}
       aria-pressed={plain}
-      title={fr ? "Langage simple / technique" : "Plain / technical language"}
+      title={fr ? "Basculer langage simple / technique" : "Toggle plain / technical language"}
       className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 font-mono text-xs transition-colors ${
         plain
           ? "border-accent text-accent"
           : "border-border-strong text-muted-foreground hover:border-accent hover:text-accent"
       } ${className}`}
     >
-      <span aria-hidden="true">◍</span>
-      <span className="hidden 2xl:inline">{fr ? "Simple" : "Plain"}</span>
+      <span aria-hidden="true">◉</span>
+      <span className={expanded ? "" : "hidden xl:inline"}>{label}</span>
     </button>
   );
 }
