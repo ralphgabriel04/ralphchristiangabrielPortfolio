@@ -17,6 +17,7 @@ import { CountUp } from "@/components/ui/count-up";
 import { PlainBanner, Lexicon, PlainSwap } from "@/components/ui/plain-mode";
 import { stackGroups, usedIn } from "@/lib/stack";
 import Image from "next/image";
+import { ProfilePhoto } from "@/components/ui/profile-photo";
 import { TestimonialsCarousel } from "@/components/ui/testimonials-carousel";
 import { testimonials } from "@/lib/testimonials";
 
@@ -120,14 +121,11 @@ function HomeContent() {
             {/* Portrait — right column (xl+) */}
             <div className="hidden xl:block">
               <figure className="relative overflow-hidden rounded-2xl border border-border-color bg-muted-2 shadow-md">
-                <Image
-                  src="/images/ralph-gabriel.png"
+                <ProfilePhoto
                   alt="Ralph Christian Gabriel"
-                  width={600}
-                  height={630}
+                  className="aspect-[20/21] w-full"
                   priority
                   sizes="300px"
-                  className="w-full object-cover"
                 />
                 <figcaption className="absolute inset-x-0 bottom-0 flex items-center px-3 py-2.5 font-mono text-[11px] text-foreground dark:bg-gradient-to-t dark:from-background/90 dark:to-transparent">
                   {/* Light theme: compact chip (no wash-out fade). Dark: gradient. */}
@@ -602,13 +600,10 @@ function ContactSection() {
               {/* Right — portrait + principles */}
               <div className="flex flex-col gap-6">
                 <figure className="overflow-hidden rounded-2xl border border-border-color bg-muted-2">
-                  <Image
-                    src="/images/ralph-gabriel.png"
+                  <ProfilePhoto
                     alt="Ralph Christian Gabriel"
-                    width={600}
-                    height={600}
+                    className="aspect-square w-full"
                     sizes="(min-width: 1024px) 300px, 100vw"
-                    className="aspect-square w-full object-cover"
                   />
                 </figure>
                 <ul className="flex flex-col gap-4">

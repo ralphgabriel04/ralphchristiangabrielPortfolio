@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { useTranslations, useLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
-import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { ArrowLeft, Mail, Calendar } from "lucide-react";
 import {
@@ -12,6 +11,7 @@ import {
   caseStudyIds,
 } from "@/lib/projects";
 import { PrintButton } from "@/components/ui/print-button";
+import { ProfilePhoto } from "@/components/ui/profile-photo";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/icons";
 
 export async function generateMetadata({
@@ -74,13 +74,11 @@ function RecruiterContent() {
 
       {/* Identity */}
       <header className="mt-7 flex items-center gap-5">
-        <Image
-          src="/images/ralph-gabriel.png"
+        <ProfilePhoto
           alt="Ralph Christian Gabriel"
-          width={74}
-          height={74}
+          className="h-[74px] w-[74px] overflow-hidden rounded-2xl border border-border-strong"
           priority
-          className="h-[74px] w-[74px] rounded-2xl border border-border-strong object-cover"
+          sizes="74px"
         />
         <div>
           <h1

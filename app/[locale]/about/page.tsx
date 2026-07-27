@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { ProfilePhoto } from "@/components/ui/profile-photo";
 import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
@@ -57,11 +58,9 @@ function AboutContent() {
           <Reveal delay={60}>
             <div className="flex flex-col gap-3">
               <div className="aspect-[4/5] w-full rounded-lg border border-border-color bg-muted-2 overflow-hidden relative">
-                <Image
-                  src="/images/ralph-gabriel.png"
+                <ProfilePhoto
                   alt="Ralph Christian Gabriel"
                   fill
-                  className="object-cover"
                   sizes="(max-width: 768px) 100vw, 320px"
                   priority
                 />
