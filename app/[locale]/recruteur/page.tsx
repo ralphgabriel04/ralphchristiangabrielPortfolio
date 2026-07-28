@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { alternatesFor } from "@/lib/site";
 import { useTranslations, useLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
@@ -26,7 +27,7 @@ export async function generateMetadata({
     description: isFr
       ? "Synthèse CV d'une page : preuves, systèmes livrés, parcours et contact."
       : "One-page résumé: proof, shipped systems, path and contact.",
-    alternates: { languages: { fr: "/fr/recruteur", en: "/en/recruteur" } },
+    alternates: alternatesFor(locale, "/recruteur"),
   };
 }
 

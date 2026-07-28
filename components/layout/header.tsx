@@ -46,7 +46,7 @@ export function Header() {
 
   useEffect(() => { setDrawerOpen(false); }, [pathname]);
 
-  // v2 single-page section nav. Plain-language mode swaps RG.SYS terms for
+  // v2 single-page section nav. Plain-language mode swaps RCG.SYS terms for
   // plainer ones (Systèmes → Projets, Stack → Outils, Parcours → Expérience).
   const links = [
     { id: "sec-systemes", label: plain ? t("projects") : t("systems") },
@@ -91,9 +91,9 @@ export function Header() {
       <div className="relative mx-auto flex h-16 max-w-[var(--max-hero)] items-center justify-between gap-4 px-[var(--page-pad)]">
         {/* Left: Logo + Desktop Nav */}
         <div className="flex items-center gap-6">
-          <Link href="/" className="inline-flex items-center gap-2.5 p-1">
-            <span className="inline-flex h-7 w-7 items-center justify-center rounded-[6px] border border-border-strong font-mono text-xs font-medium tracking-[-0.02em]">
-              RG
+          <Link href="/" aria-label="Ralph Christian Gabriel" className="inline-flex items-center gap-2.5 p-1">
+            <span className="inline-flex h-7 min-w-9 items-center justify-center rounded-[6px] border border-border-strong px-1.5 font-mono text-[11px] font-medium tracking-[-0.04em]">
+              RCG
             </span>
             <span className="font-mono text-[13px] text-muted-foreground">
               {headerPath}
@@ -190,8 +190,8 @@ export function Header() {
         inert={!drawerOpen ? true : undefined}
       >
         <div className="mb-8 flex items-center justify-between">
-          <Link href="/" className="inline-flex items-center gap-2.5" onClick={() => setDrawerOpen(false)}>
-            <span className="inline-flex h-7 w-7 items-center justify-center rounded-[6px] border border-border-strong font-mono text-xs font-medium">RG</span>
+          <Link href="/" aria-label="Ralph Christian Gabriel" className="inline-flex items-center gap-2.5" onClick={() => setDrawerOpen(false)}>
+            <span className="inline-flex h-7 min-w-9 items-center justify-center rounded-[6px] border border-border-strong px-1.5 font-mono text-[11px] font-medium tracking-[-0.04em]">RCG</span>
             <span className="font-mono text-[13px] text-muted-foreground">{headerPath}</span>
           </Link>
           <Button variant="ghost" size="icon" aria-label={tA("closeMenu")} onClick={() => setDrawerOpen(false)}>

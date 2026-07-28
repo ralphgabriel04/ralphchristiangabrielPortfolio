@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Ralph Christian Gabriel · Full-Stack Developer";
+export const alt = "Ralph Christian Gabriel · Software Engineering Student";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -40,19 +40,19 @@ export default async function OGImage({
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              width: "48px",
+              width: "58px",
               height: "48px",
               borderRadius: "10px",
               border: "2px solid #333",
               color: "#fafafa",
-              fontSize: "20px",
+              fontSize: "17px",
               fontWeight: 600,
             }}
           >
-            RG
+            RCG
           </div>
           <span style={{ color: "#737373", fontSize: "18px" }}>
-            ralphgabriel
+            rcgabriel
             <span style={{ color: "#fafafa" }}>.dev</span>
           </span>
         </div>
@@ -77,8 +77,8 @@ export default async function OGImage({
             margin: "16px 0 0 0",
           }}
         >
-          {isFr ? "Développeur Full-Stack" : "Full-Stack Developer"} ·{" "}
-          {isFr ? "Génie Logiciel ÉTS" : "Software Engineering ÉTS"} · Montréal
+          {isFr ? "Étudiant en génie logiciel" : "Software Engineering Student"} ·{" "}
+          ÉTS · Montréal
         </p>
 
         <div

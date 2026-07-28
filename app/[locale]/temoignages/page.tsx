@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { alternatesFor } from "@/lib/site";
 import { useTranslations, useLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
@@ -18,9 +19,7 @@ export async function generateMetadata({
     description: isFr
       ? "Découvrez les retours de personnes avec qui j'ai eu le plaisir de collaborer sur différents projets."
       : "Discover feedback from people I've had the pleasure of collaborating with on various projects.",
-    alternates: {
-      languages: { fr: "/fr/temoignages", en: "/en/temoignages" },
-    },
+    alternates: alternatesFor(locale, "/temoignages"),
   };
 }
 

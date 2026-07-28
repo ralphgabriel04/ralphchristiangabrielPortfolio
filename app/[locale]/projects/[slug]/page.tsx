@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { alternatesFor } from "@/lib/site";
 import { notFound } from "next/navigation";
 import { useLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
@@ -49,12 +50,7 @@ export async function generateMetadata({
   return {
     title: project.name,
     description: project.summary[isFr ? "fr" : "en"].slice(0, 155),
-    alternates: {
-      languages: {
-        fr: `/fr/projects/${slug}`,
-        en: `/en/projects/${slug}`,
-      },
-    },
+    alternates: alternatesFor(locale, `/projects/${slug}`),
   };
 }
 

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { alternatesFor } from "@/lib/site";
 import { useTranslations, useLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 
@@ -10,9 +11,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     description: isFr
       ? "Neuf projets : e-commerce, apps mobiles, prototypes produit, sites clients et architecture académique."
       : "Nine projects: e-commerce, mobile apps, product prototypes, client sites and academic architecture.",
-    alternates: {
-      languages: { fr: "/fr/projects", en: "/en/projects" },
-    },
+    alternates: alternatesFor(locale, "/projects"),
   };
 }
 import { projects } from "@/lib/projects";

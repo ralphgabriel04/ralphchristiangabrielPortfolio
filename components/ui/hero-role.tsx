@@ -7,13 +7,21 @@ import { usePlain } from "@/components/ui/plain-mode";
 const GLYPHS = "<>/{}[]#$%&*+=—·";
 
 /** Terminal role line `$ <role> ▍` that scramble-decodes to each new role
- *  (RG.SYS effect), rotating every few seconds. Respects reduced-motion and
+ *  (RCG.SYS effect), rotating every few seconds. Respects reduced-motion and
  *  swaps to plainer wording in simple mode. */
 export function HeroRole() {
   const fr = useLocale() === "fr";
   const { plain } = usePlain();
   const ref = useRef<HTMLSpanElement>(null);
   const idx = useRef(0);
+
+  const initialRole = plain
+    ? fr
+      ? "j'étudie le génie logiciel à l'ÉTS"
+      : "I study software engineering at ÉTS"
+    : fr
+      ? "étudiant en génie logiciel @ ÉTS"
+      : "software engineering student @ ÉTS";
 
   useEffect(() => {
     const el = ref.current;
@@ -22,28 +30,28 @@ export function HeroRole() {
     const roles = plain
       ? fr
         ? [
-            "je construis des sites et des applications",
-            "futur ingénieur logiciel — étudiant à l'ÉTS",
-            "je conçois, je livre, et j'explique simplement",
+            "j'étudie le génie logiciel à l'ÉTS",
+            "je conçois des sites et des applications",
+            "j'analyse, je construis et j'explique",
             "bilingue français/anglais — Grand Montréal",
           ]
         : [
-            "I build websites and applications",
-            "future software engineer — studying at ÉTS",
-            "I design, I deliver, and I explain simply",
+            "I study software engineering at ÉTS",
+            "I design websites and applications",
+            "I analyze, build and explain",
             "bilingual French/English — Greater Montréal",
           ]
       : fr
         ? [
-            "dev full-stack — React · Next.js · Java",
-            "ingénieur logiciel en formation @ ÉTS",
-            "je conçois, je livre, j'explique",
+            "étudiant en génie logiciel @ ÉTS",
+            "analyse · architecture · web · mobile",
+            "je transforme les besoins en produits utiles",
             "bilingue FR/EN — Grand Montréal",
           ]
         : [
-            "full-stack dev — React · Next.js · Java",
-            "software engineer in training @ ÉTS",
-            "I design, I ship, I explain",
+            "software engineering student @ ÉTS",
+            "analysis · architecture · web · mobile",
+            "I turn needs into useful products",
             "bilingual FR/EN — Greater Montréal",
           ];
 
@@ -74,7 +82,7 @@ export function HeroRole() {
     };
 
     idx.current = 0;
-    scramble(roles[0] ?? "");
+    el.textContent = roles[0] ?? "";
     const rotate = setInterval(() => {
       idx.current = (idx.current + 1) % roles.length;
       scramble(roles[idx.current] ?? "");
@@ -89,7 +97,7 @@ export function HeroRole() {
   return (
     <div className="font-mono text-sm text-muted-foreground md:text-[15px]" aria-live="off">
       <span style={{ color: "var(--accent)" }}>$</span>{" "}
-      <span ref={ref} suppressHydrationWarning />
+      <span ref={ref} suppressHydrationWarning>{initialRole}</span>
       <span
         className="ml-0.5 inline-block motion-safe:animate-[caret_1.1s_steps(1)_infinite]"
         style={{ color: "var(--accent)" }}

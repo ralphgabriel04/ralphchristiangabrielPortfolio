@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { alternatesFor } from "@/lib/site";
 import Image from "next/image";
 import { ProfilePhoto } from "@/components/ui/profile-photo";
 import { useTranslations } from "next-intl";
@@ -17,9 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     description: isFr
       ? "Développeur full-stack basé à Repentigny, Grand Montréal. B. Ing. génie logiciel ÉTS. ~15 000 LOC en production."
       : "Full-stack developer based in Repentigny, Greater Montréal. B.Eng. Software Engineering ÉTS. ~15,000 LOC in production.",
-    alternates: {
-      languages: { fr: "/fr/about", en: "/en/about" },
-    },
+    alternates: alternatesFor(locale, "/about"),
   };
 }
 

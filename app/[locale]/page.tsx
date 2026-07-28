@@ -16,7 +16,6 @@ import { SectionRail } from "@/components/ui/section-rail";
 import { CountUp } from "@/components/ui/count-up";
 import { PlainBanner, Lexicon, PlainSwap } from "@/components/ui/plain-mode";
 import { stackGroups, usedIn } from "@/lib/stack";
-import Image from "next/image";
 import { ProfilePhoto } from "@/components/ui/profile-photo";
 import { TestimonialsCarousel } from "@/components/ui/testimonials-carousel";
 import { testimonials } from "@/lib/testimonials";
@@ -37,6 +36,8 @@ function HomeContent() {
   const tSec = useTranslations("sectionLabels");
   const tHome = useTranslations("home");
   const locale = useLocale() as "fr" | "en";
+  const capabilities = t.raw("capabilities") as string[];
+  const heroTitles = t.raw("title") as string[];
 
   const heroName = t("name");
   const nameParts = heroName.split(" ");
@@ -80,6 +81,24 @@ function HomeContent() {
                 </span>
               </h1>
 
+              {/* Mobile/tablet identity: keep the person visible when the large portrait column is hidden. */}
+              <div className="mt-5 flex items-center gap-3 xl:hidden">
+                <figure className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl border border-border-color bg-muted-2 shadow-sm">
+                  <ProfilePhoto
+                    alt="Ralph Christian Gabriel"
+                    className="h-full w-full"
+                    priority
+                    sizes="64px"
+                  />
+                </figure>
+                <div className="min-w-0">
+                  <p className="text-sm font-medium text-foreground">{heroTitles[0]}</p>
+                  <p className="mt-1 font-mono text-[11px] text-muted-foreground">
+                    {heroTitles[2]}
+                  </p>
+                </div>
+              </div>
+
               {/* Typewriter role */}
               <div className="mt-6">
                 <HeroRole />
@@ -92,6 +111,21 @@ function HomeContent() {
               <p className="mt-5 max-w-[54ch] text-lg leading-relaxed text-muted-foreground">
                 {t("pitch")}
               </p>
+
+              {/* Stable expertise keywords: useful information must not depend on the rotating role line. */}
+              <ul
+                className="mt-5 flex max-w-[60ch] flex-wrap gap-2"
+                aria-label={locale === "fr" ? "Domaines d’expertise" : "Areas of expertise"}
+              >
+                {capabilities.map((capability) => (
+                  <li
+                    key={capability}
+                    className="rounded-full border border-border-color bg-background/55 px-3 py-1.5 font-mono text-[11px] text-foreground backdrop-blur-sm"
+                  >
+                    {capability}
+                  </li>
+                ))}
+              </ul>
 
               {/* CTAs */}
               <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -131,7 +165,7 @@ function HomeContent() {
                   {/* Light theme: compact chip (no wash-out fade). Dark: gradient. */}
                   <span className="inline-flex items-center gap-2 rounded-md bg-background/80 px-2 py-1 shadow-sm backdrop-blur-sm dark:bg-transparent dark:p-0 dark:shadow-none dark:backdrop-blur-none">
                     <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--shipped)" }} />
-                    RG.SYS · Montréal
+                    RCG · Montréal
                   </span>
                 </figcaption>
               </figure>

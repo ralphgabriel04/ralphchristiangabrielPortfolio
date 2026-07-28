@@ -3,6 +3,21 @@ import { test, expect } from "playwright/test";
 const LOCALES = ["fr", "en"] as const;
 
 for (const locale of LOCALES) {
+  test.describe(`[${locale}] Hero positioning`, () => {
+    test("communicates the multidisciplinary student profile", async ({ page }) => {
+      await page.goto(`/${locale}`);
+
+      const expectedKicker = locale === "fr"
+        ? "Portfolio · Étudiant en génie logiciel · Web, mobile & systèmes"
+        : "Portfolio · Software Engineering Student · Web, mobile & systems";
+      const expectedCapability = locale === "fr" ? "Architecture logicielle" : "Software architecture";
+
+      await expect(page.getByText(expectedKicker, { exact: true })).toBeVisible();
+      await expect(page.getByText(expectedCapability, { exact: true })).toBeVisible();
+      await expect(page.locator("header").getByText("RCG", { exact: true }).first()).toBeVisible();
+    });
+  });
+
   test.describe(`[${locale}] Navigation`, () => {
     test("homepage loads with h1", async ({ page }) => {
       await page.goto(`/${locale}`);
@@ -74,14 +89,16 @@ for (const locale of LOCALES) {
       await expect(main).toBeVisible();
     });
 
-    test("all images have alt text", async ({ page }) => {
+    test("all images expose an alt attribute", async ({ page }) => {
       await page.goto(`/${locale}/about`);
       const images = page.locator("img");
       const count = await images.count();
       for (let i = 0; i < count; i++) {
         const alt = await images.nth(i).getAttribute("alt");
-        expect(alt).toBeTruthy();
+        // Empty alt is correct for decorative/crossfade duplicate layers.
+        expect(alt).not.toBeNull();
       }
+      await expect(page.locator('img[alt="Ralph Christian Gabriel"]').first()).toBeVisible();
     });
   });
 

@@ -39,19 +39,19 @@ export default async function OGImage({
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              width: "48px",
+              width: "58px",
               height: "48px",
               borderRadius: "10px",
               border: "2px solid #333",
               color: "#fafafa",
-              fontSize: "20px",
+              fontSize: "17px",
               fontWeight: 600,
             }}
           >
-            RG
+            RCG
           </div>
           <span style={{ color: "#737373", fontSize: "18px" }}>
-            ralphgabriel<span style={{ color: "#fafafa" }}>.dev</span>
+            rcgabriel<span style={{ color: "#fafafa" }}>.dev</span>
           </span>
         </div>
 

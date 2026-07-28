@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import { alternatesFor } from "@/lib/site";
 import Image from "next/image";
-import { useTranslations, useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Briefcase, GraduationCap, Award } from "lucide-react";
 
@@ -12,9 +13,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     description: isFr
       ? "Parcours professionnel et formation. Cadence (cofondateur), projets freelance, The Mad Space, Fastercom, Vidéotron. B. Ing. génie logiciel ÉTS."
       : "Career and education. Cadence (co-founder), freelance projects, The Mad Space, Fastercom, Vidéotron. B.Eng. Software Engineering ÉTS.",
-    alternates: {
-      languages: { fr: "/fr/experience", en: "/en/experience" },
-    },
+    alternates: alternatesFor(locale, "/experience"),
   };
 }
 import { SectionHeading } from "@/components/ui/section-heading";

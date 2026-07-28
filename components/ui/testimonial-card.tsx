@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
+import Image from "next/image";
 import { type Testimonial, categoryLabels } from "@/lib/testimonials";
 import { Link } from "@/i18n/navigation";
 
@@ -79,7 +80,7 @@ export function TestimonialCard({
       {/* Author row */}
       <div className="mt-5 flex items-center gap-3">
         {t.avatar ? (
-          <img
+          <Image
             src={t.avatar}
             alt={t.name}
             width={40}
