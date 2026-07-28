@@ -181,6 +181,7 @@
               </sc-for>
             </div>
 
+            <div style="min-height:20px;flex:0 0 auto"></div>
             <button onClick="{{ obNext }}" style="margin-top:auto;width:100%;height:56px;border:none;border-radius:16px;background:{{ obNextBg }};color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:700;cursor:{{ obNextCursor }};box-shadow:0 12px 22px -10px rgba(20,73,47,.6);transition:background .2s;">{{ obNextLabel }}</button>
             <button onClick="{{ obSkipQuestion }}" style="margin-top:12px;width:100%;height:40px;border:none;background:none;color:var(--muted);font-family:inherit;font-size:13.5px;font-weight:600;cursor:pointer;">Passer cette question</button>
           </div>
@@ -289,7 +290,7 @@
                   <div style="width:52px;"><dc-import name="Wiz" pose="{{ meteo.pose }}" hint-size="52px,62px"></dc-import></div>
                 </div>
                 <div style="flex:1;min-width:0;">
-                  <div style="display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:800;letter-spacing:.5px;color:{{ meteo.chip }};">🌤️ MÉTÉO FINANCIÈRE · {{ meteo.tag }}</div>
+                  <div style="display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:800;letter-spacing:.5px;color:{{ meteo.chip }};flex-wrap:wrap;line-height:1.3;"><span style="display:inline-block;font-size:13px;animation:floatY 3.2s ease-in-out infinite;">🌤️</span><span>MÉTÉO FINANCIÈRE</span><span style="opacity:.6;">·</span><span>{{ meteo.tag }}</span></div>
                   <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:16.5px;font-weight:800;color:var(--ink);margin-top:3px;line-height:1.2;">{{ meteo.title }}</div>
                 </div>
               </div>
@@ -325,6 +326,38 @@
               </div>
             </sc-if>
             <sc-if value="{{ homeNotNew }}" hint-placeholder-val="{{ true }}">
+            <div style="margin-top:18px;display:flex;align-items:flex-end;justify-content:space-between;gap:12px;">
+              <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:16.5px;font-weight:800;color:var(--heading);line-height:1.25;">Tes chiffres ce mois-ci</div>
+              <div style="flex:none;display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:9px 12px;font-size:13px;font-weight:700;color:var(--ink);">Mai 2025<svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="var(--muted2)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+            </div>
+            <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+              <div style="background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:14px;box-shadow:0 6px 16px -12px rgba(20,73,47,.3);">
+                <div style="display:flex;align-items:center;gap:7px;"><span style="width:9px;height:9px;border-radius:50%;background:#36B34A;flex:none;"></span><span style="font-size:12.5px;font-weight:700;color:var(--muted);">Revenus</span></div>
+                <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:23px;font-weight:800;color:var(--heading);margin-top:6px;letter-spacing:-.5px;">2 400 $</div>
+                <div style="font-size:11.5px;font-weight:700;color:#2E9E47;margin-top:2px;">↑ 7 % vs avril</div>
+                <svg width="100%" height="26" viewBox="0 0 100 26" preserveAspectRatio="none" style="display:block;margin-top:10px;"><polyline points="2,22 20,20 38,21 54,15 70,16 86,10 98,7" fill="none" stroke="#36B34A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polyline></svg>
+              </div>
+              <div style="background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:14px;box-shadow:0 6px 16px -12px rgba(20,73,47,.3);">
+                <div style="display:flex;align-items:center;gap:7px;"><span style="width:9px;height:9px;border-radius:50%;background:#E0674F;flex:none;"></span><span style="font-size:12.5px;font-weight:700;color:var(--muted);">Dépenses</span></div>
+                <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:23px;font-weight:800;color:var(--heading);margin-top:6px;letter-spacing:-.5px;">1 750 $</div>
+                <div style="font-size:11.5px;font-weight:700;color:#2E9E47;margin-top:2px;">↓ 5 % vs avril</div>
+                <svg width="100%" height="26" viewBox="0 0 100 26" preserveAspectRatio="none" style="display:block;margin-top:10px;"><polyline points="2,12 20,13 38,11 54,14 70,12 86,14 98,13" fill="none" stroke="#E0674F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polyline></svg>
+              </div>
+              <div style="background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:14px;box-shadow:0 6px 16px -12px rgba(20,73,47,.3);">
+                <div style="display:flex;align-items:center;gap:7px;"><span style="width:9px;height:9px;border-radius:50%;background:#4C8DF6;flex:none;"></span><span style="font-size:12.5px;font-weight:700;color:var(--muted);">Épargne</span></div>
+                <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:23px;font-weight:800;color:var(--heading);margin-top:6px;letter-spacing:-.5px;">650 $</div>
+                <div style="font-size:11.5px;font-weight:700;color:#2E9E47;margin-top:2px;">↑ 59 % vs avril</div>
+                <svg width="100%" height="26" viewBox="0 0 100 26" preserveAspectRatio="none" style="display:block;margin-top:10px;"><polyline points="2,22 20,21 38,20 54,14 70,15 86,10 98,6" fill="none" stroke="#4C8DF6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"></polyline></svg>
+              </div>
+              <div style="background:#14492F;border:1px solid #14492F;border-radius:20px;padding:14px;box-shadow:0 8px 18px -12px rgba(20,73,47,.6);">
+                <div style="display:flex;align-items:center;gap:7px;"><span style="font-size:13px;">✨</span><span style="font-size:12.5px;font-weight:700;color:#C9E6CE;">Épargne possible</span></div>
+                <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:23px;font-weight:800;color:#fff;margin-top:6px;letter-spacing:-.5px;">350 $</div>
+                <div style="font-size:11.5px;font-weight:600;color:#A8CEB2;margin-top:2px;">ce mois-ci</div>
+                <div style="margin-top:14px;height:8px;border-radius:5px;background:rgba(255,255,255,.18);overflow:hidden;"><div style="height:100%;width:54%;border-radius:5px;background:#8ED79C;"></div></div>
+              </div>
+            </div>
+            </sc-if>
+            <sc-if value="{{ healthOnHome }}" hint-placeholder-val="{{ false }}">
             <div style="margin-top:14px;background:var(--surface);border:1px solid var(--border);border-radius:22px;padding:18px;box-shadow:0 6px 16px -12px rgba(20,73,47,.3);">
               <div style="display:flex;align-items:center;gap:15px;">
                 <div style="position:relative;width:74px;height:74px;flex:none;">
@@ -370,7 +403,7 @@
                 <p style="margin:8px 0 0;font-size:13px;line-height:1.45;color:var(--body);">Tu as épargné <b style="color:var(--ink);">300 $</b> et respecté ton budget 3 semaines sur 4. Beau mois ! 🌱</p>
               </div>
               <div style="margin-top:12px;display:flex;gap:12px;">
-                <button onClick="{{ goBudget }}" style="flex:1;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px;cursor:pointer;text-align:left;"><div style="font-size:20px;">📊</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:800;color:var(--ink);margin-top:6px;">Mon plan</div></button>
+                <button onClick="{{ goBudget }}" style="flex:1;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px;cursor:pointer;text-align:left;"><div style="font-size:20px;">📊</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:800;color:var(--ink);margin-top:6px;">Mon budget</div></button>
                 <button onClick="{{ goWiz }}" style="flex:1;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px;cursor:pointer;text-align:left;"><div style="font-size:20px;">💬</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:800;color:var(--ink);margin-top:6px;">Demander à Wiz</div></button>
               </div>
             </sc-if>
@@ -509,7 +542,7 @@
           <div style="padding:6px 20px 110px;animation:screenIn .3s ease both;">
             <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0 16px;">
               <button onClick="{{ backFromSub }}" style="border:none;background:var(--surface);border:1px solid var(--border);width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--heading);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
-              <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;color:var(--heading);">Mon plan</div>
+              <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;color:var(--heading);">Mon budget</div>
               <button onClick="{{ openSheetIncome }}" style="border:none;background:#14492F;height:42px;border-radius:13px;padding:0 14px;display:flex;align-items:center;gap:6px;cursor:pointer;color:#fff;font-family:inherit;font-size:13px;font-weight:700;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#fff" stroke-width="2.2" stroke-linecap="round"></path></svg></button>
             </div>
 
@@ -640,6 +673,33 @@
             <div style="margin:14px 0;background:linear-gradient(135deg,var(--tint-amber),var(--tint-amber));border:1px solid var(--bd-amber);border-radius:18px;padding:14px 16px;display:flex;align-items:center;gap:11px;">
               <span style="font-size:24px;">🌱</span>
               <p style="margin:0;font-size:13px;line-height:1.45;color:#6E5A33;">Chaque petite action aujourd'hui te rapproche de tes rêves. Continue, tu es sur la bonne voie&nbsp;!</p>
+            </div>
+
+            <div style="margin-bottom:14px;background:var(--surface);border:1px solid var(--border);border-radius:22px;padding:18px;box-shadow:0 6px 16px -12px rgba(20,73,47,.3);">
+              <div style="display:flex;align-items:center;gap:15px;">
+                <div style="position:relative;width:74px;height:74px;flex:none;">
+                  <svg width="74" height="74" viewBox="0 0 74 74" style="position:absolute;inset:0;transform:rotate(-90deg);">
+                    <circle cx="37" cy="37" r="32" fill="none" stroke="var(--track)" stroke-width="7"></circle>
+                    <circle cx="37" cy="37" r="32" fill="none" stroke="#36B34A" stroke-width="7" stroke-linecap="round" stroke-dasharray="201" stroke-dashoffset="44"></circle>
+                  </svg>
+                  <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                    <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:23px;font-weight:800;color:var(--heading);line-height:1;">78</span>
+                    <span style="font-size:9px;color:var(--muted);font-weight:600;">/ 100</span>
+                  </div>
+                </div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:11.5px;font-weight:800;letter-spacing:.4px;color:var(--muted2);text-transform:uppercase;">Santé financière</div>
+                  <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;color:var(--heading);margin-top:2px;line-height:1.1;">En bonne voie 🌱</div>
+                  <div style="font-size:12.5px;color:var(--muted);margin-top:3px;line-height:1.4;">+6 points ce mois — sans stress, tu avances.</div>
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px;">
+                <div style="display:flex;align-items:center;gap:8px;background:var(--tint-green);border-radius:12px;padding:9px 11px;"><span style="flex:none;width:18px;height:18px;border-radius:50%;background:var(--ac-green);display:flex;align-items:center;justify-content:center;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><span style="font-size:12px;font-weight:700;color:var(--ac-green);">Budget respecté</span></div>
+                <div style="display:flex;align-items:center;gap:8px;background:var(--tint-green);border-radius:12px;padding:9px 11px;"><span style="flex:none;width:18px;height:18px;border-radius:50%;background:var(--ac-green);display:flex;align-items:center;justify-content:center;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><span style="font-size:12px;font-weight:700;color:var(--ac-green);">Épargne en hausse</span></div>
+                <div style="display:flex;align-items:center;gap:8px;background:var(--tint-green);border-radius:12px;padding:9px 11px;"><span style="flex:none;width:18px;height:18px;border-radius:50%;background:var(--ac-green);display:flex;align-items:center;justify-content:center;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><span style="font-size:12px;font-weight:700;color:var(--ac-green);">Dettes en baisse</span></div>
+                <div style="display:flex;align-items:center;gap:8px;background:var(--tint-amber);border-radius:12px;padding:9px 11px;"><span style="flex:none;width:18px;height:18px;border-radius:50%;background:#E8A93B;display:flex;align-items:center;justify-content:center;font-size:11px;">◔</span><span style="font-size:12px;font-weight:700;color:#B5852A;">Fonds à bâtir</span></div>
+              </div>
+              <div style="margin-top:11px;font-size:11px;color:var(--muted2);line-height:1.45;">Un repère, pas une note. Wiz t'aide à comprendre, pas à juger.</div>
             </div>
 
             <sc-if value="{{ goalsEmpty }}" hint-placeholder-val="{{ false }}">
@@ -885,7 +945,7 @@
             </sc-if>
 
             <!-- ============ TERMINÉES ============ -->
-            <sc-if value="{{ learnIsTerminees }}" hint-placeholder-val="{{ false }}">
+            <sc-if value="{{ learnIsParcours }}" hint-placeholder-val="{{ true }}">
               <div style="padding:16px 20px 0;">
                 <div style="background:linear-gradient(150deg,#1C6B45,#14492F);border-radius:20px;padding:16px;display:flex;align-items:center;gap:13px;box-shadow:0 12px 24px -16px rgba(20,73,47,.6);">
                   <div style="width:48px;height:48px;border-radius:14px;background:rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;font-size:24px;flex:none;">🎓</div>
@@ -1878,7 +1938,7 @@
           <div style="min-height:736px;display:flex;flex-direction:column;padding:6px 20px 110px;animation:screenIn .3s ease both;">
             <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0 16px;">
               <button onClick="{{ backFromSub }}" style="border:none;background:var(--surface);border:1px solid var(--border);width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--heading);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
-              <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;color:var(--heading);">Mon plan</div>
+              <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;color:var(--heading);">Mon budget</div>
               <div style="width:42px;"></div>
             </div>
             <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
@@ -3015,7 +3075,7 @@ class Component extends DCLogic {
     const appBg = 'var(--bg)';
     const L = s.lang;
     const t = {
-      accueil:L==='fr'?'Accueil':'Home', budget:L==='fr'?'Plan':'Plan', objectifs:L==='fr'?'Objectifs':'Goals',
+      accueil:L==='fr'?'Accueil':'Home', budget:L==='fr'?'Budget':'Budget', objectifs:L==='fr'?'Objectifs':'Goals',
       profil:L==='fr'?'Profil':'Profile', bonjour:L==='fr'?'Bonjour':'Hello',
       apprendre:L==='fr'?'Apprendre':'Learn', actualites:L==='fr'?'Actualités':'News',
       langName:L==='fr'?'Français (CA)':'English',
@@ -3051,6 +3111,7 @@ class Component extends DCLogic {
       homeStage:(this.props&&this.props.homeStage)||'progression',
       homeNew:((this.props&&this.props.homeStage)||'progression')==='nouveau',
       homeNotNew:((this.props&&this.props.homeStage)||'progression')!=='nouveau',
+      healthOnHome:false,
       homeEstabli:((this.props&&this.props.homeStage)||'progression')==='etabli',
       hasHomePriority:!!priorityGoalObj,
       homePriorityName:priorityGoalObj?priorityGoalObj.name:'', homePriorityEmoji:priorityGoalObj?priorityGoalObj.emoji:'🎯', homePriorityPct:priorityGoalObj?priorityGoalObj.pct:0, homePriorityPctW:priorityGoalObj?priorityGoalObj.pctW:'0%', homePrioritySavedF:priorityGoalObj?priorityGoalObj.savedF:'', homePriorityTargetF:priorityGoalObj?priorityGoalObj.targetF:'', homePriorityColor:priorityGoalObj?priorityGoalObj.color:'#36B34A', openHomePriority:priorityGoalObj?priorityGoalObj.open:(()=>this.go('goals')),
@@ -3095,7 +3156,7 @@ class Component extends DCLogic {
       tabLearn: lessonsT?'#14492F':'var(--muted2)',
       // apprendre / actualités
       learnTab:s.learnTab,
-      learnTabs:[{k:'parcours',label:'Mon parcours'},{k:'explorer',label:'Explorer'},{k:'terminees',label:'Terminées'},{k:'actualites',label:'Actualités'}].map(x=>({label:x.label, active:s.learnTab===x.k, bg:s.learnTab===x.k?'#fff':'transparent', color:s.learnTab===x.k?'#14492F':'var(--muted)', shadow:s.learnTab===x.k?'0 2px 6px rgba(20,73,47,.12)':'none', pick:()=>this.setLearnTab(x.k)})),
+      learnTabs:[{k:'parcours',label:'Mon parcours'},{k:'explorer',label:'Explorer'},{k:'actualites',label:'Actualités'}].map(x=>({label:x.label, active:s.learnTab===x.k, bg:s.learnTab===x.k?'#fff':'transparent', color:s.learnTab===x.k?'#14492F':'var(--muted)', shadow:s.learnTab===x.k?'0 2px 6px rgba(20,73,47,.12)':'none', pick:()=>this.setLearnTab(x.k)})),
       learnIsParcours:s.learnTab==='parcours', learnIsExplorer:s.learnTab==='explorer', learnIsTerminees:s.learnTab==='terminees', learnIsActualites:s.learnTab==='actualites',
       learnTitle:({parcours:'Apprendre',explorer:'Explorer',terminees:'Terminées',actualites:'Actualités'})[s.learnTab],
       learnSub:({parcours:'Continue là où tu t\'es arrêté.',explorer:'Explore par sujet, à ton rythme.',terminees:'Tes capsules terminées et tes favoris.',actualites:'Bientôt : l\'actualité décodée pour toi.'})[s.learnTab],
