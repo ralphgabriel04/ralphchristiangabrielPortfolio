@@ -450,6 +450,22 @@ export const projectGalleries: Record<string, { src: string; caption: { fr: stri
   ],
   "wise-wealthy": [
     {
+      src: "/media/ww-screen-1.jpg",
+      caption: { fr: "Onboarding — le coach Wiz t'accueille", en: "Onboarding — meet your coach Wiz" },
+    },
+    {
+      src: "/media/ww-screen-2.jpg",
+      caption: { fr: "Wiz, ton coach financier de poche", en: "Wiz, your pocket money coach" },
+    },
+    {
+      src: "/media/ww-screen-3.jpg",
+      caption: { fr: "Confidentialité — tes données protégées (Loi 25)", en: "Privacy — your data protected (Loi 25)" },
+    },
+    {
+      src: "/media/ww-screen-4.jpg",
+      caption: { fr: "Création de compte — courriel, Google ou Apple", en: "Sign-up — email, Google or Apple" },
+    },
+    {
       src: "/media/wise-wealthy-kids.mp4",
       caption: { fr: "Wise & Wealthy Kids — app ludique pour enfants", en: "Wise & Wealthy Kids — playful app for children" },
     },
