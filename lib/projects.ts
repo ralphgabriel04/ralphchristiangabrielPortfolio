@@ -233,7 +233,7 @@ export const caseStudyIds = new Set([
 
 /** Role per project, used in project detail meta strip */
 export const projectRoles: Record<string, { fr: string; en: string }> = {
-  "the-mad-space": { fr: "Ingénieur Full-Stack (Contractuel)", en: "Full-Stack Engineer (Contract)" },
+  "the-mad-space": { fr: "Développeur Full-Stack (Contractuel)", en: "Full-Stack Developer (Contract)" },
   "cadence": { fr: "Co-fondateur · Tech Lead", en: "Co-founder · Tech Lead" },
   "vibe": { fr: "Fondateur · Product Design · Prototypage · Stratégie produit", en: "Founder · Product Design · Prototyping · Product Strategy" },
   "dpm-elevate": { fr: "Fondateur · Design & Prototypage", en: "Founder · Design & Prototyping" },

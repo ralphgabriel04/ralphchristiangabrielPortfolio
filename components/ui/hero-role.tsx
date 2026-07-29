@@ -23,26 +23,26 @@ export function HeroRole() {
       ? fr
         ? [
             "je construis des sites et des applications",
-            "futur ingénieur logiciel — étudiant à l'ÉTS",
+            "étudiant en génie logiciel à l'ÉTS",
             "je conçois, je livre, et j'explique simplement",
             "bilingue français/anglais — Grand Montréal",
           ]
         : [
             "I build websites and applications",
-            "future software engineer — studying at ÉTS",
+            "software engineering student at ÉTS",
             "I design, I deliver, and I explain simply",
             "bilingual French/English — Greater Montréal",
           ]
       : fr
         ? [
             "dev full-stack — React · Next.js · Java",
-            "ingénieur logiciel en formation @ ÉTS",
+            "étudiant en génie logiciel @ ÉTS",
             "je conçois, je livre, j'explique",
             "bilingue FR/EN — Grand Montréal",
           ]
         : [
             "full-stack dev — React · Next.js · Java",
-            "software engineer in training @ ÉTS",
+            "software engineering student @ ÉTS",
             "I design, I ship, I explain",
             "bilingual FR/EN — Greater Montréal",
           ];

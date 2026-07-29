@@ -87,7 +87,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Ralph Christian Gabriel",
-  jobTitle: "Full-Stack Developer",
+  jobTitle: "Software Engineering Student and Full-Stack Developer",
   url: BASE_URL,
   email: "ralph.c.gabriel@proton.me",
   address: {

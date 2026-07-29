@@ -27,7 +27,7 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
   "the-mad-space": {
     fr: {
       meta: [
-        { k: "Rôle", v: "Seul ingénieur" },
+        { k: "Rôle", v: "Seul développeur" },
         { k: "Durée", v: "~3 mois (1re version)" },
         { k: "Stack", v: "Next.js · PostgreSQL" },
         { k: "Statut", v: "En production" },
@@ -41,7 +41,7 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
             "Partage des profits : 10–20 % aux porteurs d'idées, 20–35 % aux designers",
             "3 rôles utilisateurs : admin, créateur, client",
             "4 devises (CAD, USD, EUR, GBP) et 2 langues",
-            "7+ services externes branchés, maintenus par un seul ingénieur",
+            "7+ services externes branchés, maintenus par un seul développeur",
           ],
         },
         {
@@ -114,7 +114,7 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
     },
     en: {
       meta: [
-        { k: "Role", v: "Only engineer" },
+        { k: "Role", v: "Sole developer" },
         { k: "Duration", v: "~3 months (MVP)" },
         { k: "Stack", v: "Next.js · PostgreSQL" },
         { k: "Status", v: "In production" },
@@ -128,7 +128,7 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
             "Profit-sharing: 10–20% idea-givers, 20–35% designers",
             "3 user roles: admin, creator, client",
             "4 currencies (CAD, USD, EUR, GBP) and 2 languages",
-            "7+ external integrations, maintained by a single engineer",
+            "7+ external integrations, maintained by a single developer",
           ],
         },
         {

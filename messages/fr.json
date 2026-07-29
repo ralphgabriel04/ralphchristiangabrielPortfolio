@@ -68,7 +68,7 @@
     "close": "Fermer"
   },
   "hero": {
-    "kicker": "Portfolio — Ingénieur Full-Stack · Systèmes en production",
+    "kicker": "Portfolio · Étudiant en génie logiciel (ÉTS) · Développeur full-stack",
     "name": "Ralph Christian Gabriel",
     "title": ["Développeur Full-Stack", "ÉTS · Génie Logiciel", "Montréal"],
     "pitch": "Je conçois et je livre des systèmes web et mobiles — puis j'explique chaque décision d'architecture. Trois études de cas documentées, avec métriques avant/après.",
@@ -242,7 +242,7 @@
       },
       {
         "date": "2025 · présent",
-        "role": "Ingénieur logiciel Full-Stack (Contractuel)",
+        "role": "Développeur logiciel Full-Stack (Contractuel)",
         "org": "The Mad Space",
         "desc": "Conception et développement complet d'une marketplace e-commerce print-on-demand (~15 000 LOC, 30+ endpoints API). 10+ modèles Prisma/PostgreSQL, auth custom session-based, OAuth 2.0 Google, i18n (2 langues), multi-devises (4). 7+ intégrations B2B (Stripe, Gelato, Google Merchant Center, GA4, Google Ads). Conformité GDPR/Loi 25. Déploiement Vercel/Supabase, Edge Functions Deno."
       },

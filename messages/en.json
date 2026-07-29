@@ -68,7 +68,7 @@
     "close": "Close"
   },
   "hero": {
-    "kicker": "Portfolio — Full-Stack Engineer · Systems in production",
+    "kicker": "Portfolio · Software Engineering student (ÉTS) · Full-stack developer",
     "name": "Ralph Christian Gabriel",
     "title": ["Full-Stack Developer", "ÉTS · Software Engineering", "Montréal"],
     "pitch": "I design and ship web and mobile systems — then I explain every architecture decision. Three documented case studies, with before/after metrics.",
@@ -242,7 +242,7 @@
       },
       {
         "date": "2025 · present",
-        "role": "Full-Stack Software Engineer (Contract)",
+        "role": "Full-Stack Software Developer (Contract)",
         "org": "The Mad Space",
         "desc": "Designed and shipped a print-on-demand e-commerce marketplace (~15,000 LOC, 30+ API endpoints). 10+ Prisma/PostgreSQL models, custom session-based auth, Google OAuth 2.0, i18n (2 languages), multi-currency (4). 7+ B2B integrations (Stripe, Gelato, Google Merchant Center, GA4, Google Ads). GDPR/Loi 25 compliance. Vercel/Supabase deployment, Deno Edge Functions."
       },
