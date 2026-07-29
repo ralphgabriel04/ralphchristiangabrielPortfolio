@@ -483,7 +483,233 @@ const dpmEn: CaseStudyV2 = {
   ],
 };
 
+// ─────────────────────────────────────────────────────────────────────────────
+// CLIENT MANDATES — recruiter + business modes. Honestly framed as delivered
+// high-fidelity prototypes / mockups (viewable online), not production sites.
+// ─────────────────────────────────────────────────────────────────────────────
+
+const kimFr: CaseStudyV2 = {
+  modes: ["recruiter", "business"],
+  identity: {
+    valueProp: "Refonte du site d'une photographe animalière primée à l'international — de la découverte du besoin jusqu'à une maquette complète et testable.",
+    kind: "Mandat client · premier client payant",
+    domain: "Site vitrine · photographie",
+    maturity: "prototype",
+    maturityLabel: "Maquette livrée (prototype)",
+    period: "2026",
+    role: "Freelance · Design, prototypage & relation client",
+    market: "Photographe animalière (TIPPA 2024-2025) · particuliers & commercial",
+    platforms: ["Web · maquette bilingue clair/sombre"],
+    stack: ["Claude Design → Claude Code", "HTML/CSS/JS (React + Babel)", "i18n FR/EN", "Cible : Next.js + TS + Tailwind"],
+    updated: "2026-07-29",
+  },
+  sections: [
+    { id: "resume", title: "Résumé", modes: ["recruiter"], body: "Reprise et refonte du site d'une photographe animalière primée (TIPPA), dont le site Wix était resté inachevé. Une démarche complète orientée premier client payant : découverte structurée, cadrage, puis une maquette générée et implémentée, itérée avec la cliente." },
+    { id: "client", title: "Le client", modes: ["recruiter", "business"], body: "Une photographe animalière primée à l'international (TIPPA 2024-2025, Bronze), dont le site Wix était resté inachevé — mon premier client payant." },
+    { id: "mandat", title: "Situation & mandat", modes: ["business"], body: "Reprendre un site inachevé et le refondre, avec un objectif clair : convertir de vrais visiteurs en clients.", points: ["Pas de présence web professionnelle exploitable", "Deux audiences : particuliers et commercial", "Un premier mandat payant, donc une confiance à établir"] },
+    { id: "demarche", title: "Déroulement", modes: ["recruiter", "business"], body: "Une démarche cadrée avant de produire quoi que ce soit.", points: ["Formulaire de découverte (60 questions)", "Deck de présentation (9 diapos) pour cadrer l'appel", "Brief structuré, puis maquette générée et implémentée", "Plusieurs itérations à partir des retours de la cliente"] },
+    { id: "solution", title: "La solution livrée", modes: ["recruiter", "business"], body: "Une maquette multi-pages bilingue, claire/sombre, réellement navigable.", points: ["Multi-pages : accueil, galerie portfolio, page distinctions", "~15 sections modulaires (héros, forfaits, témoignages, boutique, FAQ…)", "Vraies photos primées par catégorie · carrousel + lightbox", "Mode admin « liberté encadrée » : éditer contenu et apparence sans casser la maquette"] },
+    { id: "livrables", title: "Livrables & état", modes: ["recruiter", "business"], kind: "metrics", body: "Le livrable est une maquette complète et interactive — un prototype, pas encore un site en production." },
+    { id: "services", title: "Ce que je peux reproduire", modes: ["business"], body: "La même démarche pour un autre client.", points: ["Découverte structurée (formulaire + appel cadré)", "Prototype haute-fidélité bilingue clair/sombre", "Éditeur admin pour absorber les retours sans tout casser", "Passage en production (Next.js + TypeScript)"] },
+    { id: "limites", title: "Limites", modes: ["recruiter", "business"], kind: "limits" },
+  ],
+  metrics: [
+    { label: "sections modulaires", value: "~15", evidence: "designed" },
+    { label: "pages (accueil · galerie · distinctions)", value: "3", evidence: "implemented" },
+    { label: "maquette bilingue · clair/sombre", value: "✓", evidence: "implemented" },
+    { label: "maquette en ligne (démo)", value: "Live", evidence: "deployed" },
+  ],
+  limits: ["C'est une maquette haute-fidélité, pas encore un site en production.", "Passage en production (Next.js) et textes légaux à finaliser avec la cliente."],
+  links: [
+    { label: "Maquette en ligne", url: "/kim-dubois/index.html", kind: "demo" },
+    { label: "Instagram", url: "https://www.instagram.com/kimduboisphotographeanimaliere/", kind: "doc" },
+  ],
+};
+
+const kimEn: CaseStudyV2 = {
+  modes: ["recruiter", "business"],
+  identity: {
+    valueProp: "Redesign of an internationally awarded pet photographer's site — from discovering the need to a complete, testable mockup.",
+    kind: "Client mandate · first paying client",
+    domain: "Portfolio site · photography",
+    maturity: "prototype",
+    maturityLabel: "Delivered mockup (prototype)",
+    period: "2026",
+    role: "Freelance · Design, prototyping & client relations",
+    market: "Pet photographer (TIPPA 2024-2025) · consumer & commercial",
+    platforms: ["Web · bilingual light/dark mockup"],
+    stack: ["Claude Design → Claude Code", "HTML/CSS/JS (React + Babel)", "i18n FR/EN", "Target: Next.js + TS + Tailwind"],
+    updated: "2026-07-29",
+  },
+  sections: [
+    { id: "resume", title: "Summary", modes: ["recruiter"], body: "Takeover and redesign of an awarded pet photographer's (TIPPA) site, whose Wix site had been left unfinished. A full first-paying-client process: structured discovery, framing, then a generated-and-implemented mockup, iterated with the client." },
+    { id: "client", title: "The client", modes: ["recruiter", "business"], body: "An internationally awarded pet photographer (TIPPA 2024-2025, Bronze), whose Wix site had been left unfinished — my first paying client." },
+    { id: "mandat", title: "Situation & mandate", modes: ["business"], body: "Take over an unfinished site and redesign it, with a clear goal: turn real visitors into clients.", points: ["No usable professional web presence", "Two audiences: consumer and commercial", "A first paid mandate — trust to build"] },
+    { id: "demarche", title: "Process", modes: ["recruiter", "business"], body: "A framed process before producing anything.", points: ["A 60-question discovery form", "A 9-slide deck to frame the call", "A structured brief, then a generated-and-implemented mockup", "Several iterations from the client's feedback"] },
+    { id: "solution", title: "The delivered solution", modes: ["recruiter", "business"], body: "A multi-page bilingual mockup, light/dark, genuinely navigable.", points: ["Multi-page: home, portfolio gallery, distinctions page", "~15 modular sections (hero, packages, testimonials, shop, FAQ…)", "Real awarded photos by category · carousel + lightbox", "Admin mode \"bounded freedom\": edit content and look without breaking the mockup"] },
+    { id: "livrables", title: "Deliverables & state", modes: ["recruiter", "business"], kind: "metrics", body: "The deliverable is a complete, interactive mockup — a prototype, not yet a production site." },
+    { id: "services", title: "What I can reproduce", modes: ["business"], body: "The same process for another client.", points: ["Structured discovery (form + framed call)", "High-fidelity bilingual light/dark prototype", "Admin editor to absorb feedback without breaking things", "Move to production (Next.js + TypeScript)"] },
+    { id: "limites", title: "Limits", modes: ["recruiter", "business"], kind: "limits" },
+  ],
+  metrics: [
+    { label: "modular sections", value: "~15", evidence: "designed" },
+    { label: "pages (home · gallery · distinctions)", value: "3", evidence: "implemented" },
+    { label: "bilingual mockup · light/dark", value: "✓", evidence: "implemented" },
+    { label: "mockup online (demo)", value: "Live", evidence: "deployed" },
+  ],
+  limits: ["It's a high-fidelity mockup, not yet a production site.", "Move to production (Next.js) and legal copy to finalize with the client."],
+  links: [
+    { label: "Live mockup", url: "/kim-dubois/index.html", kind: "demo" },
+    { label: "Instagram", url: "https://www.instagram.com/kimduboisphotographeanimaliere/", kind: "doc" },
+  ],
+};
+
+const boaFr: CaseStudyV2 = {
+  modes: ["recruiter", "business"],
+  identity: {
+    valueProp: "Site de réservation pour un chef privé à Montréal — une expérience éditoriale et un parcours de réservation complet, entièrement maquettés.",
+    kind: "Mandat client · chef privé",
+    domain: "Réservation · service à table",
+    maturity: "prototype",
+    maturityLabel: "Prototype (maquette)",
+    period: "2026",
+    role: "Freelance · Design produit, prototypage & relation client",
+    market: "Chef privé & service à table à Montréal (soupers privés, événements)",
+    platforms: ["Web · maquette bilingue clair/sombre"],
+    stack: ["Claude Design → Claude Code", "HTML/CSS/JS", "i18n FR/EN", "Cible : Next.js + Stripe/Square + Calendly"],
+    updated: "2026-07-29",
+  },
+  sections: [
+    { id: "resume", title: "Résumé", modes: ["recruiter"], body: "Conception et prototype d'un site de chef privé et service à table à Montréal (chef Max), repris d'un PRD client et d'une analyse concurrentielle. Le site vend une expérience plutôt qu'un simple traiteur, avec un parcours de réservation complet — le tout proprement mocké." },
+    { id: "client", title: "Le client", modes: ["recruiter", "business"], body: "Chef Max, qui lance sa marque de chef privé et service à table à Montréal." },
+    { id: "mandat", title: "Mandat & cadrage", modes: ["business"], body: "Transformer un besoin en site vendeur, à partir des documents du client.", points: ["PRD rempli par le client (document Word)", "Analyse concurrentielle (Take a Chef, The Culinistas, Cozymeal, Tock)", "Vendre une expérience, pas un simple service de traiteur"] },
+    { id: "solution", title: "La solution maquettée", modes: ["recruiter", "business"], body: "Une maquette éditoriale bilingue avec un vrai parcours de réservation.", points: ["Accueil éditorial · menus · expériences · galerie · contact", "Concierge culinaire : une reco de menu en 30 s", "Réservation multi-étapes : menu → date → format → convives → adresse → dépôt 25 % → paiement (mocké) → confirmation", "Mode admin avec emplacements photo en glisser-déposer"] },
+    { id: "livrables", title: "Livrables & état", modes: ["recruiter", "business"], kind: "metrics", body: "Tout est proprement mocké — aucun paiement réel, aucune IA branchée — en attendant les décisions du client." },
+    { id: "services", title: "Ce que je peux reproduire", modes: ["business"], points: ["Prototype éditorial + parcours de réservation", "Branchement paiement (Stripe/Square) et calendrier (Calendly)", "Mode admin pour brancher les vraies images et textes", "Passage en production"] },
+    { id: "limites", title: "Limites", modes: ["recruiter", "business"], kind: "limits" },
+  ],
+  metrics: [
+    { label: "parcours de réservation multi-étapes", value: "✓", evidence: "designed" },
+    { label: "concierge menu (30 s) + chatbot", value: "✓", evidence: "designed" },
+    { label: "bilingue FR/EN · clair/sombre", value: "✓", evidence: "implemented" },
+    { label: "maquette en ligne (démo)", value: "Live", evidence: "deployed" },
+  ],
+  limits: ["Tout est mocké : aucun paiement réel, aucune IA réellement branchée.", "Prix, calendrier, processeur de paiement et textes légaux (Loi 25) à trancher avec le client."],
+  links: [{ label: "Maquette en ligne", url: "/boa-traiteur/index.html", kind: "demo" }],
+};
+
+const boaEn: CaseStudyV2 = {
+  modes: ["recruiter", "business"],
+  identity: {
+    valueProp: "A booking site for a private chef in Montréal — an editorial experience and a full booking flow, entirely mocked up.",
+    kind: "Client mandate · private chef",
+    domain: "Booking · table service",
+    maturity: "prototype",
+    maturityLabel: "Prototype (mockup)",
+    period: "2026",
+    role: "Freelance · Product design, prototyping & client relations",
+    market: "Private chef & table service in Montréal (private dinners, events)",
+    platforms: ["Web · bilingual light/dark mockup"],
+    stack: ["Claude Design → Claude Code", "HTML/CSS/JS", "i18n FR/EN", "Target: Next.js + Stripe/Square + Calendly"],
+    updated: "2026-07-29",
+  },
+  sections: [
+    { id: "resume", title: "Summary", modes: ["recruiter"], body: "Design and prototype of a private-chef and table-service site in Montréal (chef Max), built from a client PRD and a competitive analysis. The site sells an experience rather than plain catering, with a full booking flow — all cleanly mocked." },
+    { id: "client", title: "The client", modes: ["recruiter", "business"], body: "Chef Max, launching his private-chef and table-service brand in Montréal." },
+    { id: "mandat", title: "Mandate & framing", modes: ["business"], body: "Turn a need into a selling site, from the client's documents.", points: ["A client-filled PRD (Word document)", "A competitive analysis (Take a Chef, The Culinistas, Cozymeal, Tock)", "Sell an experience, not plain catering"] },
+    { id: "solution", title: "The mocked solution", modes: ["recruiter", "business"], body: "A bilingual editorial mockup with a real booking flow.", points: ["Editorial home · menus · experiences · gallery · contact", "Culinary concierge: a menu recommendation in 30s", "Multi-step booking: menu → date → format → guests → address → 25% deposit → payment (mocked) → confirmation", "Admin mode with drag-and-drop photo slots"] },
+    { id: "livrables", title: "Deliverables & state", modes: ["recruiter", "business"], kind: "metrics", body: "Everything is cleanly mocked — no real payment, no live AI — pending the client's decisions." },
+    { id: "services", title: "What I can reproduce", modes: ["business"], points: ["Editorial prototype + booking flow", "Wiring payment (Stripe/Square) and calendar (Calendly)", "Admin mode to wire in real images and copy", "Move to production"] },
+    { id: "limites", title: "Limits", modes: ["recruiter", "business"], kind: "limits" },
+  ],
+  metrics: [
+    { label: "multi-step booking flow", value: "✓", evidence: "designed" },
+    { label: "30s menu concierge + chatbot", value: "✓", evidence: "designed" },
+    { label: "bilingual FR/EN · light/dark", value: "✓", evidence: "implemented" },
+    { label: "mockup online (demo)", value: "Live", evidence: "deployed" },
+  ],
+  limits: ["Everything is mocked: no real payment, no live AI.", "Pricing, calendar, payment processor and legal copy (Loi 25) to decide with the client."],
+  links: [{ label: "Live mockup", url: "/boa-traiteur/index.html", kind: "demo" }],
+};
+
+const crccFr: CaseStudyV2 = {
+  modes: ["recruiter", "business"],
+  identity: {
+    valueProp: "Refonte complète du site d'un OSBL d'éleveurs bilingue — 10 pages, accessible, organisée autour de trois parcours.",
+    kind: "Mandat client · OSBL",
+    domain: "Refonte de site · OSBL",
+    maturity: "prototype",
+    maturityLabel: "Maquette de refonte livrée",
+    period: "2026",
+    role: "Design & prototypage (refonte)",
+    market: "OSBL bilingue d'éleveurs (Club du Rex de Cornouailles du Canada)",
+    platforms: ["Web · maquette statique bilingue clair/sombre"],
+    stack: ["Claude Design", "HTML/CSS/JS statiques", "i18n maison FR/EN", "WCAG 2.2 AA"],
+    updated: "2026-07-29",
+  },
+  sections: [
+    { id: "resume", title: "Résumé", modes: ["recruiter"], body: "Maquette de refonte complète pour le Club du Rex de Cornouailles du Canada (OSBL bilingue d'éleveurs), organisée autour de trois parcours — adopter un chaton, devenir éleveur membre, soutenir le club." },
+    { id: "client", title: "Le client", modes: ["recruiter", "business"], body: "Un organisme sans but lucratif bilingue d'éleveurs, dont le site avait besoin d'une refonte." },
+    { id: "mandat", title: "Mandat", modes: ["business"], body: "Refondre le site autour de trois parcours clairs.", points: ["Adopter un chaton", "Devenir éleveur membre", "Soutenir le club"] },
+    { id: "solution", title: "La solution livrée", modes: ["recruiter", "business"], body: "Un site statique multi-pages, accessible et bilingue, sans backend.", points: ["10 pages (accueil, la race, annuaire des éleveurs, codes & éthique, règlements…)", "Explorateur d'anatomie interactif · carte de répartition filtrable", "Identité Rouge & Blanc dérivée du logo officiel", "Données réelles intégrées (11 chatteries, associations félines) sans surpromettre"] },
+    { id: "livrables", title: "Livrables & état", modes: ["recruiter", "business"], kind: "metrics", body: "Une maquette de refonte livrée, fidèle à la mission de l'organisme et prête à être mise en ligne." },
+    { id: "services", title: "Ce que je peux reproduire", modes: ["business"], points: ["Refonte multi-pages accessible (WCAG 2.2 AA)", "Bilingue FR/EN · clair/sombre · mobile-first", "Intégration de données réelles sans backend", "Passage en production"] },
+    { id: "limites", title: "Limites", modes: ["recruiter", "business"], kind: "limits" },
+  ],
+  metrics: [
+    { label: "pages livrées", value: "10", evidence: "implemented" },
+    { label: "chatteries · données réelles", value: "11", evidence: "validated" },
+    { label: "accessibilité WCAG 2.2 AA", value: "AA", evidence: "implemented" },
+    { label: "maquette en ligne (démo)", value: "Live", evidence: "deployed" },
+  ],
+  limits: ["Maquette statique sans backend.", "Données réelles intégrées sans inventer ni surpromettre ; mise en production à faire."],
+  links: [
+    { label: "Maquette en ligne", url: "/crcc/index.html", kind: "demo" },
+    { label: "Site actuel", url: "https://club-crcc.ca", kind: "doc" },
+  ],
+};
+
+const crccEn: CaseStudyV2 = {
+  modes: ["recruiter", "business"],
+  identity: {
+    valueProp: "Complete redesign of a bilingual breeder nonprofit's site — 10 pages, accessible, organized around three journeys.",
+    kind: "Client mandate · nonprofit",
+    domain: "Site redesign · nonprofit",
+    maturity: "prototype",
+    maturityLabel: "Delivered redesign mockup",
+    period: "2026",
+    role: "Design & prototyping (redesign)",
+    market: "Bilingual breeder nonprofit (Cornwall Rex Club of Canada)",
+    platforms: ["Web · static bilingual light/dark mockup"],
+    stack: ["Claude Design", "Static HTML/CSS/JS", "in-house i18n FR/EN", "WCAG 2.2 AA"],
+    updated: "2026-07-29",
+  },
+  sections: [
+    { id: "resume", title: "Summary", modes: ["recruiter"], body: "Complete redesign mockup for the Cornwall Rex Club of Canada (a bilingual breeder nonprofit), organized around three journeys — adopt a kitten, become a member breeder, support the club." },
+    { id: "client", title: "The client", modes: ["recruiter", "business"], body: "A bilingual breeder nonprofit whose site needed a redesign." },
+    { id: "mandat", title: "Mandate", modes: ["business"], body: "Redesign the site around three clear journeys.", points: ["Adopt a kitten", "Become a member breeder", "Support the club"] },
+    { id: "solution", title: "The delivered solution", modes: ["recruiter", "business"], body: "A static multi-page site, accessible and bilingual, with no backend.", points: ["10 pages (home, the breed, breeder directory, codes & ethics, by-laws…)", "Interactive anatomy explorer · filterable distribution map", "Red & White identity derived from the official logo", "Real data integrated (11 catteries, feline associations) without overpromising"] },
+    { id: "livrables", title: "Deliverables & state", modes: ["recruiter", "business"], kind: "metrics", body: "A redesign mockup delivered, true to the organization's mission and ready to go live." },
+    { id: "services", title: "What I can reproduce", modes: ["business"], points: ["Accessible multi-page redesign (WCAG 2.2 AA)", "Bilingual FR/EN · light/dark · mobile-first", "Integrating real data with no backend", "Move to production"] },
+    { id: "limites", title: "Limits", modes: ["recruiter", "business"], kind: "limits" },
+  ],
+  metrics: [
+    { label: "pages delivered", value: "10", evidence: "implemented" },
+    { label: "catteries · real data", value: "11", evidence: "validated" },
+    { label: "WCAG 2.2 AA accessibility", value: "AA", evidence: "implemented" },
+    { label: "mockup online (demo)", value: "Live", evidence: "deployed" },
+  ],
+  limits: ["Static mockup with no backend.", "Real data integrated without inventing or overpromising; production still to do."],
+  links: [
+    { label: "Live mockup", url: "/crcc/index.html", kind: "demo" },
+    { label: "Current site", url: "https://club-crcc.ca", kind: "doc" },
+  ],
+};
+
 export const caseStudiesV2: Record<string, { fr: CaseStudyV2; en: CaseStudyV2 }> = {
   cadence: { fr: cadenceFr, en: cadenceEn },
   "dpm-elevate": { fr: dpmFr, en: dpmEn },
+  "kim-dubois": { fr: kimFr, en: kimEn },
+  "boa-traiteur": { fr: boaFr, en: boaEn },
+  crcc: { fr: crccFr, en: crccEn },
 };
