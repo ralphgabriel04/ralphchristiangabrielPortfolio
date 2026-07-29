@@ -2,16 +2,59 @@
 
 import { useEffect, useRef } from "react";
 import { useLocale } from "next-intl";
-import { usePlain } from "@/components/ui/plain-mode";
 
 const GLYPHS = "<>/{}[]#$%&*+=—·";
 
-/** Terminal role line `$ <role> ▍` that scramble-decodes to each new role
- *  (RCG.SYS effect), rotating every few seconds. Respects reduced-motion and
- *  swaps to plainer wording in simple mode. */
+// Deduplicated rotating phrases for the terminal role line. Kept as short
+// mono-friendly lines; order = first appearance.
+const FR_ROLES = [
+  "étudiant en génie logiciel @ ÉTS",
+  "passion · polyvalence · écoute",
+  "comprendre · concevoir · construire",
+  "systèmes · web · mobile",
+  "bilingue FR/EN · Grand Montréal",
+  "collaboration · disponibilité · confiance",
+  "rigueur · qualité · fiabilité",
+  "apprendre · progresser · partager",
+  "projets personnels · mandats · cofondateur",
+  "besoins réels · solutions concrètes",
+  "du besoin au déploiement",
+  "écouter avant de développer",
+  "architecture · produit · expérience",
+  "technique · humain · concret",
+  "construire · tester · améliorer",
+  "faire simple · faire utile",
+  "concevoir pour durer",
+  "autonome · collaboratif · fiable",
+  "expliquer chaque décision",
+];
+
+const EN_ROLES = [
+  "software engineering student @ ÉTS",
+  "passion · versatility · listening",
+  "understand · design · build",
+  "systems · web · mobile",
+  "bilingual FR/EN · Greater Montréal",
+  "collaboration · availability · trust",
+  "rigor · quality · reliability",
+  "learn · grow · share",
+  "personal projects · client work · co-founder",
+  "real needs · concrete solutions",
+  "from need to deployment",
+  "listen before building",
+  "architecture · product · experience",
+  "technical · human · concrete",
+  "build · test · improve",
+  "keep it simple · make it useful",
+  "design to last",
+  "autonomous · collaborative · reliable",
+  "explain every decision",
+];
+
+/** Terminal role line `$ <phrase> ▍` that scramble-decodes to each new phrase
+ *  (RCG.SYS effect), rotating every few seconds. Respects reduced-motion. */
 export function HeroRole() {
   const fr = useLocale() === "fr";
-  const { plain } = usePlain();
   const ref = useRef<HTMLSpanElement>(null);
   const idx = useRef(0);
 
@@ -19,33 +62,7 @@ export function HeroRole() {
     const el = ref.current;
     if (!el) return;
 
-    const roles = plain
-      ? fr
-        ? [
-            "je construis des sites et des applications",
-            "étudiant en génie logiciel à l'ÉTS",
-            "je conçois, je livre, et j'explique simplement",
-            "bilingue français/anglais — Grand Montréal",
-          ]
-        : [
-            "I build websites and applications",
-            "software engineering student at ÉTS",
-            "I design, I deliver, and I explain simply",
-            "bilingual French/English — Greater Montréal",
-          ]
-      : fr
-        ? [
-            "dev full-stack — React · Next.js · Java",
-            "étudiant en génie logiciel @ ÉTS",
-            "je conçois, je livre, j'explique",
-            "bilingue FR/EN — Grand Montréal",
-          ]
-        : [
-            "full-stack dev — React · Next.js · Java",
-            "software engineering student @ ÉTS",
-            "I design, I ship, I explain",
-            "bilingual FR/EN — Greater Montréal",
-          ];
+    const roles = fr ? FR_ROLES : EN_ROLES;
 
     const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
     if (reduce) {
@@ -84,7 +101,7 @@ export function HeroRole() {
       if (scr) clearInterval(scr);
       clearInterval(rotate);
     };
-  }, [fr, plain]);
+  }, [fr]);
 
   return (
     <div className="font-mono text-sm text-muted-foreground md:text-[15px]" aria-live="off">
