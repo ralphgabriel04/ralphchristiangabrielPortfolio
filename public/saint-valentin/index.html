@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saint-Valentin interactive — démo</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <!-- Démo statique (sans backend) de la page « lettre ». Le vrai projet est une
+       app Node/Express avec liens uniques tokenisés, admin et courriels. -->
+  <div class="valentine-page" id="letterView">
+    <div class="hearts-bg">
+      <div class="heart heart-1"></div>
+      <div class="heart heart-2"></div>
+      <div class="heart heart-3"></div>
+      <div class="heart heart-4"></div>
+      <div class="heart heart-5"></div>
+      <div class="heart heart-6"></div>
+      <div class="heart heart-7"></div>
+      <div class="heart heart-8"></div>
+      <div class="heart heart-9"></div>
+      <div class="heart heart-10"></div>
+    </div>
+
+    <div class="valentine-content">
+      <div class="envelope-icon">💌</div>
+      <h1 class="valentine-title">Pour toi, Valentine</h1>
+
+      <div class="letter-card">
+        <div class="letter-text">Joyeuse Saint-Valentin !</div>
+      </div>
+
+      <p class="question">Veux-tu etre ma Valentine ?</p>
+
+      <form action="#" method="POST" class="response-form" id="valentineForm">
+        <div class="buttons-container" id="buttonsContainer">
+          <button type="submit" name="response" value="yes" class="btn btn-yes" id="btnYes">
+            Oui, je veux bien ! 💖
+          </button>
+          <button type="submit" name="response" value="no" class="btn btn-no" id="btnNo">
+            Non 😅
+          </button>
+        </div>
+      </form>
+
+      <p class="dodge-message" id="dodgeMessage"></p>
+    </div>
+  </div>
+
+  <!-- Confirmation « Oui » (révélée côté client) -->
+  <div class="done-page done-yes-page" id="doneView" style="display:none;">
+    <div class="hearts-bg">
+      <div class="heart heart-1"></div>
+      <div class="heart heart-2"></div>
+      <div class="heart heart-3"></div>
+      <div class="heart heart-4"></div>
+      <div class="heart heart-5"></div>
+      <div class="heart heart-6"></div>
+      <div class="heart heart-7"></div>
+      <div class="heart heart-8"></div>
+      <div class="heart heart-9"></div>
+      <div class="heart heart-10"></div>
+    </div>
+    <div class="confetti-container">
+      <div class="confetti confetti-1"></div>
+      <div class="confetti confetti-2"></div>
+      <div class="confetti confetti-3"></div>
+      <div class="confetti confetti-4"></div>
+      <div class="confetti confetti-5"></div>
+      <div class="confetti confetti-6"></div>
+      <div class="confetti confetti-7"></div>
+      <div class="confetti confetti-8"></div>
+      <div class="confetti confetti-9"></div>
+      <div class="confetti confetti-10"></div>
+      <div class="confetti confetti-11"></div>
+      <div class="confetti confetti-12"></div>
+    </div>
+    <div class="done-content">
+      <div class="big-heart">💖</div>
+      <h1 class="done-title">OUIIIII !</h1>
+      <h2 class="done-subtitle">Merci, Valentine !</h2>
+      <p class="done-text">Je savais que tu dirais oui !<br>(Ceci est une démo statique du projet.)</p>
+    </div>
+  </div>
+
+  <script src="./dodge.js"></script>
+  <script>
+    // Sans backend : « Oui » révèle la confirmation côté client.
+    // (dodge.js gère déjà l'esquive du bouton « Non ».)
+    var form = document.getElementById('valentineForm');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (e.submitter && e.submitter.value === 'yes') {
+        document.getElementById('letterView').style.display = 'none';
+        document.getElementById('doneView').style.display = '';
+        window.scrollTo(0, 0);
+      }
+    });
+  </script>
+</body>
+</html>

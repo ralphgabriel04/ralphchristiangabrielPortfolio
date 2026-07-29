@@ -393,6 +393,9 @@ export const projectLinks: Record<string, { label: string; url: string; type: "g
     { label: "Jouer en ligne", url: "/gti350/index.html", type: "live" },
     { label: "GitHub", url: "https://github.com/ralphgabriel04/gti350-lab1-tron-light-cycles", type: "github" },
   ],
+  "saint-valentin": [
+    { label: "Voir la démo", url: "/saint-valentin/index.html", type: "live" },
+  ],
   "the-mad-space": [
     { label: "Live", url: "https://themadspace.com", type: "live" },
   ],
