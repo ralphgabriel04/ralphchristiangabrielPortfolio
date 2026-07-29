@@ -20,18 +20,18 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: "the-mad-space",
-    year: "2025 · présent",
+    year: "2024 · présent",
     status: { fr: "En production", en: "In production" },
     name: "The Mad Space",
-    tag: { fr: "Marketplace e-commerce print-on-demand", en: "Print-on-demand e-commerce marketplace" },
-    stack: ["Next.js 16", "TypeScript", "Prisma", "PostgreSQL", "Stripe", "Gelato", "Supabase", "Vercel"],
+    tag: { fr: "Marketplace bilingue · créations imprimées à la demande", en: "Bilingual marketplace · print-on-demand creations" },
+    stack: ["Next.js 16", "TypeScript", "PostgreSQL", "Prisma", "Stripe", "Gelato", "Supabase", "Vercel"],
     summary: {
-      fr: "Marketplace print-on-demand connectant créateurs et consommateurs. ~15 000 LOC, 30+ endpoints API, auth custom session-based, OAuth 2.0 Google, conformité GDPR/Loi 25, 7+ intégrations B2B et fulfillment automatisé Gelato.",
-      en: "Print-on-demand marketplace connecting creators and consumers. ~15,000 LOC, 30+ API endpoints, custom session-based auth, Google OAuth 2.0, GDPR/Loi 25 compliance, 7+ B2B integrations and automated Gelato fulfillment."
+      fr: "The Mad Space permet aux créateurs de soumettre leurs œuvres, de les transformer en vêtements et de recevoir une commission sur chaque vente. Comme CTO, je prends en charge la direction technique, l'architecture et le développement de la plateforme — du parcours créateur jusqu'au paiement et à la production automatisée des commandes.",
+      en: "The Mad Space lets creators submit their artwork, turn it into apparel and earn a commission on every sale. As CTO, I own the technical direction, architecture and development of the platform — from the creator journey to payment and automated order fulfilment."
     },
     metrics: {
-      fr: ["~15 000 LOC", "30+ endpoints API", "7+ intégrations B2B", "Traitement −10–15 min"],
-      en: ["~15,000 LOC", "30+ API endpoints", "7+ B2B integrations", "Processing −10–15 min"]
+      fr: ["37 modules de routes API", "4 devises · CAD/USD/EUR/GBP", "2 langues · FR/EN", "12 modèles de données"],
+      en: ["37 API route modules", "4 currencies · CAD/USD/EUR/GBP", "2 languages · FR/EN", "12 data models"]
     },
     featured: true,
     media: { enabled: true, type: "video", src: "/media/the-mad-space.mp4" }
@@ -333,7 +333,7 @@ export const toneColor = (id: string): string => stateColor[projectState(id)]
 export type ProjectType = "cofounder" | "founder" | "client" | "academic" | "personal"
 
 export const projectTypes: Record<string, ProjectType> = {
-  "the-mad-space": "client", // contractual full-stack mandate
+  "the-mad-space": "cofounder", // CTO — technical leadership role
   "cadence": "cofounder", // co-founded with Alexandre
   "vibe": "cofounder",
   "dpm-elevate": "founder", // sole founder — personal venture
@@ -385,7 +385,7 @@ export const caseStudyIds = new Set([
 
 /** Role per project, used in project detail meta strip */
 export const projectRoles: Record<string, { fr: string; en: string }> = {
-  "the-mad-space": { fr: "Développeur Full-Stack (Contractuel)", en: "Full-Stack Developer (Contract)" },
+  "the-mad-space": { fr: "CTO · Direction technique & Développement", en: "CTO · Technical Direction & Development" },
   "cadence": { fr: "Co-fondateur · Tech Lead", en: "Co-founder · Tech Lead" },
   "vibe": { fr: "Fondateur · Product Design · Prototypage · Stratégie produit", en: "Founder · Product Design · Prototyping · Product Strategy" },
   "dpm-elevate": { fr: "Fondateur · Design & Prototypage", en: "Founder · Design & Prototyping" },
