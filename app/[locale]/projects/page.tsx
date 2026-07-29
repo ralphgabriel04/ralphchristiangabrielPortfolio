@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { alternatesFor } from "@/lib/site";
 import { useTranslations, useLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 
@@ -10,9 +11,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     description: isFr
       ? "Projets de développement web et mobile : e-commerce, apps React Native, prototypes produit, sites clients, microservices et travaux d'architecture (ÉTS). Next.js, TypeScript, Java, Python, API REST."
       : "Web and mobile development projects: e-commerce, React Native apps, product prototypes, client sites, microservices and software-architecture coursework (ÉTS). Next.js, TypeScript, Java, Python, REST APIs.",
-    alternates: {
-      languages: { fr: "/fr/projects", en: "/en/projects" },
-    },
+    alternates: alternatesFor(locale, "/projects"),
   };
 }
 import { projects } from "@/lib/projects";

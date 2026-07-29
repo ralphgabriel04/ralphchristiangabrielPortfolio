@@ -17,7 +17,6 @@ import { SectionRail } from "@/components/ui/section-rail";
 import { CountUp } from "@/components/ui/count-up";
 import { PlainBanner, Lexicon, PlainSwap } from "@/components/ui/plain-mode";
 import { stackGroups, usedIn } from "@/lib/stack";
-import Image from "next/image";
 import { ProfilePhoto } from "@/components/ui/profile-photo";
 import { TestimonialsCarousel } from "@/components/ui/testimonials-carousel";
 import { testimonials } from "@/lib/testimonials";

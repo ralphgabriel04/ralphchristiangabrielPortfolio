@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { alternatesFor } from "@/lib/site";
 import { useTranslations, useLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
@@ -18,9 +19,7 @@ export async function generateMetadata({
     description: isFr
       ? "Retours de collègues, coéquipiers et clients ayant travaillé avec Ralph Christian Gabriel sur des projets de développement web et mobile."
       : "Feedback from colleagues, teammates and clients who worked with Ralph Christian Gabriel on web and mobile development projects.",
-    alternates: {
-      languages: { fr: "/fr/temoignages", en: "/en/temoignages" },
-    },
+    alternates: alternatesFor(locale, "/temoignages"),
   };
 }
 

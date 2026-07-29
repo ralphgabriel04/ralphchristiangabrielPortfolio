@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { alternatesFor } from "@/lib/site";
 import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import {
@@ -23,9 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     description: isFr
       ? "Développeur full-stack junior et étudiant en génie logiciel à l'ÉTS, disponible pour un stage ou un poste dans le Grand Montréal. Courriel, LinkedIn, Cal.com."
       : "Junior full-stack developer and Software Engineering student at ÉTS, open to an internship or a role in Greater Montréal. Email, LinkedIn, Cal.com.",
-    alternates: {
-      languages: { fr: "/fr/contact", en: "/en/contact" },
-    },
+    alternates: alternatesFor(locale, "/contact"),
   };
 }
 
@@ -37,10 +36,10 @@ export default async function ContactPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  return <ContactContent locale={locale} />;
+  return <ContactContent />;
 }
 
-function ContactContent({ locale }: { locale: string }) {
+function ContactContent() {
   const t = useTranslations("contact");
   const tSec = useTranslations("sectionLabels");
 

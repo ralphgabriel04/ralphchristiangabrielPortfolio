@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { alternatesFor } from "@/lib/site";
 import Image from "next/image";
 import { ProfilePhoto } from "@/components/ui/profile-photo";
 import { useTranslations } from "next-intl";
@@ -17,9 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     description: isFr
       ? "Développeur full-stack junior et étudiant en génie logiciel à l'ÉTS, basé à Repentigny (Grand Montréal). Du support TI à l'automatisation, puis au développement web et mobile."
       : "Junior full-stack developer and Software Engineering student at ÉTS, based in Repentigny (Greater Montréal). From IT support and automation to web and mobile development.",
-    alternates: {
-      languages: { fr: "/fr/about", en: "/en/about" },
-    },
+    alternates: alternatesFor(locale, "/about"),
   };
 }
 
