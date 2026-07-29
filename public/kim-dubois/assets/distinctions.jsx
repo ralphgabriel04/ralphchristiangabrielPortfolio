@@ -21,7 +21,9 @@ function CertCard({ cert, A, active, onSelect }) {
       aria-label={cert.tier + " — " + cat + ", " + cert.year}>
       <span className="cert-thumb">
         <img src={cert.src} alt={A.certAlt + " " + cert.tier + " · " + cat + " (" + cert.year + ")"}
-          loading="lazy" decoding="async" />
+          loading="lazy" decoding="async" draggable={false}
+          onDragStart={(e) => e.preventDefault()}
+          onContextMenu={(e) => { e.preventDefault(); e.stopPropagation(); window.KDshowCredit && window.KDshowCredit({ title: cert.tier + " " + A.awardWord, cat: cat + " · " + cert.year }); }} />
         <span className="cert-dot" aria-hidden="true"></span>
       </span>
       <span className="cert-card-meta">
@@ -41,7 +43,9 @@ function CertDetail({ cert, A, onEnlarge, onMore }) {
     <div className="cert-detail" key={cert.id}>
       <span className="cert-plate">{A.selectedLabel}</span>
       <button type="button" className="cert-figure" onClick={onEnlarge} aria-label={A.enlarge}>
-        <img src={cert.src} alt={A.certAlt + " " + cert.tier + " · " + cat + " (" + cert.year + ")"} decoding="async" />
+        <img src={cert.src} alt={A.certAlt + " " + cert.tier + " · " + cat + " (" + cert.year + ")"} decoding="async" draggable={false}
+          onDragStart={(e) => e.preventDefault()}
+          onContextMenu={(e) => { e.preventDefault(); e.stopPropagation(); window.KDshowCredit && window.KDshowCredit({ title: cert.tier + " " + A.awardWord, cat: cat + " · " + cert.year }); }} />
         <span className="cert-figure-zoom" aria-hidden="true">⤢</span>
       </button>
       <h3 className="cert-title">{cert.tier} {A.awardWord}</h3>

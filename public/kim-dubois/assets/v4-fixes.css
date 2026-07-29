@@ -54,8 +54,10 @@
 
 /* ---------- Blog : brouillons « à venir » plus discrets ---------- */
 .blog-flag--draft {
-  background: color-mix(in srgb, var(--on-surface) 10%, transparent) !important;
-  color: var(--on-surface-muted) !important;
+  background: color-mix(in srgb, var(--ink) 82%, transparent) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 14px -4px rgba(0,0,0,.5);
+  backdrop-filter: blur(2px);
   border: 1px solid var(--hairline);
   font-weight: 700;
 }

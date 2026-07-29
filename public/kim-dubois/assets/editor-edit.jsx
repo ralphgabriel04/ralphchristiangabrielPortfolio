@@ -25,6 +25,7 @@ const MEDIA_SEL = ".hero-bg, .photo-zone";
    visionneuse, icônes SVG. */
 const EXCLUDE_WITHIN = [
   ".admin-panel", ".admin-toggle", ".admin-toast", ".preview-bar",
+  ".adm-bar", ".adm-dot-wrap",
   ".tweaks-panel", ".anno", ".anno-dot", ".skip-link",
   ".cg-launch", ".cg-panel",
   ".lightbox", ".lb-stage", ".lb-shell",

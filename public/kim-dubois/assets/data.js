@@ -149,6 +149,21 @@ const KD_FR = {
     closeLabel: "Fermer l’aperçu",
   },
 
+  partners: {
+    eyebrow: "Partenaires & collaborations",
+    title: "Mes partenaires",
+    intro: "Des personnes et des organisations qui accompagnent mon travail — du terrain au studio, jusqu’au web.",
+    visit: "Visiter le site",
+    placeholderName: "Votre logo ici",
+    placeholderRole: "Partenaire à venir",
+    placeholderCta: "Devenir partenaire",
+    placeholders: 3,
+    items: [
+      { name: "Ralph Christian Gabriel", role: "Conception & développement web", desc: "Création du site, de l’expérience de réservation et de l’espace administrateur.", href: "https://ralph-gabriel-portfolio.vercel.app/fr/about", photo: "assets/photos/partners/ralph-gabriel.png", initials: "RG", accent: "var(--studio-bleu)" },
+      { name: "CRCC", role: "Club félin partenaire", desc: "Collaboration lors des expositions félines et des séances en salon.", href: "https://club-crcc.ca/", logo: "assets/photos/partners/crcc-logo.png", initials: "CRCC", accent: "var(--studio-corail)" },
+    ],
+  },
+
   portfolio: {
     eyebrow: "Aperçu du portfolio",
     title: "Un aperçu de mon travail",
@@ -598,6 +613,21 @@ const KD_EN = {
     filterGroups: { cat: "Category", tier: "Distinction", year: "Year" },
     resultsLabel: "certificates",
     closeLabel: "Close preview",
+  },
+
+  partners: {
+    eyebrow: "Partners & collaborations",
+    title: "My partners",
+    intro: "People and organisations that support my work — from the field to the studio, and on to the web.",
+    visit: "Visit the site",
+    placeholderName: "Your logo here",
+    placeholderRole: "Partner to come",
+    placeholderCta: "Become a partner",
+    placeholders: 3,
+    items: [
+      { name: "Ralph Christian Gabriel", role: "Web design & development", desc: "Built the website, the booking experience and the admin workspace.", href: "https://ralph-gabriel-portfolio.vercel.app/fr/about", photo: "assets/photos/partners/ralph-gabriel.png", initials: "RG", accent: "var(--studio-bleu)" },
+      { name: "CRCC", role: "Partner cat club", desc: "Collaboration at cat shows and in-hall sessions.", href: "https://club-crcc.ca/", logo: "assets/photos/partners/crcc-logo.png", initials: "CRCC", accent: "var(--studio-corail)" },
+    ],
   },
 
   portfolio: {

@@ -128,6 +128,7 @@ function Site() {
     counters: <Counters />,
     empathy: <Empathy audience={audience} />,
     awards: <Distinctions />,
+    partners: <Partners />,
     portfolio: <Portfolio audience={audience} />,
     about: <About />,
     process: <Process />,

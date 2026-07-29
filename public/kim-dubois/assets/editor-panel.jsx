@@ -367,4 +367,4 @@ function AdminPanel() {
   );
 }
 
-Object.assign(window, { AdminToggle, AdminPanel });
+Object.assign(window, { AdminToggle, AdminPanel, AdminPanelV1: AdminPanel, TabAide, TabApparence, TabSections });
