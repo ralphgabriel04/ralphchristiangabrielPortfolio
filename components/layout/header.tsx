@@ -92,8 +92,8 @@ export function Header() {
         {/* Left: Logo + Desktop Nav */}
         <div className="flex items-center gap-6">
           <Link href="/" className="inline-flex items-center gap-2.5 p-1">
-            <span className="inline-flex h-7 w-7 items-center justify-center rounded-[6px] border border-border-strong font-mono text-xs font-medium tracking-[-0.02em]">
-              RG
+            <span className="inline-flex h-7 min-w-9 items-center justify-center rounded-[6px] border border-border-strong px-1.5 font-mono text-[11px] font-medium tracking-[-0.04em]">
+              RCG
             </span>
             <span className="font-mono text-[13px] text-muted-foreground">
               {headerPath}
@@ -191,7 +191,7 @@ export function Header() {
       >
         <div className="mb-8 flex items-center justify-between">
           <Link href="/" className="inline-flex items-center gap-2.5" onClick={() => setDrawerOpen(false)}>
-            <span className="inline-flex h-7 w-7 items-center justify-center rounded-[6px] border border-border-strong font-mono text-xs font-medium">RG</span>
+            <span className="inline-flex h-7 min-w-9 items-center justify-center rounded-[6px] border border-border-strong px-1.5 font-mono text-[11px] font-medium tracking-[-0.04em]">RCG</span>
             <span className="font-mono text-[13px] text-muted-foreground">{headerPath}</span>
           </Link>
           <Button variant="ghost" size="icon" aria-label={tA("closeMenu")} onClick={() => setDrawerOpen(false)}>
