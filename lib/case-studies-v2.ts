@@ -1255,10 +1255,341 @@ const gti350En: CaseStudyV2 = {
   ],
 };
 
+// ─────────────────────────────────────────────────────────────────────────────
+// PRODUCT / PERSONAL PROTOTYPES — honest maturity, no invented results.
+// Wise & Wealthy: recruiter + business (grounded in a full business model).
+// Tatzy / Saint-Valentin / Relationship Wrapped: recruiter + engineering.
+// ─────────────────────────────────────────────────────────────────────────────
+
+const wwFr: CaseStudyV2 = {
+  modes: ["recruiter", "business"],
+  identity: {
+    valueProp: "Un coach financier personnel assisté par l'IA, pensé pour les 18-35 ans peu à l'aise avec la finance — éducation et accompagnement, à l'opposé des apps de trading.",
+    kind: "Produit cofondé · concept + prototype",
+    domain: "Éducation financière · mobile",
+    maturity: "prototype",
+    maturityLabel: "Concept · prototype interactif",
+    period: "2026",
+    team: "Projet cofondé",
+    role: "Conception produit · modèle d'affaires & prototypage",
+    market: "18-35 ans peu à l'aise avec la finance",
+    platforms: ["Mobile · maquette bilingue clair/sombre"],
+    stack: ["Claude Design → Claude Code", "dc-runtime (React 18)", "Design tokens", "i18n FR/EN", "Cible : Next.js + TS"],
+    updated: "2026-07-29",
+  },
+  sections: [
+    { id: "resume", title: "Résumé", modes: ["recruiter"],
+      body: "Wise & Wealthy rend l'éducation financière accessible : un assistant « Wiz » explique, encourage et accompagne, plutôt que de pousser à spéculer. Le concept s'appuie sur un modèle d'affaires complet (12 pages) et un PRD, et se matérialise par une maquette d'une vingtaine d'écrans." },
+    { id: "probleme", title: "Le problème & le positionnement", modes: ["recruiter", "business"],
+      body: "Les 18-35 ans sont souvent mal à l'aise avec la finance, et les apps existantes parlent trading ou budget aride.",
+      points: ["Positionnement assumé : éducation & vulgarisation, pas spéculation", "Une identité rassurante, non intimidante (mascotte Wiz, verts apaisants)", "Éducation financière — explicitement pas du conseil réglementé"] },
+    { id: "modele", title: "Le modèle d'affaires", modes: ["business"],
+      body: "Le concept est fondé sur un dossier d'affaires réel, pas seulement une maquette.",
+      points: ["Étude de marché + Business Model Canvas (12 pages)", "Analyse concurrentielle (YNAB · Rocket Money · Wealthsimple)", "Modèle freemium · palier premium 9,99-19,99 $/mois", "Indicateurs (KPIs) et MVP définis"] },
+    { id: "suite", title: "Plus qu'une app : une suite", modes: ["recruiter", "business"],
+      body: "Le prototype couvre quatre surfaces qui se répondent, unifiées par la mascotte Wiz (6 humeurs).",
+      points: ["App adulte : tableau de bord, budget, objectifs, mini-leçons, assistant Wiz", "« Mes finances » (premium) : transactions, prévu vs réel, cashflow, dettes, abonnements, import banque/CSV", "Wise & Wealthy Kids : déclinaison ludique (tirelire, pièces, étoiles, jalons)", "Espace Famille : verrou PIN 4 chiffres + profils enfants"] },
+    { id: "confiance", title: "Confiance & données", modes: ["business"],
+      body: "Un produit financier doit inspirer confiance avant tout.",
+      points: ["Orientation Loi 25 (protection des données)", "Cadre « éducation, non conseil réglementé » assumé", "Bilingue FR/EN · thème clair/sombre"] },
+    { id: "limites", title: "Limites", modes: ["recruiter", "business"], kind: "limits" },
+  ],
+  metrics: [
+    { label: "surfaces (adulte · finances · Kids · Famille)", value: "4", evidence: "designed" },
+    { label: "écrans & états", value: "20+", evidence: "implemented" },
+    { label: "dossier d'affaires", value: "12 p.", evidence: "designed" },
+    { label: "maquette bilingue en ligne", value: "Live", evidence: "deployed" },
+  ],
+  limits: [
+    "C'est un concept + une maquette interactive, pas un produit construit.",
+    "L'assistant « Wiz » est maquetté — aucune IA n'est réellement branchée.",
+    "Le modèle freemium et les prix sont proposés, non validés par le marché.",
+  ],
+  links: [
+    { label: "Maquette live (app adulte)", url: "/wise-wealthy/index.html", kind: "demo" },
+    { label: "Mes finances", url: "/wise-wealthy/Finances.dc.html", kind: "demo" },
+    { label: "Wise & Wealthy Kids", url: "/wise-wealthy/Wise%20%26%20Wealthy%20Kids.dc.html", kind: "demo" },
+  ],
+};
+
+const wwEn: CaseStudyV2 = {
+  modes: ["recruiter", "business"],
+  identity: {
+    valueProp: "An AI-assisted personal financial coach for 18-35 year-olds who aren't comfortable with finance — education and guidance, the opposite of trading apps.",
+    kind: "Cofounded product · concept + prototype",
+    domain: "Financial literacy · mobile",
+    maturity: "prototype",
+    maturityLabel: "Concept · interactive prototype",
+    period: "2026",
+    team: "Cofounded project",
+    role: "Product design · business model & prototyping",
+    market: "18-35 year-olds uneasy with finance",
+    platforms: ["Mobile · bilingual light/dark mockup"],
+    stack: ["Claude Design → Claude Code", "dc-runtime (React 18)", "Design tokens", "i18n FR/EN", "Target: Next.js + TS"],
+    updated: "2026-07-29",
+  },
+  sections: [
+    { id: "resume", title: "Summary", modes: ["recruiter"],
+      body: "Wise & Wealthy makes financial literacy approachable: a \"Wiz\" assistant explains, encourages and coaches, rather than pushing you to speculate. The concept rests on a full business model (12 pages) and a PRD, and comes to life as a mockup of around twenty screens." },
+    { id: "probleme", title: "The problem & positioning", modes: ["recruiter", "business"],
+      body: "18-35 year-olds are often uneasy with finance, and existing apps speak trading or dry budgeting.",
+      points: ["Deliberate stance: education & plain language, not speculation", "A reassuring, non-intimidating identity (Wiz mascot, calming greens)", "Financial education — explicitly not regulated advice"] },
+    { id: "modele", title: "The business model", modes: ["business"],
+      body: "The concept is grounded in a real business case, not just a mockup.",
+      points: ["Market study + Business Model Canvas (12 pages)", "Competitive analysis (YNAB · Rocket Money · Wealthsimple)", "Freemium model · premium tier $9.99-19.99/mo", "KPIs and MVP defined"] },
+    { id: "suite", title: "More than an app: a suite", modes: ["recruiter", "business"],
+      body: "The prototype spans four surfaces that echo each other, unified by the Wiz mascot (6 moods).",
+      points: ["Adult app: dashboard, budget, goals, mini-lessons, Wiz assistant", "\"Mes finances\" (premium): transactions, planned vs actual, cashflow, debts, subscriptions, bank/CSV import", "Wise & Wealthy Kids: playful variant (piggy bank, coins, stars, milestones)", "Family Space: 4-digit PIN lock + child profiles"] },
+    { id: "confiance", title: "Trust & data", modes: ["business"],
+      body: "A financial product must earn trust first.",
+      points: ["Loi 25 (data protection) orientation", "A deliberate \"education, not regulated advice\" frame", "Bilingual FR/EN · light/dark theme"] },
+    { id: "limites", title: "Limits", modes: ["recruiter", "business"], kind: "limits" },
+  ],
+  metrics: [
+    { label: "surfaces (adult · finances · Kids · Family)", value: "4", evidence: "designed" },
+    { label: "screens & states", value: "20+", evidence: "implemented" },
+    { label: "business case", value: "12 pp.", evidence: "designed" },
+    { label: "bilingual mockup online", value: "Live", evidence: "deployed" },
+  ],
+  limits: [
+    "It's a concept + an interactive mockup, not a built product.",
+    "The \"Wiz\" assistant is mocked up — no AI is actually wired in.",
+    "The freemium model and pricing are proposed, not market-validated.",
+  ],
+  links: [
+    { label: "Live mockup (adult app)", url: "/wise-wealthy/index.html", kind: "demo" },
+    { label: "Mes finances", url: "/wise-wealthy/Finances.dc.html", kind: "demo" },
+    { label: "Wise & Wealthy Kids", url: "/wise-wealthy/Wise%20%26%20Wealthy%20Kids.dc.html", kind: "demo" },
+  ],
+};
+
+const tatzyFr: CaseStudyV2 = {
+  modes: ["recruiter", "engineering"],
+  identity: {
+    valueProp: "Site de réservation de taxi en ligne, cofondé et déployé : un monorepo web + API en Next.js, bilingue, encore au stade prototype.",
+    kind: "Produit cofondé · prototype",
+    domain: "Réservation · transport",
+    maturity: "prototype",
+    maturityLabel: "Prototype déployé",
+    period: "2025 · 2026",
+    team: "Cofondé avec Aimen Djebbar",
+    role: "Cofondateur · développement",
+    platforms: ["Web (bilingue FR/EN)"],
+    stack: ["Next.js 14 (App Router)", "TypeScript", "Tailwind CSS", "Prisma · PostgreSQL", "next-intl (FR/EN)", "Zod", "Vercel"],
+    updated: "2026-07-29",
+  },
+  sections: [
+    { id: "resume", title: "Résumé", modes: ["recruiter"],
+      body: "Tatzy est un site de réservation de taxi cofondé avec Aimen Djebbar. Le prototype — page d'accueil, tunnel de réservation et fondations d'une API — est déployé sur Vercel. Honnêtement : c'est un prototype, sans trafic client réel pour l'instant." },
+    { id: "fiche", title: "Fiche technique", modes: ["recruiter", "engineering"],
+      body: "Un monorepo web + API en Next.js 14 (App Router), sur Prisma/PostgreSQL, bilingue et validé par Zod.",
+      points: ["Monorepo : application web + fondations d'API", "Page d'accueil + tunnel de réservation", "Prisma / PostgreSQL pour la persistance", "Bilingue FR/EN (next-intl) · validation Zod", "Déployé sur Vercel"] },
+    { id: "limites", title: "Limites", modes: ["recruiter", "engineering"], kind: "limits" },
+  ],
+  metrics: [
+    { label: "monorepo web + API", value: "✓", evidence: "implemented" },
+    { label: "bilingue FR/EN", value: "✓", evidence: "implemented" },
+    { label: "cofondé (2 personnes)", value: "2", evidence: "implemented" },
+    { label: "déployé sur Vercel", value: "Live", evidence: "deployed" },
+  ],
+  limits: [
+    "Encore au stade prototype : pas de trafic client réel.",
+    "Fondations d'API en place, mais le produit n'est pas en exploitation.",
+  ],
+  links: [
+    { label: "Démo live", url: "https://tatzy-taxi.vercel.app", kind: "demo" },
+    { label: "GitHub", url: "https://github.com/ralphgabriel04/tatzy-taxi", kind: "repo" },
+  ],
+};
+
+const tatzyEn: CaseStudyV2 = {
+  modes: ["recruiter", "engineering"],
+  identity: {
+    valueProp: "An online taxi-booking site, co-founded and deployed: a web + API monorepo in Next.js, bilingual, still at prototype stage.",
+    kind: "Cofounded product · prototype",
+    domain: "Booking · transport",
+    maturity: "prototype",
+    maturityLabel: "Deployed prototype",
+    period: "2025 · 2026",
+    team: "Co-founded with Aimen Djebbar",
+    role: "Co-founder · development",
+    platforms: ["Web (bilingual FR/EN)"],
+    stack: ["Next.js 14 (App Router)", "TypeScript", "Tailwind CSS", "Prisma · PostgreSQL", "next-intl (FR/EN)", "Zod", "Vercel"],
+    updated: "2026-07-29",
+  },
+  sections: [
+    { id: "resume", title: "Summary", modes: ["recruiter"],
+      body: "Tatzy is a taxi-booking site co-founded with Aimen Djebbar. The prototype — landing page, booking flow and API foundations — is deployed on Vercel. Honestly: it's a prototype, with no real customer traffic yet." },
+    { id: "fiche", title: "Tech sheet", modes: ["recruiter", "engineering"],
+      body: "A web + API monorepo in Next.js 14 (App Router), on Prisma/PostgreSQL, bilingual and Zod-validated.",
+      points: ["Monorepo: web app + API foundations", "Landing page + booking flow", "Prisma / PostgreSQL for persistence", "Bilingual FR/EN (next-intl) · Zod validation", "Deployed on Vercel"] },
+    { id: "limites", title: "Limits", modes: ["recruiter", "engineering"], kind: "limits" },
+  ],
+  metrics: [
+    { label: "web + API monorepo", value: "✓", evidence: "implemented" },
+    { label: "bilingual FR/EN", value: "✓", evidence: "implemented" },
+    { label: "co-founded (2 people)", value: "2", evidence: "implemented" },
+    { label: "deployed on Vercel", value: "Live", evidence: "deployed" },
+  ],
+  limits: [
+    "Still at prototype stage: no real customer traffic.",
+    "API foundations in place, but the product isn't in operation.",
+  ],
+  links: [
+    { label: "Live demo", url: "https://tatzy-taxi.vercel.app", kind: "demo" },
+    { label: "GitHub", url: "https://github.com/ralphgabriel04/tatzy-taxi", kind: "repo" },
+  ],
+};
+
+const svFr: CaseStudyV2 = {
+  modes: ["recruiter", "engineering"],
+  identity: {
+    valueProp: "Une lettre de Saint-Valentin interactive envoyée par lien unique — une blague en surface, une vraie hygiène de sécurité web en dessous.",
+    kind: "Projet personnel · prototype",
+    domain: "Petit web · sécurité",
+    maturity: "prototype",
+    maturityLabel: "Projet personnel · prototype",
+    period: "2026",
+    team: "Solo",
+    role: "Solo · développement",
+    platforms: ["Web"],
+    stack: ["Node.js · Express", "SQLite", "EJS", "Nodemailer", "Helmet · CSRF · rate-limit"],
+    updated: "2026-07-29",
+  },
+  sections: [
+    { id: "resume", title: "Résumé", modes: ["recruiter"],
+      body: "Une lettre de Saint-Valentin interactive, avec le classique bouton « Non » qui esquive le curseur. Derrière la blague, l'exercice réel : soigner la sécurité web d'un petit service qui envoie des liens et des courriels." },
+    { id: "securite", title: "La partie sérieuse : la sécurité", modes: ["recruiter", "engineering"],
+      body: "Un petit service exposé sur le web mérite les mêmes réflexes qu'un gros.",
+      points: ["Liens uniques tokenisés par destinataire", "Sessions signées · protection CSRF", "En-têtes de sécurité (Helmet) · limitation de débit", "Tableau de bord d'administration", "Node/Express · SQLite · courriels via Nodemailer"] },
+    { id: "limites", title: "Limites", modes: ["recruiter", "engineering"], kind: "limits" },
+  ],
+  metrics: [
+    { label: "Node · Express · SQLite", value: "✓", evidence: "implemented" },
+    { label: "liens uniques tokenisés", value: "✓", evidence: "implemented" },
+    { label: "CSRF · Helmet · rate-limit", value: "✓", evidence: "implemented" },
+    { label: "démo en ligne", value: "Live", evidence: "deployed" },
+  ],
+  limits: [
+    "Projet personnel à petite échelle, pas un produit.",
+    "La démo publique utilise un destinataire générique (« Valentine ») — pas de données personnelles réelles.",
+  ],
+  links: [{ label: "Voir la démo", url: "/saint-valentin/index.html", kind: "demo" }],
+};
+
+const svEn: CaseStudyV2 = {
+  modes: ["recruiter", "engineering"],
+  identity: {
+    valueProp: "An interactive Valentine's letter sent via a unique link — a joke on the surface, real web-security hygiene underneath.",
+    kind: "Personal project · prototype",
+    domain: "Small web · security",
+    maturity: "prototype",
+    maturityLabel: "Personal project · prototype",
+    period: "2026",
+    team: "Solo",
+    role: "Solo · development",
+    platforms: ["Web"],
+    stack: ["Node.js · Express", "SQLite", "EJS", "Nodemailer", "Helmet · CSRF · rate-limit"],
+    updated: "2026-07-29",
+  },
+  sections: [
+    { id: "resume", title: "Summary", modes: ["recruiter"],
+      body: "An interactive Valentine's letter, with the classic \"No\" button that dodges the cursor. Behind the joke, the real exercise: getting web security right for a small service that sends links and emails." },
+    { id: "securite", title: "The serious part: security", modes: ["recruiter", "engineering"],
+      body: "A small web-exposed service deserves the same reflexes as a big one.",
+      points: ["Per-recipient tokenized unique links", "Signed sessions · CSRF protection", "Security headers (Helmet) · rate limiting", "Admin dashboard", "Node/Express · SQLite · email via Nodemailer"] },
+    { id: "limites", title: "Limits", modes: ["recruiter", "engineering"], kind: "limits" },
+  ],
+  metrics: [
+    { label: "Node · Express · SQLite", value: "✓", evidence: "implemented" },
+    { label: "tokenized unique links", value: "✓", evidence: "implemented" },
+    { label: "CSRF · Helmet · rate-limit", value: "✓", evidence: "implemented" },
+    { label: "online demo", value: "Live", evidence: "deployed" },
+  ],
+  limits: [
+    "Small-scale personal project, not a product.",
+    "The public demo uses a generic recipient (\"Valentine\") — no real personal data.",
+  ],
+  links: [{ label: "See the demo", url: "/saint-valentin/index.html", kind: "demo" }],
+};
+
+const rwFr: CaseStudyV2 = {
+  modes: ["recruiter", "engineering"],
+  identity: {
+    valueProp: "Une expérience web narrative de type « Wrapped » : un récit qui se déroule au défilement, synchronisé à une bande sonore — surtout un terrain de jeu d'animation web.",
+    kind: "Projet personnel · en ligne",
+    domain: "Expérience web · animation",
+    maturity: "production",
+    maturityLabel: "Projet personnel · en ligne",
+    period: "2026",
+    team: "Solo",
+    role: "Solo · développement (animation web)",
+    platforms: ["Web"],
+    stack: ["React · Vite", "Tailwind CSS", "GSAP", "Framer Motion", "Howler.js (audio)", "canvas-confetti", "Vercel"],
+    updated: "2026-07-29",
+  },
+  sections: [
+    { id: "resume", title: "Résumé", modes: ["recruiter"],
+      body: "Une expérience « Wrapped » (dans l'esprit du Spotify Wrapped) : un récit qui se déroule au scroll, synchronisé à une bande sonore. Techniquement, c'est surtout un terrain de jeu d'animation web soigné." },
+    { id: "technique", title: "Le côté technique", modes: ["recruiter", "engineering"],
+      body: "L'intérêt du projet est dans l'orchestration d'animations et la synchronisation audio.",
+      points: ["Scrollytelling : séquences orchestrées (GSAP + Framer Motion)", "Lecture et contrôle audio via Howler.js (vitesse, volume, pause)", "Frise chronologique animée au scroll · repères de progression", "Confettis (canvas-confetti)", "React + Vite + Tailwind · déployé sur Vercel"] },
+    { id: "limites", title: "Limites", modes: ["recruiter", "engineering"], kind: "limits" },
+  ],
+  metrics: [
+    { label: "scrollytelling synchronisé à l'audio", value: "✓", evidence: "implemented" },
+    { label: "GSAP · Framer Motion", value: "✓", evidence: "implemented" },
+    { label: "audio Howler.js · confettis", value: "✓", evidence: "implemented" },
+    { label: "en ligne · Vercel", value: "Live", evidence: "deployed" },
+  ],
+  limits: [
+    "Projet personnel et créatif : le contenu narratif est privé, seule la technique est mise en avant.",
+    "Une expérience sur mesure, pas un produit réutilisable.",
+  ],
+  links: [{ label: "Voir en ligne", url: "https://relationship-wrapped-2025.vercel.app/", kind: "demo" }],
+};
+
+const rwEn: CaseStudyV2 = {
+  modes: ["recruiter", "engineering"],
+  identity: {
+    valueProp: "A \"Wrapped\"-style narrative web experience: a story that unfolds as you scroll, synced to a soundtrack — mostly a polished web-animation playground.",
+    kind: "Personal project · live",
+    domain: "Web experience · animation",
+    maturity: "production",
+    maturityLabel: "Personal project · live",
+    period: "2026",
+    team: "Solo",
+    role: "Solo · development (web animation)",
+    platforms: ["Web"],
+    stack: ["React · Vite", "Tailwind CSS", "GSAP", "Framer Motion", "Howler.js (audio)", "canvas-confetti", "Vercel"],
+    updated: "2026-07-29",
+  },
+  sections: [
+    { id: "resume", title: "Summary", modes: ["recruiter"],
+      body: "A \"Wrapped\" experience (in the spirit of Spotify Wrapped): a story that unfolds on scroll, synced to a soundtrack. Technically, it's mostly a carefully crafted web-animation playground." },
+    { id: "technique", title: "The technical side", modes: ["recruiter", "engineering"],
+      body: "The interest of the project is in animation orchestration and audio sync.",
+      points: ["Scrollytelling: orchestrated sequences (GSAP + Framer Motion)", "Audio playback and control via Howler.js (speed, volume, pause)", "Scroll-animated timeline · progress markers", "Confetti (canvas-confetti)", "React + Vite + Tailwind · deployed on Vercel"] },
+    { id: "limites", title: "Limits", modes: ["recruiter", "engineering"], kind: "limits" },
+  ],
+  metrics: [
+    { label: "audio-synced scrollytelling", value: "✓", evidence: "implemented" },
+    { label: "GSAP · Framer Motion", value: "✓", evidence: "implemented" },
+    { label: "Howler.js audio · confetti", value: "✓", evidence: "implemented" },
+    { label: "live · Vercel", value: "Live", evidence: "deployed" },
+  ],
+  limits: [
+    "A personal, creative project: the narrative content is private, only the craft is highlighted.",
+    "A bespoke experience, not a reusable product.",
+  ],
+  links: [{ label: "See it live", url: "https://relationship-wrapped-2025.vercel.app/", kind: "demo" }],
+};
+
 export const caseStudiesV2: Record<string, { fr: CaseStudyV2; en: CaseStudyV2 }> = {
   cadence: { fr: cadenceFr, en: cadenceEn },
   "dpm-elevate": { fr: dpmFr, en: dpmEn },
   "the-mad-space": { fr: madFr, en: madEn },
+  "wise-wealthy": { fr: wwFr, en: wwEn },
   "kim-dubois": { fr: kimFr, en: kimEn },
   "boa-traiteur": { fr: boaFr, en: boaEn },
   crcc: { fr: crccFr, en: crccEn },
@@ -1266,4 +1597,7 @@ export const caseStudiesV2: Record<string, { fr: CaseStudyV2; en: CaseStudyV2 }>
   log430: { fr: log430Fr, en: log430En },
   log210: { fr: log210Fr, en: log210En },
   gti350: { fr: gti350Fr, en: gti350En },
+  tatzy: { fr: tatzyFr, en: tatzyEn },
+  "saint-valentin": { fr: svFr, en: svEn },
+  "relationship-wrapped": { fr: rwFr, en: rwEn },
 };
