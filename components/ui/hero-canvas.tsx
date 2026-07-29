@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-/** Interactive dot-grid background (RG.SYS hero): dots wobble and are drawn to
+/** Interactive dot-grid background (RCG.SYS hero): dots wobble and are drawn to
  *  the cursor, turning accent-coloured within a radius. Skipped under
  *  reduced-motion. Colours read from the parent's computed style so it tracks
  *  the theme. */

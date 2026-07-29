@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useLocale } from "next-intl";
 
-/** RG.SYS boot sequence — shown once per session on the home visit, skippable,
+/** RCG.SYS boot sequence — shown once per session on the home visit, skippable,
  *  skipped entirely under reduced-motion. */
 export function Boot() {
   const fr = useLocale() === "fr";
@@ -42,11 +42,11 @@ export function Boot() {
       onClick={() => setShow(false)}
       className="fixed inset-0 z-[200] flex cursor-pointer items-center justify-center bg-background"
       role="status"
-      aria-label="RG.SYS boot"
+      aria-label="RCG.SYS boot"
     >
       <div className="flex min-w-[min(420px,84vw)] flex-col gap-2.5 font-mono text-[13px] text-muted-foreground">
         <div className="mb-1.5 flex items-baseline gap-2.5">
-          <span className="text-xl font-medium" style={{ color: "var(--accent)" }}>RG</span>
+          <span className="text-xl font-medium" style={{ color: "var(--accent)" }}>RCG</span>
           <span className="text-muted-foreground/60">.SYS v2.0</span>
         </div>
         <div className={line} style={{ animationDelay: ".15s" }}>

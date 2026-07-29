@@ -48,10 +48,10 @@ export default async function OGImage({
               fontWeight: 600,
             }}
           >
-            RG
+            RCG
           </div>
           <span style={{ color: "#737373", fontSize: "18px" }}>
-            ralphgabriel<span style={{ color: "#fafafa" }}>.dev</span>
+            rcgabriel<span style={{ color: "#fafafa" }}>.dev</span>
           </span>
         </div>
 

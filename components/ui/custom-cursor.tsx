@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-/** RG.SYS custom cursor: an accent dot + a lagging ring that grows over
+/** RCG.SYS custom cursor: an accent dot + a lagging ring that grows over
  *  interactive elements, plus a light magnetic pull on [data-mag] elements.
  *  Only on fine-pointer devices with motion enabled; hides the native cursor. */
 export function CustomCursor() {

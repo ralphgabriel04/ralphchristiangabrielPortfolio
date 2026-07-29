@@ -7,7 +7,7 @@ import { useTheme } from "next-themes";
 import { projects } from "@/lib/projects";
 import { trackEvent } from "@/lib/analytics";
 
-/** Open (or toggle) the RG.SYS terminal from anywhere (header, footer, hero). */
+/** Open (or toggle) the RCG.SYS terminal from anywhere (header, footer, hero). */
 export function openTerminal() {
   if (typeof window !== "undefined")
     window.dispatchEvent(new CustomEvent("rg:terminal"));
@@ -55,7 +55,7 @@ export function Terminal() {
 
   const welcome = useCallback(
     (): Line[] => [
-      { v: "RG.SYS v2.0 — " + L("terminal du portfolio", "portfolio terminal"), c: COL.def },
+      { v: "RCG.SYS v2.0 — " + L("terminal du portfolio", "portfolio terminal"), c: COL.def },
       { v: L("tape `help` pour la liste des commandes", "type `help` for the command list"), c: COL.def },
     ],
     [L],
@@ -242,7 +242,7 @@ export function Terminal() {
           />
           <div
             role="dialog"
-            aria-label="RG.SYS terminal"
+            aria-label="RCG.SYS terminal"
             className="absolute bottom-0 left-1/2 flex w-[min(860px,100vw)] -translate-x-1/2 flex-col rounded-t-2xl border border-b-0 border-border-strong bg-muted shadow-md motion-safe:animate-[term-up_.35s_cubic-bezier(.16,1,.3,1)]"
           >
             <div className="flex items-center gap-2.5 border-b border-border-color px-4 py-3">

@@ -7,7 +7,7 @@ import { usePlain } from "@/components/ui/plain-mode";
 const GLYPHS = "<>/{}[]#$%&*+=—·";
 
 /** Terminal role line `$ <role> ▍` that scramble-decodes to each new role
- *  (RG.SYS effect), rotating every few seconds. Respects reduced-motion and
+ *  (RCG.SYS effect), rotating every few seconds. Respects reduced-motion and
  *  swaps to plainer wording in simple mode. */
 export function HeroRole() {
   const fr = useLocale() === "fr";

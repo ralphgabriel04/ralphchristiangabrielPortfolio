@@ -46,7 +46,7 @@ export function Header() {
 
   useEffect(() => { setDrawerOpen(false); }, [pathname]);
 
-  // v2 single-page section nav. Plain-language mode swaps RG.SYS terms for
+  // v2 single-page section nav. Plain-language mode swaps RCG.SYS terms for
   // plainer ones (Systèmes → Projets, Stack → Outils, Parcours → Expérience).
   const links = [
     { id: "sec-systemes", label: plain ? t("projects") : t("systems") },

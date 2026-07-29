@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-/** Footer status line — "● SYS.OK · HH:MM · MTL" (Montréal time), à la RG.SYS. */
+/** Footer status line — "● SYS.OK · HH:MM · MTL" (Montréal time), à la RCG.SYS. */
 export function SysClock() {
   const [time, setTime] = useState("");
 

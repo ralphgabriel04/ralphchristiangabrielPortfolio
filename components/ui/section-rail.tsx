@@ -11,7 +11,7 @@ const SECTIONS = [
   { id: "sec-contact", fr: "Contact", en: "Contact" },
 ];
 
-/** Fixed vertical section rail (RG.SYS) with scroll-spy. Home page only. */
+/** Fixed vertical section rail (RCG.SYS) with scroll-spy. Home page only. */
 export function SectionRail() {
   const fr = useLocale() === "fr";
   const [active, setActive] = useState("");

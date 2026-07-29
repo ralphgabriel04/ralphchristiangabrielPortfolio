@@ -1,4 +1,4 @@
-/** Scrolling tech marquee strip (RG.SYS). CSS-only; pauses on hover. */
+/** Scrolling tech marquee strip (RCG.SYS). CSS-only; pauses on hover. */
 const ITEMS = [
   "Full-Stack",
   "Next.js · TypeScript",

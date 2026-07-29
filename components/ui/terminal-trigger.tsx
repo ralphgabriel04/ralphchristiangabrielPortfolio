@@ -2,7 +2,7 @@
 
 import { openTerminal } from "@/components/ui/terminal";
 
-/** Client button that opens the RG.SYS terminal — usable inside Server
+/** Client button that opens the RCG.SYS terminal — usable inside Server
  *  Components (e.g. the footer). */
 export function TerminalTrigger({
   className = "",

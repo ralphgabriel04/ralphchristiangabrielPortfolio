@@ -131,7 +131,7 @@ function HomeContent() {
                   {/* Light theme: compact chip (no wash-out fade). Dark: gradient. */}
                   <span className="inline-flex items-center gap-2 rounded-md bg-background/80 px-2 py-1 shadow-sm backdrop-blur-sm dark:bg-transparent dark:p-0 dark:shadow-none dark:backdrop-blur-none">
                     <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--shipped)" }} />
-                    RG.SYS · Montréal
+                    RCG.SYS · Montréal
                   </span>
                 </figcaption>
               </figure>

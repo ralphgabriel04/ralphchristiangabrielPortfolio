@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { MapPin } from "lucide-react";
 
-/** RG.SYS hero status line:
+/** RCG.SYS hero status line:
  *  ● Disponible — emploi ou contrat · 📍 Grand Montréal · hybride · HH h MM · MTL · GitHub ↗ · LinkedIn ↗ */
 export function HeroStatus({
   available,
