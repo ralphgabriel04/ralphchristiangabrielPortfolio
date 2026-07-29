@@ -114,12 +114,13 @@
     "contactCta": "Get in touch",
     "toConfirm": "To be confirmed",
     "proofQuad": [
-      { "value": "25→10 min", "label": "Order processing time", "source": "The Mad Space" },
-      { "value": "133", "label": "Tests — team lead of 6", "source": "FinanceJ · ÉTS" },
       { "value": "2,000+", "label": "Tickets resolved", "source": "Support & operations*" },
-      { "value": "94%", "label": "Customer satisfaction", "source": "Support & operations*" }
+      { "value": "94%", "label": "Customer satisfaction", "source": "Support & operations*" },
+      { "value": "9", "label": "Testimonials received", "source": "Clients · colleagues · collaborators" },
+      { "value": "10+", "label": "Collaborations", "source": "Clients · teams · organisations" }
     ],
     "proofNote": "* Support & automation role (Vidéotron).",
+    "proofAvailable": "Available for a new mandate, project or collaboration",
     "contactAvailable": "Available — employment or contract",
     "contactHeadingPre": "Let's build something ",
     "contactHeadingItalic": "that lasts.",

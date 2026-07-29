@@ -334,8 +334,18 @@ function ProofQuad() {
               </div>
             ))}
           </div>
+          <div className="mt-4 flex items-center justify-center gap-2 font-mono text-[12px] text-muted-foreground">
+            <span className="relative inline-flex h-2 w-2">
+              <span
+                className="absolute inline-flex h-full w-full rounded-full opacity-60 motion-safe:animate-[pulse_2.4s_ease-out_infinite]"
+                style={{ background: "var(--shipped)" }}
+              />
+              <span className="relative inline-flex h-2 w-2 rounded-full" style={{ background: "var(--shipped)" }} />
+            </span>
+            {tHome("proofAvailable")}
+          </div>
           {note && (
-            <p className="mt-3 text-right font-mono text-[10.5px] text-muted-foreground/70">
+            <p className="mt-2 text-right font-mono text-[10.5px] text-muted-foreground/70">
               {note}
             </p>
           )}

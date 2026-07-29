@@ -114,12 +114,13 @@
     "contactCta": "Me contacter",
     "toConfirm": "À confirmer",
     "proofQuad": [
-      { "value": "25→10 min", "label": "Traitement d'une commande", "source": "The Mad Space" },
-      { "value": "133", "label": "Tests — chef d'équipe de 6", "source": "FinanceJ · ÉTS" },
       { "value": "2 000+", "label": "Tickets résolus", "source": "Support & opérations*" },
-      { "value": "94 %", "label": "Satisfaction client", "source": "Support & opérations*" }
+      { "value": "94 %", "label": "Satisfaction client", "source": "Support & opérations*" },
+      { "value": "9", "label": "Témoignages reçus", "source": "Clients · collègues · collaborateurs" },
+      { "value": "10+", "label": "Collaborations réalisées", "source": "Clients · équipes · organisations" }
     ],
     "proofNote": "* Rôle support & automatisation (Vidéotron).",
+    "proofAvailable": "Disponible pour un nouveau mandat, un projet ou une collaboration",
     "contactAvailable": "Disponible — emploi ou contrat",
     "contactHeadingPre": "Construisons quelque chose ",
     "contactHeadingItalic": "qui tient.",
