@@ -16,6 +16,8 @@ import {
 } from "@/lib/projects";
 import { caseStudies } from "@/lib/case-studies";
 import { CaseSections } from "@/components/ui/case-study";
+import { caseStudiesV2 } from "@/lib/case-studies-v2";
+import { CaseStudyV2View } from "@/components/ui/case-study-v2";
 import { ProjectTypeBadge } from "@/components/ui/project-type-badge";
 import { Reveal } from "@/components/ui/reveal";
 import { TrackView } from "@/components/ui/track-view";
@@ -75,6 +77,7 @@ function ProjectDetailContent({ slug }: { slug: string }) {
   if (!project) return null;
 
   const study = caseStudies[slug]?.[locale];
+  const v2 = caseStudiesV2[slug]?.[locale] ?? null;
   const state = projectState(slug);
   const sysNum = String(ordered.indexOf(slug) + 1).padStart(2, "0");
   const gallery = projectGalleries[slug] ?? [];
@@ -118,36 +121,40 @@ function ProjectDetailContent({ slug }: { slug: string }) {
           {project.name}
         </h1>
 
-        <p className="mt-4 max-w-[60ch] text-[16px] leading-relaxed text-muted-foreground">
-          {project.summary[locale]}
-        </p>
+        {!v2 && (
+          <>
+            <p className="mt-4 max-w-[60ch] text-[16px] leading-relaxed text-muted-foreground">
+              {project.summary[locale]}
+            </p>
 
-        {/* Meta strip */}
-        {study && (
-          <div className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border-color bg-border-color sm:grid-cols-4">
-            {study.meta.map((m, i) => (
-              <div key={i} className="bg-muted px-4 py-3.5">
-                <div className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted-foreground">
-                  {m.k}
-                </div>
-                <div className="mt-1 text-[13.5px] font-semibold">{m.v}</div>
+            {/* Meta strip */}
+            {study && (
+              <div className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border-color bg-border-color sm:grid-cols-4">
+                {study.meta.map((m, i) => (
+                  <div key={i} className="bg-muted px-4 py-3.5">
+                    <div className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted-foreground">
+                      {m.k}
+                    </div>
+                    <div className="mt-1 text-[13.5px] font-semibold">{m.v}</div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        )}
+            )}
 
-        {/* Primary link */}
-        {primary && (
-          <div className="mt-5">
-            <a
-              href={primary.url}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent hover:underline"
-            >
-              {primary.label} <ArrowUpRight size={15} />
-            </a>
-          </div>
+            {/* Primary link */}
+            {primary && (
+              <div className="mt-5">
+                <a
+                  href={primary.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent hover:underline"
+                >
+                  {primary.label} <ArrowUpRight size={15} />
+                </a>
+              </div>
+            )}
+          </>
         )}
       </Reveal>
 
@@ -184,7 +191,11 @@ function ProjectDetailContent({ slug }: { slug: string }) {
       )}
 
       {/* Sections */}
-      {study ? (
+      {v2 ? (
+        <Reveal>
+          <CaseStudyV2View study={v2} locale={locale} />
+        </Reveal>
+      ) : study ? (
         <CaseSections sections={study.sections} locale={locale} />
       ) : (
         <Reveal>
