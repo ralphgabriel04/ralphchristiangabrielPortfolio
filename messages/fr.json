@@ -150,6 +150,7 @@
       "production": "En production",
       "development": "En développement",
       "prototype": "Prototype",
+      "academic": "Projet académique",
       "planned": "Planifié"
     },
     "allProjects": "Tous les projets",

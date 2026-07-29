@@ -21,6 +21,7 @@ const STATE_ICON: Record<string, string> = {
   production: "●",
   development: "◐",
   prototype: "◇",
+  academic: "▤",
   planned: "○",
 };
 

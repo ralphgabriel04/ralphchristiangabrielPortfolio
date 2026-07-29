@@ -30,6 +30,7 @@ const STATE_ICON: Record<ProjectState, string> = {
   production: "●",
   development: "◐",
   prototype: "◇",
+  academic: "▤",
   planned: "○",
 };
 

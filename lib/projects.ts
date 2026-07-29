@@ -189,7 +189,7 @@ export const projects: Project[] = [
 /** Delivery state per project — drives the status pill, its dot colour and the
  *  filter on the projects page. Explicit map (not derived from status strings)
  *  so each project's stage is intentional. */
-export type ProjectState = "production" | "development" | "prototype" | "planned"
+export type ProjectState = "production" | "development" | "prototype" | "planned" | "academic"
 
 export const projectStates: Record<string, ProjectState> = {
   "the-mad-space": "production",
@@ -200,11 +200,11 @@ export const projectStates: Record<string, ProjectState> = {
   "kim-dubois": "prototype",
   "boa-traiteur": "prototype",
   "crcc": "prototype",
-  "financej": "production",
+  "financej": "academic",
 }
 
 /** Display / filter order. */
-export const STATE_ORDER: ProjectState[] = ["production", "development", "prototype", "planned"]
+export const STATE_ORDER: ProjectState[] = ["production", "development", "prototype", "academic", "planned"]
 
 /** Dot / accent colour per state (production=green, development=amber,
  *  prototype & planned=blue). */
@@ -213,6 +213,7 @@ export const stateColor: Record<ProjectState, string> = {
   development: "var(--active)",
   prototype: "var(--planned)",
   planned: "var(--planned)",
+  academic: "var(--muted-foreground)",
 }
 
 export const projectState = (id: string): ProjectState => projectStates[id] ?? "prototype"
