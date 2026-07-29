@@ -9,8 +9,10 @@ import {
   projects,
   projectLinks,
   projectState,
+  projectType,
   stateColor,
   caseStudyIds,
+  TYPE_ORDER,
 } from "@/lib/projects";
 import { LazyVideo } from "@/components/ui/lazy-video";
 import { ProjectTypeBadge } from "@/components/ui/project-type-badge";
@@ -131,6 +133,8 @@ export function SystemsSection() {
   );
   const archive = projects.filter((p) => !FEATURED.includes(p.id));
   const ordered = [...featured, ...archive];
+  // Distinct role-type badges present in the archive → shown as a hoverable legend.
+  const legendTypes = TYPE_ORDER.filter((ty) => archive.some((p) => projectType(p.id) === ty));
   const sys = (p: Project) => String(ordered.indexOf(p) + 1).padStart(2, "0");
   const first = featured[0];
   const rest = featured.slice(1);
@@ -271,10 +275,15 @@ export function SystemsSection() {
 
       {/* Archive */}
       <div className="mt-10">
-        <div className="mb-3 flex items-center justify-between gap-4">
-          <span className="font-mono text-[11.5px] uppercase tracking-[0.14em] text-muted-foreground">
-            {locale === "fr" ? "Autres systèmes" : "Other systems"}
-          </span>
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-3">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="mr-1 font-mono text-[11.5px] uppercase tracking-[0.14em] text-muted-foreground">
+              {locale === "fr" ? "Autres systèmes" : "Other systems"}
+            </span>
+            {legendTypes.map((ty) => (
+              <ProjectTypeBadge key={ty} type={ty} describe />
+            ))}
+          </div>
           <span className="hidden font-mono text-[11px] text-muted-foreground sm:inline">
             {locale === "fr" ? "clique une ligne pour le détail" : "click a row for detail"}
           </span>

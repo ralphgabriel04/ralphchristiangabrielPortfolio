@@ -60,18 +60,21 @@ export function ProjectsFilterList({ projects }: { projects: Project[] }) {
     label,
     count,
     color,
+    title,
   }: {
     isActive: boolean;
     onClick: () => void;
     label: string;
     count: number;
     color?: string;
+    title?: string;
   }) {
     return (
       <button
         type="button"
         onClick={onClick}
         aria-pressed={isActive}
+        title={title}
         className={`inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 font-mono text-xs transition-colors ${
           isActive
             ? "border-transparent bg-foreground text-background"
@@ -128,6 +131,7 @@ export function ProjectsFilterList({ projects }: { projects: Project[] }) {
               label={t(`type.${ty}`)}
               count={typeCounts[ty] ?? 0}
               color={typeColor[ty]}
+              title={t(`typeDesc.${ty}`)}
             />
           ))}
         </div>

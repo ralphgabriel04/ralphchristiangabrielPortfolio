@@ -164,6 +164,13 @@
       "academic": "Scolaire",
       "personal": "Perso"
     },
+    "typeDesc": {
+      "cofounder": "Projet que j'ai cofondé : vision, décisions et technique partagées dès le départ.",
+      "founder": "Projet que j'ai fondé et porté seul : idée, design et développement.",
+      "client": "Mandat réalisé pour un client : un besoin réel, un livrable concret.",
+      "academic": "Projet réalisé dans un cadre scolaire à l'ÉTS, souvent en équipe.",
+      "personal": "Projet personnel : un terrain de jeu pour apprendre et créer."
+    },
     "allProjects": "Tous les projets",
     "previousProject": "Projet précédent",
     "nextProject": "Projet suivant",

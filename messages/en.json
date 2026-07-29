@@ -164,6 +164,13 @@
       "academic": "Academic",
       "personal": "Personal"
     },
+    "typeDesc": {
+      "cofounder": "A project I co-founded: shared vision, decisions and tech from day one.",
+      "founder": "A project I founded and drove solo: idea, design and development.",
+      "client": "Work delivered for a client: a real need, a concrete deliverable.",
+      "academic": "Coursework at ÉTS, often as part of a team.",
+      "personal": "A personal project: a playground to learn and build."
+    },
     "allProjects": "All projects",
     "previousProject": "Previous project",
     "nextProject": "Next project",
