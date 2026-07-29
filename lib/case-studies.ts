@@ -950,4 +950,404 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
       ],
     },
   },
+
+  tatzy: {
+    fr: {
+      meta: [
+        { k: "Rôle", v: "Cofondateur · Développement" },
+        { k: "Type", v: "Prototype déployé" },
+        { k: "Stack", v: "Next.js 14 · Prisma · PostgreSQL" },
+        { k: "Statut", v: "Prototype · déployé" },
+      ],
+      sections: [
+        {
+          num: "01",
+          title: "Contexte",
+          body: "Site de réservation de taxi en ligne (Tatzy), cofondé avec Aimen Djebbar.",
+          points: [
+            "Monorepo web + API",
+            "Page d'accueil et tunnel de réservation",
+            "Bilingue FR/EN",
+            "Déployé sur Vercel",
+          ],
+        },
+        {
+          num: "02",
+          title: "Approche",
+          body: "Next.js 14 (App Router) côté web, Prisma et PostgreSQL côté données, avec i18n et validation.",
+          points: ["Next.js 14 · TypeScript · Tailwind", "Prisma + PostgreSQL", "next-intl (FR/EN) · Zod"],
+        },
+        {
+          num: "03",
+          title: "État",
+          body: "Un prototype fonctionnel déployé — encore au stade prototype, sans trafic client réel.",
+          results: [
+            { value: "Live", label: "déployé sur Vercel" },
+            { value: "2", label: "cofondateurs" },
+            { value: "FR/EN", label: "bilingue" },
+            { value: "web+API", label: "monorepo" },
+          ],
+        },
+      ],
+    },
+    en: {
+      meta: [
+        { k: "Role", v: "Co-founder · Development" },
+        { k: "Type", v: "Deployed prototype" },
+        { k: "Stack", v: "Next.js 14 · Prisma · PostgreSQL" },
+        { k: "Status", v: "Prototype · deployed" },
+      ],
+      sections: [
+        {
+          num: "01",
+          title: "Context",
+          body: "An online taxi-booking site (Tatzy), co-founded with Aimen Djebbar.",
+          points: ["Web + API monorepo", "Landing page and booking flow", "Bilingual FR/EN", "Deployed on Vercel"],
+        },
+        {
+          num: "02",
+          title: "Approach",
+          body: "Next.js 14 (App Router) on the web, Prisma and PostgreSQL for data, with i18n and validation.",
+          points: ["Next.js 14 · TypeScript · Tailwind", "Prisma + PostgreSQL", "next-intl (FR/EN) · Zod"],
+        },
+        {
+          num: "03",
+          title: "State",
+          body: "A working prototype, deployed — still at prototype stage, no real customer traffic.",
+          results: [
+            { value: "Live", label: "deployed on Vercel" },
+            { value: "2", label: "co-founders" },
+            { value: "FR/EN", label: "bilingual" },
+            { value: "web+API", label: "monorepo" },
+          ],
+        },
+      ],
+    },
+  },
+
+  log430: {
+    fr: {
+      meta: [
+        { k: "Rôle", v: "Développeur (majoritairement solo)" },
+        { k: "Type", v: "Travaux d'architecture (ÉTS)" },
+        { k: "Stack", v: "Python · Docker · Kafka · PostgreSQL" },
+        { k: "Statut", v: "Académique" },
+      ],
+      sections: [
+        {
+          num: "01",
+          title: "Contexte",
+          body: "Cours d'architecture logicielle à l'ÉTS : une même application de gestion de magasin est réarchitecturée d'un laboratoire à l'autre.",
+          points: [
+            "Du monolithe conteneurisé aux microservices",
+            "API REST puis GraphQL",
+            "Cache, répartition de charge, observabilité",
+            "Saga, Kafka et bases de données distribuées",
+          ],
+        },
+        {
+          num: "02",
+          title: "Le parcours",
+          body: "Chaque labo ajoute une contrainte de production et le système est réarchitecturé en conséquence.",
+          points: [
+            "DAO · CQRS · DDD · persistance polyglotte (PostgreSQL + Redis)",
+            "Passerelle d'API (KrakenD / Kong) · tests de charge (Locust)",
+            "Saga orchestrée + traçage distribué (Jaeger)",
+            "Event sourcing + patron Outbox (Kafka) · YugabyteDB / CockroachDB",
+          ],
+        },
+        {
+          num: "03",
+          title: "Projet de fin — CanTelcoX",
+          body: "Le projet de fin de session regroupe le tout : 5 microservices DDD, une base par service, derrière une passerelle Kong en haute disponibilité.",
+          results: [
+            { value: "12", label: "dépôts · monolithe → microservices" },
+            { value: "5", label: "microservices DDD (une base/service)" },
+            { value: "REST+GraphQL", label: "+ Kafka · Saga" },
+            { value: "Grafana", label: "observabilité Prometheus" },
+          ],
+        },
+      ],
+    },
+    en: {
+      meta: [
+        { k: "Role", v: "Developer (mostly solo)" },
+        { k: "Type", v: "Architecture coursework (ÉTS)" },
+        { k: "Stack", v: "Python · Docker · Kafka · PostgreSQL" },
+        { k: "Status", v: "Academic" },
+      ],
+      sections: [
+        {
+          num: "01",
+          title: "Context",
+          body: "ÉTS software-architecture course: a single store-management app is re-architected from one lab to the next.",
+          points: [
+            "From a containerized monolith to microservices",
+            "REST then GraphQL APIs",
+            "Caching, load balancing, observability",
+            "Saga, Kafka and distributed databases",
+          ],
+        },
+        {
+          num: "02",
+          title: "The journey",
+          body: "Each lab adds a production constraint and the system is re-architected to meet it.",
+          points: [
+            "DAO · CQRS · DDD · polyglot persistence (PostgreSQL + Redis)",
+            "API gateway (KrakenD / Kong) · load testing (Locust)",
+            "Orchestrated saga + distributed tracing (Jaeger)",
+            "Event sourcing + Outbox pattern (Kafka) · YugabyteDB / CockroachDB",
+          ],
+        },
+        {
+          num: "03",
+          title: "Capstone — CanTelcoX",
+          body: "The capstone consolidates it all: 5 DDD microservices, a database per service, behind a high-availability Kong gateway.",
+          results: [
+            { value: "12", label: "repos · monolith → microservices" },
+            { value: "5", label: "DDD microservices (db per service)" },
+            { value: "REST+GraphQL", label: "+ Kafka · Saga" },
+            { value: "Grafana", label: "Prometheus observability" },
+          ],
+        },
+      ],
+    },
+  },
+
+  log210: {
+    fr: {
+      meta: [
+        { k: "Rôle", v: "Développeur · équipe de 6" },
+        { k: "Type", v: "Analyse & conception (ÉTS)" },
+        { k: "Stack", v: "TypeScript · Express · Jest" },
+        { k: "Statut", v: "Académique" },
+      ],
+      sections: [
+        {
+          num: "01",
+          title: "Contexte",
+          body: "Laboratoire d'analyse et de conception logicielle à l'ÉTS, en équipe de 6 (GitHub Classroom).",
+          points: [
+            "Modèle du domaine UML et cas d'utilisation",
+            "Application de gestion de cours et de devoirs",
+            "Rapports d'itération",
+          ],
+        },
+        {
+          num: "02",
+          title: "Conception",
+          body: "Conception en couches appuyée sur le patron GRASP Contrôleur, avec une passerelle/adaptateur vers le backend.",
+          points: [
+            "Un contrôleur par entité du domaine",
+            "Express : routes, sessions, JWT",
+            "Suite de tests Jest avec couverture",
+          ],
+        },
+        {
+          num: "03",
+          title: "Résultat",
+          body: "Une application modélisée et implémentée en équipe, avec des tests et des artefacts de conception à l'appui.",
+          results: [
+            { value: "6", label: "coéquipiers" },
+            { value: "UML", label: "modèle du domaine · cas d'usage" },
+            { value: "GRASP", label: "patron Contrôleur" },
+            { value: "Jest", label: "tests avec couverture" },
+          ],
+        },
+      ],
+    },
+    en: {
+      meta: [
+        { k: "Role", v: "Developer · team of 6" },
+        { k: "Type", v: "Analysis & design (ÉTS)" },
+        { k: "Stack", v: "TypeScript · Express · Jest" },
+        { k: "Status", v: "Academic" },
+      ],
+      sections: [
+        {
+          num: "01",
+          title: "Context",
+          body: "Software analysis-and-design lab at ÉTS, in a team of 6 (GitHub Classroom).",
+          points: [
+            "UML domain model and use cases",
+            "A course-and-assignment management app",
+            "Iteration reports",
+          ],
+        },
+        {
+          num: "02",
+          title: "Design",
+          body: "A layered design built on the GRASP Controller pattern, with a gateway/adapter to the backend.",
+          points: ["One controller per domain entity", "Express: routes, sessions, JWT", "Jest test suite with coverage"],
+        },
+        {
+          num: "03",
+          title: "Result",
+          body: "An app modelled and built as a team, backed by tests and design artifacts.",
+          results: [
+            { value: "6", label: "teammates" },
+            { value: "UML", label: "domain model · use cases" },
+            { value: "GRASP", label: "Controller pattern" },
+            { value: "Jest", label: "tests with coverage" },
+          ],
+        },
+      ],
+    },
+  },
+
+  gti350: {
+    fr: {
+      meta: [
+        { k: "Rôle", v: "Développeur · équipe de 2" },
+        { k: "Type", v: "Jeu · interfaces (ÉTS)" },
+        { k: "Stack", v: "JavaScript · Canvas HTML5" },
+        { k: "Statut", v: "Académique" },
+      ],
+      sections: [
+        {
+          num: "01",
+          title: "Contexte",
+          body: "Jeu « Tron » 2 joueurs en JavaScript vanilla, pour le cours d'interfaces utilisateurs à l'ÉTS (équipe de 2).",
+          points: [
+            "Rendu sur Canvas HTML5",
+            "Deux modes d'entrée : clavier (QWERTY/AZERTY) et gestes de souris",
+            "Détection de collisions (traînées + murs)",
+            "Score multi-manches",
+          ],
+        },
+        {
+          num: "02",
+          title: "Conception",
+          body: "Une architecture modulaire pensée pour le travail en parallèle sur Git, avec une boucle de jeu maîtrisée.",
+          points: [
+            "9 modules à responsabilité unique",
+            "Boucle setTimeout (jamais hors de l'état RUNNING)",
+            "Ordre « avancer → vérifier → dessiner » pour éviter les collisions à un pixel près",
+          ],
+        },
+        {
+          num: "03",
+          title: "Résultat",
+          body: "Un jeu jouable, testé à deux, avec 8 fonctionnalités livrées.",
+          results: [
+            { value: "9", label: "modules · ~460 lignes" },
+            { value: "2", label: "modes d'entrée" },
+            { value: "2", label: "coéquipiers" },
+            { value: "Jouable", label: "en ligne" },
+          ],
+        },
+      ],
+    },
+    en: {
+      meta: [
+        { k: "Role", v: "Developer · team of 2" },
+        { k: "Type", v: "Game · UI (ÉTS)" },
+        { k: "Stack", v: "JavaScript · HTML5 Canvas" },
+        { k: "Status", v: "Academic" },
+      ],
+      sections: [
+        {
+          num: "01",
+          title: "Context",
+          body: "A two-player \"Tron\" game in vanilla JavaScript, for ÉTS's user-interfaces course (team of 2).",
+          points: [
+            "Rendered on an HTML5 Canvas",
+            "Two input modes: keyboard (QWERTY/AZERTY) and mouse gestures",
+            "Collision detection (trails + walls)",
+            "Multi-round scoring",
+          ],
+        },
+        {
+          num: "02",
+          title: "Design",
+          body: "A modular architecture designed for parallel Git work, with a carefully controlled game loop.",
+          points: [
+            "9 single-responsibility modules",
+            "setTimeout loop (never runs outside the RUNNING state)",
+            "\"advance → check → draw\" order to avoid off-by-one collisions",
+          ],
+        },
+        {
+          num: "03",
+          title: "Result",
+          body: "A playable game, tested by two, with 8 features shipped.",
+          results: [
+            { value: "9", label: "modules · ~460 lines" },
+            { value: "2", label: "input modes" },
+            { value: "2", label: "teammates" },
+            { value: "Playable", label: "online" },
+          ],
+        },
+      ],
+    },
+  },
+
+  "saint-valentin": {
+    fr: {
+      meta: [
+        { k: "Rôle", v: "Développeur (solo)" },
+        { k: "Type", v: "Projet personnel" },
+        { k: "Stack", v: "Node · Express · SQLite" },
+        { k: "Statut", v: "Prototype" },
+      ],
+      sections: [
+        {
+          num: "01",
+          title: "Contexte",
+          body: "Un petit projet personnel : une lettre de Saint-Valentin interactive envoyée par lien unique, avec le classique bouton « Non » qui esquive le curseur.",
+          points: ["Liens uniques tokenisés", "Tableau de bord d'administration", "Envoi de courriels (Nodemailer)"],
+        },
+        {
+          num: "02",
+          title: "Sécurité",
+          body: "Derrière la blague, une vraie attention à la sécurité web.",
+          points: ["Sessions signées", "Protection CSRF", "En-têtes Helmet", "Limitation de débit"],
+        },
+        {
+          num: "03",
+          title: "Résultat",
+          body: "Un prototype fonctionnel, propre côté sécurité malgré son sujet léger.",
+          results: [
+            { value: "Node", label: "Express · SQLite" },
+            { value: "CSRF", label: "Helmet · rate-limit" },
+            { value: "Tokens", label: "liens uniques" },
+            { value: "Admin", label: "tableau de bord" },
+          ],
+        },
+      ],
+    },
+    en: {
+      meta: [
+        { k: "Role", v: "Developer (solo)" },
+        { k: "Type", v: "Personal project" },
+        { k: "Stack", v: "Node · Express · SQLite" },
+        { k: "Status", v: "Prototype" },
+      ],
+      sections: [
+        {
+          num: "01",
+          title: "Context",
+          body: "A small personal project: an interactive Valentine's letter sent via a unique link, with the classic \"No\" button that dodges the cursor.",
+          points: ["Tokenized unique links", "Admin dashboard", "Email sending (Nodemailer)"],
+        },
+        {
+          num: "02",
+          title: "Security",
+          body: "Behind the joke, real attention to web security.",
+          points: ["Signed sessions", "CSRF protection", "Helmet headers", "Rate limiting"],
+        },
+        {
+          num: "03",
+          title: "Result",
+          body: "A working prototype, clean on the security side despite its light subject.",
+          results: [
+            { value: "Node", label: "Express · SQLite" },
+            { value: "CSRF", label: "Helmet · rate-limit" },
+            { value: "Tokens", label: "unique links" },
+            { value: "Admin", label: "dashboard" },
+          ],
+        },
+      ],
+    },
+  },
 };

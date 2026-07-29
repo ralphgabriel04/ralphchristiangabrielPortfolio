@@ -356,6 +356,11 @@ export const caseStudyIds = new Set([
   "boa-traiteur",
   "crcc",
   "financej",
+  "tatzy",
+  "log430",
+  "log210",
+  "gti350",
+  "saint-valentin",
 ])
 
 /** Role per project, used in project detail meta strip */
@@ -385,6 +390,7 @@ export const projectLinks: Record<string, { label: string; url: string; type: "g
     { label: "GitHub", url: "https://github.com/ralphgabriel04/laboratoire-01-log210-a25-equipe-210-detached", type: "github" },
   ],
   "gti350": [
+    { label: "Jouer en ligne", url: "/gti350/index.html", type: "live" },
     { label: "GitHub", url: "https://github.com/ralphgabriel04/gti350-lab1-tron-light-cycles", type: "github" },
   ],
   "the-mad-space": [

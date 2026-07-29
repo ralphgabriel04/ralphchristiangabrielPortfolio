@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Tron Light Cycles — GTI350 Lab1</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Tron Light Cycles (Motocyclettes de lumi&egrave;re de Tron)</h1>
+
+    <canvas id="gameCanvas" width="700" height="700"></canvas>
+
+    <p>
+        <button onclick="pauseButtonHandler()">Pause</button>
+        <button onclick="goButtonHandler()">Go</button>
+        <button onclick="restartButtonHandler()">Restart</button>
+    </p>
+
+    <p>
+        Joueur 1 (cyan) : <span id="scoreJ1">0</span> |
+        Joueur 2 (orange) : <span id="scoreJ2">0</span> |
+        Nuls : <span id="scoreNuls">0</span>
+    </p>
+    <p><em>Appuyez sur Espace pour relancer un tour</em></p>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
