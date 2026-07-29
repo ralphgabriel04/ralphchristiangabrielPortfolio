@@ -74,6 +74,9 @@ export async function generateMetadata({
     robots: IS_PRODUCTION
       ? { index: true, follow: true }
       : { index: false, follow: false },
+    verification: {
+      google: "yEHJTde4FzMEk20PqCq5WqtmXrdJb0dwAzdQ1dm1vMU",
+    },
   };
 }
 

@@ -207,8 +207,12 @@ Applied to all routes via `headers()`:
 
 ## 11. Search Console / indexing
 
-1. **Google Search Console** → add property `https://rcgabriel.dev`
-   (Domain property = DNS TXT verification at CanSpace, or URL-prefix property).
+1. **Google Search Console** → add property `https://rcgabriel.dev`.
+   - **URL-prefix property**: already verifiable — the site renders
+     `<meta name="google-site-verification" ...>` on every page (wired via
+     `verification.google` in the localized metadata). Just click **Verify**.
+   - **Domain property** (optional, covers all subdomains): use DNS TXT
+     verification at CanSpace instead.
 2. Submit sitemap: `https://rcgabriel.dev/sitemap.xml`.
 3. **Bing Webmaster Tools** → add the site (can import from GSC) → submit the same sitemap.
 4. Request indexing for the homepage after DNS + TLS are live.
