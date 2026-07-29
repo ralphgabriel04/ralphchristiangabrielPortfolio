@@ -190,7 +190,7 @@ function Section({ section, study, locale, num }: { section: CaseSectionV2; stud
               <tr className="border-b border-border-strong text-left font-mono text-[10.5px] uppercase tracking-[0.08em] text-muted-foreground">
                 <th className="py-2 pr-4 font-medium">{fr ? "Domaine" : "Area"}</th>
                 <th className="py-2 pr-4 font-medium">{fr ? "Moi" : "Me"}</th>
-                <th className="py-2 pr-4 font-medium">Alexandre</th>
+                <th className="py-2 pr-4 font-medium">{study.responsibilities.find((r) => r.otherName)?.otherName ?? (fr ? "Autre" : "Other")}</th>
                 <th className="py-2 font-medium">{fr ? "Partagé" : "Shared"}</th>
               </tr>
             </thead>
