@@ -198,7 +198,8 @@ export const projects: Project[] = [
     metrics: {
       fr: ["Monorepo web + API", "Bilingue FR/EN", "Déployé sur Vercel", "Cofondé (2 personnes)"],
       en: ["Web + API monorepo", "Bilingual FR/EN", "Deployed on Vercel", "Co-founded (2 people)"]
-    }
+    },
+    media: { enabled: true, type: "image", src: "/media/tatzy.jpg" }
   },
   {
     id: "log430",

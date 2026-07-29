@@ -70,7 +70,7 @@
   "hero": {
     "kicker": "Portfolio · Étudiant en génie logiciel (ÉTS) · Développeur full-stack",
     "name": "Ralph Christian Gabriel",
-    "title": ["Développeur Full-Stack", "ÉTS · Génie Logiciel", "Montréal"],
+    "title": ["Développeur full-stack", "Cofondateur · produit", "Architecture logicielle", "ÉTS · Génie logiciel", "Grand Montréal"],
     "pitch": "Développeur full-stack dans le Grand Montréal. Je prends un projet du besoin jusqu'à la mise en ligne : conception, API, tests, déploiement. Mes projets tournent en production, pas seulement en maquette, et je peux expliquer chaque décision technique derrière.",
     "pitchPlain": "Je crée des sites et des applications qui fonctionnent pour de vrai, du premier croquis jusqu'à la mise en ligne. Vous m'expliquez le besoin ; je m'occupe de la construction et je vous tiens au courant à chaque étape.",
     "ctaPrimary": "Voir mes projets",
@@ -131,14 +131,14 @@
     "contactResponse": "réponse sous 24 h",
     "principles": [
       { "title": "Production d'abord", "desc": "un système qui résiste, pas juste qui marche en local" },
-      { "title": "Décisions expliquées", "desc": "chaque choix d'architecture est un compromis assumé" },
+      { "title": "Décisions expliquées", "desc": "pour chaque choix d'architecture, je peux dire pourquoi — et ce qu'il a coûté" },
       { "title": "Livrer, mesurer, itérer", "desc": "des métriques avant/après sur chaque projet" }
     ]
   },
   "now": {
     "kicker": "En ce moment",
-    "body": "Je travaille sur Cadence, une app mobile coach ↔ athlète que je co-fonde avec Alexandre. On est en développement actif après 13 sprints planifiés et 169+ issues structurées. Landing page en ligne sur cadence-web-fawn.vercel.app, code source sur GitHub. En parallèle, je poursuis mon B. Ing. en génie logiciel à l'ÉTS et je cherche un poste Full-Stack Junior ou Intermédiaire dans le Grand Montréal.",
-    "updated": "Mis à jour : 2026-05-01"
+    "body": "Je co-fonde Cadence, une app mobile coach ↔ athlète, avec Alexandre — en développement actif après 13 sprints planifiés et 169+ issues structurées (landing en ligne, code source sur GitHub). En parallèle, au cours d'architecture logicielle de l'ÉTS (LOG430), je conçois des systèmes distribués, du monolithe aux microservices événementiels (Kafka, sagas, bases distribuées). Je poursuis mon B. Ing. en génie logiciel et je cherche un poste ou un stage full-stack junior dans le Grand Montréal.",
+    "updated": "Mis à jour : 2026-07-29"
   },
   "projects": {
     "heading": "Projets sélectionnés.",
@@ -175,7 +175,7 @@
     "title": "À propos",
     "heading": "Je construis des produits web que des gens utilisent vraiment.",
     "paragraphs": [
-      "Développeur full-stack basé à Repentigny, dans le Grand Montréal. Bilingue FR/EN, étudiant au B. Ing. en génie logiciel à l'ÉTS, je construis des produits web depuis 2022.",
+      "Développeur full-stack basé à Repentigny, dans le Grand Montréal. Bilingue FR/EN, étudiant au B. Ing. en génie logiciel à l'ÉTS, je construis des produits web depuis 2022 — seul, en équipe, et comme cofondateur.",
       "Mon approche : livrer en production, pas seulement en démo. The Mad Space tourne aujourd'hui avec ~15 000 LOC, 30+ endpoints API, des paiements Stripe en multi-devises (4), 7+ intégrations B2B et 4 workflows métier qui ont raccourci le traitement des commandes de 10 à 15 minutes.",
       "Avant le développement produit, j'ai résolu plus de 2 000 tickets chez Vidéotron avec 94% de satisfaction client (9,6/10) et automatisé ~50% des tâches via Power Automate. J'ai appris à écouter avant de coder, et à diagnostiquer avant de proposer."
     ],

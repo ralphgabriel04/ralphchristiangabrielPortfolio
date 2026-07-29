@@ -70,7 +70,7 @@
   "hero": {
     "kicker": "Portfolio · Software Engineering student (ÉTS) · Full-stack developer",
     "name": "Ralph Christian Gabriel",
-    "title": ["Full-Stack Developer", "ÉTS · Software Engineering", "Montréal"],
+    "title": ["Full-stack developer", "Co-founder · product", "Software architecture", "ÉTS · Software Engineering", "Greater Montréal"],
     "pitch": "Full-stack developer in Greater Montréal. I take a project from need to launch: design, APIs, tests, deployment. My work runs in production, not just as a mockup, and I can explain the reasoning behind every technical decision.",
     "pitchPlain": "I build websites and apps that genuinely work, from the first sketch to launch. You tell me what you need; I handle the build and keep you in the loop at every step.",
     "ctaPrimary": "View projects",
@@ -131,14 +131,14 @@
     "contactResponse": "reply within 24 h",
     "principles": [
       { "title": "Production first", "desc": "a system that holds up, not just one that runs locally" },
-      { "title": "Explained decisions", "desc": "every architecture choice is a deliberate trade-off" },
+      { "title": "Explained decisions", "desc": "for every architecture choice, I can say why — and what it cost" },
       { "title": "Ship, measure, iterate", "desc": "before/after metrics on every project" }
     ]
   },
   "now": {
     "kicker": "Now",
-    "body": "I'm building Cadence, a coach ↔ athlete mobile app I'm co-founding with Alexandre. We're in active development after 13 planned sprints and 169+ structured issues. Landing page live at cadence-web-fawn.vercel.app, source on GitHub. In parallel, I'm pursuing my B.Eng. in Software Engineering at ÉTS and looking for a Junior or Intermediate Full-Stack role in Greater Montréal.",
-    "updated": "Updated: 2026-05-01"
+    "body": "I'm co-founding Cadence, a coach ↔ athlete mobile app, with Alexandre — in active development after 13 planned sprints and 169+ structured issues (landing live, source on GitHub). In parallel, in ÉTS's software-architecture course (LOG430), I design distributed systems, from a monolith to event-driven microservices (Kafka, sagas, distributed databases). I'm pursuing my B.Eng. in Software Engineering and looking for a junior full-stack role or internship in Greater Montréal.",
+    "updated": "Updated: 2026-07-29"
   },
   "projects": {
     "heading": "Selected projects.",
@@ -175,7 +175,7 @@
     "title": "About",
     "heading": "I build web products people actually use.",
     "paragraphs": [
-      "Full-stack developer based in Repentigny, Greater Montréal. Bilingual EN/FR, currently studying B.Eng. in Software Engineering at ÉTS, I have been shipping web products since 2022.",
+      "Full-stack developer based in Repentigny, Greater Montréal. Bilingual EN/FR, currently studying B.Eng. in Software Engineering at ÉTS, I have been shipping web products since 2022 — solo, in teams, and as a co-founder.",
       "My approach: ship to production, not just demos. The Mad Space runs today with ~15,000 LOC, 30+ API endpoints, multi-currency Stripe payments (4 currencies), 7+ B2B integrations and 4 business workflows that cut order processing by 10–15 minutes.",
       "Before product development, I resolved 2,000+ tickets at Vidéotron with 94% customer satisfaction (9.6/10) and automated ~50% of tasks via Power Automate. I learned to listen before coding, and to diagnose before proposing."
     ],
