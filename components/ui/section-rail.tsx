@@ -50,18 +50,23 @@ export function SectionRail() {
             className="group flex items-center gap-2.5 py-1.5"
           >
             <span
-              className="h-px transition-all duration-500"
-              style={{ width: on ? "28px" : "14px", background: on ? "var(--accent)" : "var(--border-strong)" }}
+              className={`h-px transition-all duration-500 ${
+                on
+                  ? "w-7 bg-accent"
+                  : "w-3.5 bg-border-strong group-hover:w-6 group-hover:bg-foreground"
+              }`}
             />
             <span
-              className="font-mono text-[9.5px] tracking-widest transition-colors"
-              style={{ color: on ? "var(--accent)" : "var(--muted-foreground)" }}
+              className={`font-mono text-[9.5px] tracking-widest transition-colors ${
+                on ? "text-accent" : "text-muted-foreground group-hover:text-foreground"
+              }`}
             >
               0{i + 1}
             </span>
             <span
-              className="font-mono text-[10px] opacity-0 transition-opacity group-hover:opacity-100"
-              style={{ color: on ? "var(--accent)" : "var(--muted-foreground)" }}
+              className={`font-mono text-[10px] opacity-0 transition-opacity group-hover:opacity-100 ${
+                on ? "text-accent" : "text-muted-foreground group-hover:text-foreground"
+              }`}
             >
               {fr ? s.fr : s.en}
             </span>
