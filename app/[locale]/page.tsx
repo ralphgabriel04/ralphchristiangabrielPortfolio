@@ -90,7 +90,7 @@ function HomeContent() {
               </div>
 
               <p className="mt-5 max-w-[54ch] text-lg leading-relaxed text-muted-foreground">
-                {t("pitch")}
+                <PlainSwap tech={t("pitch")} plain={t("pitchPlain")} />
               </p>
 
               {/* CTAs */}
