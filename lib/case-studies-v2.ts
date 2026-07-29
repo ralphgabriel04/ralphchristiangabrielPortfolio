@@ -1585,10 +1585,103 @@ const rwEn: CaseStudyV2 = {
   links: [{ label: "See it live", url: "https://relationship-wrapped-2025.vercel.app/", kind: "demo" }],
 };
 
+const vibeFr: CaseStudyV2 = {
+  modes: ["recruiter", "business"],
+  identity: {
+    valueProp: "Un guide local intelligent qui aide à décider quoi faire maintenant à Montréal selon le mood, l'heure, le budget et la station STM la plus proche.",
+    kind: "Produit cofondé · concept + prototype",
+    domain: "Découverte locale · mobile + web",
+    maturity: "prototype",
+    maturityLabel: "Prototype interactif · en développement actif",
+    period: "2026 · présent",
+    team: "Projet cofondé",
+    role: "Conception produit · stratégie & prototypage",
+    market: "Montréalais·es cherchant quoi faire maintenant (locaux & visiteurs)",
+    platforms: ["Mobile-first · navigable web / bureau"],
+    stack: ["Claude Design → Claude Code", "dc-runtime", "Design system dark mode", "Cible : Next.js + TS · Supabase · OpenAI · Google Maps · STM GTFS"],
+    updated: "2026-07-29",
+  },
+  sections: [
+    { id: "resume", title: "Résumé", modes: ["recruiter"],
+      body: "L'utilisateur choisit une ambiance — Chill, Romantique, Étudier, Aventure, Budget, Social ou Solo — et reçoit cafés, restos, bars, activités, parcs, rooftops et spots cachés ouverts autour de lui. Un prototype interactif qui matérialise le concept sur mobile et bureau." },
+    { id: "probleme", title: "Le problème & l'approche", modes: ["recruiter", "business"],
+      body: "« Quoi faire maintenant ? » est une question à la fois banale et étonnamment mal résolue.",
+      points: ["Point de départ « mood-first » : on choisit une ambiance, pas une catégorie", "Filtré par l'heure, le budget, la localisation et la station STM", "Fiches lieux enrichies (% match · budget · temps de marche)"] },
+    { id: "differenciateurs", title: "Deux différenciateurs", modes: ["recruiter", "business"],
+      body: "Ce qui distingue Vibe d'un simple annuaire de lieux.",
+      points: ["STM Pulse : chaque station de métro devient une interface de découverte (événements, spots, temps de marche, ambiance autour de l'arrêt)", "Vibe AI : un assistant qui transforme une envie vague (« quoi faire ce soir en 2h ? ») en plan concret", "Couche communauté légère : mini-reviews, votes de vibe, spots proposés (badge Découvreur)"] },
+    { id: "portee", title: "Ce que couvre le prototype", modes: ["business"],
+      points: ["Accueil mood-first (7 ambiances)", "Vibe AI · STM Pulse · Explorer", "Fiches lieux enrichies · communauté", "Version mobile et version bureau"] },
+    { id: "limites", title: "Limites", modes: ["recruiter", "business"], kind: "limits" },
+  ],
+  metrics: [
+    { label: "ambiances (mood-first)", value: "7", evidence: "designed" },
+    { label: "STM Pulse · carte métro", value: "✓", evidence: "designed" },
+    { label: "surfaces (mobile + bureau)", value: "2", evidence: "implemented" },
+    { label: "maquette en ligne", value: "Live", evidence: "deployed" },
+  ],
+  limits: [
+    "Prototype interactif : le produit ciblé (Next.js · Supabase · OpenAI · Google Maps · STM GTFS) n'est pas encore construit.",
+    "Vibe AI et STM Pulse sont maquettés/simulés — aucune API n'est réellement branchée.",
+    "Les données de lieux et d'événements sont illustratives.",
+  ],
+  links: [
+    { label: "Maquette live (mobile)", url: "/vibe/index.html", kind: "demo" },
+    { label: "Version web / bureau", url: "/vibe/Vibe%20Web.dc.html", kind: "demo" },
+  ],
+};
+
+const vibeEn: CaseStudyV2 = {
+  modes: ["recruiter", "business"],
+  identity: {
+    valueProp: "A smart local guide that helps you decide what to do right now in Montréal based on mood, time of day, budget and the nearest STM station.",
+    kind: "Cofounded product · concept + prototype",
+    domain: "Local discovery · mobile + web",
+    maturity: "prototype",
+    maturityLabel: "Interactive prototype · actively in development",
+    period: "2026 · present",
+    team: "Cofounded project",
+    role: "Product design · strategy & prototyping",
+    market: "Montrealers looking for what to do now (locals & visitors)",
+    platforms: ["Mobile-first · navigable web / desktop"],
+    stack: ["Claude Design → Claude Code", "dc-runtime", "Dark-mode design system", "Target: Next.js + TS · Supabase · OpenAI · Google Maps · STM GTFS"],
+    updated: "2026-07-29",
+  },
+  sections: [
+    { id: "resume", title: "Summary", modes: ["recruiter"],
+      body: "Users pick a vibe — Chill, Romantic, Study, Adventure, Budget, Social or Solo — and get cafés, restaurants, bars, activities, parks, rooftops and hidden spots open around them. An interactive prototype that brings the concept to life on mobile and desktop." },
+    { id: "probleme", title: "The problem & approach", modes: ["recruiter", "business"],
+      body: "\"What should I do right now?\" is both mundane and surprisingly poorly solved.",
+      points: ["A \"mood-first\" starting point: you pick a vibe, not a category", "Filtered by time, budget, location and STM station", "Enriched place pages (% match · budget · walking time)"] },
+    { id: "differenciateurs", title: "Two differentiators", modes: ["recruiter", "business"],
+      body: "What sets Vibe apart from a plain place directory.",
+      points: ["STM Pulse: each metro station becomes a discovery interface (events, spots, walking time, vibe around the stop)", "Vibe AI: an assistant that turns a vague urge (\"what to do tonight in 2h?\") into a concrete plan", "A light community layer: mini-reviews, vibe votes, submitted spots (Discoverer badge)"] },
+    { id: "portee", title: "What the prototype covers", modes: ["business"],
+      points: ["Mood-first home (7 vibes)", "Vibe AI · STM Pulse · Explore", "Enriched place pages · community", "Mobile version and desktop version"] },
+    { id: "limites", title: "Limits", modes: ["recruiter", "business"], kind: "limits" },
+  ],
+  metrics: [
+    { label: "vibes (mood-first)", value: "7", evidence: "designed" },
+    { label: "STM Pulse · metro map", value: "✓", evidence: "designed" },
+    { label: "surfaces (mobile + desktop)", value: "2", evidence: "implemented" },
+    { label: "mockup online", value: "Live", evidence: "deployed" },
+  ],
+  limits: [
+    "Interactive prototype: the target product (Next.js · Supabase · OpenAI · Google Maps · STM GTFS) isn't built yet.",
+    "Vibe AI and STM Pulse are mocked/simulated — no API is actually wired in.",
+    "Place and event data are illustrative.",
+  ],
+  links: [
+    { label: "Live mockup (mobile)", url: "/vibe/index.html", kind: "demo" },
+    { label: "Web / desktop version", url: "/vibe/Vibe%20Web.dc.html", kind: "demo" },
+  ],
+};
+
 export const caseStudiesV2: Record<string, { fr: CaseStudyV2; en: CaseStudyV2 }> = {
   cadence: { fr: cadenceFr, en: cadenceEn },
   "dpm-elevate": { fr: dpmFr, en: dpmEn },
   "the-mad-space": { fr: madFr, en: madEn },
+  vibe: { fr: vibeFr, en: vibeEn },
   "wise-wealthy": { fr: wwFr, en: wwEn },
   "kim-dubois": { fr: kimFr, en: kimEn },
   "boa-traiteur": { fr: boaFr, en: boaEn },
