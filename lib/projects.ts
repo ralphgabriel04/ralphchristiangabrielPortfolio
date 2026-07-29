@@ -247,7 +247,8 @@ export const projects: Project[] = [
     metrics: {
       fr: ["Vanilla JS · Canvas HTML5", "2 modes d'entrée (clavier + souris)", "9 modules · ~460 lignes", "Équipe de 2"],
       en: ["Vanilla JS · HTML5 Canvas", "2 input modes (keyboard + mouse)", "9 modules · ~460 lines", "Team of 2"]
-    }
+    },
+    media: { enabled: true, type: "image", src: "/media/gti350.jpg" }
   },
   {
     id: "saint-valentin",
@@ -263,7 +264,8 @@ export const projects: Project[] = [
     metrics: {
       fr: ["Node · Express · SQLite", "Liens uniques tokenisés", "Sécurité : CSRF · Helmet · rate-limit", "Tableau de bord admin"],
       en: ["Node · Express · SQLite", "Tokenized unique links", "Security: CSRF · Helmet · rate-limit", "Admin dashboard"]
-    }
+    },
+    media: { enabled: true, type: "image", src: "/media/saint-valentin.jpg" }
   }
 ]
 
