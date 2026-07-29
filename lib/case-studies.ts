@@ -28,7 +28,7 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
     fr: {
       meta: [
         { k: "Rôle", v: "Seul développeur" },
-        { k: "Durée", v: "~3 mois (1re version)" },
+        { k: "Marché", v: "E-commerce · Print-on-demand" },
         { k: "Stack", v: "Next.js · PostgreSQL" },
         { k: "Statut", v: "En production" },
       ],
@@ -115,7 +115,7 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
     en: {
       meta: [
         { k: "Role", v: "Sole developer" },
-        { k: "Duration", v: "~3 months (MVP)" },
+        { k: "Market", v: "E-commerce · Print-on-demand" },
         { k: "Stack", v: "Next.js · PostgreSQL" },
         { k: "Status", v: "In production" },
       ],
