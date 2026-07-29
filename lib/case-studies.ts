@@ -1350,4 +1350,91 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
       ],
     },
   },
+
+  "relationship-wrapped": {
+    fr: {
+      meta: [
+        { k: "Rôle", v: "Développeur (solo)" },
+        { k: "Type", v: "Expérience web narrative" },
+        { k: "Stack", v: "React · GSAP · Framer Motion · Howler" },
+        { k: "Statut", v: "En ligne" },
+      ],
+      sections: [
+        {
+          num: "01",
+          title: "L'idée",
+          body: "Un « Wrapped » web, dans l'esprit du Spotify Wrapped : un récit qui se déroule au défilement, rythmé par une bande sonore.",
+          points: [
+            "Scrollytelling — le contenu s'anime section par section",
+            "Bande sonore synchronisée, avec contrôle audio",
+            "Frise chronologique et repères de progression",
+          ],
+        },
+        {
+          num: "02",
+          title: "La technique",
+          body: "Avant tout un terrain de jeu d'animation web : orchestration précise du timing et de l'audio.",
+          points: [
+            "Animations avec GSAP et Framer Motion",
+            "Audio via Howler.js (lecture, vitesse, volume, pause)",
+            "Confettis (canvas-confetti) aux moments forts",
+            "React + Vite + Tailwind, déployé sur Vercel",
+          ],
+        },
+        {
+          num: "03",
+          title: "Résultat",
+          body: "Une expérience fluide et en ligne, qui m'a servi à pousser l'animation et l'audio synchronisé côté web.",
+          results: [
+            { value: "Scroll", label: "récit animé au défilement" },
+            { value: "GSAP", label: "+ Framer Motion" },
+            { value: "Howler", label: "audio synchronisé" },
+            { value: "Live", label: "déployé sur Vercel" },
+          ],
+        },
+      ],
+    },
+    en: {
+      meta: [
+        { k: "Role", v: "Developer (solo)" },
+        { k: "Type", v: "Narrative web experience" },
+        { k: "Stack", v: "React · GSAP · Framer Motion · Howler" },
+        { k: "Status", v: "Live" },
+      ],
+      sections: [
+        {
+          num: "01",
+          title: "The idea",
+          body: "A web \"Wrapped\", in the spirit of Spotify Wrapped: a story that unfolds as you scroll, paced by a soundtrack.",
+          points: [
+            "Scrollytelling — content animates section by section",
+            "Synced soundtrack, with audio controls",
+            "Timeline and progress markers",
+          ],
+        },
+        {
+          num: "02",
+          title: "The tech",
+          body: "Above all a web-animation playground: precise orchestration of timing and audio.",
+          points: [
+            "Animations with GSAP and Framer Motion",
+            "Audio via Howler.js (playback, speed, volume, pause)",
+            "Confetti (canvas-confetti) at key moments",
+            "React + Vite + Tailwind, deployed on Vercel",
+          ],
+        },
+        {
+          num: "03",
+          title: "Result",
+          body: "A smooth, online experience that let me push web animation and synced audio.",
+          results: [
+            { value: "Scroll", label: "scroll-animated story" },
+            { value: "GSAP", label: "+ Framer Motion" },
+            { value: "Howler", label: "synced audio" },
+            { value: "Live", label: "deployed on Vercel" },
+          ],
+        },
+      ],
+    },
+  },
 };
