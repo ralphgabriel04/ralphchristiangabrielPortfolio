@@ -73,6 +73,9 @@ export async function generateMetadata({
         : "Full-Stack Developer · Montréal",
     },
     robots: { index: true, follow: true },
+    verification: {
+      google: "yEHJTde4FzMEk20PqCq5WqtmXrdJb0dwAzdQ1dm1vMU",
+    },
   };
 }
 
