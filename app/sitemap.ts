@@ -1,19 +1,11 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
+import { projects as allProjects } from "@/lib/projects";
 
 const BASE_URL = SITE_URL;
 
-const projects = [
-  "the-mad-space",
-  "cadence",
-  "vibe",
-  "dpm-elevate",
-  "wise-wealthy",
-  "kim-dubois",
-  "boa-traiteur",
-  "crcc",
-  "financej",
-];
+// Derived from the single source of truth so new projects are indexed automatically.
+const projects = allProjects.map((p) => p.id);
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const locales = ["fr", "en"];

@@ -780,21 +780,21 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
   "dpm-elevate": {
     fr: {
       meta: [
-        { k: "Rôle", v: "Fondateur · Design & Prototypage" },
-        { k: "Type", v: "Prototype haute-fidélité" },
-        { k: "Stack", v: "React · Tailwind" },
-        { k: "Statut", v: "En développement" },
+        { k: "Rôle", v: "Fondateur · Design & Développement" },
+        { k: "Type", v: "App web (issue d'une maquette)" },
+        { k: "Stack", v: "Next.js · tRPC · Prisma" },
+        { k: "Statut", v: "Déployée · en développement actif" },
       ],
       sections: [
         {
           num: "01",
-          title: "Contexte",
-          body: "Une application de planification holistique : tout le cycle de productivité — calendrier, tâches, focus, habitudes, objectifs — dans un seul produit cohérent.",
+          title: "La maquette",
+          body: "Au départ, une application personnelle de planification dessinée comme une maquette détaillée : tout le cycle de productivité — calendrier, tâches, focus, habitudes, objectifs — dans un seul produit cohérent.",
           points: [
             "20+ écrans couvrant tout le parcours, du landing au compte",
             "Tâches en 5 vues · matrice Eisenhower · focus Pomodoro",
             "Moteur de science comportementale (chronotype, MCII, CBT)",
-            "Nativement bilingue FR/EN, clair/sombre",
+            "Bilingue FR/EN, clair/sombre",
           ],
         },
         {
@@ -809,34 +809,34 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
         },
         {
           num: "03",
-          title: "État actuel",
-          body: "Prototype interactif haute-fidélité, prêt à être développé sur une base Next.js.",
+          title: "Aujourd'hui : déployée",
+          body: "DPM Elevate est maintenant un vrai produit Next.js déployé : synchronisation réelle des calendriers Google et Microsoft, authentification multi-fournisseurs, jetons OAuth chiffrés (AES-256-GCM), row-level security et conformité Loi 25 (export et suppression en libre-service). Je continue de le développer en solo.",
           results: [
-            { value: "20+", label: "écrans" },
-            { value: "25+", label: "composants" },
-            { value: "200+", label: "clés i18n FR/EN" },
-            { value: "AA", label: "WCAG conforme" },
+            { value: "Déployée", label: "sur Vercel" },
+            { value: "5", label: "fournisseurs d'authentification" },
+            { value: "AES-256", label: "jetons chiffrés au repos" },
+            { value: "Loi 25", label: "export + suppression" },
           ],
         },
       ],
     },
     en: {
       meta: [
-        { k: "Role", v: "Founder · Design & Prototyping" },
-        { k: "Type", v: "High-fidelity prototype" },
-        { k: "Stack", v: "React · Tailwind" },
-        { k: "Status", v: "In development" },
+        { k: "Role", v: "Founder · Design & Development" },
+        { k: "Type", v: "Web app (from a mockup)" },
+        { k: "Stack", v: "Next.js · tRPC · Prisma" },
+        { k: "Status", v: "Deployed · actively developed" },
       ],
       sections: [
         {
           num: "01",
-          title: "Context",
-          body: "A holistic planning application: the whole productivity cycle — calendar, tasks, focus, habits, goals — in one coherent product.",
+          title: "The mockup",
+          body: "It started as a personal planning app designed as a detailed mockup: the whole productivity cycle — calendar, tasks, focus, habits, goals — in one coherent product.",
           points: [
             "20+ screens spanning the full journey, from landing to account",
             "Tasks across 5 views · Eisenhower matrix · Pomodoro focus",
             "Behavioural-science engine (chronotype, MCII, CBT)",
-            "Natively bilingual FR/EN, light/dark",
+            "Bilingual FR/EN, light/dark",
           ],
         },
         {
@@ -851,13 +851,13 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
         },
         {
           num: "03",
-          title: "Current state",
-          body: "High-fidelity interactive prototype, ready to be built on a Next.js base.",
+          title: "Today: deployed",
+          body: "DPM Elevate is now a real, deployed Next.js product: real Google and Microsoft calendar sync, multi-provider authentication, OAuth tokens encrypted (AES-256-GCM), row-level security and Loi 25 compliance (self-serve export and deletion). I keep building it solo.",
           results: [
-            { value: "20+", label: "screens" },
-            { value: "25+", label: "components" },
-            { value: "200+", label: "i18n keys FR/EN" },
-            { value: "AA", label: "WCAG compliant" },
+            { value: "Deployed", label: "on Vercel" },
+            { value: "5", label: "auth providers" },
+            { value: "AES-256", label: "tokens encrypted at rest" },
+            { value: "Loi 25", label: "export + deletion" },
           ],
         },
       ],

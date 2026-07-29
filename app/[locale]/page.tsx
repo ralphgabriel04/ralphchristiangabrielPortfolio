@@ -5,6 +5,7 @@ import { ArrowRight, ArrowDown, ArrowUpRight, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
 import { SystemsSection } from "@/components/ui/systems-section";
+import { ServicesSection } from "@/components/ui/services-section";
 import { TrackedLink } from "@/components/ui/tracked-link";
 import { HeroRole } from "@/components/ui/hero-role";
 import { HeroStatus } from "@/components/ui/hero-status";
@@ -202,6 +203,9 @@ function HomeContent() {
 
       {/* ── Témoignages ── */}
       <TestimonialsSection />
+
+      {/* ── Services ("J'ai un projet") ── */}
+      <ServicesSection />
 
       {/* ── Contact ── */}
       <ContactSection />

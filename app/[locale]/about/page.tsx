@@ -15,8 +15,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: isFr ? "À propos" : "About",
     description: isFr
-      ? "Développeur full-stack basé à Repentigny, Grand Montréal. B. Ing. génie logiciel ÉTS. ~15 000 LOC en production."
-      : "Full-stack developer based in Repentigny, Greater Montréal. B.Eng. Software Engineering ÉTS. ~15,000 LOC in production.",
+      ? "Développeur full-stack junior et étudiant en génie logiciel à l'ÉTS, basé à Repentigny (Grand Montréal). Du support TI à l'automatisation, puis au développement web et mobile."
+      : "Junior full-stack developer and Software Engineering student at ÉTS, based in Repentigny (Greater Montréal). From IT support and automation to web and mobile development.",
     alternates: {
       languages: { fr: "/fr/about", en: "/en/about" },
     },
@@ -38,13 +38,7 @@ function AboutContent() {
   const t = useTranslations("about");
   const tSec = useTranslations("sectionLabels");
 
-  const traits = [
-    { label: t("personality.traits.0.label"), value: 76 },
-    { label: t("personality.traits.1.label"), value: 70 },
-    { label: t("personality.traits.2.label"), value: 83 },
-    { label: t("personality.traits.3.label"), value: 78 },
-    { label: t("personality.traits.4.label"), value: 58 },
-  ];
+  const workPoints = t.raw("personality.points") as string[];
 
   return (
     <>
@@ -171,20 +165,14 @@ function AboutContent() {
                     {t("personality.desc")}
                   </p>
 
-                  <div className="mt-4 flex flex-col gap-3">
-                    {traits.map((trait) => (
-                      <div key={trait.label} className="flex items-center gap-3">
-                        <span className="w-20 shrink-0 text-[11px] text-muted-foreground">{trait.label}</span>
-                        <div className="relative h-2 flex-1 rounded-full bg-border-color">
-                          <div
-                            className="absolute inset-y-0 left-0 rounded-full bg-accent"
-                            style={{ width: `${trait.value}%` }}
-                          />
-                        </div>
-                        <span className="w-8 shrink-0 text-right text-[11px] font-medium">{trait.value}%</span>
-                      </div>
+                  <ul className="mt-4 flex flex-col gap-2.5">
+                    {workPoints.map((point) => (
+                      <li key={point} className="flex items-start gap-2.5 text-[12px] leading-relaxed text-muted-foreground">
+                        <span aria-hidden="true" className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                        {point}
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </div>
               </div>
             </div>

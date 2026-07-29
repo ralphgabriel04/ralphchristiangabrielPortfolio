@@ -16,8 +16,8 @@ export async function generateMetadata({
   return {
     title: isFr ? "Témoignages" : "Testimonials",
     description: isFr
-      ? "Découvrez les retours de personnes avec qui j'ai eu le plaisir de collaborer sur différents projets."
-      : "Discover feedback from people I've had the pleasure of collaborating with on various projects.",
+      ? "Retours de collègues, coéquipiers et clients ayant travaillé avec Ralph Christian Gabriel sur des projets de développement web et mobile."
+      : "Feedback from colleagues, teammates and clients who worked with Ralph Christian Gabriel on web and mobile development projects.",
     alternates: {
       languages: { fr: "/fr/temoignages", en: "/en/temoignages" },
     },

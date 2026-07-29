@@ -15,6 +15,7 @@ import {
 } from "@/lib/projects";
 import { caseStudies } from "@/lib/case-studies";
 import { CaseSections } from "@/components/ui/case-study";
+import { ProjectTypeBadge } from "@/components/ui/project-type-badge";
 import { Reveal } from "@/components/ui/reveal";
 import { TrackView } from "@/components/ui/track-view";
 
@@ -107,6 +108,7 @@ function ProjectDetailContent({ slug }: { slug: string }) {
         <div className="mt-7 flex flex-wrap items-center gap-x-3.5 gap-y-1 font-mono text-xs">
           <span className="text-accent">SYS–{sysNum}</span>
           <span className="text-muted-foreground">{fr ? "Étude de cas" : "Case study"}</span>
+          <ProjectTypeBadge id={slug} />
           <span className="ml-auto flex items-center gap-2 text-muted-foreground">
             <span style={{ color: stateColor[state] }}>{STATE_ICON[state]}</span>
             {project.status[locale]}
@@ -192,8 +194,8 @@ function ProjectDetailContent({ slug }: { slug: string }) {
         <Reveal>
           <div className="mt-12 rounded-2xl border border-border-color bg-muted/40 px-6 py-12 text-center text-muted-foreground">
             {fr
-              ? "Projet en développement. Étude de cas à venir."
-              : "Project in development. Case study coming soon."}
+              ? "Le résumé et les liens ci-dessus couvrent l'essentiel de ce projet. Une étude de cas détaillée peut suivre."
+              : "The summary and links above cover the essentials of this project. A detailed case study may follow."}
           </div>
         </Reveal>
       )}

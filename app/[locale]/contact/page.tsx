@@ -21,8 +21,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: "Contact",
     description: isFr
-      ? "Disponible pour des postes Full-Stack Junior/Intermediate dans le Grand Montréal. Email, LinkedIn, Cal.com."
-      : "Available for Junior/Intermediate Full-Stack roles in Greater Montréal. Email, LinkedIn, Cal.com.",
+      ? "Développeur full-stack junior et étudiant en génie logiciel à l'ÉTS, disponible pour un stage ou un poste dans le Grand Montréal. Courriel, LinkedIn, Cal.com."
+      : "Junior full-stack developer and Software Engineering student at ÉTS, open to an internship or a role in Greater Montréal. Email, LinkedIn, Cal.com.",
     alternates: {
       languages: { fr: "/fr/contact", en: "/en/contact" },
     },

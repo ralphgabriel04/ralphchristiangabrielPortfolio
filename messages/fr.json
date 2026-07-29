@@ -142,17 +142,26 @@
   },
   "projects": {
     "heading": "Projets sélectionnés.",
-    "description": "Neuf projets qui montrent mon travail en production, en conception produit et prototypage, et en architecture académique.",
+    "description": "Des projets qui montrent mon travail en production, en conception produit et prototypage, et en architecture logicielle académique.",
     "caseStudyLink": "Étude de cas",
     "viewLive": "Voir en ligne",
     "subtitle": "Systèmes livrés, produits en développement et prototypes. Filtrez par état.",
     "filterAll": "Tous",
+    "filterState": "État",
+    "filterType": "Rôle",
     "state": {
       "production": "En production",
       "development": "En développement",
       "prototype": "Prototype",
       "academic": "Projet académique",
       "planned": "Planifié"
+    },
+    "type": {
+      "cofounder": "Cofondateur",
+      "founder": "Fondateur",
+      "client": "Client",
+      "academic": "Scolaire",
+      "personal": "Perso"
     },
     "allProjects": "Tous les projets",
     "previousProject": "Projet précédent",
@@ -164,11 +173,11 @@
   },
   "about": {
     "title": "À propos",
-    "heading": "Je construis des systèmes qui tiennent le coup.",
+    "heading": "Je construis des produits web que des gens utilisent vraiment.",
     "paragraphs": [
       "Développeur full-stack basé à Repentigny, dans le Grand Montréal. Bilingue FR/EN, étudiant au B. Ing. en génie logiciel à l'ÉTS, je construis des produits web depuis 2022.",
       "Mon approche : livrer en production, pas seulement en démo. The Mad Space tourne aujourd'hui avec ~15 000 LOC, 30+ endpoints API, des paiements Stripe en multi-devises (4), 7+ intégrations B2B et 4 workflows métier qui ont raccourci le traitement des commandes de 10 à 15 minutes.",
-      "Avant le développement produit, j'ai résolu plus de 2 000 tickets chez Vidéotron avec 94% de satisfaction client (NPS 9,6/10) et automatisé ~50% des tâches via Power Automate. J'ai appris à écouter avant de coder, et à diagnostiquer avant de proposer."
+      "Avant le développement produit, j'ai résolu plus de 2 000 tickets chez Vidéotron avec 94% de satisfaction client (9,6/10) et automatisé ~50% des tâches via Power Automate. J'ai appris à écouter avant de coder, et à diagnostiquer avant de proposer."
     ],
     "caption": "Ralph Christian Gabriel · Repentigny, QC",
     "seeExperience": "Voir l'expérience",
@@ -181,7 +190,7 @@
       "languagesAlt": "Langages de programmation les plus utilisés",
       "highlights": [
         "Je développe actuellement une plateforme SaaS de coaching (Next.js 16, React 19, TypeScript, Supabase) et je maintiens une plateforme e-commerce full-stack de 15 000+ lignes de code.",
-        "Ouvert à collaborer sur des apps web full-stack, des outils open source pour développeurs et des produits propulsés par l'IA.",
+        "Ouvert à collaborer sur des apps web full-stack, des outils open source pour développeurs et des produits qui intègrent l'IA.",
         "Discutons de Next.js, React, TypeScript, design d'API REST, intégrations e-commerce (Stripe, Gelato) ou pipelines CI/CD."
       ],
       "cta": "Voir le profil complet sur GitHub"
@@ -207,14 +216,13 @@
       "desc": "Le ski, c'est mon reset. Ça me force à lire le terrain, à réagir vite et à m'engager pleinement dans chaque virage."
     },
     "personality": {
-      "title": "INTJ-A, Architecte",
-      "desc": "Je suis un penseur stratégique. J'aime aborder les problèmes avec un plan clair, aller en profondeur plutôt qu'en surface, et optimiser ce qui peut l'être. En code comme dans la vie.",
-      "traits": [
-        { "label": "Introverti", "value": 76 },
-        { "label": "Intuitif", "value": 70 },
-        { "label": "Rationnel", "value": 83 },
-        { "label": "Organisé", "value": 78 },
-        { "label": "Sûr de soi", "value": 58 }
+      "title": "Comment je travaille",
+      "desc": "Je pense en systèmes : je vais en profondeur avant d'élargir, je planifie avant de coder, et je documente pour que ce que je livre continue de fonctionner sans moi. Curieux et méthodique, je suis plus à l'aise une fois que je comprends le « pourquoi » avant le « comment ».",
+      "points": [
+        "Diagnostiquer avant de proposer — une habitude venue du support TI.",
+        "Planifier, puis avancer par petites étapes vérifiables.",
+        "Documenter et tester pour que le code tienne dans le temps.",
+        "Apprendre en continu et partager ce que je découvre."
       ]
     }
   },
@@ -252,7 +260,7 @@
         "date": "Jan. 2022 · Oct. 2025",
         "role": "Technicien en Automatisation & Support TI",
         "org": "Vidéotron, Montréal",
-        "desc": "2 000+ tickets traités (AHT 11:18, 94% sat., NPS 9,6/10). Automatisation ~50% des tâches via Power Automate (RH/TI/Finances). Documentation procédures et runbooks pour stabiliser les déploiements."
+        "desc": "2 000+ tickets traités (AHT 11:18, 94% sat. · 9,6/10). Automatisation ~50% des tâches via Power Automate (RH/TI/Finances). Documentation procédures et runbooks pour stabiliser les déploiements."
       }
     ],
     "education": [
@@ -317,6 +325,44 @@
     "addCtaBadge": "On a travaillé ensemble ?",
     "addCtaTitle": "Partagez votre retour.",
     "addCtaSubtitle": "Un témoignage prend deux minutes et m'aide énormément à présenter mes projets aux prochaines personnes qui me lisent."
+  },
+  "services": {
+    "kicker": "J'ai un projet",
+    "heading": "Ce que je peux construire pour vous.",
+    "intro": "Trois façons de travailler ensemble, selon où vous en êtes. Chaque exemple renvoie à un projet réel — pas de promesses de résultats, seulement ce que j'ai déjà livré.",
+    "labelAudience": "Pour qui",
+    "labelProblem": "Le problème",
+    "labelDeliver": "Ce que je livre",
+    "labelExample": "Exemple",
+    "items": [
+      {
+        "title": "Sites et applications web",
+        "audience": "Entrepreneurs, PME et OSBL",
+        "problem": "Un site qui ne convertit pas, un outil interne bricolé, ou aucune présence web.",
+        "deliver": "Une application web bilingue, rapide et accessible — du design à la mise en ligne, souvent sur Next.js, TypeScript et PostgreSQL.",
+        "example": "The Mad Space — une marketplace e-commerce en production.",
+        "exampleId": "the-mad-space"
+      },
+      {
+        "title": "Prototypes et MVP web/mobile",
+        "audience": "Fondateurs et porteurs d'idées",
+        "problem": "Une idée difficile à faire voir à des clients, des associés ou des investisseurs.",
+        "deliver": "Un prototype interactif et cliquable qui rend l'idée testable, puis une base de code prête pour la production.",
+        "example": "Wise & Wealthy — un concept devenu une maquette complète et testable.",
+        "exampleId": "wise-wealthy"
+      },
+      {
+        "title": "Intégrations et automatisation",
+        "audience": "Équipes qui perdent du temps sur des tâches manuelles",
+        "problem": "Des données recopiées à la main, des paiements ou des courriels à brancher, des processus lents.",
+        "deliver": "Des intégrations (paiements, fulfillment, APIs tierces) et de l'automatisation qui réduisent les étapes manuelles.",
+        "example": "The Mad Space — 7+ intégrations B2B et fulfillment automatisé.",
+        "exampleId": "the-mad-space"
+      }
+    ],
+    "cta": "Un projet en tête ? Écrivons-nous.",
+    "ctaButton": "Me contacter",
+    "ctaBook": "Réserver un appel"
   },
   "testimonials": [
     { "quote": "Christian a créé un site web professionnel, moderne et parfaitement adapté à mes besoins. Sa rigueur, sa créativité et sa capacité à communiquer clairement tout au long du projet ont grandement facilité la collaboration.", "author": "Fondateur", "role": "The Mad Space · 2025-présent", "image": "/images/testimonial-madspace.jpg", "link": "the-mad-space" },

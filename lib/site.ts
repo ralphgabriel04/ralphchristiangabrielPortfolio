@@ -4,7 +4,7 @@
  *
  * Resolution order:
  *  1. NEXT_PUBLIC_SITE_URL — set this once the custom domain (e.g.
- *     https://ralphgabriel.dev) is live to switch every URL at once.
+ *     https://rcgabriel.dev) is live to switch every URL at once.
  *  2. VERCEL_PROJECT_PRODUCTION_URL — the stable production Vercel domain.
  *  3. The current live Vercel URL as a safe, resolving fallback.
  */

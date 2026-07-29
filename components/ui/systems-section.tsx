@@ -13,6 +13,7 @@ import {
   caseStudyIds,
 } from "@/lib/projects";
 import { LazyVideo } from "@/components/ui/lazy-video";
+import { ProjectTypeBadge } from "@/components/ui/project-type-badge";
 import { usePlain } from "@/components/ui/plain-mode";
 import { plainSummary, techPlainOf } from "@/lib/plain";
 
@@ -209,7 +210,10 @@ export function SystemsSection() {
     return (
       <div className="flex flex-1 flex-col gap-3.5 p-6 md:p-7">
         <div className="flex items-center justify-between gap-2 font-mono text-[11.5px]">
-          <span style={{ color: "var(--accent)" }}>SYS–{sys(p)}</span>
+          <div className="flex items-center gap-2">
+            <span style={{ color: "var(--accent)" }}>SYS–{sys(p)}</span>
+            <ProjectTypeBadge id={p.id} />
+          </div>
           <Status id={p.id} />
         </div>
         <div>
@@ -311,7 +315,10 @@ export function SystemsSection() {
                     ▸
                   </span>
                   <span className="min-w-0 flex-1">
-                    <span className="block truncate text-sm font-semibold">{p.name}</span>
+                    <span className="flex items-center gap-2">
+                      <span className="truncate text-sm font-semibold">{p.name}</span>
+                      <ProjectTypeBadge id={p.id} className="hidden shrink-0 sm:inline-flex" />
+                    </span>
                     <span className="block truncate font-mono text-[11px] text-muted-foreground">{p.tag[locale]}</span>
                   </span>
                   <span className="hidden items-center gap-1.5 font-mono text-[11.5px] text-muted-foreground sm:flex">

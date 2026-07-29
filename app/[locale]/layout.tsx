@@ -43,7 +43,7 @@ export async function generateMetadata({
       default: isFr
         ? "Ralph Christian Gabriel · Développeur Full-Stack"
         : "Ralph Christian Gabriel · Full-Stack Developer",
-      template: "%s | Ralph Gabriel",
+      template: "%s | Ralph Christian Gabriel",
     },
     description: isFr
       ? "Développeur Full-Stack bilingue FR/EN. ~15 000 LOC en production, 30+ endpoints API, 2 000+ tickets résolus (94% sat.). Montréal."
@@ -57,7 +57,7 @@ export async function generateMetadata({
       type: "website",
       locale: isFr ? "fr_CA" : "en_CA",
       url: `${BASE_URL}/${locale}`,
-      siteName: "Ralph Gabriel",
+      siteName: "Ralph Christian Gabriel",
       title: isFr
         ? "Ralph Christian Gabriel · Développeur Full-Stack"
         : "Ralph Christian Gabriel · Full-Stack Developer",

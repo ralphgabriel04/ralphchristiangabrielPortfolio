@@ -53,13 +53,13 @@ export const projects: Project[] = [
   {
     id: "vibe",
     year: "2026 · présent",
-    status: { fr: "Prototype haute-fidélité · En développement actif", en: "High-fidelity prototype · Actively in development" },
+    status: { fr: "Prototype interactif · En développement actif", en: "High-fidelity prototype · Actively in development" },
     name: "Vibe Montréal",
     tag: { fr: "Découverte locale intelligente · Prototype mobile + web", en: "Smart local discovery · Mobile + web prototype" },
     stack: ["Claude Design → Claude Code", "HTML/CSS/JS (runtime dc)", "Prototype interactif mobile + web/bureau", "Design system dark mode (tokens CSS)", "Poppins + Montserrat", "STM Pulse (carte métro interactive)", "Vibe AI (assistant conversationnel simulé)", "Recommandations mood-first (7 ambiances)", "Fiches lieux enrichies (% match · budget · marche)", "Spots cachés · communauté (badge Découvreur)", "Responsive mobile / desktop", "Stack cible : Next.js + TypeScript + Tailwind", "Supabase · PostgreSQL · Auth + Storage", "OpenAI API · Google Maps API", "STM GTFS · API événements Montréal"],
     summary: {
-      fr: "Guide local intelligent qui aide à décider quoi faire maintenant à Montréal selon le mood, l'heure, le budget, la localisation et la station STM. L'utilisateur choisit une ambiance — Chill, Romantique, Étudier, Aventure, Budget, Social ou Solo — et reçoit cafés, restos, bars, activités, parcs, rooftops et spots cachés ouverts autour de lui. Deux différenciateurs : STM Pulse, une carte du métro de Montréal qui transforme chaque station en interface de découverte (événements, spots, temps de marche, budget, ambiance autour de l'arrêt), et Vibe AI, un assistant conversationnel qui change une envie vague (« quoi faire ce soir en 2h ? », « date pas cher ») en plan concret. Une couche communauté légère (mini-reviews, votes de vibe, nouveaux spots proposés avec badge Découvreur). Prototype haute-fidélité couvrant accueil mood-first, Vibe AI, STM Pulse, Explorer, fiches lieux enrichies, communauté et version bureau — mobile-first, mais navigable sur web et bureau.",
-      en: "Smart local guide that helps you decide what to do right now in Montréal based on mood, time of day, budget, location and STM metro station. Users pick a vibe — Chill, Romantic, Study, Adventure, Budget, Social or Solo — and get cafés, restaurants, bars, activities, parks, rooftops and hidden spots open around them. Two differentiators: STM Pulse, a Montréal metro map that turns each station into a discovery interface (events, spots, walking time, budget, vibe around the stop), and Vibe AI, a conversational assistant that turns a vague urge (\"what to do tonight in 2h?\", \"cheap date\") into a concrete plan. A light community layer (mini-reviews, vibe votes, new spots submitted with a Discoverer badge). A high-fidelity prototype spanning a mood-first home, Vibe AI, STM Pulse, Explore, enriched place pages, community and a desktop version — mobile-first, yet navigable on web and desktop."
+      fr: "Guide local intelligent qui aide à décider quoi faire maintenant à Montréal selon le mood, l'heure, le budget, la localisation et la station STM. L'utilisateur choisit une ambiance — Chill, Romantique, Étudier, Aventure, Budget, Social ou Solo — et reçoit cafés, restos, bars, activités, parcs, rooftops et spots cachés ouverts autour de lui. Deux différenciateurs : STM Pulse, une carte du métro de Montréal qui transforme chaque station en interface de découverte (événements, spots, temps de marche, budget, ambiance autour de l'arrêt), et Vibe AI, un assistant conversationnel qui change une envie vague (« quoi faire ce soir en 2h ? », « date pas cher ») en plan concret. Une couche communauté légère (mini-reviews, votes de vibe, nouveaux spots proposés avec badge Découvreur). Prototype interactif couvrant accueil mood-first, Vibe AI, STM Pulse, Explorer, fiches lieux enrichies, communauté et version bureau — mobile-first, mais navigable sur web et bureau.",
+      en: "Smart local guide that helps you decide what to do right now in Montréal based on mood, time of day, budget, location and STM metro station. Users pick a vibe — Chill, Romantic, Study, Adventure, Budget, Social or Solo — and get cafés, restaurants, bars, activities, parks, rooftops and hidden spots open around them. Two differentiators: STM Pulse, a Montréal metro map that turns each station into a discovery interface (events, spots, walking time, budget, vibe around the stop), and Vibe AI, a conversational assistant that turns a vague urge (\"what to do tonight in 2h?\", \"cheap date\") into a concrete plan. A light community layer (mini-reviews, vibe votes, new spots submitted with a Discoverer badge). A interactive prototype spanning a mood-first home, Vibe AI, STM Pulse, Explore, enriched place pages, community and a desktop version — mobile-first, yet navigable on web and desktop."
     },
     metrics: {
       fr: ["Mobile + web / bureau", "STM Pulse · carte métro interactive", "Vibe AI · plans en langage naturel", "7 ambiances · spots cachés + communauté"],
@@ -70,30 +70,30 @@ export const projects: Project[] = [
   {
     id: "dpm-elevate",
     year: "2025 · présent",
-    status: { fr: "En développement actif", en: "Actively in development" },
+    status: { fr: "En développement actif · Déployé", en: "Actively in development · Deployed" },
     name: "DPM Elevate",
-    tag: { fr: "Planification holistique · Prototype haute-fidélité", en: "Holistic planning · High-fidelity prototype" },
-    stack: ["React 18", "Tailwind CSS", "Babel", "i18n FR/EN", "CSS Custom Properties", "WCAG AA"],
+    tag: { fr: "Agenda, tâches, habitudes & focus · App web", en: "Calendar, tasks, habits & focus · Web app" },
+    stack: ["Next.js 14", "TypeScript", "tRPC", "Prisma", "PostgreSQL (Supabase)", "NextAuth v5", "Tailwind · Radix", "next-intl (FR/EN)", "Vitest", "Vercel"],
     summary: {
-      fr: "Prototype interactif haute-fidélité d'une application de planification holistique — tout le cycle de productivité dans un seul produit cohérent. 20+ écrans couvrant landing, inscription & onboarding, dashboard, planification quotidienne, focus Pomodoro, calendrier multi-vues, tâches (5 vues), matrice Eisenhower, habitudes, objectifs SMART, automatisations, assistant de planification IA, collaboration & espaces partagés, synchronisation d'appareils, centre de notifications, facturation et compte. Palette de commandes ⌘K, création rapide, dates dynamiques. Nativement bilingue FR/EN, dark/light mode, responsive desktop + mobile, sur un design system complet WCAG AA, avec un moteur de science comportementale (chronotype, MCII, anti-procrastination CBT) intégré au flux de planification.",
-      en: "High-fidelity interactive prototype of a holistic planning application — the entire productivity cycle in one coherent product. 20+ screens spanning landing, sign-up & onboarding, dashboard, daily planning, Pomodoro focus, multi-view calendar, tasks (5 views), Eisenhower matrix, habits, SMART goals, automations, an AI planning assistant, collaboration & shared spaces, device sync, a notification centre, billing and account. ⌘K command palette, quick-create, live dynamic dates. Natively bilingual FR/EN, dark/light mode, responsive desktop + mobile, on a complete WCAG AA design system, with a behavioural-science engine (chronotype, MCII, CBT anti-procrastination) wired into the planning flow."
+      fr: "Application web personnelle de planification — agenda, tâches, habitudes, objectifs et focus — que je conçois et développe en solo, aujourd'hui déployée. Née d'une maquette détaillée d'une vingtaine d'écrans, elle est devenue un vrai produit Next.js : synchronisation réelle des calendriers Google et Microsoft, authentification multi-fournisseurs (NextAuth v5 — Google, Microsoft, Apple, GitHub, OIDC) et une attention sérieuse à la sécurité et à la vie privée — jetons OAuth chiffrés au repos (AES-256-GCM), row-level security en défense en profondeur, limitation de débit — avec conformité Loi 25 : suppression de compte, export des données et journal d'audit en libre-service. Bilingue FR/EN, thème clair/sombre, sur tRPC et Prisma/PostgreSQL.",
+      en: "A personal planning web app — calendar, tasks, habits, goals and focus — that I design and build solo, and that's now deployed. It grew from a detailed ~20-screen mockup into a real Next.js product: real Google and Microsoft calendar sync, multi-provider authentication (NextAuth v5 — Google, Microsoft, Apple, GitHub, OIDC) and serious attention to security and privacy — OAuth tokens encrypted at rest (AES-256-GCM), defense-in-depth row-level security, rate limiting — with Loi 25 compliance: self-serve account deletion, data export and an audit log. Bilingual FR/EN, light/dark theme, on tRPC and Prisma/PostgreSQL."
     },
     metrics: {
-      fr: ["20+ écrans · 25+ composants", "Tâches en 5 vues · palette ⌘K", "200+ clés i18n FR/EN", "WCAG AA conforme"],
-      en: ["20+ screens · 25+ components", "Tasks across 5 views · ⌘K palette", "200+ i18n keys FR/EN", "WCAG AA compliant"]
+      fr: ["Sync Google + Microsoft (réelle)", "Auth multi-fournisseurs (NextAuth v5)", "Jetons chiffrés · RLS · rate-limit", "Conformité Loi 25 (export/suppression)"],
+      en: ["Real Google + Microsoft sync", "Multi-provider auth (NextAuth v5)", "Encrypted tokens · RLS · rate-limit", "Loi 25 compliance (export/deletion)"]
     },
     media: { enabled: true, type: "video", src: "/media/dpm-elevate.mp4" }
   },
   {
     id: "wise-wealthy",
     year: "2026",
-    status: { fr: "Concept · Prototype haute-fidélité", en: "Concept · High-fidelity prototype" },
+    status: { fr: "Concept · Prototype interactif", en: "Concept · High-fidelity prototype" },
     name: "Wise & Wealthy",
     tag: { fr: "Coach financier IA · Prototype mobile", en: "AI financial coach · Mobile prototype" },
     stack: ["Claude Design → Claude Code", "dc-runtime (React 18)", "Suite de 5 surfaces (cadre téléphone)", "20+ écrans / états", "Assistant IA « Wiz » (coach financier)", "Dashboard · Budget · Objectifs · Leçons", "« Mes finances » : Transactions · Cashflow · Dettes · Abonnements", "Actualité financière vulgarisée", "Freemium · paywall premium", "Wise & Wealthy Kids (app ludique)", "Espace Famille (verrou PIN · profils enfants)", "Mascotte Wiz réutilisable (6 humeurs)", "Bilingue FR/EN · clair/sombre", "Design tokens · Bricolage Grotesque + Plus Jakarta Sans", "Conformité Loi 25 (éducation, non conseil réglementé)", "Next.js + TS (production visée)"],
     summary: {
-      fr: "Concept et prototype haute-fidélité de Wise & Wealthy, un coach financier personnel propulsé par l'IA qui démocratise l'éducation financière pour les 18–35 ans peu à l'aise avec la finance. Le produit est pensé à partir d'un modèle d'affaires complet (12 pages : étude de marché, Business Model Canvas, analyse concurrentielle YNAB/Rocket Money/Wealthsimple, MVP, indicateurs) et d'un PRD de découverte, et se positionne à l'opposé des apps de trading : éducation, vulgarisation et accompagnement plutôt que spéculation. La maquette mobile couvre une vingtaine d'écrans et d'états — onboarding guidé, tableau de bord (revenus, dépenses, épargne, « série de clarté », action du jour), assistant conversationnel « Wiz », budget et budget setup, objectifs d'épargne, mini-leçons + flashcards + exercices, actualité financière vulgarisée, notifications, profil, confidentialité et paywall freemium. Identité rassurante et non intimidante (mascotte Wiz, verts apaisants, Bricolage Grotesque + Plus Jakarta Sans), bilingue FR/EN, thème clair/sombre. Plus qu'une seule app, c'est une petite suite : l'app adulte ; « Mes finances », surface de suivi avancée (Transactions, Prévu vs réel, Cashflow, Abonnements, Dettes, import banque/CSV) qui incarne le palier premium ; « Wise & Wealthy Kids », déclinaison ludique pour enfants (tirelire, pièces, étoiles, jalons) ; « Espace Famille », espace parents avec code PIN à 4 chiffres et profils enfants ; et Wiz, la mascotte réutilisable (6 humeurs) qui unifie le tout. Positionnement assumé : éducation financière, pas de conseil réglementé — orienté confiance et protection des données (Loi 25).",
-      en: "Concept and high-fidelity prototype of Wise & Wealthy, an AI-powered personal financial coach that democratises financial literacy for 18–35 year-olds who aren't comfortable with finance. The product is grounded in a full business model (12 pages: market study, Business Model Canvas, competitive analysis of YNAB/Rocket Money/Wealthsimple, MVP, KPIs) and a discovery PRD, and is positioned as the opposite of trading apps: education, plain-language guidance and coaching rather than speculation. The mobile mockup spans around twenty screens and states — guided onboarding, dashboard (income, expenses, savings, a \"clarity streak\", daily action), conversational \"Wiz\" assistant, budget and budget setup, savings goals, mini-lessons + flashcards + exercises, simplified financial news, notifications, profile, privacy and a freemium paywall. A reassuring, non-intimidating identity (Wiz mascot, calming greens, Bricolage Grotesque + Plus Jakarta Sans), bilingual FR/EN, light/dark theme. More than a single app, it's a small suite: the adult app; \"Mes finances\", an advanced tracking surface (Transactions, Planned vs actual, Cashflow, Subscriptions, Debts, bank/CSV import) embodying the premium tier; \"Wise & Wealthy Kids\", a playful variant for children (piggy bank, coins, stars, milestones); \"Family Space\", a parent area with a 4-digit PIN and child profiles; and Wiz, the reusable mascot (6 moods) that unifies it all. A deliberate stance: financial education, not regulated advice — built around trust and data protection (Loi 25)."
+      fr: "Concept et prototype interactif de Wise & Wealthy, un coach financier personnel, assisté par l'IA, qui rend l'éducation financière plus accessible aux 18–35 ans peu à l'aise avec la finance. Le produit est pensé à partir d'un modèle d'affaires complet (12 pages : étude de marché, Business Model Canvas, analyse concurrentielle YNAB/Rocket Money/Wealthsimple, MVP, indicateurs) et d'un PRD de découverte, et se positionne à l'opposé des apps de trading : éducation, vulgarisation et accompagnement plutôt que spéculation. La maquette mobile couvre une vingtaine d'écrans et d'états — onboarding guidé, tableau de bord (revenus, dépenses, épargne, « série de clarté », action du jour), assistant conversationnel « Wiz », budget et budget setup, objectifs d'épargne, mini-leçons + flashcards + exercices, actualité financière vulgarisée, notifications, profil, confidentialité et paywall freemium. Identité rassurante et non intimidante (mascotte Wiz, verts apaisants, Bricolage Grotesque + Plus Jakarta Sans), bilingue FR/EN, thème clair/sombre. Plus qu'une seule app, c'est une petite suite : l'app adulte ; « Mes finances », surface de suivi avancée (Transactions, Prévu vs réel, Cashflow, Abonnements, Dettes, import banque/CSV) qui incarne le palier premium ; « Wise & Wealthy Kids », déclinaison ludique pour enfants (tirelire, pièces, étoiles, jalons) ; « Espace Famille », espace parents avec code PIN à 4 chiffres et profils enfants ; et Wiz, la mascotte réutilisable (6 humeurs) qui unifie le tout. Positionnement assumé : éducation financière, pas de conseil réglementé — orienté confiance et protection des données (Loi 25).",
+      en: "Concept and interactive prototype of Wise & Wealthy, an AI-assisted personal financial coach that makes financial literacy more approachable for 18–35 year-olds who aren't comfortable with finance. The product is grounded in a full business model (12 pages: market study, Business Model Canvas, competitive analysis of YNAB/Rocket Money/Wealthsimple, MVP, KPIs) and a discovery PRD, and is positioned as the opposite of trading apps: education, plain-language guidance and coaching rather than speculation. The mobile mockup spans around twenty screens and states — guided onboarding, dashboard (income, expenses, savings, a \"clarity streak\", daily action), conversational \"Wiz\" assistant, budget and budget setup, savings goals, mini-lessons + flashcards + exercises, simplified financial news, notifications, profile, privacy and a freemium paywall. A reassuring, non-intimidating identity (Wiz mascot, calming greens, Bricolage Grotesque + Plus Jakarta Sans), bilingual FR/EN, light/dark theme. More than a single app, it's a small suite: the adult app; \"Mes finances\", an advanced tracking surface (Transactions, Planned vs actual, Cashflow, Subscriptions, Debts, bank/CSV import) embodying the premium tier; \"Wise & Wealthy Kids\", a playful variant for children (piggy bank, coins, stars, milestones); \"Family Space\", a parent area with a 4-digit PIN and child profiles; and Wiz, the reusable mascot (6 moods) that unifies it all. A deliberate stance: financial education, not regulated advice — built around trust and data protection (Loi 25)."
     },
     metrics: {
       fr: ["Suite : adulte · finances · Kids · Famille", "20+ écrans · assistant IA « Wiz »", "Freemium · premium 9,99–19,99 $/mois", "Bilingue FR/EN · clair/sombre"],
@@ -141,8 +141,8 @@ export const projects: Project[] = [
       "Cible : Next.js + Stripe/Square + Calendly",
     ],
     summary: {
-      fr: "Conception et prototype haute-fidélité de BOA, la marque de chef privé et service à table à Montréal du chef Max. Repris d'un PRD rempli par le client (document Word) et d'une analyse concurrentielle (Take a Chef, The Culinistas, Cozymeal, Tock), le site vend une expérience — « When the love for food meets unforgettable memories » — plutôt qu'un simple traiteur : soupers privés, mariages, anniversaires et corporatif, préparés et servis à domicile. La maquette couvre tout le parcours : accueil éditorial (hero, piliers « l'art de recevoir », trust strip, « ce qui est inclus »), un concierge culinaire qui recommande un menu en 30 secondes (occasion, convives, budget, restrictions), les menus (fixe / événement / appel requis), les expériences, les lieux, une galerie photos, la présentation du chef et le contact. Le cœur est un parcours de réservation multi-étapes : menu → date (délai minimum 2 semaines, frais de dernière minute signalés, waitlist « me prévenir ») → format (service à table / table du chef / événement), convives (plafond 20, +20 → appel obligatoire), adresse (Île de Montréal · frais selon distance) et allergies → résumé (dépôt 25 % non remboursable, solde selon entente, taxes non appliquées) → paiement mocké (carte / débit / Interac) → confirmation (dépôt reçu, rappel 48 h, notification à Max). S'y ajoutent un chatbot « Concierge BOA » à réponses guidées, un sélecteur FR/EN, un thème clair/sombre bourgogne & crème (Newsreader + Hanken Grotesk + Allura), des animations premium respectant prefers-reduced-motion, et un mode administrateur avec emplacements photo en drag & drop pour brancher les vraies images. Tout est mocké proprement — aucun paiement réel, aucune IA branchée — en attendant de trancher prix, calendrier (Calendly), processeur de paiement (Stripe / Square) et textes légaux (Loi 25) avec le client.",
-      en: "Design and high-fidelity prototype of BOA, chef Max's private-chef and table-service brand in Montreal. Built from a client-filled PRD (Word document) and a competitive analysis (Take a Chef, The Culinistas, Cozymeal, Tock), the site sells an experience — \"When the love for food meets unforgettable memories\" — rather than plain catering: private dinners, weddings, birthdays and corporate events, cooked and served at your home. The mockup covers the whole journey: an editorial home (hero, \"the art of hosting\" pillars, trust strip, \"what's included\"), a culinary concierge that recommends a menu in 30 seconds (occasion, guests, budget, restrictions), the menus (fixed / event / call required), experiences, venues, a photo gallery, the chef's story and contact. At its core is a multi-step booking flow: menu → date (2-week minimum lead time, last-minute fees flagged, \"notify me\" waitlist) → format (table service / chef's table / event), guests (capped at 20, 20+ → mandatory call), address (Island of Montreal · distance-based fee) and allergies → summary (25% non-refundable deposit, balance per agreement, taxes not applied) → mocked payment (card / debit / Interac) → confirmation (deposit received, 48h reminder, notification to Max). It also ships a guided \"BOA Concierge\" chatbot, an FR/EN switcher, a burgundy & cream light/dark theme (Newsreader + Hanken Grotesk + Allura), premium animations honouring prefers-reduced-motion, and an admin mode with drag-and-drop photo slots to wire in real images. Everything is cleanly mocked — no real payment, no live AI — pending decisions on pricing, calendar (Calendly), payment processor (Stripe / Square) and legal copy (Loi 25) with the client.",
+      fr: "Conception et prototype interactif de BOA, la marque de chef privé et service à table à Montréal du chef Max. Repris d'un PRD rempli par le client (document Word) et d'une analyse concurrentielle (Take a Chef, The Culinistas, Cozymeal, Tock), le site vend une expérience — « When the love for food meets unforgettable memories » — plutôt qu'un simple traiteur : soupers privés, mariages, anniversaires et corporatif, préparés et servis à domicile. La maquette couvre tout le parcours : accueil éditorial (hero, piliers « l'art de recevoir », trust strip, « ce qui est inclus »), un concierge culinaire qui recommande un menu en 30 secondes (occasion, convives, budget, restrictions), les menus (fixe / événement / appel requis), les expériences, les lieux, une galerie photos, la présentation du chef et le contact. Le cœur est un parcours de réservation multi-étapes : menu → date (délai minimum 2 semaines, frais de dernière minute signalés, waitlist « me prévenir ») → format (service à table / table du chef / événement), convives (plafond 20, +20 → appel obligatoire), adresse (Île de Montréal · frais selon distance) et allergies → résumé (dépôt 25 % non remboursable, solde selon entente, taxes non appliquées) → paiement mocké (carte / débit / Interac) → confirmation (dépôt reçu, rappel 48 h, notification à Max). S'y ajoutent un chatbot « Concierge BOA » à réponses guidées, un sélecteur FR/EN, un thème clair/sombre bourgogne & crème (Newsreader + Hanken Grotesk + Allura), des animations premium respectant prefers-reduced-motion, et un mode administrateur avec emplacements photo en drag & drop pour brancher les vraies images. Tout est mocké proprement — aucun paiement réel, aucune IA branchée — en attendant de trancher prix, calendrier (Calendly), processeur de paiement (Stripe / Square) et textes légaux (Loi 25) avec le client.",
+      en: "Design and interactive prototype of BOA, chef Max's private-chef and table-service brand in Montreal. Built from a client-filled PRD (Word document) and a competitive analysis (Take a Chef, The Culinistas, Cozymeal, Tock), the site sells an experience — \"When the love for food meets unforgettable memories\" — rather than plain catering: private dinners, weddings, birthdays and corporate events, cooked and served at your home. The mockup covers the whole journey: an editorial home (hero, \"the art of hosting\" pillars, trust strip, \"what's included\"), a culinary concierge that recommends a menu in 30 seconds (occasion, guests, budget, restrictions), the menus (fixed / event / call required), experiences, venues, a photo gallery, the chef's story and contact. At its core is a multi-step booking flow: menu → date (2-week minimum lead time, last-minute fees flagged, \"notify me\" waitlist) → format (table service / chef's table / event), guests (capped at 20, 20+ → mandatory call), address (Island of Montreal · distance-based fee) and allergies → summary (25% non-refundable deposit, balance per agreement, taxes not applied) → mocked payment (card / debit / Interac) → confirmation (deposit received, 48h reminder, notification to Max). It also ships a guided \"BOA Concierge\" chatbot, an FR/EN switcher, a burgundy & cream light/dark theme (Newsreader + Hanken Grotesk + Allura), premium animations honouring prefers-reduced-motion, and an admin mode with drag-and-drop photo slots to wire in real images. Everything is cleanly mocked — no real payment, no live AI — pending decisions on pricing, calendar (Calendly), payment processor (Stripe / Square) and legal copy (Loi 25) with the client.",
     },
     metrics: {
       fr: ["Bilingue FR/EN · clair/sombre", "Réservation multi-étapes + dépôt 25 %", "Concierge menu 30 s + chatbot BOA", "Mode admin · photos drag & drop"],
@@ -183,6 +183,86 @@ export const projects: Project[] = [
       en: ["5,250+ LOC", "133 tests · 100% coverage", "85 commits · 6 devs", "28 commits (top contributor)"]
     },
     media: { enabled: true, type: "video", src: "/media/financej.mp4" }
+  },
+  {
+    id: "tatzy",
+    year: "2025 · 2026",
+    status: { fr: "Prototype · Déployé", en: "Prototype · Deployed" },
+    name: "Tatzy",
+    tag: { fr: "Réservation de taxi en ligne · Prototype", en: "Online taxi booking · Prototype" },
+    stack: ["Next.js 14", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL", "next-intl (FR/EN)", "Zod", "Vercel"],
+    summary: {
+      fr: "Site de réservation de taxi cofondé avec Aimen Djebbar. Monorepo web + API : page d'accueil, tunnel de réservation et fondations d'une API, en Next.js 14 (App Router) avec Prisma/PostgreSQL, bilingue FR/EN. Le prototype est déployé sur Vercel. Encore au stade prototype — pas de trafic client réel pour l'instant.",
+      en: "Taxi-booking site co-founded with Aimen Djebbar. Web + API monorepo: landing page, booking flow and API foundations, in Next.js 14 (App Router) with Prisma/PostgreSQL, bilingual FR/EN. The prototype is deployed on Vercel. Still at prototype stage — no real customer traffic yet."
+    },
+    metrics: {
+      fr: ["Monorepo web + API", "Bilingue FR/EN", "Déployé sur Vercel", "Cofondé (2 personnes)"],
+      en: ["Web + API monorepo", "Bilingual FR/EN", "Deployed on Vercel", "Co-founded (2 people)"]
+    }
+  },
+  {
+    id: "log430",
+    year: "2026",
+    status: { fr: "Académique · ÉTS", en: "Academic · ÉTS" },
+    name: "LOG430 — Architecture logicielle",
+    tag: { fr: "Du monolithe aux microservices événementiels", en: "From monolith to event-driven microservices" },
+    stack: ["Python", "Flask / FastAPI", "Docker Compose", "PostgreSQL", "Redis", "Apache Kafka", "GraphQL", "Kong / KrakenD", "Prometheus / Grafana"],
+    summary: {
+      fr: "Série de laboratoires du cours d'architecture logicielle à l'ÉTS : une même application de gestion de magasin est réarchitecturée d'un labo à l'autre. Le parcours va d'un monolithe conteneurisé (Docker, CI/CD) vers du client-serveur avec DAO, du CQRS avec persistance polyglotte (PostgreSQL + Redis), des API REST puis GraphQL, du cache et de la répartition de charge (Nginx, tests de charge Locust), de l'observabilité (Prometheus), puis une décomposition en microservices derrière une passerelle d'API, un microservice de paiement isolé, une saga orchestrée avec traçage distribué (Jaeger), de l'architecture événementielle avec Kafka (event sourcing, saga chorégraphiée, patron Outbox) et enfin des bases de données distribuées (YugabyteDB / CockroachDB). Le projet de fin de session, CanTelcoX, regroupe le tout en 5 microservices DDD (une base par service) derrière une passerelle Kong en haute disponibilité, avec cache Redis et observabilité Prometheus/Grafana.",
+      en: "Lab series from ÉTS's software-architecture course: a single store-management app is re-architected from one lab to the next. The path runs from a containerized monolith (Docker, CI/CD) to client-server with DAO, CQRS with polyglot persistence (PostgreSQL + Redis), REST then GraphQL APIs, caching and load balancing (Nginx, Locust load tests), observability (Prometheus), then a break-up into microservices behind an API gateway, an isolated payment microservice, an orchestrated saga with distributed tracing (Jaeger), event-driven architecture with Kafka (event sourcing, choreographed saga, Outbox pattern) and finally distributed databases (YugabyteDB / CockroachDB). The capstone, CanTelcoX, consolidates it into 5 DDD microservices (a database per service) behind a high-availability Kong gateway, with Redis caching and Prometheus/Grafana observability."
+    },
+    metrics: {
+      fr: ["12 dépôts · monolithe → microservices", "CanTelcoX · 5 microservices DDD", "REST · GraphQL · Kafka · Saga", "Observabilité Prometheus/Grafana"],
+      en: ["12 repos · monolith → microservices", "CanTelcoX · 5 DDD microservices", "REST · GraphQL · Kafka · Saga", "Prometheus/Grafana observability"]
+    }
+  },
+  {
+    id: "log210",
+    year: "2025",
+    status: { fr: "Académique · ÉTS", en: "Academic · ÉTS" },
+    name: "LOG210 — Analyse et conception",
+    tag: { fr: "Modélisation UML & conception OO · Équipe", en: "UML modeling & OO design · Team" },
+    stack: ["TypeScript", "Node.js", "Express", "Jest", "UML (PlantUML)", "GRASP"],
+    summary: {
+      fr: "Laboratoire d'analyse et de conception logicielle à l'ÉTS, en équipe de 6. À partir d'un squelette « jeu de dés », l'équipe modélise et implémente une application de gestion de cours et de devoirs : modèle du domaine UML, cas d'utilisation, conception en couches avec le patron GRASP Contrôleur, passerelle/adaptateur vers un backend, et une suite de tests Jest avec couverture. Le tout appuyé par des rapports d'itération.",
+      en: "Analysis-and-design lab at ÉTS, in a team of 6. Starting from a \"dice game\" skeleton, the team models and builds a course-and-assignment management app: UML domain model, use cases, layered design with the GRASP Controller pattern, a gateway/adapter to a backend, and a Jest test suite with coverage. Backed by iteration reports."
+    },
+    metrics: {
+      fr: ["Équipe de 6 · GitHub Classroom", "Modèle du domaine UML · cas d'usage", "Patron GRASP Contrôleur", "Tests Jest avec couverture"],
+      en: ["Team of 6 · GitHub Classroom", "UML domain model · use cases", "GRASP Controller pattern", "Jest tests with coverage"]
+    }
+  },
+  {
+    id: "gti350",
+    year: "2026",
+    status: { fr: "Académique · ÉTS", en: "Academic · ÉTS" },
+    name: "Tron Light Cycles — GTI350",
+    tag: { fr: "Jeu 2 joueurs · Interfaces & manipulation directe · Équipe", en: "2-player game · UI & direct manipulation · Team" },
+    stack: ["JavaScript (vanilla)", "Canvas HTML5", "Modules ES6", "HTML/CSS"],
+    summary: {
+      fr: "Jeu « Tron » 2 joueurs codé en JavaScript vanilla (sans librairie) pour le cours d'interfaces utilisateurs à l'ÉTS, en équipe de 2. Rendu sur Canvas HTML5, deux modes d'entrée (clavier avec gestion QWERTY/AZERTY et gestes de souris pour diriger la moto directement sur le canvas), détection de collisions (traînées + murs), score multi-manches, boutons virtuels pause/reprise/redémarrage et accélération progressive. Architecture modulaire (9 modules à responsabilité unique) pensée pour le travail en parallèle sur Git.",
+      en: "Two-player \"Tron\" game written in vanilla JavaScript (no libraries) for ÉTS's user-interfaces course, in a team of 2. Rendered on an HTML5 Canvas, two input modes (keyboard with QWERTY/AZERTY handling, and mouse gestures to steer the cycle directly on the canvas), collision detection (trails + walls), multi-round scoring, virtual pause/resume/restart buttons and progressive acceleration. Modular architecture (9 single-responsibility modules) designed for parallel work on Git."
+    },
+    metrics: {
+      fr: ["Vanilla JS · Canvas HTML5", "2 modes d'entrée (clavier + souris)", "9 modules · ~460 lignes", "Équipe de 2"],
+      en: ["Vanilla JS · HTML5 Canvas", "2 input modes (keyboard + mouse)", "9 modules · ~460 lines", "Team of 2"]
+    }
+  },
+  {
+    id: "saint-valentin",
+    year: "2026",
+    status: { fr: "Projet personnel · Prototype", en: "Personal project · Prototype" },
+    name: "Saint-Valentin interactive",
+    tag: { fr: "Lettre par lien unique · Projet perso", en: "Letter via unique link · Personal project" },
+    stack: ["Node.js", "Express", "SQLite", "EJS", "Nodemailer", "Helmet · CSRF · rate-limit"],
+    summary: {
+      fr: "Petit projet personnel : une lettre de Saint-Valentin interactive envoyée par lien unique, avec le classique bouton « Non » qui esquive le curseur. Derrière la blague, une vraie attention à la sécurité web — sessions signées, protection CSRF, en-têtes Helmet, limitation de débit — et un tableau de bord d'administration. Node/Express, base SQLite, courriels via Nodemailer.",
+      en: "A small personal project: an interactive Valentine's letter sent via a unique link, with the classic \"No\" button that dodges the cursor. Behind the joke, real attention to web security — signed sessions, CSRF protection, Helmet headers, rate limiting — plus an admin dashboard. Node/Express, SQLite database, email via Nodemailer."
+    },
+    metrics: {
+      fr: ["Node · Express · SQLite", "Liens uniques tokenisés", "Sécurité : CSRF · Helmet · rate-limit", "Tableau de bord admin"],
+      en: ["Node · Express · SQLite", "Tokenized unique links", "Security: CSRF · Helmet · rate-limit", "Admin dashboard"]
+    }
   }
 ]
 
@@ -201,6 +281,11 @@ export const projectStates: Record<string, ProjectState> = {
   "boa-traiteur": "prototype",
   "crcc": "prototype",
   "financej": "academic",
+  "tatzy": "prototype",
+  "log430": "academic",
+  "log210": "academic",
+  "gti350": "academic",
+  "saint-valentin": "prototype",
 }
 
 /** Display / filter order. */
@@ -219,6 +304,44 @@ export const stateColor: Record<ProjectState, string> = {
 export const projectState = (id: string): ProjectState => projectStates[id] ?? "prototype"
 /** Dot colour for a project's state (name kept for existing call sites). */
 export const toneColor = (id: string): string => stateColor[projectState(id)]
+
+/** Context / relationship to each project — how I was involved. Drives the
+ *  role-type badge and the "by role" filter on the projects page. Distinct from
+ *  `projectStates` (delivery stage): this is *who I was* on the project.
+ *  `academic` = ÉTS / college coursework; `personal` = solo side project. */
+export type ProjectType = "cofounder" | "founder" | "client" | "academic" | "personal"
+
+export const projectTypes: Record<string, ProjectType> = {
+  "the-mad-space": "client", // contractual full-stack mandate
+  "cadence": "cofounder", // co-founded with Alexandre
+  "vibe": "cofounder",
+  "dpm-elevate": "founder", // sole founder — personal venture
+  "wise-wealthy": "cofounder",
+  "kim-dubois": "client", // first paying client
+  "boa-traiteur": "client", // client mandate (chef Max)
+  "crcc": "client", // nonprofit redesign mandate
+  "financej": "academic", // ÉTS LOG240, team of 6
+  "tatzy": "cofounder", // co-founded with Aimen
+  "log430": "academic", // ÉTS LOG430 (mostly solo)
+  "log210": "academic", // ÉTS LOG210, team of 6
+  "gti350": "academic", // ÉTS GTI350, team of 2
+  "saint-valentin": "personal", // solo side project
+}
+
+/** Filter / display order for the role-type chips. */
+export const TYPE_ORDER: ProjectType[] = ["cofounder", "founder", "client", "academic", "personal"]
+
+/** Accent colour per type (echoes the v2 badge treatment; kept visually
+ *  distinct from the state dots via the badge's icon + tinted pill). */
+export const typeColor: Record<ProjectType, string> = {
+  cofounder: "var(--accent)",
+  founder: "var(--active)",
+  client: "var(--planned)",
+  academic: "var(--muted-foreground)",
+  personal: "var(--shipped)",
+}
+
+export const projectType = (id: string): ProjectType => projectTypes[id] ?? "personal"
 
 export const caseStudyIds = new Set([
   "the-mad-space",
@@ -247,6 +370,20 @@ export const projectRoles: Record<string, { fr: string; en: string }> = {
 
 /** External links per project (shown on detail page) */
 export const projectLinks: Record<string, { label: string; url: string; type: "github" | "live" | "demo" }[]> = {
+  "tatzy": [
+    { label: "Démo live", url: "https://tatzy-taxi.vercel.app", type: "live" },
+    { label: "GitHub", url: "https://github.com/ralphgabriel04/tatzy-taxi", type: "github" },
+  ],
+  "log430": [
+    { label: "Labo REST & GraphQL", url: "https://github.com/ralphgabriel04/Labo-03-REST-APIs-GraphQL", type: "github" },
+    { label: "Labo événementiel (Kafka)", url: "https://github.com/ralphgabriel04/log430-labo8", type: "github" },
+  ],
+  "log210": [
+    { label: "GitHub", url: "https://github.com/ralphgabriel04/laboratoire-01-log210-a25-equipe-210-detached", type: "github" },
+  ],
+  "gti350": [
+    { label: "GitHub", url: "https://github.com/ralphgabriel04/gti350-lab1-tron-light-cycles", type: "github" },
+  ],
   "the-mad-space": [
     { label: "Live", url: "https://themadspace.com", type: "live" },
   ],
@@ -260,7 +397,9 @@ export const projectLinks: Record<string, { label: string; url: string; type: "g
     { label: "Composant fiche lieu", url: "/vibe/PlaceCard.dc.html", type: "demo" },
   ],
   "dpm-elevate": [
-    { label: "Live", url: "/dpm-elevate/index.html", type: "live" },
+    { label: "App live", url: "https://dpm-calendar.vercel.app", type: "live" },
+    { label: "GitHub", url: "https://github.com/ralphgabriel04/dpm-calendar", type: "github" },
+    { label: "Maquette (design)", url: "/dpm-elevate/index.html", type: "demo" },
   ],
   "wise-wealthy": [
     { label: "Maquette live (app adulte)", url: "/wise-wealthy/index.html", type: "live" },

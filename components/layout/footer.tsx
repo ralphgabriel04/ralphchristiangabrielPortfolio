@@ -18,7 +18,7 @@ export function Footer() {
           <div className="flex flex-col gap-3">
             <Link href="/" className="inline-flex items-center gap-2.5">
               <span className="inline-flex h-7 min-w-9 items-center justify-center rounded-[6px] border border-border-strong px-1.5 font-mono text-[11px] font-medium tracking-[-0.04em] text-foreground">RCG</span>
-              <span className="font-mono text-[13px] text-muted-foreground">ralphgabriel<span className="text-foreground">.dev</span></span>
+              <span className="font-mono text-[13px] text-muted-foreground">rcgabriel<span className="text-foreground">.dev</span></span>
             </Link>
             <span className="font-mono text-xs">{t("location")}</span>
           </div>

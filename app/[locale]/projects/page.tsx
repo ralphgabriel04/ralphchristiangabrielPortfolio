@@ -8,8 +8,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: isFr ? "Projets" : "Projects",
     description: isFr
-      ? "Neuf projets : e-commerce, apps mobiles, prototypes produit, sites clients et architecture académique."
-      : "Nine projects: e-commerce, mobile apps, product prototypes, client sites and academic architecture.",
+      ? "Projets de développement web et mobile : e-commerce, apps React Native, prototypes produit, sites clients, microservices et travaux d'architecture (ÉTS). Next.js, TypeScript, Java, Python, API REST."
+      : "Web and mobile development projects: e-commerce, React Native apps, product prototypes, client sites, microservices and software-architecture coursework (ÉTS). Next.js, TypeScript, Java, Python, REST APIs.",
     alternates: {
       languages: { fr: "/fr/projects", en: "/en/projects" },
     },

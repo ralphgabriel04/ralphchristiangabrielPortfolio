@@ -10,6 +10,7 @@ import {
 } from "@/lib/projects";
 import { ProjectPlaceholder } from "@/components/ui/project-placeholder";
 import { Badge } from "@/components/ui/badge";
+import { ProjectTypeBadge } from "@/components/ui/project-type-badge";
 import { PulseDot } from "@/components/ui/pulse-dot";
 import { Tag } from "@/components/ui/tag";
 
@@ -69,6 +70,7 @@ export function ProjectRow({
             <PulseDot color={stateColor[state]} />
             {t(`state.${state}`)}
           </Badge>
+          <ProjectTypeBadge id={project.id} />
         </div>
 
         <div>

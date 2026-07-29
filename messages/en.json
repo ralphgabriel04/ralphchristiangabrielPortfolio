@@ -142,17 +142,26 @@
   },
   "projects": {
     "heading": "Selected projects.",
-    "description": "Nine projects spanning production work, product design and prototyping, and academic architecture.",
+    "description": "Projects spanning production work, product design and prototyping, and academic software architecture.",
     "caseStudyLink": "Case study",
     "viewLive": "View live",
     "subtitle": "Shipped systems, products in development and prototypes. Filter by state.",
     "filterAll": "All",
+    "filterState": "State",
+    "filterType": "Role",
     "state": {
       "production": "In production",
       "development": "In development",
       "prototype": "Prototype",
       "academic": "Academic project",
       "planned": "Planned"
+    },
+    "type": {
+      "cofounder": "Co-founder",
+      "founder": "Founder",
+      "client": "Client",
+      "academic": "Academic",
+      "personal": "Personal"
     },
     "allProjects": "All projects",
     "previousProject": "Previous project",
@@ -164,11 +173,11 @@
   },
   "about": {
     "title": "About",
-    "heading": "I build systems that hold up.",
+    "heading": "I build web products people actually use.",
     "paragraphs": [
       "Full-stack developer based in Repentigny, Greater Montréal. Bilingual EN/FR, currently studying B.Eng. in Software Engineering at ÉTS, I have been shipping web products since 2022.",
       "My approach: ship to production, not just demos. The Mad Space runs today with ~15,000 LOC, 30+ API endpoints, multi-currency Stripe payments (4 currencies), 7+ B2B integrations and 4 business workflows that cut order processing by 10–15 minutes.",
-      "Before product development, I resolved 2,000+ tickets at Vidéotron with 94% customer satisfaction (NPS 9.6/10) and automated ~50% of tasks via Power Automate. I learned to listen before coding, and to diagnose before proposing."
+      "Before product development, I resolved 2,000+ tickets at Vidéotron with 94% customer satisfaction (9.6/10) and automated ~50% of tasks via Power Automate. I learned to listen before coding, and to diagnose before proposing."
     ],
     "caption": "Ralph Christian Gabriel · Repentigny, QC",
     "seeExperience": "See experience",
@@ -181,7 +190,7 @@
       "languagesAlt": "Most used programming languages",
       "highlights": [
         "Currently building a SaaS coaching platform (Next.js 16, React 19, TypeScript, Supabase) and maintaining a full-stack e-commerce platform with 15,000+ LOC.",
-        "Open to collaborating on full-stack web apps, open-source developer tools, and AI-powered products.",
+        "Open to collaborating on full-stack web apps, open-source developer tools, and products that integrate AI.",
         "Ask me about Next.js, React, TypeScript, REST API design, e-commerce integrations (Stripe, Gelato), or CI/CD pipelines."
       ],
       "cta": "View full profile on GitHub"
@@ -207,14 +216,13 @@
       "desc": "Skiing is my reset. It forces me to read the terrain, react quickly, and fully commit to every turn."
     },
     "personality": {
-      "title": "INTJ-A, Architect",
-      "desc": "I'm a strategic thinker. I like approaching problems with a clear plan, going deep rather than wide, and optimizing what can be. In code and in life.",
-      "traits": [
-        { "label": "Introverted", "value": 76 },
-        { "label": "Intuitive", "value": 70 },
-        { "label": "Thinking", "value": 83 },
-        { "label": "Judging", "value": 78 },
-        { "label": "Assertive", "value": 58 }
+      "title": "How I work",
+      "desc": "I think in systems: I go deep before going wide, I plan before I code, and I document so what I ship keeps working without me. Curious and methodical, I'm most comfortable once I understand the \"why\" before the \"how\".",
+      "points": [
+        "Diagnose before proposing — a habit from IT support.",
+        "Plan, then move in small, verifiable steps.",
+        "Document and test so the code lasts.",
+        "Keep learning, and share what I figure out."
       ]
     }
   },
@@ -252,7 +260,7 @@
         "date": "Jan. 2022 · Oct. 2025",
         "role": "IT Automation & Support Technician",
         "org": "Vidéotron, Montréal",
-        "desc": "2,000+ tickets handled (AHT 11:18, 94% sat., NPS 9.6/10). Automated ~50% of tasks via Power Automate (HR/IT/Finance). Documented procedures and runbooks to stabilize deployments."
+        "desc": "2,000+ tickets handled (AHT 11:18, 94% sat. · 9.6/10). Automated ~50% of tasks via Power Automate (HR/IT/Finance). Documented procedures and runbooks to stabilize deployments."
       }
     ],
     "education": [
@@ -317,6 +325,44 @@
     "addCtaBadge": "We worked together?",
     "addCtaTitle": "Share your feedback.",
     "addCtaSubtitle": "A testimonial takes two minutes and helps me tremendously in presenting my projects to future readers."
+  },
+  "services": {
+    "kicker": "I have a project",
+    "heading": "What I can build for you.",
+    "intro": "Three ways to work together, depending on where you are. Every example links to a real project — no promises of results, just what I've already shipped.",
+    "labelAudience": "Who it's for",
+    "labelProblem": "The problem",
+    "labelDeliver": "What I deliver",
+    "labelExample": "Example",
+    "items": [
+      {
+        "title": "Web sites and applications",
+        "audience": "Founders, small businesses and nonprofits",
+        "problem": "A site that doesn't convert, a patched-together internal tool, or no web presence at all.",
+        "deliver": "A fast, accessible bilingual web app — from design to launch, usually on Next.js, TypeScript and PostgreSQL.",
+        "example": "The Mad Space — an e-commerce marketplace in production.",
+        "exampleId": "the-mad-space"
+      },
+      {
+        "title": "Prototypes and web/mobile MVPs",
+        "audience": "Founders and idea owners",
+        "problem": "An idea that's hard to show to clients, partners or investors.",
+        "deliver": "An interactive, clickable prototype that makes the idea testable, then a codebase ready for production.",
+        "example": "Wise & Wealthy — a concept turned into a full, testable mockup.",
+        "exampleId": "wise-wealthy"
+      },
+      {
+        "title": "Integrations and automation",
+        "audience": "Teams losing time on manual tasks",
+        "problem": "Data retyped by hand, payments or emails to wire up, slow processes.",
+        "deliver": "Integrations (payments, fulfillment, third-party APIs) and automation that cut manual steps.",
+        "example": "The Mad Space — 7+ B2B integrations and automated fulfillment.",
+        "exampleId": "the-mad-space"
+      }
+    ],
+    "cta": "Have a project in mind? Let's talk.",
+    "ctaButton": "Get in touch",
+    "ctaBook": "Book a call"
   },
   "testimonials": [
     { "quote": "Christian created a professional, modern website perfectly suited to my needs. His professionalism, creativity, and clear communication made the entire process smooth and efficient.", "author": "Founder", "role": "The Mad Space · 2025-present", "image": "/images/testimonial-madspace.jpg", "link": "the-mad-space" },
