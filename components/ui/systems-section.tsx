@@ -16,7 +16,7 @@ import { LazyVideo } from "@/components/ui/lazy-video";
 import { usePlain } from "@/components/ui/plain-mode";
 import { plainSummary, techPlainOf } from "@/lib/plain";
 
-const FEATURED = ["the-mad-space", "cadence", "financej"];
+const FEATURED = ["the-mad-space", "cadence", "wise-wealthy", "dpm-elevate"];
 const STATE_ICON: Record<string, string> = {
   production: "●",
   development: "◐",

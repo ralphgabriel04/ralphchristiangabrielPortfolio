@@ -21,7 +21,7 @@ import { TrackView } from "@/components/ui/track-view";
 const allSlugs = projects.map((p) => p.id);
 
 // Same order as the homepage "Systèmes" grid (featured, then archive) → SYS-XX.
-const FEATURED = ["the-mad-space", "cadence", "financej"];
+const FEATURED = ["the-mad-space", "cadence", "wise-wealthy", "dpm-elevate"];
 const ordered = [
   ...FEATURED,
   ...projects.map((p) => p.id).filter((id) => !FEATURED.includes(id)),
