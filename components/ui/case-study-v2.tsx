@@ -225,14 +225,28 @@ function Section({ section, study, locale, num }: { section: CaseSectionV2; stud
   );
 
   const header = (
-    <h3 className="flex items-baseline gap-2 text-xl font-semibold tracking-tight">
-      <span className="font-mono text-[0.7em] text-accent">{num}</span> {section.title}
+    <h3 className="group/anchor flex items-baseline gap-2 text-xl font-semibold tracking-tight">
+      <a
+        href={`#${section.id}`}
+        onClick={(e) => e.stopPropagation()}
+        aria-label={fr ? `Lien vers « ${section.title} »` : `Link to "${section.title}"`}
+        className="font-mono text-[0.7em] text-accent hover:underline"
+      >
+        {num}
+      </a>{" "}
+      {section.title}
+      <span
+        aria-hidden="true"
+        className="font-mono text-[0.6em] text-muted-foreground/40 opacity-0 transition-opacity group-hover/anchor:opacity-100"
+      >
+        #
+      </span>
     </h3>
   );
 
   if (section.collapsible) {
     return (
-      <details className="group border-t border-border-color pt-6 first:border-t-0 first:pt-0">
+      <details id={section.id} className="group scroll-mt-24 border-t border-border-color pt-6 first:border-t-0 first:pt-0">
         <summary className="flex cursor-pointer list-none items-center justify-between gap-2">
           {header}
           <span className="font-mono text-xs text-muted-foreground transition-transform group-open:rotate-90">▸</span>
@@ -243,7 +257,7 @@ function Section({ section, study, locale, num }: { section: CaseSectionV2; stud
   }
 
   return (
-    <section className="border-t border-border-color pt-6 first:border-t-0 first:pt-0">
+    <section id={section.id} className="scroll-mt-24 border-t border-border-color pt-6 first:border-t-0 first:pt-0">
       {header}
       <div className="mt-3">{inner}</div>
     </section>

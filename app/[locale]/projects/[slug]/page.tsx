@@ -110,7 +110,7 @@ function ProjectDetailContent({ slug }: { slug: string }) {
           <ProjectTypeBadge id={slug} />
           <span className="ml-auto flex items-center gap-2 text-muted-foreground">
             <span style={{ color: stateColor[state] }}>{STATE_ICON[state]}</span>
-            {project.status[locale]}
+            {v2 ? v2.identity.maturityLabel : project.status[locale]}
           </span>
         </div>
 
