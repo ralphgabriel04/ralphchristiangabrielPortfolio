@@ -19,7 +19,9 @@ import { ProjectTypeBadge } from "@/components/ui/project-type-badge";
 import { usePlain } from "@/components/ui/plain-mode";
 import { plainSummary, techPlainOf } from "@/lib/plain";
 
-const FEATURED = ["the-mad-space", "cadence", "wise-wealthy", "dpm-elevate"];
+const FEATURED = ["the-mad-space", "cadence", "wise-wealthy", "dpm-elevate", "vibe"];
+const ARCHIVE_INITIAL = 4;
+const ARCHIVE_STEP = 4;
 const STATE_ICON: Record<string, string> = {
   production: "●",
   development: "◐",
@@ -96,6 +98,7 @@ export function SystemsSection() {
   const locale = useLocale() as "fr" | "en";
   const { plain } = usePlain();
   const [open, setOpen] = useState<string | null>(null);
+  const [visible, setVisible] = useState(ARCHIVE_INITIAL);
 
   // Floating hover-preview thumbnail for archive rows (imperative → no re-render
   // per mousemove). Fine-pointer only; hidden on touch via `md:block`.
@@ -289,7 +292,7 @@ export function SystemsSection() {
           </span>
         </div>
         <div className="overflow-hidden rounded-2xl border border-border-color">
-          {archive.map((p) => {
+          {archive.slice(0, visible).map((p) => {
             const isOpen = open === p.id;
             const s = projectState(p.id);
             const live =
@@ -384,6 +387,32 @@ export function SystemsSection() {
             );
           })}
         </div>
+
+        {(visible < archive.length || visible > ARCHIVE_INITIAL) && (
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
+            {visible < archive.length && (
+              <button
+                type="button"
+                onClick={() => setVisible((v) => Math.min(v + ARCHIVE_STEP, archive.length))}
+                className="inline-flex items-center gap-2 rounded-full border border-border-color px-5 py-2 font-mono text-[12.5px] text-muted-foreground transition-colors hover:border-border-strong hover:text-foreground"
+              >
+                {locale === "fr" ? "Voir plus" : "Show more"}
+                <span className="text-muted-foreground/55">
+                  +{Math.min(ARCHIVE_STEP, archive.length - visible)}
+                </span>
+              </button>
+            )}
+            {visible > ARCHIVE_INITIAL && (
+              <button
+                type="button"
+                onClick={() => setVisible(ARCHIVE_INITIAL)}
+                className="inline-flex items-center rounded-full px-5 py-2 font-mono text-[12.5px] text-muted-foreground/70 transition-colors hover:text-foreground"
+              >
+                {locale === "fr" ? "Réduire" : "Show less"}
+              </button>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Floating hover preview — shows the system's screenshot near the cursor */}
