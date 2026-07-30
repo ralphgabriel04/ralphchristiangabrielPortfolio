@@ -14,9 +14,10 @@ type ServiceItem = {
 };
 
 /**
- * "J'ai un projet" — the client-facing journey. Three service tracks grounded in
- * real shipped work (each example links to an actual project). No commercial
- * promises: just audience → problem → what I deliver → a real example.
+ * "Comment je peux aider" — how I help each kind of visitor. Four tracks (clients
+ * for web apps, prototypes and integrations, plus recruiters/teams), each grounded
+ * in real shipped work that links to an actual project. No commercial promises:
+ * just audience, need, what I bring, and a real example.
  */
 export function ServicesSection() {
   const t = useTranslations("services");
@@ -41,7 +42,7 @@ export function ServicesSection() {
           </div>
         </Reveal>
 
-        <div className="mt-12 grid gap-4 md:grid-cols-3">
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {items.map((s, i) => (
             <Reveal key={s.title} delay={i * 60}>
               <div className="flex h-full flex-col rounded-2xl border border-border-color bg-muted p-6 md:p-7">

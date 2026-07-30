@@ -335,40 +335,48 @@
     "addCtaSubtitle": "Un témoignage prend deux minutes et m'aide énormément à présenter mes projets aux prochaines personnes qui me lisent."
   },
   "services": {
-    "kicker": "J'ai un projet",
-    "heading": "Ce que je peux construire pour vous.",
-    "intro": "Trois façons de travailler ensemble, selon où vous en êtes. Chaque exemple renvoie à un projet réel — pas de promesses de résultats, seulement ce que j'ai déjà livré.",
+    "kicker": "Comment je peux aider",
+    "heading": "Ce que je peux vous apporter.",
+    "intro": "Que vous ayez un site à lancer, une idée à valider ou une équipe à renforcer, voici concrètement ce que je sais faire. Chaque exemple pointe vers un projet réel : pas de promesses de résultats, seulement ce que j'ai déjà livré.",
     "labelAudience": "Pour qui",
-    "labelProblem": "Le problème",
-    "labelDeliver": "Ce que je livre",
+    "labelProblem": "Le besoin",
+    "labelDeliver": "Ce que j'apporte",
     "labelExample": "Exemple",
     "items": [
       {
         "title": "Sites et applications web",
         "audience": "Entrepreneurs, PME et OSBL",
-        "problem": "Un site qui ne convertit pas, un outil interne bricolé, ou aucune présence web.",
-        "deliver": "Une application web bilingue, rapide et accessible — du design à la mise en ligne, souvent sur Next.js, TypeScript et PostgreSQL.",
-        "example": "The Mad Space — une marketplace e-commerce en production.",
+        "problem": "Un site qui ne convertit pas, un outil interne bricolé, ou pas de présence web du tout.",
+        "deliver": "Une application web bilingue, rapide et accessible, du design jusqu'à la mise en ligne. Souvent sur Next.js, TypeScript et PostgreSQL.",
+        "example": "The Mad Space, une marketplace e-commerce en production.",
         "exampleId": "the-mad-space"
       },
       {
         "title": "Prototypes et MVP web/mobile",
         "audience": "Fondateurs et porteurs d'idées",
         "problem": "Une idée difficile à faire voir à des clients, des associés ou des investisseurs.",
-        "deliver": "Un prototype interactif et cliquable qui rend l'idée testable, puis une base de code prête pour la production.",
-        "example": "Wise & Wealthy — un concept devenu une maquette complète et testable.",
+        "deliver": "Un prototype interactif et cliquable qui rend l'idée testable, puis une base de code prête pour la suite.",
+        "example": "Wise & Wealthy, un concept devenu une maquette complète et testable.",
         "exampleId": "wise-wealthy"
       },
       {
         "title": "Intégrations et automatisation",
         "audience": "Équipes qui perdent du temps sur des tâches manuelles",
-        "problem": "Des données recopiées à la main, des paiements ou des courriels à brancher, des processus lents.",
-        "deliver": "Des intégrations (paiements, fulfillment, APIs tierces) et de l'automatisation qui réduisent les étapes manuelles.",
-        "example": "The Mad Space — 7+ intégrations B2B et fulfillment automatisé.",
+        "problem": "Des données recopiées à la main, des paiements ou des courriels à brancher, des processus qui traînent.",
+        "deliver": "Des intégrations (paiements, fulfillment, APIs tierces) et de l'automatisation qui enlèvent les étapes manuelles.",
+        "example": "The Mad Space, plus de 7 intégrations B2B et un fulfillment automatisé.",
         "exampleId": "the-mad-space"
+      },
+      {
+        "title": "Renforcer une équipe",
+        "audience": "Recruteurs et équipes techniques",
+        "problem": "Vous cherchez un profil polyvalent et autonome, capable de livrer du design jusqu'à la production.",
+        "deliver": "Un développeur full-stack qui conçoit, code, teste et déploie, et qui documente pour que l'équipe suive.",
+        "example": "DPM Elevate, une application complète conçue et livrée en solo.",
+        "exampleId": "dpm-elevate"
       }
     ],
-    "cta": "Un projet en tête ? Écrivons-nous.",
+    "cta": "Un projet à lancer, ou un poste à combler ? Parlons-en.",
     "ctaButton": "Me contacter",
     "ctaBook": "Réserver un appel"
   },
