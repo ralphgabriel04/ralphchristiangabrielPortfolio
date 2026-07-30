@@ -5,7 +5,7 @@ import { useLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import {
   projects,
   projectLinks,
@@ -86,6 +86,7 @@ function ProjectDetailContent({ slug }: { slug: string }) {
   const primary = links.find((l) => l.type === "live") ?? links[0];
 
   const idx = projects.findIndex((p) => p.id === slug);
+  const prevProject = projects[(idx - 1 + projects.length) % projects.length];
   const nextProject = projects[(idx + 1) % projects.length];
 
   return (
@@ -252,21 +253,33 @@ function ProjectDetailContent({ slug }: { slug: string }) {
 
       {/* Footer: back + next case */}
       <Reveal delay={80}>
-        <div className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-border-color pt-6">
-          <Link
-            href="/projects"
-            className="font-mono text-[13px] font-semibold text-muted-foreground transition-colors hover:text-foreground"
-          >
-            ← {fr ? "Tous les projets" : "All projects"}
-          </Link>
-          {nextProject && (
+        <div className="mt-16 border-t border-border-color pt-6">
+          <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
+            {prevProject && (
+              <Link
+                href={`/projects/${prevProject.id}`}
+                className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-accent hover:underline"
+              >
+                <ArrowLeft size={14} /> {fr ? "Étude précédente" : "Previous case"}: {prevProject.name}
+              </Link>
+            )}
+            {nextProject && (
+              <Link
+                href={`/projects/${nextProject.id}`}
+                className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-accent hover:underline sm:ml-auto"
+              >
+                {fr ? "Étude suivante" : "Next case"}: {nextProject.name} <ArrowRight size={14} />
+              </Link>
+            )}
+          </div>
+          <div className="mt-5 text-center">
             <Link
-              href={`/projects/${nextProject.id}`}
-              className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-accent hover:underline"
+              href="/projects"
+              className="font-mono text-[13px] font-semibold text-muted-foreground transition-colors hover:text-foreground"
             >
-              {fr ? "Étude suivante" : "Next case"}: {nextProject.name} <ArrowRight size={14} />
+              ← {fr ? "Tous les projets" : "All projects"}
             </Link>
-          )}
+          </div>
         </div>
       </Reveal>
     </article>

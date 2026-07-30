@@ -51,9 +51,7 @@ function ProjectsContent() {
         </p>
       </Reveal>
 
-      <Reveal delay={60}>
-        <ProjectsFilterList projects={projects} />
-      </Reveal>
+      <ProjectsFilterList projects={projects} />
     </section>
   );
 }

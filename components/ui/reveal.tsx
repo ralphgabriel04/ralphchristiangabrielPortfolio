@@ -44,7 +44,10 @@ export function Reveal({ children, delay = 0, className = "", repeat = true }: R
           }
         });
       },
-      { threshold: 0.1, rootMargin: "0px 0px -20px 0px" }
+      // threshold 0 (not 0.1): an element taller than ~10× the viewport can
+      // never reach 10% visibility, which would leave it stuck hidden. Any
+      // intersection is enough to reveal.
+      { threshold: 0, rootMargin: "0px 0px -20px 0px" }
     );
 
     observer.observe(el);
