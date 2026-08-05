@@ -147,6 +147,33 @@ export const testimonials: Testimonial[] = [
     projectLink: "financej",
     createdAt: "2026-07-22",
   },
+  {
+    id: "thomas",
+    quote: {
+      fr: "Christian est un futur ingénieur modèle qui lead le domaine informatique. Il est capable de transformer des idées complexes en solutions concrètes, tout en inspirant confiance à ceux qui travaillent avec lui.",
+      en: "Christian is a model engineer in the making, leading the way in software. He turns complex ideas into concrete solutions while inspiring confidence in everyone who works with him.",
+    },
+    name: "Thomas Murphy",
+    role: { fr: "Collègue · 2026", en: "Colleague · 2026" },
+    avatar: "/images/testimonial-thomas.png",
+    category: "colleague",
+    featured: true,
+    createdAt: "2026-08-05",
+  },
+  {
+    id: "samuel",
+    quote: {
+      fr: "Ralph a vraiment un talent pour régler les problèmes informatiques. Chaque fois que j’ai eu un souci, il a pris le temps de comprendre ce qui se passait et de m’expliquer clairement ce qu’il faisait. C’est quelqu’un de patient, fiable, et qui veut vraiment aider. Travailler avec lui, c’est simple : on se sent en confiance, parce qu’on sait qu’il va trouver la solution.",
+      en: "Ralph has a real talent for solving IT problems. Every time I ran into an issue, he took the time to understand what was going on and to explain clearly what he was doing. He’s patient, reliable, and genuinely wants to help. Working with him is simple: you feel in good hands, because you know he’ll find the solution.",
+    },
+    name: "Samuel Flores",
+    role: { fr: "Cofondateur · Vibe Montréal", en: "Co-founder · Vibe Montréal" },
+    company: "Vibe Montréal",
+    category: "partner",
+    featured: true,
+    projectLink: "vibe",
+    createdAt: "2026-08-05",
+  },
 ]
 
 export const categoryLabels = {
