@@ -170,6 +170,7 @@ export const testimonials: Testimonial[] = [
     name: "Samuel Flores",
     role: { fr: "Cofondateur · Vibe Montréal", en: "Co-founder · Vibe Montréal" },
     company: "Vibe Montréal",
+    avatar: "/images/testimonial-samuel.jpg",
     category: "partner",
     featured: true,
     projectLink: "vibe",
