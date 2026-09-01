@@ -182,10 +182,10 @@ export const testimonials: Testimonial[] = [
       fr: "Je tiens à remercier sincèrement Ralph Christian Gabriel pour son aide précieuse dans la partie technique de mon projet académique. J’ai beaucoup apprécié la clarté de ses explications, sa disponibilité, sa patience et sa capacité à rendre des notions techniques plus faciles à comprendre. Son accompagnement m’a permis d’avancer avec plus de confiance et de mieux structurer certains aspects de mon travail. Ralph est une personne sérieuse, compétente, fiable et passionnée par le génie logiciel. Je le recommande vivement à toute personne qui recherche un support technique de qualité. Merci encore Ralph pour ton temps, ton professionnalisme et ton aide précieuse.",
       en: "I want to sincerely thank Ralph Christian Gabriel for his invaluable help with the technical side of my academic project. I really appreciated how clear his explanations were, his availability, his patience, and his ability to make technical concepts far easier to grasp. His guidance let me move forward with more confidence and better structure several aspects of my work. Ralph is serious, competent, reliable, and genuinely passionate about software engineering. I highly recommend him to anyone looking for quality technical support. Thank you again Ralph for your time, your professionalism, and your invaluable help.",
     },
-    name: "Vanessa La Blonde Tsatchoung Sa’a",
+    name: "Vanessa La Blonde TSATCHOUNG SA'A, PMP®",
     role: {
-      fr: "Ingénieure mécanique, PMP® · ÉTS",
-      en: "Mechanical Engineer, PMP® · ÉTS",
+      fr: "Ingénieure mécanique · ÉTS",
+      en: "Mechanical Engineer · ÉTS",
     },
     company: "ÉTS",
     avatar: "/images/testimonial-vanessa.jpg",
