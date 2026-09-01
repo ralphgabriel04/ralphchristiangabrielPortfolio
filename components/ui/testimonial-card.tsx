@@ -97,7 +97,7 @@ export function TestimonialCard({
         )}
 
         <div className="min-w-0 flex-1">
-          <p className="truncate text-[14px] font-semibold">{t.name}</p>
+          <p className="line-clamp-2 text-[14px] font-semibold leading-snug">{t.name}</p>
           {t.projectLink ? (
             <Link
               href={`/projects/${t.projectLink}`}
