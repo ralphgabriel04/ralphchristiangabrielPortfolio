@@ -176,6 +176,23 @@ export const testimonials: Testimonial[] = [
     projectLink: "vibe",
     createdAt: "2026-08-05",
   },
+  {
+    id: "vanessa",
+    quote: {
+      fr: "Je tiens à remercier sincèrement Ralph Christian Gabriel pour son aide précieuse dans la partie technique de mon projet académique. J’ai beaucoup apprécié la clarté de ses explications, sa disponibilité, sa patience et sa capacité à rendre des notions techniques plus faciles à comprendre. Son accompagnement m’a permis d’avancer avec plus de confiance et de mieux structurer certains aspects de mon travail. Ralph est une personne sérieuse, compétente, fiable et passionnée par le génie logiciel. Je le recommande vivement à toute personne qui recherche un support technique de qualité. Merci encore Ralph pour ton temps, ton professionnalisme et ton aide précieuse.",
+      en: "I want to sincerely thank Ralph Christian Gabriel for his invaluable help with the technical side of my academic project. I really appreciated how clear his explanations were, his availability, his patience, and his ability to make technical concepts far easier to grasp. His guidance let me move forward with more confidence and better structure several aspects of my work. Ralph is serious, competent, reliable, and genuinely passionate about software engineering. I highly recommend him to anyone looking for quality technical support. Thank you again Ralph for your time, your professionalism, and your invaluable help.",
+    },
+    name: "Vanessa La Blonde Tsatchoung Sa’a",
+    role: {
+      fr: "Ingénieure mécanique, PMP® · ÉTS",
+      en: "Mechanical Engineer, PMP® · ÉTS",
+    },
+    company: "ÉTS",
+    avatar: "/images/testimonial-vanessa.jpg",
+    category: "colleague",
+    featured: true,
+    createdAt: "2026-09-01",
+  },
 ]
 
 export const categoryLabels = {
