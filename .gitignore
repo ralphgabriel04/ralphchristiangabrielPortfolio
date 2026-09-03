@@ -47,5 +47,5 @@ next-env.d.ts
 
 # local tooling
 /.claude/
-/.cto-toolkit/
+.cto-toolkit/
 /.remember/
