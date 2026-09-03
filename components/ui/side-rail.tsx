@@ -31,7 +31,7 @@ const links = [
 
 export function SideRail() {
   const locale = useLocale();
-  const cvHref = locale === "fr" ? "/cv/ralph-gabriel-cv-fr.pdf" : "/cv/ralph-gabriel-cv-en.pdf";
+  const cvHref = locale === "fr" ? "/cv/ralph-christian-gabriel-cv-fr.pdf" : "/cv/ralph-christian-gabriel-cv-en.pdf";
 
   return (
     <aside

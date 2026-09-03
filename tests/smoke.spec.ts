@@ -1,19 +1,24 @@
 import { test, expect } from "playwright/test";
+import fr from "../messages/fr.json";
+import en from "../messages/en.json";
 
 const LOCALES = ["fr", "en"] as const;
+// Read the copy from the i18n source instead of duplicating it here — the hero
+// kicker/roles change with every positioning update and hardcoded copies rot.
+const MESSAGES = { fr, en };
 
 for (const locale of LOCALES) {
   test.describe(`[${locale}] Hero positioning`, () => {
     test("communicates the multidisciplinary student profile", async ({ page }) => {
       await page.goto(`/${locale}`);
 
-      const expectedKicker = locale === "fr"
-        ? "Portfolio · Étudiant en génie logiciel · Web, mobile & systèmes"
-        : "Portfolio · Software Engineering Student · Web, mobile & systems";
-      const expectedCapability = locale === "fr" ? "Architecture logicielle" : "Software architecture";
+      const { kicker, title } = MESSAGES[locale].hero;
 
-      await expect(page.getByText(expectedKicker, { exact: true })).toBeVisible();
-      await expect(page.getByText(expectedCapability, { exact: true })).toBeVisible();
+      await expect(page.getByText(kicker, { exact: true })).toBeVisible();
+      // The hero cycles through `title`; at least one role must be rendered.
+      await expect(
+        page.getByText(new RegExp(title.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|"))).first(),
+      ).toBeVisible();
       await expect(page.locator("header").getByText("RCG", { exact: true }).first()).toBeVisible();
     });
   });
@@ -105,7 +110,7 @@ for (const locale of LOCALES) {
   test.describe(`[${locale}] Conversion`, () => {
     test("CV download link exists", async ({ page }) => {
       await page.goto(`/${locale}`);
-      const cvLink = page.locator(`a[href*="cv/ralph-gabriel-cv-${locale}"]`);
+      const cvLink = page.locator(`a[href*="cv/ralph-christian-gabriel-cv-${locale}"]`);
       await expect(cvLink.first()).toBeVisible();
     });
 

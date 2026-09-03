@@ -168,7 +168,7 @@ export function Terminal() {
         push([out(L("ouverture du CV PDF …", "opening CV PDF …"), COL.ok)]);
         trackEvent(`cv_download_${locale}`);
         try {
-          window.open(fr ? "/cv/ralph-gabriel-cv-fr.pdf" : "/cv/ralph-gabriel-cv-en.pdf", "_blank");
+          window.open(fr ? "/cv/ralph-christian-gabriel-cv-fr.pdf" : "/cv/ralph-christian-gabriel-cv-en.pdf", "_blank");
         } catch {}
       } else if (cmd === "recruteur" || cmd === "recruiter" || cmd === "summary") {
         push([out(L("mode recruteur …", "recruiter mode …"), COL.ok)]);

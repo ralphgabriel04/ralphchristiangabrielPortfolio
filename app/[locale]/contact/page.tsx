@@ -145,7 +145,7 @@ function ContactContent() {
             </div>
             <div className="flex flex-wrap gap-2">
               <a
-                href="/cv/ralph-gabriel-cv-fr.pdf"
+                href="/cv/ralph-christian-gabriel-cv-fr.pdf"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -154,7 +154,7 @@ function ContactContent() {
                 </Button>
               </a>
               <a
-                href="/cv/ralph-gabriel-cv-en.pdf"
+                href="/cv/ralph-christian-gabriel-cv-en.pdf"
                 target="_blank"
                 rel="noreferrer"
               >

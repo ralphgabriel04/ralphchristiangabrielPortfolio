@@ -108,7 +108,11 @@ const jsonLd = {
         { "@type": "CollegeOrUniversity", name: "Collège Rosemont" },
         { "@type": "EducationalOrganization", name: "CFP des Riverains" },
       ],
-      worksFor: { "@type": "Organization", name: "The Mad Space" },
+      worksFor: [
+        { "@type": "Organization", name: "La Caisse (CDPQ)", url: "https://www.lacaisse.com" },
+        { "@type": "Organization", name: "Cadence" },
+        { "@type": "Organization", name: "The Mad Space" },
+      ],
       knowsLanguage: ["fr", "en"],
       sameAs: [
         "https://github.com/ralphgabriel04",

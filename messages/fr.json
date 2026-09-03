@@ -19,8 +19,8 @@
     "back": "Retour à l'accueil",
     "print": "Imprimer",
     "role": "Développeur Full-Stack — Junior / Intermédiaire",
-    "tagline": "B. Ing. génie logiciel @ ÉTS · Grand Montréal · FR/EN",
-    "availability": "Disponible",
+    "tagline": "Stagiaire en automatisation de processus @ La Caisse (CDPQ) · B. Ing. génie logiciel @ ÉTS · Grand Montréal · FR/EN",
+    "availability": "Disponible janv. 2027",
     "proofs": [
       { "value": "~15 000", "label": "LOC en production" },
       { "value": "30+", "label": "endpoints API" },
@@ -61,16 +61,16 @@
     "proof2": "Cadence — app mobile co-fondée (Tech Lead)",
     "proof3": "2 000+ tickets résolus · 94 % satisfaction (Vidéotron)",
     "availabilityLabel": "Disponibilité",
-    "availability": "Disponible · Grand Montréal (télétravail accepté)",
+    "availability": "Disponible dès janvier 2027 · Grand Montréal (télétravail accepté)",
     "cv": "CV (PDF)",
     "email": "Courriel",
     "book": "Réserver un appel",
     "close": "Fermer"
   },
   "hero": {
-    "kicker": "Portfolio · Étudiant en génie logiciel (ÉTS) · Développeur full-stack",
+    "kicker": "Portfolio · Stagiaire en automatisation de processus @ La Caisse · Génie logiciel (ÉTS)",
     "name": "Ralph Christian Gabriel",
-    "title": ["Développeur full-stack", "Cofondateur · produit", "Architecture logicielle", "ÉTS · Génie logiciel", "Grand Montréal"],
+    "title": ["Automatisation de processus", "Développeur full-stack", "Cofondateur · produit", "Architecture logicielle", "ÉTS · Génie logiciel", "Grand Montréal"],
     "pitch": "Passionné, polyvalent et à l'écoute, je suis étudiant en génie logiciel à l'ÉTS. Du web au mobile, je transforme des besoins concrets en solutions utiles, de l'analyse au déploiement. J'accorde autant d'importance à la qualité technique qu'à l'expérience utilisateur et à une collaboration transparente avec mes clients. Ce portfolio présente mes réalisations, ma façon de réfléchir et l'évolution de mon parcours, projet après projet.",
     "pitchPlain": "Passionné, polyvalent et à l'écoute, je suis étudiant en génie logiciel à l'ÉTS. Du web au mobile, je transforme des besoins concrets en solutions utiles, de l'analyse au déploiement. J'accorde autant d'importance à la qualité technique qu'à l'expérience utilisateur et à une collaboration transparente avec mes clients. Ce portfolio présente mes réalisations, ma façon de réfléchir et l'évolution de mon parcours, projet après projet.",
     "ctaPrimary": "Voir mes projets",
@@ -78,7 +78,7 @@
     "ctaSystems": "Explorer mes réalisations",
     "ctaRecruiter": "Vue recruteur — 30 s",
     "ctaTerminal": "ou tape une commande",
-    "available": "Disponible — stage, emploi ou mandat",
+    "available": "En stage @ La Caisse — disponible dès janvier 2027",
     "location": "Grand Montréal · hybride ou télétravail",
     "metrics": [
       { "num": "~15 000", "label": "LOC en production" },
@@ -110,7 +110,7 @@
     "statSatisfaction": "Recommandé sans hésitation",
     "stackHeading": "Outils que j'utilise au quotidien.",
     "contactHeading": "Vous avez un poste à pourvoir ou un projet en tête ?",
-    "contactLede": "Disponible pour des postes Full-Stack Junior/Intermediate dans le Grand Montréal. Réponse sous 24h.",
+    "contactLede": "En stage à La Caisse (CDPQ) jusqu'en décembre 2026. Disponible dès janvier 2027 pour des postes Full-Stack Junior/Intermediate dans le Grand Montréal. Réponse sous 24h.",
     "contactCta": "Me contacter",
     "toConfirm": "À confirmer",
     "proofQuad": [
@@ -241,6 +241,18 @@
     "certTitle": "Certifications",
     "items": [
       {
+        "date": "Sep. 2026 · Déc. 2026",
+        "role": "Stagiaire, Développeur en automatisation de processus",
+        "org": "La Caisse (CDPQ), Montréal",
+        "orgUrl": "https://www.linkedin.com/posts/lacaisse_chaque-ann%C3%A9e-plus-de-200-stagiaires-se-joignent-activity-7500987406775586817-u_bJ",
+        "desc": "Automatisation et numérisation de processus d'affaires sur Microsoft Power Platform (Power Apps, Power Automate, Copilot Studio) en environnement institutionnel réglementé. Animation d'ateliers de collecte de besoins, cartographie des processus existants et priorisation des opportunités d'automatisation. Intégrations inter-systèmes : API REST, connecteurs, listes SharePoint, JSON. Tests, documentation technique et préparation à la mise en production. Veille sur l'IA appliquée à l'automatisation (Copilot, AI Builder).",
+        "images": [
+          { "src": "/images/experience/la-caisse-cohorte.jpg", "alt": "Cohorte de stagiaires de La Caisse, automne 2026, Montréal" },
+          { "src": "/images/experience/la-caisse-collectivite.jpg", "alt": "La Caisse — Actif pour la collectivité" },
+          { "src": "/images/experience/la-caisse-siege.jpg", "alt": "Siège social de La Caisse, Montréal" }
+        ]
+      },
+      {
         "date": "2025 · présent",
         "role": "Cofondateur · Tech Lead",
         "org": "Cadence",
@@ -285,7 +297,7 @@
   },
   "contact": {
     "title": "Travaillons ensemble.",
-    "lede": "Disponible pour des postes Full-Stack Junior/Intermediate dans le Grand Montréal (remote acceptable). Réponse sous 24h.",
+    "lede": "En stage à La Caisse (CDPQ) jusqu'en décembre 2026. Disponible dès janvier 2027 pour des postes Full-Stack Junior/Intermediate dans le Grand Montréal (remote acceptable). Réponse sous 24h.",
     "noFormNote": "Pas de formulaire. Un courriel direct ou un créneau Cal.com convertit mieux.",
     "email": "Courriel",
     "bookCall": "Réserver un appel (15 min)",
@@ -308,7 +320,7 @@
     "contact": "Me contacter"
   },
   "footer": {
-    "location": "Repentigny, QC · Disponible"
+    "location": "Repentigny, QC · Disponible dès janvier 2027"
   },
   "stack": [
     { "cat": "Languages", "items": ["TypeScript", "JavaScript", "Java", "C#", "Python"] },
@@ -317,7 +329,8 @@
     { "cat": "Database", "items": ["PostgreSQL", "Prisma", "MySQL", "Supabase", "SQLite"] },
     { "cat": "DevOps", "items": ["Docker", "GitHub Actions", "GitLab CI/CD", "Vercel"] },
     { "cat": "Testing", "items": ["JUnit", "Jest", "TDD"] },
-    { "cat": "Architecture", "items": ["MVC", "REST", "Observer", "Strategy", "Template Method", "DDD", "GRASP"] }
+    { "cat": "Architecture", "items": ["MVC", "REST", "Observer", "Strategy", "Template Method", "DDD", "GRASP"] },
+    { "cat": "Automatisation", "items": ["Power Automate", "Power Apps", "Copilot Studio", "SharePoint", "Microsoft 365"] }
   ],
   "testimonialsPage": {
     "breadcrumbHome": "Accueil",

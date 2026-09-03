@@ -8,6 +8,7 @@ const GLYPHS = "<>/{}[]#$%&*+=—·";
 // Deduplicated rotating phrases for the terminal role line. Kept as short
 // mono-friendly lines; order = first appearance.
 const FR_ROLES = [
+  "stagiaire en automatisation @ La Caisse",
   "étudiant en génie logiciel @ ÉTS",
   "passion · polyvalence · écoute",
   "comprendre · concevoir · construire",
@@ -30,6 +31,7 @@ const FR_ROLES = [
 ];
 
 const EN_ROLES = [
+  "process automation intern @ La Caisse",
   "software engineering student @ ÉTS",
   "passion · versatility · listening",
   "understand · design · build",

@@ -19,8 +19,8 @@
     "back": "Back to home",
     "print": "Print",
     "role": "Full-Stack Developer — Junior / Intermediate",
-    "tagline": "B.Eng. software engineering @ ÉTS · Greater Montréal · FR/EN",
-    "availability": "Available",
+    "tagline": "Process Automation Developer Intern @ La Caisse (CDPQ) · B.Eng. software engineering @ ÉTS · Greater Montréal · FR/EN",
+    "availability": "Available Jan. 2027",
     "proofs": [
       { "value": "~15,000", "label": "LOC in production" },
       { "value": "30+", "label": "API endpoints" },
@@ -61,16 +61,16 @@
     "proof2": "Cadence — co-founded mobile app (Tech Lead)",
     "proof3": "2,000+ tickets resolved · 94% satisfaction (Vidéotron)",
     "availabilityLabel": "Availability",
-    "availability": "Available · Greater Montréal (remote OK)",
+    "availability": "Available from January 2027 · Greater Montréal (remote OK)",
     "cv": "CV (PDF)",
     "email": "Email",
     "book": "Book a call",
     "close": "Close"
   },
   "hero": {
-    "kicker": "Portfolio · Software Engineering student (ÉTS) · Full-stack developer",
+    "kicker": "Portfolio · Process Automation Developer Intern @ La Caisse · Software Engineering (ÉTS)",
     "name": "Ralph Christian Gabriel",
-    "title": ["Full-stack developer", "Co-founder · product", "Software architecture", "ÉTS · Software Engineering", "Greater Montréal"],
+    "title": ["Process automation", "Full-stack developer", "Co-founder · product", "Software architecture", "ÉTS · Software Engineering", "Greater Montréal"],
     "pitch": "Passionate, versatile and a good listener, I'm a Software Engineering student at ÉTS. From web to mobile, I turn real needs into useful solutions, from analysis to deployment. I care as much about technical quality as about user experience and transparent collaboration with my clients. This portfolio shows my work, the way I think, and how my path evolves, project after project.",
     "pitchPlain": "Passionate, versatile and a good listener, I'm a Software Engineering student at ÉTS. From web to mobile, I turn real needs into useful solutions, from analysis to deployment. I care as much about technical quality as about user experience and transparent collaboration with my clients. This portfolio shows my work, the way I think, and how my path evolves, project after project.",
     "ctaPrimary": "View projects",
@@ -78,7 +78,7 @@
     "ctaSystems": "Explore my work",
     "ctaRecruiter": "Recruiter view — 30 s",
     "ctaTerminal": "or type a command",
-    "available": "Available — internship, role or contract",
+    "available": "Interning @ La Caisse — available from January 2027",
     "location": "Greater Montréal · hybrid or remote",
     "metrics": [
       { "num": "~15,000", "label": "LOC in production" },
@@ -110,7 +110,7 @@
     "statSatisfaction": "Recommended without hesitation",
     "stackHeading": "Tools I use day to day.",
     "contactHeading": "Have a role to fill or a project in mind?",
-    "contactLede": "Available for Junior/Intermediate Full-Stack roles in Greater Montréal. 24h response.",
+    "contactLede": "Interning at La Caisse (CDPQ) through December 2026. Available from January 2027 for Junior/Intermediate Full-Stack roles in Greater Montréal. 24h response.",
     "contactCta": "Get in touch",
     "toConfirm": "To be confirmed",
     "proofQuad": [
@@ -241,6 +241,18 @@
     "certTitle": "Certifications",
     "items": [
       {
+        "date": "Sep. 2026 · Dec. 2026",
+        "role": "Process Automation Developer Intern",
+        "org": "La Caisse (CDPQ), Montréal",
+        "orgUrl": "https://www.linkedin.com/posts/lacaisse_chaque-ann%C3%A9e-plus-de-200-stagiaires-se-joignent-activity-7500987406775586817-u_bJ",
+        "desc": "Business process automation and digitization on the Microsoft Power Platform (Power Apps, Power Automate, Copilot Studio) in a regulated institutional environment. Ran stakeholder requirements workshops, mapped existing processes and prioritized automation opportunities. Built system integrations: REST APIs, connectors, SharePoint lists, JSON. Testing, technical documentation and production readiness. Tracked emerging AI-for-automation tooling (Copilot, AI Builder).",
+        "images": [
+          { "src": "/images/experience/la-caisse-cohorte.jpg", "alt": "La Caisse intern cohort, Fall 2026, Montréal" },
+          { "src": "/images/experience/la-caisse-collectivite.jpg", "alt": "La Caisse — Actif pour la collectivité" },
+          { "src": "/images/experience/la-caisse-siege.jpg", "alt": "La Caisse head office, Montréal" }
+        ]
+      },
+      {
         "date": "2025 · present",
         "role": "Co-founder · Tech Lead",
         "org": "Cadence",
@@ -285,7 +297,7 @@
   },
   "contact": {
     "title": "Let's work together.",
-    "lede": "Available for Junior/Intermediate Full-Stack roles in Greater Montréal (remote OK). 24h response.",
+    "lede": "Interning at La Caisse (CDPQ) through December 2026. Available from January 2027 for Junior/Intermediate Full-Stack roles in Greater Montréal (remote OK). 24h response.",
     "noFormNote": "No contact form. Direct email or Cal.com slot converts better.",
     "email": "Email",
     "bookCall": "Book a 15-min call",
@@ -308,7 +320,7 @@
     "contact": "Contact me"
   },
   "footer": {
-    "location": "Repentigny, QC · Available"
+    "location": "Repentigny, QC · Available from January 2027"
   },
   "stack": [
     { "cat": "Languages", "items": ["TypeScript", "JavaScript", "Java", "C#", "Python"] },
@@ -317,7 +329,8 @@
     { "cat": "Database", "items": ["PostgreSQL", "Prisma", "MySQL", "Supabase", "SQLite"] },
     { "cat": "DevOps", "items": ["Docker", "GitHub Actions", "GitLab CI/CD", "Vercel"] },
     { "cat": "Testing", "items": ["JUnit", "Jest", "TDD"] },
-    { "cat": "Architecture", "items": ["MVC", "REST", "Observer", "Strategy", "Template Method", "DDD", "GRASP"] }
+    { "cat": "Architecture", "items": ["MVC", "REST", "Observer", "Strategy", "Template Method", "DDD", "GRASP"] },
+    { "cat": "Automation", "items": ["Power Automate", "Power Apps", "Copilot Studio", "SharePoint", "Microsoft 365"] }
   ],
   "testimonialsPage": {
     "breadcrumbHome": "Home",

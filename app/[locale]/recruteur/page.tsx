@@ -58,7 +58,7 @@ function RecruiterContent() {
   const education = tExp.raw("education") as EduItem[];
   const sys = projects.slice(0, 6);
   const cvHref =
-    locale === "fr" ? "/cv/ralph-gabriel-cv-fr.pdf" : "/cv/ralph-gabriel-cv-en.pdf";
+    locale === "fr" ? "/cv/ralph-christian-gabriel-cv-fr.pdf" : "/cv/ralph-christian-gabriel-cv-en.pdf";
 
   return (
     <article className="mx-auto max-w-[900px] px-[var(--page-pad)] py-14 md:py-20">
