@@ -22,8 +22,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: "Contact",
     description: isFr
-      ? "Développeur full-stack junior et étudiant en génie logiciel à l'ÉTS, disponible pour un stage ou un poste dans le Grand Montréal. Courriel, LinkedIn, Cal.com."
-      : "Junior full-stack developer and Software Engineering student at ÉTS, open to an internship or a role in Greater Montréal. Email, LinkedIn, Cal.com.",
+      ? "Développeur full-stack et étudiant en génie logiciel à l'ÉTS, en stage à La Caisse (CDPQ) jusqu'en décembre 2026. Disponible dès janvier 2027 dans le Grand Montréal. Courriel, LinkedIn, Cal.com."
+      : "Full-stack developer and Software Engineering student at ÉTS, interning at La Caisse (CDPQ) through December 2026. Available from January 2027 in Greater Montréal. Email, LinkedIn, Cal.com.",
     alternates: alternatesFor(locale, "/contact"),
   };
 }

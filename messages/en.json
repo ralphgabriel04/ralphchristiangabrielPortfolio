@@ -71,8 +71,8 @@
     "kicker": "Portfolio · Process Automation Developer Intern @ La Caisse · Software Engineering (ÉTS)",
     "name": "Ralph Christian Gabriel",
     "title": ["Process automation", "Full-stack developer", "Co-founder · product", "Software architecture", "ÉTS · Software Engineering", "Greater Montréal"],
-    "pitch": "Passionate, versatile and a good listener, I'm a Software Engineering student at ÉTS. From web to mobile, I turn real needs into useful solutions, from analysis to deployment. I care as much about technical quality as about user experience and transparent collaboration with my clients. This portfolio shows my work, the way I think, and how my path evolves, project after project.",
-    "pitchPlain": "Passionate, versatile and a good listener, I'm a Software Engineering student at ÉTS. From web to mobile, I turn real needs into useful solutions, from analysis to deployment. I care as much about technical quality as about user experience and transparent collaboration with my clients. This portfolio shows my work, the way I think, and how my path evolves, project after project.",
+    "pitch": "Passionate, versatile and a good listener, I'm a Software Engineering student at ÉTS and a process automation developer intern at La Caisse (CDPQ). From web to mobile, I turn real needs into useful solutions, from analysis to deployment. I care as much about technical quality as about user experience and transparent collaboration with my clients. This portfolio shows my work, the way I think, and how my path evolves, project after project.",
+    "pitchPlain": "Passionate, versatile and a good listener, I'm a Software Engineering student at ÉTS and a process automation developer intern at La Caisse (CDPQ). From web to mobile, I turn real needs into useful solutions, from analysis to deployment. I care as much about technical quality as about user experience and transparent collaboration with my clients. This portfolio shows my work, the way I think, and how my path evolves, project after project.",
     "ctaPrimary": "View projects",
     "ctaSecondary": "Download CV (EN)",
     "ctaSystems": "Explore my work",
@@ -138,8 +138,8 @@
   },
   "now": {
     "kicker": "Now",
-    "body": "Alongside my studies at ÉTS, I build my skills on my own and across disciplines. I explore different areas of software engineering, but also entrepreneurship, product strategy, leadership, and the responsibilities that come with CEO and CTO roles. To keep progressing, I rely on video courses, reading and hands-on exercises — notably on YouTube, LeetCode and DeepLearning.AI. In parallel, I build several projects I truly care about as a founder and co-founder, while taking on various client mandates. These experiences strengthen my technical and human versatility, and my ability to turn needs into concrete solutions. I stay open and available for an internship, a job or new collaborations in Greater Montréal, hybrid or remote.",
-    "updated": "Updated: 2026-07-29"
+    "body": "I'm currently a process automation developer intern at La Caisse (CDPQ) through December 2026: designing Power Platform solutions (Power Apps, Power Automate, Copilot Studio) and cross-system integrations in a regulated institutional environment. Alongside my studies at ÉTS, I build my skills on my own and across disciplines. I explore different areas of software engineering, but also entrepreneurship, product strategy, leadership, and the responsibilities that come with CEO and CTO roles. To keep progressing, I rely on video courses, reading and hands-on exercises — notably on YouTube, LeetCode and DeepLearning.AI. In parallel, I build several projects I truly care about as a founder and co-founder, while taking on various client mandates. These experiences strengthen my technical and human versatility, and my ability to turn needs into concrete solutions. I'm available from January 2027 for a junior or intermediate full-stack role, or new collaborations in Greater Montréal, hybrid or remote.",
+    "updated": "Updated: 2026-09-03"
   },
   "projects": {
     "heading": "Selected projects.",

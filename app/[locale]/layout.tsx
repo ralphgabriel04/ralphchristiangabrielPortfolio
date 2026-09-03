@@ -46,8 +46,8 @@ export async function generateMetadata({
       template: "%s | Ralph Christian Gabriel",
     },
     description: isFr
-      ? "Étudiant en génie logiciel à l’ÉTS, bilingue FR/EN. Analyse, architecture, produits web et mobiles, avec réalisations documentées. Grand Montréal."
-      : "Software Engineering student at ÉTS, bilingual FR/EN. Analysis, architecture, web and mobile products, with documented work. Greater Montréal.",
+      ? "Étudiant en génie logiciel à l’ÉTS et stagiaire en automatisation de processus à La Caisse (CDPQ), bilingue FR/EN. Analyse, architecture, produits web et mobiles, avec réalisations documentées. Grand Montréal."
+      : "Software Engineering student at ÉTS and process automation developer intern at La Caisse (CDPQ), bilingual FR/EN. Analysis, architecture, web and mobile products, with documented work. Greater Montréal.",
     metadataBase: new URL(BASE_URL),
     alternates: alternatesFor(locale, ""),
     openGraph: {
@@ -59,8 +59,8 @@ export async function generateMetadata({
         ? "Ralph Christian Gabriel · Étudiant en génie logiciel"
         : "Ralph Christian Gabriel · Software Engineering Student",
       description: isFr
-        ? "Analyse, architecture et conception de produits web et mobiles. Portfolio bilingue d’un étudiant en génie logiciel à l’ÉTS."
-        : "Analysis, architecture, and web and mobile product design. Bilingual portfolio of a Software Engineering student at ÉTS.",
+        ? "Analyse, architecture et conception de produits web et mobiles. Portfolio bilingue d’un étudiant en génie logiciel à l’ÉTS, stagiaire en automatisation de processus à La Caisse (CDPQ)."
+        : "Analysis, architecture, and web and mobile product design. Bilingual portfolio of a Software Engineering student at ÉTS, process automation developer intern at La Caisse (CDPQ).",
     },
     twitter: {
       card: "summary_large_image",

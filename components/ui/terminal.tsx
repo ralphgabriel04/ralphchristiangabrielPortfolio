@@ -125,8 +125,8 @@ export function Terminal() {
         push([out("help · whoami · projets · etude 01|02|03 · stack · parcours · contact · temoignages · cv · recruteur · theme · fr|en · clear · sudo hire")]);
       } else if (cmd === "whoami") {
         push([out(L(
-          "Ralph Christian Gabriel — dev full-stack junior/intermédiaire, B. Ing. génie logiciel @ ÉTS. FR/EN. Grand Montréal.",
-          "Ralph Christian Gabriel — junior/intermediate full-stack dev, B.Eng. software engineering @ ÉTS. FR/EN. Greater Montréal.",
+          "Ralph Christian Gabriel — stagiaire en automatisation de processus @ La Caisse (CDPQ), dev full-stack junior/intermédiaire, B. Ing. génie logiciel @ ÉTS. FR/EN. Grand Montréal.",
+          "Ralph Christian Gabriel — process automation developer intern @ La Caisse (CDPQ), junior/intermediate full-stack dev, B.Eng. software engineering @ ÉTS. FR/EN. Greater Montréal.",
         ))]);
       } else if (cmd === "projets" || cmd === "projects" || cmd === "ls") {
         const rows = projects.slice(0, 5).map((p, i) =>
