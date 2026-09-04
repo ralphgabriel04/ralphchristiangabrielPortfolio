@@ -1,0 +1,663 @@
+{
+  "version": "1.0.0",
+  "updated": "2026-09-04",
+  "description": "Registre de la flotte d'agents de ralph-gabriel-portfolio. SOURCE DE VÉRITÉ, vérifiée par scripts/fleet/verify-fleet.mjs.",
+  "engendrePar": "scripts/fleet/generer-flotte.mjs",
+  "profil": ".claude/fleet/projet.json",
+  "scope": "Outillage de développement Claude Code. Ne s'exécute jamais dans le produit servi aux utilisateurs.",
+  "masterInstruction": ".claude/skills/flotte-regles/SKILL.md",
+  "policy": {
+    "maxCrewPerWave": 5,
+    "parallelReadOnly": true,
+    "sequentialWrites": true,
+    "humanGate": "pr-brouillon",
+    "neverMerge": true,
+    "neverDeploy": true,
+    "evalAggregationThreshold": 50,
+    "evidenceTypes": [
+      "CODE",
+      "SORTIE",
+      "CAPTURE",
+      "SOURCE",
+      "DOC"
+    ],
+    "certaintyLevels": [
+      "CONSTAT",
+      "SOUPCON",
+      "HYPOTHESE"
+    ],
+    "maxConstatsParRapport": 12,
+    "priorities": [
+      {
+        "id": "P0",
+        "label": "correction des données"
+      },
+      {
+        "id": "P1",
+        "label": "perte silencieuse"
+      },
+      {
+        "id": "P2",
+        "label": "sécurité et accès"
+      },
+      {
+        "id": "P3",
+        "label": "fonctionnalité cassée"
+      },
+      {
+        "id": "P4",
+        "label": "accessibilité"
+      },
+      {
+        "id": "P5",
+        "label": "écart au design"
+      },
+      {
+        "id": "P6",
+        "label": "performance"
+      },
+      {
+        "id": "P7",
+        "label": "lisibilité"
+      }
+    ],
+    "arbitrationOrder": [
+      "correction des données",
+      "perte silencieuse",
+      "sécurité et accès",
+      "fonctionnalité cassée",
+      "accessibilité",
+      "écart au design",
+      "performance",
+      "lisibilité"
+    ]
+  },
+  "tiers": {
+    "jugement": {
+      "model": "opus",
+      "modelId": "claude-opus-5",
+      "effort": "high",
+      "coutParMJetons": {
+        "entree": 5,
+        "sortie": 25
+      },
+      "critere": "L'erreur est coûteuse et silencieuse : architecture, sûreté, conformité, arbitrage, évaluation."
+    },
+    "metier": {
+      "model": "sonnet",
+      "modelId": "claude-sonnet-5",
+      "effort": "medium",
+      "coutParMJetons": {
+        "entree": 2,
+        "sortie": 10
+      },
+      "critere": "Erreur rattrapable, jugement requis mais borné, volume moyen."
+    },
+    "mecanique": {
+      "model": "haiku",
+      "modelId": "claude-haiku-4-5",
+      "effort": "low",
+      "coutParMJetons": {
+        "entree": 1,
+        "sortie": 5
+      },
+      "critere": "Vérification déterministe, forte volumétrie, faible jugement."
+    }
+  },
+  "rubriques": {
+    "R1": {
+      "nom": "Ancrage",
+      "description": "Chaque constat porte une ancre valide (CODE, SORTIE, CAPTURE, SOURCE ou DOC)."
+    },
+    "R2": {
+      "nom": "Honnêteté de couverture",
+      "description": "Le bloc Couverture est présent : examiné, non examiné, angles morts, confiance."
+    },
+    "R3": {
+      "nom": "Exactitude",
+      "description": "Chaque ancre vérifiée pointe bien là où l'agent le dit.",
+      "eliminatoire": true
+    },
+    "R4": {
+      "nom": "Priorisation",
+      "description": "Les constats sont classés P0…P9, les plus graves en premier."
+    },
+    "R5": {
+      "nom": "Actionnabilité",
+      "description": "Chaque constat porte le plus petit correctif qui suffit."
+    },
+    "R6": {
+      "nom": "Économie",
+      "description": "Douze constats au maximum, sans redite."
+    }
+  },
+  "agents": [
+    {
+      "name": "pilote",
+      "file": ".claude/agents/00-commandement/pilote.md",
+      "squad": "commandement",
+      "tier": "mecanique",
+      "privilege": "lecture",
+      "maxTurns": 8,
+      "role": "Dit quel agent de la flotte employer, dans quel ordre, à quelle porte, et à quel coût.",
+      "knowledge": [
+        ".claude/fleet/projet.json"
+      ],
+      "gates": [],
+      "eval": ".claude/fleet/evals/pilote.json"
+    },
+    {
+      "name": "guide-validation",
+      "file": ".claude/agents/00-commandement/guide-validation.md",
+      "squad": "commandement",
+      "tier": "mecanique",
+      "privilege": "lecture",
+      "maxTurns": 10,
+      "role": "Produit la liste de validation humaine — quoi ouvrir, quoi cliquer, quel critère d'échec — pour ce qui vient d'être livré.",
+      "knowledge": [
+        ".claude/fleet/projet.json"
+      ],
+      "gates": [],
+      "eval": ".claude/fleet/evals/guide-validation.json"
+    },
+    {
+      "name": "pilote-visuel",
+      "file": ".claude/agents/01-conception/pilote-visuel.md",
+      "squad": "conception",
+      "tier": "metier",
+      "privilege": "lecture",
+      "maxTurns": 22,
+      "role": "Ouvre réellement l'application dans un navigateur, capture chaque écran, et rapporte ce qui se voit — texte qui déborde, champ tronqué, police incohérente, image cassée, erreur de console.",
+      "knowledge": [
+        ".claude/fleet/projet.json",
+        "app/[locale]/about/page.tsx"
+      ],
+      "gates": [
+        "inspection-ecrans"
+      ],
+      "eval": ".claude/fleet/evals/pilote-visuel.json"
+    },
+    {
+      "name": "inspecteur-design",
+      "file": ".claude/agents/01-conception/inspecteur-design.md",
+      "squad": "conception",
+      "tier": "metier",
+      "privilege": "lecture",
+      "maxTurns": 16,
+      "role": "Vérifie une interface livrée contre le système de design — jetons, contraste, espacement, densité, états vide/chargement/erreur, responsive.",
+      "knowledge": [
+        ".claude/fleet/projet.json"
+      ],
+      "gates": [],
+      "eval": ".claude/fleet/evals/inspecteur-design.json"
+    },
+    {
+      "name": "gardien-accessibilite",
+      "file": ".claude/agents/01-conception/gardien-accessibilite.md",
+      "squad": "conception",
+      "tier": "metier",
+      "privilege": "lecture",
+      "maxTurns": 16,
+      "role": "Vérifie l'accessibilité WCAG 2.",
+      "knowledge": [
+        ".claude/fleet/projet.json",
+        "app/[locale]/about/page.tsx"
+      ],
+      "gates": [],
+      "eval": ".claude/fleet/evals/gardien-accessibilite.json"
+    },
+    {
+      "name": "veilleur-design",
+      "file": ".claude/agents/01-conception/veilleur-design.md",
+      "squad": "conception",
+      "tier": "metier",
+      "privilege": "lecture",
+      "maxTurns": 14,
+      "role": "Cherche l'état de l'art du design produit — patrons d'interface, produits comparables, conventions — et rend des références sourcées et datées.",
+      "knowledge": [
+        ".claude/fleet/projet.json",
+        "app/[locale]/about/page.tsx"
+      ],
+      "gates": [],
+      "eval": ".claude/fleet/evals/veilleur-design.json"
+    },
+    {
+      "name": "architecte",
+      "file": ".claude/agents/02-architecture/architecte.md",
+      "squad": "architecture",
+      "tier": "jugement",
+      "privilege": "lecture",
+      "maxTurns": 20,
+      "role": "Tranche les questions d'architecture — frontières, couplage, dépendances, cohérence de la documentation — et rédige les décisions.",
+      "knowledge": [
+        ".claude/fleet/projet.json",
+        "docs/DOMAIN_PRODUCTION_SETUP.md"
+      ],
+      "gates": [],
+      "eval": ".claude/fleet/evals/architecte.json"
+    },
+    {
+      "name": "relecteur-code",
+      "file": ".claude/agents/02-architecture/relecteur-code.md",
+      "squad": "architecture",
+      "tier": "metier",
+      "privilege": "lecture",
+      "maxTurns": 18,
+      "role": "Relit un diff pour les bugs de correction, les cas limites, les échecs silencieux, la réutilisation manquée et les simplifications.",
+      "knowledge": [
+        ".claude/fleet/projet.json"
+      ],
+      "gates": [],
+      "eval": ".claude/fleet/evals/relecteur-code.json"
+    },
+    {
+      "name": "artisan-code",
+      "file": ".claude/agents/02-architecture/artisan-code.md",
+      "squad": "architecture",
+      "tier": "metier",
+      "privilege": "lecture",
+      "maxTurns": 20,
+      "role": "Élève la qualité du code contre les références d'ingénierie logicielle — nommage, profondeur des modules, complexité, duplication, testabilité.",
+      "knowledge": [
+        ".claude/fleet/projet.json",
+        "docs/DOMAIN_PRODUCTION_SETUP.md"
+      ],
+      "gates": [],
+      "eval": ".claude/fleet/evals/artisan-code.json"
+    },
+    {
+      "name": "implementeur",
+      "file": ".claude/agents/02-architecture/implementeur.md",
+      "squad": "architecture",
+      "tier": "metier",
+      "privilege": "ecriture",
+      "maxTurns": 28,
+      "role": "Applique un constat déjà établi et approuvé dans le code du produit, avec porte exécutée et résumé avant/après.",
+      "knowledge": [
+        ".claude/fleet/projet.json"
+      ],
+      "gates": [],
+      "eval": ".claude/fleet/evals/implementeur.json"
+    },
+    {
+      "name": "sentinelle-securite",
+      "file": ".claude/agents/03-surete/sentinelle-securite.md",
+      "squad": "surete",
+      "tier": "jugement",
+      "privilege": "lecture",
+      "maxTurns": 20,
+      "role": "Cherche ce qui expose l'application ou ses utilisateurs — secrets, autorisation serveur, injection, en-têtes, chaîne d'approvisionnement, et les risques agentiques OWASP ASI01-ASI10.",
+      "knowledge": [
+        ".claude/fleet/projet.json",
+        ".env.example"
+      ],
+      "gates": [],
+      "eval": ".claude/fleet/evals/sentinelle-securite.json"
+    },
+    {
+      "name": "ingenieur-tests",
+      "file": ".claude/agents/04-preuve/ingenieur-tests.md",
+      "squad": "preuve",
+      "tier": "metier",
+      "privilege": "ecriture",
+      "maxTurns": 24,
+      "role": "Écrit et répare les tests — unitaires, contrôles négatifs, parcours réels.",
+      "knowledge": [
+        ".claude/fleet/projet.json",
+        "tests/smoke.spec.ts"
+      ],
+      "gates": [],
+      "eval": ".claude/fleet/evals/ingenieur-tests.json"
+    },
+    {
+      "name": "verificateur-i18n",
+      "file": ".claude/agents/04-preuve/verificateur-i18n.md",
+      "squad": "preuve",
+      "tier": "mecanique",
+      "privilege": "lecture",
+      "maxTurns": 10,
+      "role": "Vérifie la parité des catalogues de traduction réellement servis et l'absence de texte codé en dur.",
+      "knowledge": [
+        ".claude/fleet/projet.json",
+        "messages/en.json"
+      ],
+      "gates": [],
+      "eval": ".claude/fleet/evals/verificateur-i18n.json"
+    },
+    {
+      "name": "forgeron-de-prompts",
+      "file": ".claude/agents/05-meta/forgeron-de-prompts.md",
+      "squad": "meta",
+      "tier": "jugement",
+      "privilege": "ecriture",
+      "maxTurns": 20,
+      "role": "Écrit et révise les prompts systèmes de la flotte, resserre les descriptions, supprime les tournures périmées, aligne frontmatter et registre.",
+      "knowledge": [
+        ".claude/fleet/projet.json"
+      ],
+      "gates": [],
+      "eval": ".claude/fleet/evals/forgeron-de-prompts.json"
+    },
+    {
+      "name": "evaluateur",
+      "file": ".claude/agents/05-meta/evaluateur.md",
+      "squad": "meta",
+      "tier": "jugement",
+      "privilege": "lecture",
+      "maxTurns": 18,
+      "role": "Juge la sortie d'un agent contre sa grille, critère par critère, sur la trajectoire complète.",
+      "knowledge": [
+        ".claude/fleet/projet.json"
+      ],
+      "gates": [],
+      "eval": ".claude/fleet/evals/evaluateur.json"
+    },
+    {
+      "name": "archiviste",
+      "file": ".claude/agents/05-meta/archiviste.md",
+      "squad": "meta",
+      "tier": "mecanique",
+      "privilege": "ecriture",
+      "maxTurns": 10,
+      "role": "Rédige l'entrée de journal d'une mission — ce qui a été fait, par quels agents, quels fichiers, quelles portes, et la commande de retour arrière exacte.",
+      "knowledge": [
+        ".claude/fleet/projet.json"
+      ],
+      "gates": [],
+      "eval": ".claude/fleet/evals/archiviste.json"
+    },
+    {
+      "name": "strategie-seo-marketing",
+      "file": ".claude/agents/06-produit/strategie-seo-marketing.md",
+      "squad": "produit",
+      "tier": "metier",
+      "privilege": "lecture",
+      "maxTurns": 18,
+      "role": "Vérifie et améliore l'acquisition — SEO technique, métadonnées, partage social, cohérence du message.",
+      "knowledge": [
+        ".claude/fleet/projet.json",
+        "app/[locale]/opengraph-image.tsx"
+      ],
+      "gates": [],
+      "eval": ".claude/fleet/evals/strategie-seo-marketing.json"
+    }
+  ],
+  "topics": [
+    {
+      "id": "audit-complet",
+      "intent": "Balayer toute l'application et rendre un état des lieux prouvé.",
+      "triggers": {
+        "generative": true,
+        "commands": [
+          "/flotte-audit"
+        ],
+        "paths": [],
+        "events": []
+      },
+      "crew": [
+        "pilote-visuel",
+        "gardien-accessibilite",
+        "inspecteur-design",
+        "verificateur-i18n",
+        "architecte",
+        "relecteur-code",
+        "sentinelle-securite",
+        "strategie-seo-marketing"
+      ],
+      "execution": "parallele-par-vagues",
+      "gates": [
+        "flotte-coherence"
+      ]
+    },
+    {
+      "id": "inspection-visuelle",
+      "intent": "Ouvrir l'application et rapporter ce qui se voit.",
+      "triggers": {
+        "generative": true,
+        "commands": [
+          "/flotte visuel"
+        ],
+        "paths": [
+          "**/*.tsx",
+          "**/*.jsx",
+          "**/*.css"
+        ],
+        "events": []
+      },
+      "crew": [
+        "pilote-visuel"
+      ],
+      "execution": "parallele",
+      "gates": [
+        "inspection-ecrans"
+      ]
+    },
+    {
+      "id": "revue-de-diff",
+      "intent": "Relire un changement avant la revue humaine.",
+      "triggers": {
+        "generative": true,
+        "commands": [
+          "/flotte revue"
+        ],
+        "paths": [],
+        "events": []
+      },
+      "crew": [
+        "relecteur-code",
+        "sentinelle-securite",
+        "ingenieur-tests"
+      ],
+      "execution": "parallele-puis-sequentiel",
+      "gates": [
+        "lint",
+        "typecheck",
+        "tests-unitaires"
+      ]
+    },
+    {
+      "id": "boucle-amelioration",
+      "intent": "Pré-analyse → analyse → comparatif → implémentation → test → re-vérification.",
+      "triggers": {
+        "generative": true,
+        "commands": [
+          "/flotte-boucle"
+        ],
+        "paths": [],
+        "events": []
+      },
+      "crew": [
+        "pilote-visuel",
+        "veilleur-design",
+        "implementeur",
+        "ingenieur-tests",
+        "guide-validation"
+      ],
+      "execution": "sequentiel",
+      "gates": [
+        "lint",
+        "typecheck",
+        "tests-unitaires"
+      ]
+    },
+    {
+      "id": "qualite-code",
+      "intent": "Élever le code aux standards d'ingénierie logicielle.",
+      "triggers": {
+        "generative": true,
+        "commands": [
+          "/flotte artisanat"
+        ],
+        "paths": [],
+        "events": []
+      },
+      "crew": [
+        "artisan-code",
+        "implementeur",
+        "ingenieur-tests"
+      ],
+      "execution": "sequentiel",
+      "gates": [
+        "lint",
+        "typecheck",
+        "tests-unitaires"
+      ]
+    },
+    {
+      "id": "securite",
+      "intent": "Chercher ce qui expose l'application ou ses utilisateurs.",
+      "triggers": {
+        "generative": true,
+        "commands": [
+          "/flotte securite"
+        ],
+        "paths": [
+          ".env.example"
+        ],
+        "events": []
+      },
+      "crew": [
+        "sentinelle-securite"
+      ],
+      "execution": "parallele",
+      "gates": []
+    },
+    {
+      "id": "i18n",
+      "intent": "Tenir la parité des catalogues servis.",
+      "triggers": {
+        "generative": true,
+        "commands": [
+          "/flotte i18n"
+        ],
+        "paths": [],
+        "events": []
+      },
+      "crew": [
+        "verificateur-i18n"
+      ],
+      "execution": "sequentiel",
+      "gates": []
+    },
+    {
+      "id": "acquisition",
+      "intent": "SEO, message et partage social.",
+      "triggers": {
+        "generative": true,
+        "commands": [
+          "/flotte seo"
+        ],
+        "paths": [],
+        "events": []
+      },
+      "crew": [
+        "strategie-seo-marketing",
+        "verificateur-i18n"
+      ],
+      "execution": "parallele",
+      "gates": [
+        "build"
+      ]
+    },
+    {
+      "id": "validation-humaine",
+      "intent": "Dire à l'humain quoi vérifier, dans quel ordre.",
+      "triggers": {
+        "generative": true,
+        "commands": [
+          "/flotte valider"
+        ],
+        "paths": [],
+        "events": []
+      },
+      "crew": [
+        "guide-validation"
+      ],
+      "execution": "sequentiel",
+      "gates": []
+    },
+    {
+      "id": "meta-flotte",
+      "intent": "Améliorer la flotte elle-même.",
+      "triggers": {
+        "generative": true,
+        "commands": [
+          "/flotte meta",
+          "/flotte-eval"
+        ],
+        "paths": [
+          ".claude/**"
+        ],
+        "events": []
+      },
+      "crew": [
+        "forgeron-de-prompts",
+        "evaluateur",
+        "archiviste"
+      ],
+      "execution": "sequentiel",
+      "gates": [
+        "flotte-coherence"
+      ]
+    }
+  ],
+  "gates": {
+    "lint": {
+      "command": "npm run lint",
+      "description": "Analyse statique.",
+      "decouvertPar": "package.json → scripts.lint"
+    },
+    "typecheck": {
+      "command": "npm run typecheck",
+      "description": "Vérification de types.",
+      "decouvertPar": "package.json → scripts.typecheck"
+    },
+    "tests-unitaires": {
+      "command": "npm run test",
+      "description": "Tests.",
+      "decouvertPar": "package.json → scripts.test"
+    },
+    "build": {
+      "command": "npm run build",
+      "description": "Construction.",
+      "decouvertPar": "package.json → scripts.build"
+    },
+    "inspection-ecrans": {
+      "command": "node scripts/fleet/inspecter-ecrans.mjs --url http://localhost:3000 --viewport tous",
+      "description": "Ouvre l'application réelle et mesure débordements, troncatures, polices, i18n visible, images, cibles, erreurs de console."
+    },
+    "flotte-coherence": {
+      "command": "node scripts/fleet/verify-fleet.mjs",
+      "description": "Cohérence registre ↔ agents ↔ topics ↔ connaissances ↔ privilèges ↔ journal."
+    }
+  },
+  "journal": {
+    "runs": ".claude/fleet/journal/runs.jsonl",
+    "missions": ".claude/fleet/journal/missions",
+    "append_only": true,
+    "written_by": "hooks",
+    "rollback": "node scripts/fleet/journal.mjs rollback <mission>"
+  },
+  "departementsEcartes": [
+    {
+      "id": "donnees",
+      "raison": "aucune trace dans le dépôt"
+    },
+    {
+      "id": "mobile",
+      "raison": "preuve faible (scripts/capture-mobile.mjs) — relancer avec --inclure mobile"
+    },
+    {
+      "id": "performance",
+      "raison": "aucune trace dans le dépôt"
+    },
+    {
+      "id": "conformite",
+      "raison": "aucune trace dans le dépôt"
+    },
+    {
+      "id": "produit",
+      "raison": "aucune trace dans le dépôt"
+    }
+  ]
+}
