@@ -8,6 +8,7 @@
 //   node scripts/fleet/verify-fleet.mjs            cohérence complète
 //   node scripts/fleet/verify-fleet.mjs --secrets  + balayage de secrets sur le diff
 //   node scripts/fleet/verify-fleet.mjs --json     sortie machine
+//   node scripts/fleet/verify-fleet.mjs --sans-cli ignore le validateur officiel
 //
 // Code de sortie : 0 = conforme, 1 = au moins une violation.
 import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
@@ -202,6 +203,39 @@ if (!existsSync(REGLAGES)) {
   }
 }
 
+// ─────────────────────────── validateur OFFICIEL du harnais, quand il est là
+//
+// Ce garde vérifie MES règles. Il ne vérifie pas les règles d'acceptation de
+// Claude Code : un agent dont le frontmatter ne parse pas, ou dont le `name`
+// est interdit, est ignoré SANS ERREUR au démarrage — il disparaîtrait de la
+// flotte sans que rien ne l'annonce, et ce garde-ci n'y verrait rien.
+//
+// L'appel est OPTIONNEL parce que la CLI n'est pas installée partout (un runner
+// de CI ne l'a pas). Absente, on l'ÉCRIT plutôt que de laisser croire que la
+// vérification a eu lieu : « non exécuté » et « exécuté, 0 problème » sont deux
+// verdicts différents.
+let validateurOfficiel = 'non exécuté (--sans-cli)';
+if (!process.argv.includes('--sans-cli')) {
+  try {
+    const sortie = execFileSync('claude', ['plugin', 'validate', DOSSIER_AGENTS],
+      { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: 60000 });
+    validateurOfficiel = 'passé';
+    if (/error|invalid|failed/i.test(sortie)) {
+      validateurOfficiel = 'refusé';
+      ko('V1', `claude plugin validate a refusé la flotte :\n      ${sortie.trim().split('\n').join('\n      ')}`);
+    }
+  } catch (e) {
+    if (e.code === 'ENOENT') {
+      validateurOfficiel = 'non exécuté (CLI claude absente)';
+      attention('V2', "validateur officiel non exécuté : la CLI `claude` est absente. Ce garde ne vérifie que SES règles, pas celles d'acceptation de Claude Code.");
+    } else {
+      validateurOfficiel = 'refusé';
+      const details = ((e.stdout || '') + (e.stderr || '')).trim().split('\n').slice(0, 8).join('\n      ');
+      ko('V1', `claude plugin validate a refusé la flotte :\n      ${details || e.message}`);
+    }
+  }
+}
+
 // -------------------------------------------------- balayage de secrets (opt)
 if (process.argv.includes('--secrets')) {
   const MOTIFS = [
@@ -234,12 +268,14 @@ const resume = {
   ecriture: (R.agents || []).filter((a) => a.privilege === 'ecriture').length,
   violations: violations.length,
   avertissements: avertissements.length,
+  validateurOfficiel,
 };
 
 if (process.argv.includes('--json')) {
   console.log(JSON.stringify({ resume, violations, avertissements }, null, 2));
 } else {
   console.log(`Flotte : ${resume.agents} agents (${resume.lecture} en lecture, ${resume.ecriture} en écriture) · ${resume.topics} topics · ${resume.portes} portes`);
+  console.log(`Validateur officiel (claude plugin validate) : ${validateurOfficiel}`);
   if (avertissements.length) {
     console.log(`\n⚠ ${avertissements.length} avertissement(s) :`);
     for (const a of avertissements) console.log(`  [${a.regle}] ${a.message}`);
