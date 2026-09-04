@@ -46,6 +46,14 @@ next-env.d.ts
 /playwright-report/
 
 # local tooling
-/.claude/
+# Claude Code — la flotte d'agents est VERSIONNÉE : c'est de l'outillage
+# partagé, et une Routine cloud repart d'un clone frais, donc un chantier non
+# suivi par git redémarre vide à chaque tir. Les réglages de POSTE et les arbres
+# de travail transitoires restent hors du dépôt.
+/.claude/*
+!/.claude/agents/
+!/.claude/skills/
+!/.claude/fleet/
+!/.claude/settings.json
 .cto-toolkit/
 /.remember/

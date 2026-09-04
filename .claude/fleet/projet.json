@@ -1,0 +1,195 @@
+{
+  "version": "1.0.0",
+  "genereLe": "2026-09-04T17:28:44.607Z",
+  "generePar": "scripts/fleet/reconnaitre-projet.mjs",
+  "avertissement": "Constats de reconnaissance. Les points listés dans `incertitudes` NE SONT PAS établis : ils demandent une décision humaine avant que la flotte s'en serve.",
+  "identite": {
+    "nom": "ralph-gabriel-portfolio",
+    "racine": ".",
+    "depot": "https://github.com/ralphgabriel04/ralphchristiangabrielPortfolio",
+    "brancheDefaut": "main",
+    "langue": "en"
+  },
+  "pile": {
+    "langages": [
+      "javascript",
+      "typescript"
+    ],
+    "frameworks": [
+      "next",
+      "react",
+      "tailwind"
+    ],
+    "gestionnaire": "npm",
+    "monorepo": false,
+    "runtime": "node"
+  },
+  "portes": {
+    "lint": {
+      "command": "npm run lint",
+      "description": "Analyse statique.",
+      "decouvertPar": "package.json → scripts.lint"
+    },
+    "typecheck": {
+      "command": "npm run typecheck",
+      "description": "Vérification de types.",
+      "decouvertPar": "package.json → scripts.typecheck"
+    },
+    "tests-unitaires": {
+      "command": "npm run test",
+      "description": "Tests.",
+      "decouvertPar": "package.json → scripts.test"
+    },
+    "build": {
+      "command": "npm run build",
+      "description": "Construction.",
+      "decouvertPar": "package.json → scripts.build"
+    }
+  },
+  "ci": {
+    "workflows": [],
+    "jobs": []
+  },
+  "departements": {
+    "interface": {
+      "actif": true,
+      "confiance": "forte",
+      "preuve": "app/[locale]/about/page.tsx",
+      "note": "Écrans, composants, feuilles de style."
+    },
+    "design-system": {
+      "actif": true,
+      "confiance": "forte",
+      "preuve": "tailwindcss",
+      "note": null
+    },
+    "i18n": {
+      "actif": true,
+      "confiance": "forte",
+      "preuve": "messages/en.json",
+      "note": "Catalogues de traduction."
+    },
+    "donnees": {
+      "actif": false,
+      "confiance": null,
+      "preuve": null,
+      "note": "Migrations ou schéma."
+    },
+    "tests": {
+      "actif": true,
+      "confiance": "forte",
+      "preuve": "tests/smoke.spec.ts",
+      "note": null
+    },
+    "e2e": {
+      "actif": true,
+      "confiance": "forte",
+      "preuve": "playwright.config.ts",
+      "note": null
+    },
+    "securite": {
+      "actif": true,
+      "confiance": "forte",
+      "preuve": ".env.example",
+      "note": null
+    },
+    "mobile": {
+      "actif": true,
+      "confiance": "faible",
+      "preuve": "scripts/capture-mobile.mjs",
+      "note": null
+    },
+    "acquisition": {
+      "actif": true,
+      "confiance": "forte",
+      "preuve": "app/[locale]/opengraph-image.tsx",
+      "note": null
+    },
+    "performance": {
+      "actif": false,
+      "confiance": null,
+      "preuve": null,
+      "note": null
+    },
+    "conformite": {
+      "actif": false,
+      "confiance": null,
+      "preuve": null,
+      "note": null
+    },
+    "architecture": {
+      "actif": true,
+      "confiance": "forte",
+      "preuve": "docs/DOMAIN_PRODUCTION_SETUP.md",
+      "note": null
+    },
+    "produit": {
+      "actif": false,
+      "confiance": null,
+      "preuve": null,
+      "note": null
+    }
+  },
+  "doctrine": [],
+  "application": {
+    "dev": "npm run dev",
+    "servirPourInspection": "npm run dev",
+    "urlProbable": "http://localhost:3000",
+    "viewports": []
+  },
+  "priorites": [
+    "correction des données",
+    "perte silencieuse",
+    "sécurité et accès",
+    "fonctionnalité cassée",
+    "accessibilité",
+    "écart au design",
+    "performance",
+    "lisibilité"
+  ],
+  "fichiers": 326,
+  "preuves": [
+    {
+      "fait": "branche par défaut : main",
+      "preuve": "git branch -r"
+    },
+    {
+      "fait": "langue de travail : en (fr=100, en=382)",
+      "preuve": "README.md"
+    },
+    {
+      "fait": "typescript",
+      "preuve": "tsconfig.json"
+    },
+    {
+      "fait": "next @ 16.2.12",
+      "preuve": "package.json"
+    },
+    {
+      "fait": "react @ ^19.2.5",
+      "preuve": "package.json"
+    },
+    {
+      "fait": "tailwind @ ^4.2.4",
+      "preuve": "package.json"
+    },
+    {
+      "fait": "gestionnaire : npm",
+      "preuve": "fichier de verrou"
+    },
+    {
+      "fait": "application inspectable sur http://localhost:3000",
+      "preuve": "playwright.config"
+    }
+  ],
+  "incertitudes": [
+    {
+      "quoi": "intégration continue",
+      "pourquoi": "aucun .github/workflows"
+    },
+    {
+      "quoi": "ordre des priorités",
+      "pourquoi": "ordre générique proposé — à confirmer avec le propriétaire ; c'est lui qui décide ce qui prime"
+    }
+  ]
+}
