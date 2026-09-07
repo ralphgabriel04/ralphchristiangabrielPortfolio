@@ -1,0 +1,28 @@
+# L'état de la Fleet : on versionne la MÉMOIRE, pas les traces d'exécution.
+#
+# Versionné (délibérément) :
+#   constats.jsonl  le carnet — c'est lui qui permet de reprendre une boucle
+#                   dans une autre session, sur une autre machine, un mois après
+#   JOURNAL.md      ce qui a été fait, quand, avec quelle preuve
+#   RAPPORT.md      l'état lisible par un humain
+#
+# Ignoré ci-dessous : dérivé, régénérable, ou propre à une machine.
+# (Pas de commentaire en fin de ligne : git l'inclurait dans le motif.)
+
+# `fleet recon` le régénère, et il contient des chemins absolus
+profil.json
+
+# `fleet mission <dept>` les régénère
+missions/
+
+# dépôts bruts des départements, avant ingestion
+entrant/
+
+# captures d'écran des parcours
+captures/
+
+# prompts générés — à déplacer dans docs/ s'ils doivent durer
+prompts/
+
+# historique brut des portes
+verifications.jsonl
