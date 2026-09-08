@@ -249,40 +249,6 @@ export const projects: Project[] = [
       en: ["Vanilla JS · HTML5 Canvas", "2 input modes (keyboard + mouse)", "9 modules · ~460 lines", "Team of 2"]
     },
     media: { enabled: true, type: "image", src: "/media/gti350.jpg" }
-  },
-  {
-    id: "saint-valentin",
-    year: "2026",
-    status: { fr: "Projet personnel · Prototype", en: "Personal project · Prototype" },
-    name: "Saint-Valentin interactive",
-    tag: { fr: "Lettre par lien unique · Projet perso", en: "Letter via unique link · Personal project" },
-    stack: ["Node.js", "Express", "SQLite", "EJS", "Nodemailer", "Helmet · CSRF · rate-limit"],
-    summary: {
-      fr: "Petit projet personnel : une lettre de Saint-Valentin interactive envoyée par lien unique, avec le classique bouton « Non » qui esquive le curseur. Derrière la blague, une vraie attention à la sécurité web — sessions signées, protection CSRF, en-têtes Helmet, limitation de débit — et un tableau de bord d'administration. Node/Express, base SQLite, courriels via Nodemailer.",
-      en: "A small personal project: an interactive Valentine's letter sent via a unique link, with the classic \"No\" button that dodges the cursor. Behind the joke, real attention to web security — signed sessions, CSRF protection, Helmet headers, rate limiting — plus an admin dashboard. Node/Express, SQLite database, email via Nodemailer."
-    },
-    metrics: {
-      fr: ["Node · Express · SQLite", "Liens uniques tokenisés", "Sécurité : CSRF · Helmet · rate-limit", "Tableau de bord admin"],
-      en: ["Node · Express · SQLite", "Tokenized unique links", "Security: CSRF · Helmet · rate-limit", "Admin dashboard"]
-    },
-    media: { enabled: true, type: "image", src: "/media/saint-valentin.jpg" }
-  },
-  {
-    id: "relationship-wrapped",
-    year: "2026",
-    status: { fr: "Projet personnel · En ligne", en: "Personal project · Live" },
-    name: "Relationship Wrapped 2025",
-    tag: { fr: "Expérience web narrative audio-synchronisée", en: "Audio-synced narrative web experience" },
-    stack: ["React", "Vite", "Tailwind CSS", "GSAP", "Framer Motion", "Howler.js (audio)", "canvas-confetti", "Vercel"],
-    summary: {
-      fr: "Une expérience web narrative de type « Wrapped » (dans l'esprit du Spotify Wrapped) : un récit qui se déroule au défilement (scrollytelling), synchronisé à une bande sonore. Côté technique, c'est surtout un terrain de jeu d'animation web — séquences orchestrées avec GSAP et Framer Motion, lecture et contrôle audio via Howler.js (vitesse, volume, pause), confettis, frise chronologique animée au scroll et repères de progression. Construit en React + Vite + Tailwind et déployé sur Vercel.",
-      en: "A 'Wrapped'-style narrative web experience (in the spirit of Spotify Wrapped): a story that unfolds as you scroll (scrollytelling), synced to a soundtrack. Technically it's mostly a web-animation playground — sequences orchestrated with GSAP and Framer Motion, audio playback and control via Howler.js (speed, volume, pause), confetti, a scroll-animated timeline and progress markers. Built with React + Vite + Tailwind and deployed on Vercel."
-    },
-    metrics: {
-      fr: ["Scrollytelling synchronisé à l'audio", "GSAP · Framer Motion", "Audio Howler.js · confettis", "React · Vite · Vercel"],
-      en: ["Audio-synced scrollytelling", "GSAP · Framer Motion", "Howler.js audio · confetti", "React · Vite · Vercel"]
-    },
-    media: { enabled: true, type: "image", src: "/media/relationship-wrapped.jpg" }
   }
 ]
 
@@ -305,8 +271,6 @@ export const projectStates: Record<string, ProjectState> = {
   "log430": "academic",
   "log210": "academic",
   "gti350": "academic",
-  "saint-valentin": "prototype",
-  "relationship-wrapped": "production",
 }
 
 /** Display / filter order. */
@@ -346,8 +310,6 @@ export const projectTypes: Record<string, ProjectType> = {
   "log430": "academic", // ÉTS LOG430 (mostly solo)
   "log210": "academic", // ÉTS LOG210, team of 6
   "gti350": "academic", // ÉTS GTI350, team of 2
-  "saint-valentin": "personal", // solo side project
-  "relationship-wrapped": "personal", // solo creative side project
 }
 
 /** Filter / display order for the role-type chips. */
@@ -379,8 +341,6 @@ export const caseStudyIds = new Set([
   "log430",
   "log210",
   "gti350",
-  "saint-valentin",
-  "relationship-wrapped",
 ])
 
 /** Role per project, used in project detail meta strip */
@@ -412,12 +372,6 @@ export const projectLinks: Record<string, { label: string; url: string; type: "g
   "gti350": [
     { label: "Jouer en ligne", url: "/gti350/index.html", type: "live" },
     { label: "GitHub", url: "https://github.com/ralphgabriel04/gti350-lab1-tron-light-cycles", type: "github" },
-  ],
-  "saint-valentin": [
-    { label: "Voir la démo", url: "/saint-valentin/index.html", type: "live" },
-  ],
-  "relationship-wrapped": [
-    { label: "Voir en ligne", url: "https://relationship-wrapped-2025.vercel.app/", type: "live" },
   ],
   "the-mad-space": [
     { label: "Live", url: "https://themadspace.com", type: "live" },

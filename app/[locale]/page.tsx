@@ -517,7 +517,7 @@ function ContactSection() {
   const principles = tHome.raw("principles") as { title: string; desc: string }[];
   const email = "ralph.c.gabriel@proton.me";
   const cvHref =
-    locale === "fr" ? "/cv/ralph-gabriel-cv-fr.pdf" : "/cv/ralph-gabriel-cv-en.pdf";
+    locale === "fr" ? "/cv/ralph-christian-gabriel-cv-fr.pdf" : "/cv/ralph-christian-gabriel-cv-en.pdf";
 
   return (
     <section id="sec-contact" className="scroll-mt-24 border-t border-border-color">

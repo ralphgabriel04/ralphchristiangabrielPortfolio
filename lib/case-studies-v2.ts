@@ -1258,7 +1258,7 @@ const gti350En: CaseStudyV2 = {
 // ─────────────────────────────────────────────────────────────────────────────
 // PRODUCT / PERSONAL PROTOTYPES — honest maturity, no invented results.
 // Wise & Wealthy: recruiter + business (grounded in a full business model).
-// Tatzy / Saint-Valentin / Relationship Wrapped: recruiter + engineering.
+// Tatzy: recruiter + engineering.
 // ─────────────────────────────────────────────────────────────────────────────
 
 const wwFr: CaseStudyV2 = {
@@ -1441,150 +1441,6 @@ const tatzyEn: CaseStudyV2 = {
   ],
 };
 
-const svFr: CaseStudyV2 = {
-  modes: ["recruiter", "engineering"],
-  identity: {
-    valueProp: "Une lettre de Saint-Valentin interactive envoyée par lien unique — une blague en surface, une vraie hygiène de sécurité web en dessous.",
-    kind: "Projet personnel · prototype",
-    domain: "Petit web · sécurité",
-    maturity: "prototype",
-    maturityLabel: "Projet personnel · prototype",
-    period: "2026",
-    team: "Solo",
-    role: "Solo · développement",
-    platforms: ["Web"],
-    stack: ["Node.js · Express", "SQLite", "EJS", "Nodemailer", "Helmet · CSRF · rate-limit"],
-    updated: "2026-07-29",
-  },
-  sections: [
-    { id: "resume", title: "Résumé", modes: ["recruiter"],
-      body: "Une lettre de Saint-Valentin interactive, avec le classique bouton « Non » qui esquive le curseur. Derrière la blague, l'exercice réel : soigner la sécurité web d'un petit service qui envoie des liens et des courriels." },
-    { id: "securite", title: "La partie sérieuse : la sécurité", modes: ["recruiter", "engineering"],
-      body: "Un petit service exposé sur le web mérite les mêmes réflexes qu'un gros.",
-      points: ["Liens uniques tokenisés par destinataire", "Sessions signées · protection CSRF", "En-têtes de sécurité (Helmet) · limitation de débit", "Tableau de bord d'administration", "Node/Express · SQLite · courriels via Nodemailer"] },
-    { id: "limites", title: "Limites", modes: ["recruiter", "engineering"], kind: "limits" },
-  ],
-  metrics: [
-    { label: "Node · Express · SQLite", value: "✓", evidence: "implemented" },
-    { label: "liens uniques tokenisés", value: "✓", evidence: "implemented" },
-    { label: "CSRF · Helmet · rate-limit", value: "✓", evidence: "implemented" },
-    { label: "démo en ligne", value: "Live", evidence: "deployed" },
-  ],
-  limits: [
-    "Projet personnel à petite échelle, pas un produit.",
-    "La démo publique utilise un destinataire générique (« Valentine ») — pas de données personnelles réelles.",
-  ],
-  links: [{ label: "Voir la démo", url: "/saint-valentin/index.html", kind: "demo" }],
-};
-
-const svEn: CaseStudyV2 = {
-  modes: ["recruiter", "engineering"],
-  identity: {
-    valueProp: "An interactive Valentine's letter sent via a unique link — a joke on the surface, real web-security hygiene underneath.",
-    kind: "Personal project · prototype",
-    domain: "Small web · security",
-    maturity: "prototype",
-    maturityLabel: "Personal project · prototype",
-    period: "2026",
-    team: "Solo",
-    role: "Solo · development",
-    platforms: ["Web"],
-    stack: ["Node.js · Express", "SQLite", "EJS", "Nodemailer", "Helmet · CSRF · rate-limit"],
-    updated: "2026-07-29",
-  },
-  sections: [
-    { id: "resume", title: "Summary", modes: ["recruiter"],
-      body: "An interactive Valentine's letter, with the classic \"No\" button that dodges the cursor. Behind the joke, the real exercise: getting web security right for a small service that sends links and emails." },
-    { id: "securite", title: "The serious part: security", modes: ["recruiter", "engineering"],
-      body: "A small web-exposed service deserves the same reflexes as a big one.",
-      points: ["Per-recipient tokenized unique links", "Signed sessions · CSRF protection", "Security headers (Helmet) · rate limiting", "Admin dashboard", "Node/Express · SQLite · email via Nodemailer"] },
-    { id: "limites", title: "Limits", modes: ["recruiter", "engineering"], kind: "limits" },
-  ],
-  metrics: [
-    { label: "Node · Express · SQLite", value: "✓", evidence: "implemented" },
-    { label: "tokenized unique links", value: "✓", evidence: "implemented" },
-    { label: "CSRF · Helmet · rate-limit", value: "✓", evidence: "implemented" },
-    { label: "online demo", value: "Live", evidence: "deployed" },
-  ],
-  limits: [
-    "Small-scale personal project, not a product.",
-    "The public demo uses a generic recipient (\"Valentine\") — no real personal data.",
-  ],
-  links: [{ label: "See the demo", url: "/saint-valentin/index.html", kind: "demo" }],
-};
-
-const rwFr: CaseStudyV2 = {
-  modes: ["recruiter", "engineering"],
-  identity: {
-    valueProp: "Une expérience web narrative de type « Wrapped » : un récit qui se déroule au défilement, synchronisé à une bande sonore — surtout un terrain de jeu d'animation web.",
-    kind: "Projet personnel · en ligne",
-    domain: "Expérience web · animation",
-    maturity: "production",
-    maturityLabel: "Projet personnel · en ligne",
-    period: "2026",
-    team: "Solo",
-    role: "Solo · développement (animation web)",
-    platforms: ["Web"],
-    stack: ["React · Vite", "Tailwind CSS", "GSAP", "Framer Motion", "Howler.js (audio)", "canvas-confetti", "Vercel"],
-    updated: "2026-07-29",
-  },
-  sections: [
-    { id: "resume", title: "Résumé", modes: ["recruiter"],
-      body: "Une expérience « Wrapped » (dans l'esprit du Spotify Wrapped) : un récit qui se déroule au scroll, synchronisé à une bande sonore. Techniquement, c'est surtout un terrain de jeu d'animation web soigné." },
-    { id: "technique", title: "Le côté technique", modes: ["recruiter", "engineering"],
-      body: "L'intérêt du projet est dans l'orchestration d'animations et la synchronisation audio.",
-      points: ["Scrollytelling : séquences orchestrées (GSAP + Framer Motion)", "Lecture et contrôle audio via Howler.js (vitesse, volume, pause)", "Frise chronologique animée au scroll · repères de progression", "Confettis (canvas-confetti)", "React + Vite + Tailwind · déployé sur Vercel"] },
-    { id: "limites", title: "Limites", modes: ["recruiter", "engineering"], kind: "limits" },
-  ],
-  metrics: [
-    { label: "scrollytelling synchronisé à l'audio", value: "✓", evidence: "implemented" },
-    { label: "GSAP · Framer Motion", value: "✓", evidence: "implemented" },
-    { label: "audio Howler.js · confettis", value: "✓", evidence: "implemented" },
-    { label: "en ligne · Vercel", value: "Live", evidence: "deployed" },
-  ],
-  limits: [
-    "Projet personnel et créatif : le contenu narratif est privé, seule la technique est mise en avant.",
-    "Une expérience sur mesure, pas un produit réutilisable.",
-  ],
-  links: [{ label: "Voir en ligne", url: "https://relationship-wrapped-2025.vercel.app/", kind: "demo" }],
-};
-
-const rwEn: CaseStudyV2 = {
-  modes: ["recruiter", "engineering"],
-  identity: {
-    valueProp: "A \"Wrapped\"-style narrative web experience: a story that unfolds as you scroll, synced to a soundtrack — mostly a polished web-animation playground.",
-    kind: "Personal project · live",
-    domain: "Web experience · animation",
-    maturity: "production",
-    maturityLabel: "Personal project · live",
-    period: "2026",
-    team: "Solo",
-    role: "Solo · development (web animation)",
-    platforms: ["Web"],
-    stack: ["React · Vite", "Tailwind CSS", "GSAP", "Framer Motion", "Howler.js (audio)", "canvas-confetti", "Vercel"],
-    updated: "2026-07-29",
-  },
-  sections: [
-    { id: "resume", title: "Summary", modes: ["recruiter"],
-      body: "A \"Wrapped\" experience (in the spirit of Spotify Wrapped): a story that unfolds on scroll, synced to a soundtrack. Technically, it's mostly a carefully crafted web-animation playground." },
-    { id: "technique", title: "The technical side", modes: ["recruiter", "engineering"],
-      body: "The interest of the project is in animation orchestration and audio sync.",
-      points: ["Scrollytelling: orchestrated sequences (GSAP + Framer Motion)", "Audio playback and control via Howler.js (speed, volume, pause)", "Scroll-animated timeline · progress markers", "Confetti (canvas-confetti)", "React + Vite + Tailwind · deployed on Vercel"] },
-    { id: "limites", title: "Limits", modes: ["recruiter", "engineering"], kind: "limits" },
-  ],
-  metrics: [
-    { label: "audio-synced scrollytelling", value: "✓", evidence: "implemented" },
-    { label: "GSAP · Framer Motion", value: "✓", evidence: "implemented" },
-    { label: "Howler.js audio · confetti", value: "✓", evidence: "implemented" },
-    { label: "live · Vercel", value: "Live", evidence: "deployed" },
-  ],
-  limits: [
-    "A personal, creative project: the narrative content is private, only the craft is highlighted.",
-    "A bespoke experience, not a reusable product.",
-  ],
-  links: [{ label: "See it live", url: "https://relationship-wrapped-2025.vercel.app/", kind: "demo" }],
-};
-
 const vibeFr: CaseStudyV2 = {
   modes: ["recruiter", "business"],
   identity: {
@@ -1691,6 +1547,4 @@ export const caseStudiesV2: Record<string, { fr: CaseStudyV2; en: CaseStudyV2 }>
   log210: { fr: log210Fr, en: log210En },
   gti350: { fr: gti350Fr, en: gti350En },
   tatzy: { fr: tatzyFr, en: tatzyEn },
-  "saint-valentin": { fr: svFr, en: svEn },
-  "relationship-wrapped": { fr: rwFr, en: rwEn },
 };

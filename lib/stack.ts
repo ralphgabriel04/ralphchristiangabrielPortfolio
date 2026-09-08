@@ -9,6 +9,7 @@ export const stackGroups: StackGroup[] = [
   { name: { fr: "Backend & données", en: "Backend & data" }, items: ["Node.js", "tRPC", "Python", "Spring Boot", "PostgreSQL", "Prisma", "Supabase"] },
   { name: { fr: "Architecture & qualité", en: "Architecture & quality" }, items: ["Docker", "Microservices", "TDD", "Jest", "JUnit", "GitHub Actions", "Vercel"] },
   { name: { fr: "Sécurité & intégrations", en: "Security & integrations" }, items: ["Stripe", "OAuth 2.0", "AES-256", "Loi 25", "Google APIs", "Gelato"] },
+  { name: { fr: "Automatisation & Microsoft 365", en: "Automation & Microsoft 365" }, items: ["Power Automate", "Power Apps", "Copilot Studio", "SharePoint"] },
 ];
 
 /** Hover/focus tooltip: where each tech was actually used. */
@@ -38,4 +39,8 @@ export const usedIn: Record<string, { fr: string; en: string }> = {
   "Loi 25": { fr: "DPM Elevate (export / suppression)", en: "DPM Elevate (export / deletion)" },
   "Google APIs": { fr: "Fastercom · The Mad Space", en: "Fastercom · The Mad Space" },
   "Gelato": { fr: "The Mad Space (fulfillment)", en: "The Mad Space (fulfillment)" },
+  "Power Automate": { fr: "La Caisse (CDPQ) · Vidéotron", en: "La Caisse (CDPQ) · Vidéotron" },
+  "Power Apps": { fr: "La Caisse (CDPQ)", en: "La Caisse (CDPQ)" },
+  "Copilot Studio": { fr: "La Caisse (CDPQ)", en: "La Caisse (CDPQ)" },
+  "SharePoint": { fr: "La Caisse (CDPQ) · intégrations", en: "La Caisse (CDPQ) · integrations" },
 };

@@ -57,7 +57,7 @@ export function SummaryDrawer({ className = "" }: { className?: string }) {
     { num: tHero("metrics.2.num"), label: tHero("metrics.2.label") },
   ];
   const cvHref =
-    locale === "fr" ? "/cv/ralph-gabriel-cv-fr.pdf" : "/cv/ralph-gabriel-cv-en.pdf";
+    locale === "fr" ? "/cv/ralph-christian-gabriel-cv-fr.pdf" : "/cv/ralph-christian-gabriel-cv-en.pdf";
   const proofs = [
     { text: t("proof1"), href: "/projects/the-mad-space" },
     { text: t("proof2"), href: "/projects/cadence" },

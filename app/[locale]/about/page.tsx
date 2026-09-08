@@ -16,8 +16,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: isFr ? "À propos" : "About",
     description: isFr
-      ? "Développeur full-stack junior et étudiant en génie logiciel à l'ÉTS, basé à Repentigny (Grand Montréal). Du support TI à l'automatisation, puis au développement web et mobile."
-      : "Junior full-stack developer and Software Engineering student at ÉTS, based in Repentigny (Greater Montréal). From IT support and automation to web and mobile development.",
+      ? "Développeur full-stack et étudiant en génie logiciel à l'ÉTS, stagiaire en automatisation de processus à La Caisse (CDPQ), basé à Repentigny (Grand Montréal). Du support TI à l'automatisation, puis au développement web et mobile."
+      : "Full-stack developer and Software Engineering student at ÉTS, process automation developer intern at La Caisse (CDPQ), based in Repentigny (Greater Montréal). From IT support and automation to web and mobile development.",
     alternates: alternatesFor(locale, "/about"),
   };
 }

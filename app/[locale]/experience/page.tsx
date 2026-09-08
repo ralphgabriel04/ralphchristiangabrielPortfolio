@@ -11,8 +11,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: isFr ? "Expérience" : "Experience",
     description: isFr
-      ? "Parcours professionnel et formation. Cadence (cofondateur), projets freelance, The Mad Space, Fastercom, Vidéotron. B. Ing. génie logiciel ÉTS."
-      : "Career and education. Cadence (co-founder), freelance projects, The Mad Space, Fastercom, Vidéotron. B.Eng. Software Engineering ÉTS.",
+      ? "Parcours professionnel et formation. La Caisse (CDPQ), Cadence (cofondateur), projets freelance, The Mad Space, Fastercom, Vidéotron. B. Ing. génie logiciel ÉTS."
+      : "Career and education. La Caisse (CDPQ), Cadence (co-founder), freelance projects, The Mad Space, Fastercom, Vidéotron. B.Eng. Software Engineering ÉTS.",
     alternates: alternatesFor(locale, "/experience"),
   };
 }
@@ -37,13 +37,23 @@ export default async function ExperiencePage({
   return <ExperienceContent />;
 }
 
+type ExpImage = { src: string; alt: string };
+type ExpItem = {
+  date: string;
+  role: string;
+  org: string;
+  orgUrl?: string;
+  desc: string;
+  images?: ExpImage[];
+};
+type EduItem = { date: string; title: string; org: string };
+
 function ExperienceContent() {
   const t = useTranslations("experience");
   const tSec = useTranslations("sectionLabels");
 
-  const proCount = 3;
-  const eduCount = 3;
-  const certCount = 4;
+  const items = t.raw("items") as ExpItem[];
+  const education = t.raw("education") as EduItem[];
 
   return (
     <section className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] py-20">
@@ -61,22 +71,50 @@ function ExperienceContent() {
         </Reveal>
 
         <div className="flex flex-col gap-0 border-l border-border-color ml-2">
-          {Array.from({ length: proCount }, (_, i) => (
+          {items.map((e, i) => (
             <Reveal key={i} delay={80 + i * 60}>
               <div className="relative pl-8 pb-10 last:pb-0">
                 <div className="absolute left-[-5px] top-1 h-2.5 w-2.5 rounded-full border-2 border-border-strong bg-background" />
-                <span className="font-mono text-xs text-muted-foreground">
-                  {t(`items.${i}.date`)}
-                </span>
-                <h4 className="mt-1 text-sm font-medium">
-                  {t(`items.${i}.role`)}
-                </h4>
+                <span className="font-mono text-xs text-muted-foreground">{e.date}</span>
+                <h4 className="mt-1 text-sm font-medium">{e.role}</h4>
                 <p className="text-sm text-muted-foreground">
-                  {t(`items.${i}.org`)}
+                  {e.orgUrl ? (
+                    <a
+                      href={e.orgUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="underline decoration-border-strong underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
+                    >
+                      {e.org}
+                    </a>
+                  ) : (
+                    e.org
+                  )}
                 </p>
                 <p className="mt-2 max-w-[60ch] text-sm leading-relaxed text-muted-foreground">
-                  {t(`items.${i}.desc`)}
+                  {e.desc}
                 </p>
+                {e.images && (
+                  <div className="mt-4 grid max-w-[60ch] gap-3 sm:grid-cols-3">
+                    {e.images.map((img) => (
+                      <a
+                        key={img.src}
+                        href={img.src}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="block overflow-hidden rounded-lg border border-border-color bg-muted transition-colors hover:border-border-strong"
+                      >
+                        <Image
+                          src={img.src}
+                          alt={img.alt}
+                          width={600}
+                          height={400}
+                          className="aspect-[3/2] w-full object-cover"
+                        />
+                      </a>
+                    ))}
+                  </div>
+                )}
               </div>
             </Reveal>
           ))}
@@ -93,19 +131,13 @@ function ExperienceContent() {
         </Reveal>
 
         <div className="flex flex-col gap-0 border-l border-border-color ml-2">
-          {Array.from({ length: eduCount }, (_, i) => (
+          {education.map((e, i) => (
             <Reveal key={i} delay={80 + i * 60}>
               <div className="relative pl-8 pb-8 last:pb-0">
                 <div className="absolute left-[-5px] top-1 h-2.5 w-2.5 rounded-full border-2 border-border-strong bg-background" />
-                <span className="font-mono text-xs text-muted-foreground">
-                  {t(`education.${i}.date`)}
-                </span>
-                <h4 className="mt-1 text-sm font-medium">
-                  {t(`education.${i}.title`)}
-                </h4>
-                <p className="text-sm text-muted-foreground">
-                  {t(`education.${i}.org`)}
-                </p>
+                <span className="font-mono text-xs text-muted-foreground">{e.date}</span>
+                <h4 className="mt-1 text-sm font-medium">{e.title}</h4>
+                <p className="text-sm text-muted-foreground">{e.org}</p>
               </div>
             </Reveal>
           ))}
@@ -122,7 +154,7 @@ function ExperienceContent() {
         </Reveal>
 
         <div className="grid gap-4 sm:grid-cols-2">
-          {Array.from({ length: certCount }, (_, i) => (
+          {Array.from({ length: certImages.length }, (_, i) => (
             <Reveal key={i} delay={80 + i * 60}>
               <a
                 href={certImages[i]}
