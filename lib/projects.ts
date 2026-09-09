@@ -54,16 +54,16 @@ export const projects: Project[] = [
     id: "cantelcox",
     year: "2026",
     status: { fr: "Académique · ÉTS · Système distribué", en: "Academic · ÉTS · Distributed system" },
-    name: "CanTelcoX — Phase 2",
-    tag: { fr: "BSS télécom événementiel · saga, outbox, DLQ", en: "Event-driven telecom BSS · saga, outbox, DLQ" },
-    stack: ["Python 3.12", "FastAPI", "RabbitMQ", "MySQL · Flyway", "Redis", "KrakenD", "NGINX", "Prometheus / Grafana", "Jaeger (OTLP)", "k6", "Docker Compose", "free5GC", "import-linter"],
+    name: "CanTelcoX",
+    tag: { fr: "BSS télécom événementiel · saga, Outbox, DLQ", en: "Event-driven telecom BSS · saga, Outbox, DLQ" },
+    stack: ["Python 3.12", "FastAPI", "RabbitMQ", "MySQL · Flyway", "Redis", "KrakenD", "NGINX", "Prometheus", "Grafana", "Jaeger", "k6", "Docker Compose", "free5GC"],
     summary: {
-      fr: "Système de support commercial (BSS) d'un opérateur mobile : portabilité de numéro, activation de ligne, facturation, MFA et anti-fraude. En Phase 2, le système passe d'un découpage microservices synchrone à une architecture orientée événements — 6 services, saga chorégraphiée avec compensation, patron Outbox transactionnel, DLQ et traçage distribué, le tout derrière une passerelle KrakenD et un répartiteur NGINX. Deux intégrations externes réelles sont isolées derrière une couche anticorruption : free5GC (cœur réseau 5G, provisionnement HLR/UDM) et un PortabilityHub Java à webhooks. Ce que j'en retiens le plus n'est pas la liste de patrons mais la campagne de mesure : la configuration optimisée gagne 43 % sur le P95 d'acquittement (952 → 539 ms) à débit supérieur, mais la convergence de saga, elle, ne s'améliore pas — et la mesure dit pourquoi (3 960 messages en file sur un seul consommateur, ratio 2,8:1 entre paiements autorisés et lignes provisionnées, appel HLR synchrone dans la transaction). Deux défauts trouvés par la donnée plutôt que par la lecture : 1 467 événements dupliqués parce que deux relais outbox lisaient le même lot (corrigé par verrouillage skip_locked + commit en fin de lot → 0), et un service qui répondait 200 alors que son consommateur était mort — la sonde teste désormais les consommateurs, vérifié par injection de panne.",
-      en: "The business support system (BSS) of a mobile carrier: number portability, line activation, billing, MFA and fraud screening. In Phase 2 the system moves from synchronous microservices to an event-driven architecture — 6 services, a choreographed saga with compensation, a transactional Outbox, DLQ and distributed tracing, behind a KrakenD gateway and an NGINX load balancer. Two real external integrations sit behind an anti-corruption layer: free5GC (5G core, HLR/UDM provisioning) and a webhook-driven Java PortabilityHub. What I take from it isn't the pattern checklist but the measurement campaign: the tuned configuration wins 43% on acknowledgement P95 (952 → 539 ms) at higher throughput, yet saga convergence does not improve — and the measurement says why (3,960 messages queued on a single consumer, a 2.8:1 ratio between authorized payments and provisioned lines, a synchronous HLR call inside the transaction). Two defects found by data rather than by reading: 1,467 duplicated events because two outbox relays read the same batch (fixed with skip_locked row locking + end-of-batch commit → 0), and a service returning 200 while its consumer was dead — the probe now tests consumers, verified by fault injection.",
+      fr: "Système de support commercial (BSS) d'un opérateur mobile : portabilité de numéro, activation de ligne, facturation, MFA et anti-fraude. Le système passe d'un découpage microservices synchrone à une architecture orientée événements — 6 services hexagonaux, aucun appel HTTP direct de service à service dans le flux métier, saga chorégraphiée sur RabbitMQ avec compensation, patron Outbox transactionnel, file de rebut et traçage distribué. Deux intégrations externes réelles sont isolées derrière une couche anticorruption : free5GC (cœur réseau 5G, provisionnement des MSISDN via les API UDM) et un hub de portabilité Java, en rôle receveur et donneur, par webhooks TMF Event v4 à signature vérifiée. Ce que j'en retiens n'est pas la liste de patrons mais la façon dont l'optimisation a été conduite : cinq paliers, chacun mesuré et consigné, y compris celui qui n'a rien donné. Le palier 2 est le plus instructif — accélérer la publication a amélioré l'accusé de réception sans améliorer la convergence, parce que le goulot s'était déplacé vers svc-subscription ; la mesure l'a localisé (3 960 messages en attente sur un seul consommateur) et les paliers suivants l'ont traité. Résultat final : accusé P95 divisé par 2,4, convergence des sagas passée de 47 % à 100 %, zéro erreur sur 22 031 requêtes.",
+      en: "The business support system (BSS) of a mobile carrier: number portability, line activation, billing, MFA and fraud screening. The system moves from synchronous microservices to an event-driven architecture — 6 hexagonal services, no direct service-to-service HTTP in the business flow, a choreographed saga over RabbitMQ with compensation, a transactional Outbox, a dead-letter queue and distributed tracing. Two real external integrations sit behind an anti-corruption layer: free5GC (5G core, MSISDN provisioning through the UDM APIs) and a Java number-portability hub, acting as both recipient and donor, over signature-verified TMF Event v4 webhooks. What I take from it isn't the pattern checklist but how the optimization was run: five stages, each measured and recorded, including the one that produced nothing. Stage 2 is the instructive one — speeding up publication improved acknowledgement without improving convergence, because the bottleneck had moved to svc-subscription; measurement located it (3,960 messages queued on a single consumer) and the later stages addressed it. Final result: acknowledgement P95 divided by 2.4, saga convergence up from 47% to 100%, zero errors across 22,031 requests.",
     },
     metrics: {
-      fr: ["P95 d'acquittement −43 % · 952 → 539 ms", "1 467 doublons outbox → 0", "6 microservices · saga chorégraphiée + DLQ", "free5GC + hub Java derrière une ACL"],
-      en: ["Acknowledgement P95 −43% · 952 → 539 ms", "1,467 duplicated events → 0", "6 microservices · choreographed saga + DLQ", "free5GC + Java hub behind an ACL"],
+      fr: ["Accusé P95 ÷ 2,4 · 952 → 396 ms", "Convergence des sagas 47 % → 100 %", "0 erreur sur 22 031 requêtes", "173 tests · 60 des 97 commits"],
+      en: ["Acknowledgement P95 ÷ 2.4 · 952 → 396 ms", "Saga convergence 47% → 100%", "0 errors across 22,031 requests", "173 tests · 60 of 97 commits"],
     },
   },
   {
@@ -322,7 +322,7 @@ export const projectTypes: Record<string, ProjectType> = {
   "kim-dubois": "client", // first paying client
   "boa-traiteur": "client", // client mandate (chef Max)
   "crcc": "client", // nonprofit redesign mandate
-  "cantelcox": "academic", // ÉTS LOG430 term project — team, I signed 48 of 97 commits
+  "cantelcox": "academic", // ÉTS LOG430 term project — team of 5, I signed 60 of 97 commits
   "financej": "academic", // ÉTS LOG240, team of 6
   "tatzy": "cofounder", // co-founded with Aimen
   "log430": "academic", // ÉTS LOG430 (mostly solo)
@@ -372,7 +372,7 @@ export const projectRoles: Record<string, { fr: string; en: string }> = {
   "kim-dubois": { fr: "Freelance · Design, Prototypage & Relation client", en: "Freelance · Design, Prototyping & Client Relations" },
   "boa-traiteur": { fr: "Freelance · Design produit, Prototypage & Relation client", en: "Freelance · Product Design, Prototyping & Client Relations" },
   "crcc": { fr: "Design & Prototypage (Refonte)", en: "Design & Prototyping (Redesign)" },
-  "cantelcox": { fr: "Architecture & développement · Contributeur principal (Projet de session — LOG430)", en: "Architecture & development · Lead contributor (Term project — LOG430)" },
+  "cantelcox": { fr: "Architecture & développement · 60 des 97 commits (Projet de session — LOG430)", en: "Architecture & development · 60 of 97 commits (Term project — LOG430)" },
   "financej": { fr: "Développeur · Top contributeur (Projet académique — LOG240)", en: "Developer · Top contributor (Academic Project — LOG240)" },
 }
 
@@ -381,6 +381,9 @@ export const projectLinks: Record<string, { label: string; url: string; type: "g
   "tatzy": [
     { label: "Démo live", url: "https://tatzy-taxi.vercel.app", type: "live" },
     { label: "GitHub", url: "https://github.com/ralphgabriel04/tatzy-taxi", type: "github" },
+  ],
+  "cantelcox": [
+    { label: "GitHub", url: "https://github.com/ralphgabriel04/cantelcox-bss-event-driven", type: "github" },
   ],
   "log430": [
     { label: "Labo REST & GraphQL", url: "https://github.com/ralphgabriel04/Labo-03-REST-APIs-GraphQL", type: "github" },

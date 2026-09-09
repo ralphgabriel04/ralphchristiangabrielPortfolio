@@ -28,7 +28,7 @@ export const usedIn: Record<string, { fr: string; en: string }> = {
   "Supabase": { fr: "Cadence · DPM · Edge Functions", en: "Cadence · DPM · Edge Functions" },
   "Docker": { fr: "LOG430 (microservices)", en: "LOG430 (microservices)" },
   "Microservices": { fr: "CanTelcoX (6 services · saga chorégraphiée)", en: "CanTelcoX (6 services · choreographed saga)" },
-  "RabbitMQ": { fr: "CanTelcoX Phase 2 (outbox · DLQ)", en: "CanTelcoX Phase 2 (outbox · DLQ)" },
+  "RabbitMQ": { fr: "CanTelcoX (Outbox · saga · DLQ)", en: "CanTelcoX (Outbox · saga · DLQ)" },
   "Prometheus / Grafana": { fr: "CanTelcoX (4 Golden Signals · charge k6)", en: "CanTelcoX (4 Golden Signals · k6 load tests)" },
   "TDD": { fr: "FinanceJ (133 tests)", en: "FinanceJ (133 tests)" },
   "Jest": { fr: "The Mad Space · LOG210", en: "The Mad Space · LOG210" },
