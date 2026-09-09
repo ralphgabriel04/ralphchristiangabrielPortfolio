@@ -27,7 +27,7 @@ const COL = {
 const EMAIL = "ralph.c.gabriel@proton.me";
 const CAL = "cal.com/ralphchristiangabriel/15min";
 /** `etude N` → these case studies, in order. */
-const STUDIES = ["the-mad-space", "cadence", "financej"] as const;
+const STUDIES = ["the-mad-space", "cadence", "cantelcox"] as const;
 
 const STACK: [string, string[]][] = [
   ["Frontend", ["TypeScript", "React", "Next.js", "Tailwind", "React Native"]],

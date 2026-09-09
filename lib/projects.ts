@@ -51,6 +51,22 @@ export const projects: Project[] = [
     media: { enabled: true, type: "video", src: "/media/cadence.mp4" }
   },
   {
+    id: "cantelcox",
+    year: "2026",
+    status: { fr: "Académique · ÉTS · Système distribué", en: "Academic · ÉTS · Distributed system" },
+    name: "CanTelcoX — Phase 2",
+    tag: { fr: "BSS télécom événementiel · saga, outbox, DLQ", en: "Event-driven telecom BSS · saga, outbox, DLQ" },
+    stack: ["Python 3.12", "FastAPI", "RabbitMQ", "MySQL · Flyway", "Redis", "KrakenD", "NGINX", "Prometheus / Grafana", "Jaeger (OTLP)", "k6", "Docker Compose", "free5GC", "import-linter"],
+    summary: {
+      fr: "Système de support commercial (BSS) d'un opérateur mobile : portabilité de numéro, activation de ligne, facturation, MFA et anti-fraude. En Phase 2, le système passe d'un découpage microservices synchrone à une architecture orientée événements — 6 services, saga chorégraphiée avec compensation, patron Outbox transactionnel, DLQ et traçage distribué, le tout derrière une passerelle KrakenD et un répartiteur NGINX. Deux intégrations externes réelles sont isolées derrière une couche anticorruption : free5GC (cœur réseau 5G, provisionnement HLR/UDM) et un PortabilityHub Java à webhooks. Ce que j'en retiens le plus n'est pas la liste de patrons mais la campagne de mesure : la configuration optimisée gagne 43 % sur le P95 d'acquittement (952 → 539 ms) à débit supérieur, mais la convergence de saga, elle, ne s'améliore pas — et la mesure dit pourquoi (3 960 messages en file sur un seul consommateur, ratio 2,8:1 entre paiements autorisés et lignes provisionnées, appel HLR synchrone dans la transaction). Deux défauts trouvés par la donnée plutôt que par la lecture : 1 467 événements dupliqués parce que deux relais outbox lisaient le même lot (corrigé par verrouillage skip_locked + commit en fin de lot → 0), et un service qui répondait 200 alors que son consommateur était mort — la sonde teste désormais les consommateurs, vérifié par injection de panne.",
+      en: "The business support system (BSS) of a mobile carrier: number portability, line activation, billing, MFA and fraud screening. In Phase 2 the system moves from synchronous microservices to an event-driven architecture — 6 services, a choreographed saga with compensation, a transactional Outbox, DLQ and distributed tracing, behind a KrakenD gateway and an NGINX load balancer. Two real external integrations sit behind an anti-corruption layer: free5GC (5G core, HLR/UDM provisioning) and a webhook-driven Java PortabilityHub. What I take from it isn't the pattern checklist but the measurement campaign: the tuned configuration wins 43% on acknowledgement P95 (952 → 539 ms) at higher throughput, yet saga convergence does not improve — and the measurement says why (3,960 messages queued on a single consumer, a 2.8:1 ratio between authorized payments and provisioned lines, a synchronous HLR call inside the transaction). Two defects found by data rather than by reading: 1,467 duplicated events because two outbox relays read the same batch (fixed with skip_locked row locking + end-of-batch commit → 0), and a service returning 200 while its consumer was dead — the probe now tests consumers, verified by fault injection.",
+    },
+    metrics: {
+      fr: ["P95 d'acquittement −43 % · 952 → 539 ms", "1 467 doublons outbox → 0", "6 microservices · saga chorégraphiée + DLQ", "free5GC + hub Java derrière une ACL"],
+      en: ["Acknowledgement P95 −43% · 952 → 539 ms", "1,467 duplicated events → 0", "6 microservices · choreographed saga + DLQ", "free5GC + Java hub behind an ACL"],
+    },
+  },
+  {
     id: "vibe",
     year: "2026 · présent",
     status: { fr: "Prototype interactif · En développement actif", en: "High-fidelity prototype · Actively in development" },
@@ -209,12 +225,12 @@ export const projects: Project[] = [
     tag: { fr: "Du monolithe aux microservices événementiels", en: "From monolith to event-driven microservices" },
     stack: ["Python", "Flask / FastAPI", "Docker Compose", "PostgreSQL", "Redis", "Apache Kafka", "GraphQL", "Kong / KrakenD", "Prometheus / Grafana"],
     summary: {
-      fr: "Série de laboratoires du cours d'architecture logicielle à l'ÉTS : une même application de gestion de magasin est réarchitecturée d'un labo à l'autre. Le parcours va d'un monolithe conteneurisé (Docker, CI/CD) vers du client-serveur avec DAO, du CQRS avec persistance polyglotte (PostgreSQL + Redis), des API REST puis GraphQL, du cache et de la répartition de charge (Nginx, tests de charge Locust), de l'observabilité (Prometheus), puis une décomposition en microservices derrière une passerelle d'API, un microservice de paiement isolé, une saga orchestrée avec traçage distribué (Jaeger), de l'architecture événementielle avec Kafka (event sourcing, saga chorégraphiée, patron Outbox) et enfin des bases de données distribuées (YugabyteDB / CockroachDB). Le projet de fin de session, CanTelcoX, regroupe le tout en 5 microservices DDD (une base par service) derrière une passerelle Kong en haute disponibilité, avec cache Redis et observabilité Prometheus/Grafana.",
-      en: "Lab series from ÉTS's software-architecture course: a single store-management app is re-architected from one lab to the next. The path runs from a containerized monolith (Docker, CI/CD) to client-server with DAO, CQRS with polyglot persistence (PostgreSQL + Redis), REST then GraphQL APIs, caching and load balancing (Nginx, Locust load tests), observability (Prometheus), then a break-up into microservices behind an API gateway, an isolated payment microservice, an orchestrated saga with distributed tracing (Jaeger), event-driven architecture with Kafka (event sourcing, choreographed saga, Outbox pattern) and finally distributed databases (YugabyteDB / CockroachDB). The capstone, CanTelcoX, consolidates it into 5 DDD microservices (a database per service) behind a high-availability Kong gateway, with Redis caching and Prometheus/Grafana observability."
+      fr: "Série de laboratoires du cours d'architecture logicielle à l'ÉTS : une même application de gestion de magasin est réarchitecturée d'un labo à l'autre. Le parcours va d'un monolithe conteneurisé (Docker, CI/CD) vers du client-serveur avec DAO, du CQRS avec persistance polyglotte (PostgreSQL + Redis), des API REST puis GraphQL, du cache et de la répartition de charge (Nginx, tests de charge Locust), de l'observabilité (Prometheus), puis une décomposition en microservices derrière une passerelle d'API, un microservice de paiement isolé, une saga orchestrée avec traçage distribué (Jaeger), de l'architecture événementielle avec Kafka (event sourcing, saga chorégraphiée, patron Outbox) et enfin des bases de données distribuées (YugabyteDB / CockroachDB). Chaque labo isole un patron sur la même application jouet. Le projet de session, CanTelcoX, est l'endroit où ces patrons sont assemblés dans un seul système sur un domaine métier réel — Phase 1 en microservices synchrones (5 services DDD derrière une passerelle Kong en haute disponibilité, cache Redis, observabilité Prometheus/Grafana), Phase 2 en architecture événementielle : voir la fiche dédiée.",
+      en: "Lab series from ÉTS's software-architecture course: a single store-management app is re-architected from one lab to the next. The path runs from a containerized monolith (Docker, CI/CD) to client-server with DAO, CQRS with polyglot persistence (PostgreSQL + Redis), REST then GraphQL APIs, caching and load balancing (Nginx, Locust load tests), observability (Prometheus), then a break-up into microservices behind an API gateway, an isolated payment microservice, an orchestrated saga with distributed tracing (Jaeger), event-driven architecture with Kafka (event sourcing, choreographed saga, Outbox pattern) and finally distributed databases (YugabyteDB / CockroachDB). Each lab isolates one pattern on the same toy application. The term project, CanTelcoX, is where those patterns get assembled into a single system on a real business domain — Phase 1 in synchronous microservices (5 DDD services behind a high-availability Kong gateway, Redis caching, Prometheus/Grafana observability), Phase 2 event-driven: see its dedicated entry."
     },
     metrics: {
-      fr: ["12 dépôts · monolithe → microservices", "CanTelcoX · 5 microservices DDD", "REST · GraphQL · Kafka · Saga", "Observabilité Prometheus/Grafana"],
-      en: ["12 repos · monolith → microservices", "CanTelcoX · 5 DDD microservices", "REST · GraphQL · Kafka · Saga", "Prometheus/Grafana observability"]
+      fr: ["12 dépôts · monolithe → microservices", "Projet de session : CanTelcoX (fiche dédiée)", "REST · GraphQL · Kafka · Saga", "Observabilité Prometheus/Grafana"],
+      en: ["12 repos · monolith → microservices", "Term project: CanTelcoX (own entry)", "REST · GraphQL · Kafka · Saga", "Prometheus/Grafana observability"]
     }
   },
   {
@@ -266,6 +282,7 @@ export const projectStates: Record<string, ProjectState> = {
   "kim-dubois": "prototype",
   "boa-traiteur": "prototype",
   "crcc": "prototype",
+  "cantelcox": "academic",
   "financej": "academic",
   "tatzy": "prototype",
   "log430": "academic",
@@ -305,6 +322,7 @@ export const projectTypes: Record<string, ProjectType> = {
   "kim-dubois": "client", // first paying client
   "boa-traiteur": "client", // client mandate (chef Max)
   "crcc": "client", // nonprofit redesign mandate
+  "cantelcox": "academic", // ÉTS LOG430 term project — team, I signed 48 of 97 commits
   "financej": "academic", // ÉTS LOG240, team of 6
   "tatzy": "cofounder", // co-founded with Aimen
   "log430": "academic", // ÉTS LOG430 (mostly solo)
@@ -336,6 +354,7 @@ export const caseStudyIds = new Set([
   "kim-dubois",
   "boa-traiteur",
   "crcc",
+  "cantelcox",
   "financej",
   "tatzy",
   "log430",
@@ -353,6 +372,7 @@ export const projectRoles: Record<string, { fr: string; en: string }> = {
   "kim-dubois": { fr: "Freelance · Design, Prototypage & Relation client", en: "Freelance · Design, Prototyping & Client Relations" },
   "boa-traiteur": { fr: "Freelance · Design produit, Prototypage & Relation client", en: "Freelance · Product Design, Prototyping & Client Relations" },
   "crcc": { fr: "Design & Prototypage (Refonte)", en: "Design & Prototyping (Redesign)" },
+  "cantelcox": { fr: "Architecture & développement · Contributeur principal (Projet de session — LOG430)", en: "Architecture & development · Lead contributor (Term project — LOG430)" },
   "financej": { fr: "Développeur · Top contributeur (Projet académique — LOG240)", en: "Developer · Top contributor (Academic Project — LOG240)" },
 }
 

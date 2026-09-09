@@ -293,8 +293,12 @@ export const plainSummary: Record<string, { fr: string; en: string }> = {
     fr: "Une app mobile qui relie entraîneurs sportifs et athlètes. Avant d'écrire le code, on a découpé tout le travail en 169 tâches réparties sur 13 périodes.",
     en: "A mobile app connecting sports coaches with their athletes. Before writing any code, we broke all the work into 169 tasks across 13 periods.",
   },
+  "cantelcox": {
+    fr: "Le système qui gère les abonnés d'un opérateur mobile : changer de fournisseur en gardant son numéro, activer une ligne, payer sa facture. Je l'ai réorganisé pour que les étapes se passent le message plutôt que de s'attendre les unes les autres. Puis je l'ai mis sous charge : la commande est confirmée 43 % plus vite, mais la mesure a montré que le reste de la chaîne, lui, n'allait pas plus vite — et exactement où ça bloquait.",
+    en: "The system that manages a mobile carrier's subscribers: switching provider while keeping your number, activating a line, paying a bill. I reorganized it so the steps pass messages to each other instead of waiting on one another. Then I put it under load: orders are confirmed 43% faster, but the measurement showed the rest of the chain was not any faster — and exactly where it stalled.",
+  },
   "financej": {
-    fr: "Une app de finances personnelles faite en équipe de six, avec énormément de tests pour garantir sa fiabilité. J'étais le chef d'équipe.",
-    en: "A personal-finance app built by a team of six, with lots of tests to guarantee reliability. I was the team lead.",
+    fr: "Une app de finances personnelles faite en équipe de six, avec énormément de tests pour garantir sa fiabilité. J'en ai été le contributeur le plus actif.",
+    en: "A personal-finance app built by a team of six, with lots of tests to guarantee reliability. I was its most active contributor.",
   },
 };
