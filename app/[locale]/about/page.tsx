@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { alternatesFor } from "@/lib/site";
 import Image from "next/image";
-import { ProfilePhoto } from "@/components/ui/profile-photo";
 import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
@@ -9,6 +8,7 @@ import { ArrowRight, Mail, Timer, MapPin, Trophy, ExternalLink, Award, BadgeChec
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
+import { LibrarySection } from "@/components/ui/library-section";
 
 /** Official chip-time result (Sportstats/RTRT), Course des pompiers de Laval, 2 June 2024. */
 const MARATHON_RESULT_URL = "https://track.rtrt.me/e/SS-COURSEDESPOMPIERS24#/dash/R8WN6ZCU";
@@ -55,11 +55,13 @@ function AboutContent() {
           <Reveal delay={60}>
             <div className="flex flex-col gap-3">
               <div className="aspect-[4/5] w-full rounded-lg border border-border-color bg-muted-2 overflow-hidden relative">
-                <ProfilePhoto
-                  alt="Ralph Christian Gabriel"
+                <Image
+                  src="/images/about/ralph-la-caisse-2026-portrait.jpg"
+                  alt={t("photoAlt")}
                   fill
                   sizes="(max-width: 768px) 100vw, 320px"
                   priority
+                  className="object-cover object-[center_25%]"
                 />
               </div>
               <span className="text-xs text-muted-foreground">
@@ -177,7 +179,7 @@ function AboutContent() {
               <div className="grid grid-cols-[140px_1fr] sm:grid-cols-[200px_1fr] h-full">
                 <div className="relative min-h-[220px] overflow-hidden">
                   <Image
-                    src="/images/beyond-code/graduation.png"
+                    src="/images/beyond-code/graduation.jpg"
                     alt="Graduation"
                     fill
                     className="object-cover object-top"
@@ -250,6 +252,9 @@ function AboutContent() {
           </Reveal>
         </div>
       </section>
+
+      {/* Reading: books, quotes, learning system */}
+      <LibrarySection />
 
       {/* GitHub Activity */}
       <section className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] pb-20">

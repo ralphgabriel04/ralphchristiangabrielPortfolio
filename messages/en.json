@@ -187,7 +187,29 @@
       "My approach: ship to production, not just demos. The Mad Space runs today with ~15,000 LOC, 30+ API endpoints, multi-currency Stripe payments (4 currencies), 7+ B2B integrations and 4 business workflows that cut order processing by 10–15 minutes.",
       "Before product development, I resolved 2,000+ tickets at Vidéotron with 94% customer satisfaction (9.6/10) and automated ~50% of tasks via Power Automate. I learned to listen before coding, and to diagnose before proposing."
     ],
-    "caption": "Ralph Christian Gabriel · Repentigny, QC",
+    "caption": "Ralph Christian Gabriel · at La Caisse head office, Montréal, October 2026",
+    "photoAlt": "Ralph Christian Gabriel in a grey blazer in the glass atrium of La Caisse head office, Montréal",
+    "library": {
+      "heading": "What I read.",
+      "sub": "A selection of my 2026 reading. Each book fits on one page, then one idea goes into a real project. My full notes are public on LinkedIn.",
+      "meta": "{count} books · 2026",
+      "note": "My note",
+      "applied": "Applied:",
+      "shelf": "Also read in 2026",
+      "quotesTitle": "Lines I keep",
+      "methodTitle": "How I read",
+      "rule": "My rule: learning without building is just entertainment.",
+      "methodLink": "My post on the method",
+      "selfStudy": "Self-study",
+      "categories": {
+        "engineering": "Engineering",
+        "focus": "Focus",
+        "leadership": "Leadership",
+        "business": "Business",
+        "learning": "Learning",
+        "meaning": "Meaning"
+      }
+    },
     "seeExperience": "See experience",
     "getInTouch": "Get in touch",
     "github": {
@@ -255,8 +277,8 @@
         "orgUrl": "https://www.linkedin.com/posts/lacaisse_chaque-ann%C3%A9e-plus-de-200-stagiaires-se-joignent-activity-7500987406775586817-u_bJ",
         "desc": "Business process automation and digitization on the Microsoft Power Platform (Power Apps, Power Automate, Copilot Studio) in a regulated institutional environment. Ran stakeholder requirements workshops, mapped existing processes and prioritized automation opportunities. Built system integrations: REST APIs, connectors, SharePoint lists, JSON. Testing, technical documentation and production readiness. Tracked emerging AI-for-automation tooling (Copilot, AI Builder).",
         "images": [
+          { "src": "/images/experience/la-caisse-ralph-atrium.jpg", "alt": "Ralph at La Caisse head office, Montréal, October 2026" },
           { "src": "/images/experience/la-caisse-cohorte.jpg", "alt": "La Caisse intern cohort, Fall 2026, Montréal" },
-          { "src": "/images/experience/la-caisse-collectivite.jpg", "alt": "La Caisse — Actif pour la collectivité" },
           { "src": "/images/experience/la-caisse-siege.jpg", "alt": "La Caisse head office, Montréal" }
         ]
       },
