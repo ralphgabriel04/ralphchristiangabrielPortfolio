@@ -10,6 +10,10 @@
   --color-muted-2: var(--muted-2);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border-color);
+  /* Alias: the codebase uses `border-border-color` (101 times). Without this key,
+     Tailwind 4 never generates that utility and borders fall back to currentColor
+     (solid ink), so hover (`border-border-strong`, 24%) looked lighter than rest. */
+  --color-border-color: var(--border-color);
   --color-border-strong: var(--border-strong);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
