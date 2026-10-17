@@ -5,10 +5,14 @@ import { ProfilePhoto } from "@/components/ui/profile-photo";
 import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { ArrowRight, Mail, Timer, MapPin, Trophy, ExternalLink } from "lucide-react";
+import { ArrowRight, Mail, Timer, MapPin, Trophy, ExternalLink, Award, BadgeCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
+
+/** Official chip-time result (Sportstats/RTRT), Course des pompiers de Laval, 2 June 2024. */
+const MARATHON_RESULT_URL = "https://track.rtrt.me/e/SS-COURSEDESPOMPIERS24#/dash/R8WN6ZCU";
+const MARATHON_CERTIFICATE = "/images/beyond-code/half-marathon-certificate.png";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -107,10 +111,10 @@ function AboutContent() {
             <div className="group rounded-lg border border-border-color bg-muted overflow-hidden h-full flex flex-col">
               <div className="relative aspect-[16/10] overflow-hidden">
                 <Image
-                  src="/images/beyond-code/half-marathon-certificate.png"
-                  alt={t("marathon.event")}
+                  src="/images/beyond-code/half-marathon-finish.png"
+                  alt={t("marathon.photoAlt")}
                   fill
-                  className="object-cover object-top"
+                  className="object-cover object-[center_35%] transition-transform duration-500 group-hover:scale-105"
                   sizes="(max-width: 640px) 100vw, 50vw"
                 />
               </div>
@@ -133,14 +137,36 @@ function AboutContent() {
                   </div>
                   <div className="flex flex-col items-center rounded-md bg-muted-2 px-2 py-2">
                     <Trophy size={14} className="text-accent mb-1" />
-                    <span className="text-xs font-semibold">511e</span>
-                    <span className="text-[10px] text-muted-foreground">/ 1,354</span>
+                    <span className="text-xs font-semibold">{t("marathon.rankPos")}</span>
+                    <span className="text-[10px] text-muted-foreground">{t("marathon.rankTotal")}</span>
                   </div>
                 </div>
 
-                <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+                <p className="mt-3 mb-4 text-xs leading-relaxed text-muted-foreground">
                   {t("marathon.desc")}
                 </p>
+
+                <div className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-border-color pt-3 text-xs">
+                  <a
+                    href={MARATHON_CERTIFICATE}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 font-medium underline decoration-border-strong underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
+                  >
+                    <Award size={14} aria-hidden="true" />
+                    {t("marathon.certificate")}
+                  </a>
+                  <a
+                    href={MARATHON_RESULT_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 font-medium underline decoration-border-strong underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
+                  >
+                    <BadgeCheck size={14} aria-hidden="true" />
+                    {t("marathon.result")}
+                    <ExternalLink size={12} aria-hidden="true" />
+                  </a>
+                </div>
               </div>
             </div>
           </Reveal>

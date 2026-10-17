@@ -208,11 +208,16 @@
     "marathon": {
       "title": "Finisher demi-marathon",
       "event": "Course des pompiers de Laval",
-      "date": "4 juin 2023",
+      "date": "2 juin 2024",
       "distance": "21,1 km",
       "time": "1:56:23",
       "pace": "5:31 min/km",
-      "rank": "511e / 1 354 au classement général",
+      "rank": "514e / 1 353 au classement général",
+      "rankPos": "514e",
+      "rankTotal": "/ 1 353",
+      "photoAlt": "Ralph à l'arrivée du demi-marathon de la Course des pompiers de Laval, dossard 559",
+      "certificate": "Certificat",
+      "result": "Résultat officiel",
       "desc": "J'ai couru 21,1 km pour soutenir les pompiers de Laval. Les mois d'entraînement m'ont appris ce que je retrouve chaque jour en développement : la constance, la confiance dans le processus et l'importance de finir ce qu'on commence."
     },
     "chess": {

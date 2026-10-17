@@ -208,11 +208,16 @@
     "marathon": {
       "title": "Half-Marathon Finisher",
       "event": "Course des pompiers de Laval",
-      "date": "June 4, 2023",
+      "date": "June 2, 2024",
       "distance": "21.1 km",
       "time": "1:56:23",
       "pace": "5:31 min/km",
-      "rank": "511th / 1,354 overall",
+      "rank": "514th / 1,353 overall",
+      "rankPos": "514th",
+      "rankTotal": "/ 1,353",
+      "photoAlt": "Ralph at the finish of the Course des pompiers de Laval half-marathon, bib 559",
+      "certificate": "Certificate",
+      "result": "Official result",
       "desc": "I ran 21.1 km to support Laval firefighters. Months of training taught me what I also find in software development every day: consistency, trusting the process, and finishing what you start."
     },
     "chess": {
