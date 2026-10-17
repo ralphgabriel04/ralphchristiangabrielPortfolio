@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { alternatesFor } from "@/lib/site";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Briefcase, GraduationCap, Award } from "lucide-react";
 
@@ -19,12 +19,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
 
-const certImages = [
-  "/images/certs/responsive-web-design.png",
-  "/images/certs/learn-html.png",
-  "/images/certs/learn-python-3.png",
-  "/images/certs/intro-ai-strategy.png",
-];
+import { CertCard } from "@/components/ui/cert-card";
+import { certifications } from "@/lib/certifications";
 
 export default async function ExperiencePage({
   params,
@@ -51,6 +47,7 @@ type EduItem = { date: string; title: string; org: string };
 function ExperienceContent() {
   const t = useTranslations("experience");
   const tSec = useTranslations("sectionLabels");
+  const locale = useLocale();
 
   const items = t.raw("items") as ExpItem[];
   const education = t.raw("education") as EduItem[];
@@ -147,37 +144,25 @@ function ExperienceContent() {
       {/* Certifications */}
       <div className="mt-16">
         <Reveal delay={60}>
-          <div className="mb-8 flex items-center gap-2">
-            <Award size={18} className="text-muted-foreground" />
-            <h3 className="text-lg font-medium">{t("certTitle")}</h3>
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <Award size={18} className="text-muted-foreground" />
+              <h3 className="text-lg font-medium">{t("certTitle")}</h3>
+            </div>
+            <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
+              {t("certMeta", { count: certifications.length })}
+            </span>
           </div>
         </Reveal>
 
-        <div className="grid gap-4 sm:grid-cols-2">
-          {Array.from({ length: certImages.length }, (_, i) => (
-            <Reveal key={i} delay={80 + i * 60}>
-              <a
-                href={certImages[i]}
-                target="_blank"
-                rel="noreferrer"
-                className="group block rounded-lg border border-border-color bg-muted overflow-hidden transition-colors hover:border-border-strong"
-              >
-                <Image
-                  src={certImages[i]!}
-                  alt={t(`certifications.${i}.title`)}
-                  width={600}
-                  height={400}
-                  className="w-full object-cover"
-                />
-                <div className="p-4">
-                  <h4 className="text-sm font-medium group-hover:text-accent transition-colors">
-                    {t(`certifications.${i}.title`)}
-                  </h4>
-                  <p className="mt-1 text-xs text-muted-foreground">
-                    {t(`certifications.${i}.org`)}
-                  </p>
-                </div>
-              </a>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {certifications.map((cert, i) => (
+            <Reveal key={cert.slug} delay={80 + i * 60} className="h-full">
+              <CertCard
+                cert={cert}
+                locale={locale}
+                labels={{ verify: t("certVerify"), view: t("certView") }}
+              />
             </Reveal>
           ))}
         </div>

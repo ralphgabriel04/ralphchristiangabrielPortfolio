@@ -239,6 +239,9 @@
     "proTitle": "Expérience professionnelle",
     "eduTitle": "Éducation",
     "certTitle": "Certifications",
+    "certMeta": "{count} certifications vérifiables",
+    "certVerify": "Vérifier",
+    "certView": "Voir le certificat en pleine résolution",
     "items": [
       {
         "date": "Sep. 2026 · Déc. 2026",
@@ -287,12 +290,6 @@
       { "date": "Oct. 2024 · présent", "title": "B. Ing. Génie logiciel", "org": "ÉTS, École de technologie supérieure, Montréal" },
       { "date": "Jan. 2022 · Jan. 2024", "title": "DEC Techniques de Développement d'Applications", "org": "Collège Rosemont, Montréal" },
       { "date": "Sep. 2019 · Fév. 2022", "title": "DEP Soutien informatique", "org": "CFP des Riverains" }
-    ],
-    "certifications": [
-      { "title": "Responsive Web Design (300h)", "org": "freeCodeCamp", "image": "/images/certs/responsive-web-design.png" },
-      { "title": "Learn HTML", "org": "Codecademy", "image": "/images/certs/learn-html.png" },
-      { "title": "Learn Python 3", "org": "Codecademy", "image": "/images/certs/learn-python-3.png" },
-      { "title": "Intro to AI Strategy", "org": "Codecademy", "image": "/images/certs/intro-ai-strategy.png" }
     ]
   },
   "contact": {

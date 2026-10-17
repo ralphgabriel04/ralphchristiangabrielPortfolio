@@ -20,6 +20,7 @@ import { stackGroups, usedIn } from "@/lib/stack";
 import { ProfilePhoto } from "@/components/ui/profile-photo";
 import { TestimonialsCarousel } from "@/components/ui/testimonials-carousel";
 import { testimonials } from "@/lib/testimonials";
+import { certifications as certList } from "@/lib/certifications";
 
 export default async function HomePage({
   params,
@@ -419,14 +420,17 @@ function StackSection() {
 
 type ExpItem = { date: string; role: string; org: string; desc?: string };
 type EduItem = { date: string; title: string; org: string };
-type CertItem = { title: string; org: string; image?: string };
+type CertItem = { title: string; org: string };
 
 function ParcoursSection() {
   const t = useTranslations("experience");
   const locale = useLocale() as "fr" | "en";
   const items = t.raw("items") as ExpItem[];
   const education = t.raw("education") as EduItem[];
-  const certifications = t.raw("certifications") as CertItem[];
+  const certifications: CertItem[] = certList.map((c) => ({
+    title: c.hours ? `${c.title} (${c.hours}h)` : c.title,
+    org: c.issuer,
+  }));
 
   return (
     <section id="sec-parcours" className="scroll-mt-24 border-t border-border-color">
