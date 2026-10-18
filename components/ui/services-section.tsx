@@ -1,8 +1,7 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
-import { Button } from "@/components/ui/button";
 
 type ServiceItem = {
   title: string;
@@ -22,14 +21,13 @@ type ServiceItem = {
 export function ServicesSection() {
   const t = useTranslations("services");
   const items = t.raw("items") as ServiceItem[];
-  const email = "ralph.c.gabriel@proton.me";
 
   return (
     <section id="sec-services" className="scroll-mt-24 border-t border-border-color">
-      <div className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] py-20 md:py-28">
+      <div className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] py-20 md:py-24">
         <Reveal>
-          <div className="max-w-2xl">
-            <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-accent">
+          <div className="border-b border-border-strong pb-6">
+            <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
               {t("kicker")}
             </span>
             <h2
@@ -38,8 +36,8 @@ export function ServicesSection() {
             >
               {t("heading")}
             </h2>
-            <p className="mt-5 text-base leading-relaxed text-muted-foreground">{t("intro")}</p>
           </div>
+          <p className="mt-6 max-w-[60ch] text-base leading-relaxed text-muted-foreground">{t("intro")}</p>
         </Reveal>
 
         <div className="mt-12 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -47,21 +45,21 @@ export function ServicesSection() {
             <Reveal key={s.title} delay={i * 60}>
               <div className="flex h-full flex-col rounded-2xl border border-border-color bg-muted p-6 md:p-7">
                 <h3 className="text-xl font-semibold tracking-tight">{s.title}</h3>
-                <dl className="mt-5 flex flex-col gap-3.5 text-sm">
+                <dl className="mt-5 flex flex-col gap-3.5 text-[14.5px]">
                   <div>
-                    <dt className="font-mono text-[10.5px] uppercase tracking-[0.12em] text-muted-foreground/70">
+                    <dt className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
                       {t("labelAudience")}
                     </dt>
                     <dd className="mt-1 text-foreground">{s.audience}</dd>
                   </div>
                   <div>
-                    <dt className="font-mono text-[10.5px] uppercase tracking-[0.12em] text-muted-foreground/70">
+                    <dt className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
                       {t("labelProblem")}
                     </dt>
                     <dd className="mt-1 text-muted-foreground">{s.problem}</dd>
                   </div>
                   <div>
-                    <dt className="font-mono text-[10.5px] uppercase tracking-[0.12em] text-muted-foreground/70">
+                    <dt className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
                       {t("labelDeliver")}
                     </dt>
                     <dd className="mt-1 text-muted-foreground">{s.deliver}</dd>
@@ -71,7 +69,7 @@ export function ServicesSection() {
                   href={`/projects/${s.exampleId}`}
                   className="group mt-auto block border-t border-border-color pt-4"
                 >
-                  <span className="font-mono text-[10.5px] uppercase tracking-[0.12em] text-muted-foreground/70">
+                  <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
                     {t("labelExample")}
                   </span>
                   <span className="mt-1 flex items-start gap-1 text-[13px] font-medium text-accent group-hover:underline">
@@ -84,23 +82,6 @@ export function ServicesSection() {
           ))}
         </div>
 
-        <Reveal delay={120}>
-          <div className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-lg font-medium">{t("cta")}</p>
-            <div className="flex flex-wrap gap-3">
-              <a href={`mailto:${email}`}>
-                <Button>
-                  {t("ctaButton")} <ArrowRight size={16} />
-                </Button>
-              </a>
-              <a href="https://cal.com/ralphchristiangabriel/15min" target="_blank" rel="noreferrer">
-                <Button variant="secondary">
-                  {t("ctaBook")} <ArrowUpRight size={16} />
-                </Button>
-              </a>
-            </div>
-          </div>
-        </Reveal>
       </div>
     </section>
   );

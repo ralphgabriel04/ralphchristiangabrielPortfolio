@@ -19,10 +19,13 @@ export function LazyVideo({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
+  // Visitors who ask the OS to reduce motion get the still poster instead of a looping clip.
+  const [still, setStill] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    if (poster && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) setStill(true);
     // No IntersectionObserver (very old browsers / SSR safety) → load eagerly.
     if (typeof IntersectionObserver === "undefined") {
       setInView(true);
@@ -42,11 +45,15 @@ export function LazyVideo({
     );
     io.observe(el);
     return () => io.disconnect();
-  }, []);
+  }, [poster]);
 
   return (
     <div ref={ref} className={className}>
-      {inView && (
+      {inView && still && poster && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={poster} alt="" className="h-full w-full object-cover" />
+      )}
+      {inView && !still && (
         <video
           autoPlay
           loop
