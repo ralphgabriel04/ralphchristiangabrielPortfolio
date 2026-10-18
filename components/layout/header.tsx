@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { PulseDot } from "@/components/ui/pulse-dot";
 import { Button } from "@/components/ui/button";
 import { openTerminal } from "@/components/ui/terminal";
-import { PlainToggle, usePlain } from "@/components/ui/plain-mode";
+import { PlainToggle } from "@/components/ui/plain-mode";
 import { trackEvent } from "@/lib/analytics";
 
 /** Terminal-style path shown in the header logo, per current route (v2 logic):
@@ -30,7 +30,6 @@ export function Header() {
   const pathname = usePathname();
   const router = useRouter();
   const { theme, setTheme } = useTheme();
-  const { plain } = usePlain();
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -46,15 +45,15 @@ export function Header() {
 
   useEffect(() => { setDrawerOpen(false); }, [pathname]);
 
-  // v2 single-page section nav. Plain-language mode swaps RCG.SYS terms for
-  // plainer ones (Systèmes → Projets, Stack → Outils, Parcours → Expérience).
+  // Page navigation in plain words (audit 2026-10-18): the old anchors
+  // (Systèmes, Stack, Parcours) only reached home sections and hid the About page.
   const links = [
-    { id: "sec-systemes", label: plain ? t("projects") : t("systems") },
-    { id: "sec-stack", label: plain ? t("tools") : t("stack") },
-    { id: "sec-parcours", label: plain ? t("experience") : t("path") },
-    { id: "sec-contact", label: t("contact") },
+    { href: "/projects", label: t("projects") },
+    { href: "/experience", label: t("experience") },
+    { href: "/about", label: t("about") },
+    { href: "/contact", label: t("contact") },
   ];
-  const anchor = (id: string) => `/${locale}#${id}`;
+  const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
   const headerPath = toHeaderPath(pathname);
 
   const switchLocale = () => {
@@ -95,20 +94,28 @@ export function Header() {
             <span className="inline-flex h-7 min-w-9 items-center justify-center rounded-[6px] border border-border-strong px-1.5 font-mono text-[11px] font-medium tracking-[-0.04em]">
               RCG
             </span>
-            <span className="font-mono text-[13px] text-muted-foreground">
+            <span className="hidden max-w-[150px] truncate font-mono text-[13px] text-muted-foreground sm:inline xl:max-w-[220px]">
               {headerPath}
             </span>
           </Link>
           <nav className="hidden items-center gap-6 lg:flex" aria-label={tA("primaryNav")}>
-            {links.map((l) => (
-              <a
-                key={l.id}
-                href={anchor(l.id)}
-                className="relative whitespace-nowrap px-1 py-2 text-sm text-muted-foreground transition-colors duration-150 hover:text-foreground"
-              >
-                {l.label}
-              </a>
-            ))}
+            {links.map((l) => {
+              const active = isActive(l.href);
+              return (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  aria-current={active ? "page" : undefined}
+                  className={`relative whitespace-nowrap px-1 py-2 text-sm transition-colors duration-150 hover:text-foreground ${
+                    active
+                      ? "text-foreground after:absolute after:inset-x-1 after:-bottom-px after:h-px after:bg-accent"
+                      : "text-muted-foreground"
+                  }`}
+                >
+                  {l.label}
+                </Link>
+              );
+            })}
           </nav>
         </div>
 
@@ -144,7 +151,6 @@ export function Header() {
               className="inline-flex items-center gap-1.5 rounded-full border border-border-strong px-3 py-1.5 font-mono text-xs text-foreground transition-colors hover:border-accent hover:text-accent"
             >
               <span style={{ color: "var(--accent)" }}>&gt;_</span>
-              <span className="hidden xl:inline">terminal</span>
             </button>
 
             <Link
@@ -200,14 +206,17 @@ export function Header() {
         </div>
         <div className="flex flex-col gap-4">
           {links.map((l) => (
-            <a
-              key={l.id}
-              href={anchor(l.id)}
+            <Link
+              key={l.href}
+              href={l.href}
               onClick={() => setDrawerOpen(false)}
-              className="border-b border-border-color py-3 text-left text-[22px] text-muted-foreground"
+              aria-current={isActive(l.href) ? "page" : undefined}
+              className={`border-b border-border-color py-3 text-left text-[22px] ${
+                isActive(l.href) ? "text-foreground" : "text-muted-foreground"
+              }`}
             >
               {l.label}
-            </a>
+            </Link>
           ))}
         </div>
         <div className="mt-8 flex flex-col gap-3">

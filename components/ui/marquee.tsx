@@ -61,7 +61,7 @@ function Strip({ items }: { items: string[] }) {
       {items.map((it, i) => (
         <span
           key={i}
-          className="flex items-center gap-6 whitespace-nowrap font-mono text-[12.5px] uppercase tracking-[0.12em] text-muted-foreground/70"
+          className="flex items-center gap-6 whitespace-nowrap font-mono text-[12.5px] uppercase tracking-[0.12em] text-muted-foreground"
         >
           {it}
           <span className="inline-block text-accent motion-safe:animate-[rg-spin-slow_7s_linear_infinite]">

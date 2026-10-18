@@ -47,7 +47,7 @@ export function Boot() {
       <div className="flex min-w-[min(420px,84vw)] flex-col gap-2.5 font-mono text-[13px] text-muted-foreground">
         <div className="mb-1.5 flex items-baseline gap-2.5">
           <span className="text-xl font-medium" style={{ color: "var(--accent)" }}>RCG</span>
-          <span className="text-muted-foreground/60">.SYS v2.0</span>
+          <span className="text-muted-foreground">.SYS v2.0</span>
         </div>
         <div className={line} style={{ animationDelay: ".15s" }}>
           &gt; init noyau … <span style={ok}>ok</span>
@@ -68,7 +68,7 @@ export function Boot() {
             style={{ background: "var(--accent)" }}
           />
         </div>
-        <div className="text-[10.5px] uppercase tracking-wider text-muted-foreground/60">
+        <div className="text-[10.5px] uppercase tracking-wider text-muted-foreground">
           {L("cliquer pour passer", "click to skip")}
         </div>
       </div>
