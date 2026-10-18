@@ -199,7 +199,7 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
         { k: "Rôle", v: "Chef d'équipe" },
         { k: "Équipe", v: "6 développeurs" },
         { k: "Stack", v: "Java · JUnit" },
-        { k: "Cadre", v: "ÉTS — Test & Maintenance" },
+        { k: "Cadre", v: "ÉTS : Test & Maintenance" },
       ],
       sections: [
         {
@@ -216,7 +216,7 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
         {
           num: "02",
           title: "Rôle : chef d'équipe",
-          body: "J'ai pris la coordination : connaître les forces de chacun, répartir les tâches avec équité, garder le rythme — et livrer ma propre part.",
+          body: "J'ai pris la coordination : connaître les forces de chacun, répartir les tâches avec équité, garder le rythme, et livrer ma propre part.",
           points: [
             "Répartition des tâches selon les forces de chacun",
             "Revues croisées avant chaque fusion de code",
@@ -258,7 +258,7 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
         { k: "Role", v: "Team lead" },
         { k: "Team", v: "6 developers" },
         { k: "Stack", v: "Java · JUnit" },
-        { k: "Setting", v: "ÉTS — Test & Maintenance" },
+        { k: "Setting", v: "ÉTS : Test & Maintenance" },
       ],
       sections: [
         {
@@ -275,7 +275,7 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
         {
           num: "02",
           title: "Role: team lead",
-          body: "I took coordination: knowing each member's strengths, assigning tasks fairly, keeping the pace — and shipping my own share.",
+          body: "I took coordination: knowing each member's strengths, assigning tasks fairly, keeping the pace, and shipping my own share.",
           points: [
             "Task assignment based on individual strengths",
             "Cross-reviews before every merge",
@@ -349,14 +349,14 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
           num: "03",
           title: "Plan de livraison",
           kind: "sprints",
-          body: "13 cycles de deux semaines, quatre phases — du cadrage à la version d'essai. Survole les segments.",
+          body: "13 cycles de deux semaines, quatre phases, du cadrage à la version d'essai. Survole les segments.",
         },
         {
           num: "04",
           title: "Résultats (à date)",
           body: "Le pari : une exécution sans surprise parce que tout a été pensé avant.",
           results: [
-            { value: "169+", label: "issues structurées" },
+            { value: "169+", label: "tickets structurés" },
             { value: "74/74", label: "fonctionnalités couvertes" },
             { value: "13", label: "cycles planifiés" },
             { value: "8+", label: "applications étudiées" },
@@ -408,7 +408,7 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
           num: "03",
           title: "Delivery plan",
           kind: "sprints",
-          body: "13 sprints, four phases — from framing to beta. Hover the segments.",
+          body: "13 sprints, four phases, from framing to beta. Hover the segments.",
         },
         {
           num: "04",
@@ -447,7 +447,7 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
         {
           num: "01",
           title: "Le problème",
-          body: "« Qu'est-ce qu'on fait à Montréal ce soir ? » — la question la plus courante, la pire à répondre. Les apps existantes listent des lieux ; aucune ne décide.",
+          body: "« Qu'est-ce qu'on fait à Montréal ce soir ? », la question la plus courante, la pire à répondre. Les apps existantes listent des lieux ; aucune ne décide.",
           points: [
             "Recherche par ambiance (7 au total) plutôt que par catégorie",
             "Contraintes réelles : l'heure, le budget, la distance en transport",
@@ -457,7 +457,7 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
         {
           num: "02",
           title: "Deux signatures",
-          body: "Deux fonctionnalités portent tout le concept — le reste est du support.",
+          body: "Deux fonctionnalités portent tout le concept, le reste est du support.",
           decisions: [
             {
               title: "STM Pulse",
@@ -498,7 +498,7 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
         {
           num: "01",
           title: "The problem",
-          body: "“What do we do in Montréal tonight?” — the most common question, the worst to answer. Existing apps list places; none of them decides.",
+          body: "“What do we do in Montréal tonight?”, the most common question, the worst to answer. Existing apps list places; none of them decides.",
           points: [
             "Search across 7 moods rather than categories",
             "Real constraints: time, budget, transit distance",
@@ -508,7 +508,7 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
         {
           num: "02",
           title: "Two signatures",
-          body: "Two features carry the whole concept — the rest is support.",
+          body: "Two features carry the whole concept: the rest is support.",
           decisions: [
             {
               title: "STM Pulse",
@@ -555,7 +555,7 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
           body: "Sao Saint-Vil et Mathis Labonté avaient une vision d'accompagnement financier accessible ; j'ai été le bras technique, de la demande initiale à la réalisation.",
           points: [
             "Accompagnement financier assisté par IA, pour le public francophone",
-            "Design system bilingue, thèmes clair et sombre",
+            "Système de design bilingue, thèmes clair et sombre",
             "Technologies visées : Next.js + TypeScript",
           ],
         },
@@ -646,7 +646,7 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
         {
           num: "02",
           title: "Ce que ça m'a appris",
-          body: "Le code n'était pas la partie difficile — c'était de traduire un besoin flou en décisions claires, et de les expliquer.",
+          body: "Le code n'était pas la partie difficile : c'était de traduire un besoin flou en décisions claires, et de les expliquer.",
           points: [
             "Cadrer avant de coder évite deux refontes",
             "Un client non technique a besoin du pourquoi, pas du comment",
@@ -687,7 +687,7 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
         {
           num: "02",
           title: "What it taught me",
-          body: "The code was not the hard part — it was translating a fuzzy need into clear decisions, and explaining them.",
+          body: "The code was not the hard part, it was translating a fuzzy need into clear decisions, and explaining them.",
           points: [
             "Framing before coding avoids two redesigns",
             "A non-technical client needs the why, not the how",
@@ -730,7 +730,7 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
         {
           num: "02",
           title: "Pourquoi le montrer",
-          body: "Un portfolio honnête montre aussi ce qui est en réflexion — et ce que je ferais avant d'écrire la première ligne.",
+          body: "Un portfolio honnête montre aussi ce qui est en réflexion, et ce que je ferais avant d'écrire la première ligne.",
           points: [
             "Cadrage avant code : la leçon de Cadence, réappliquée",
             "Prochaine étape : maquetter le parcours de réservation",
@@ -759,7 +759,7 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
         {
           num: "02",
           title: "Why show it",
-          body: "An honest portfolio also shows what is being thought through — and what I would do before writing the first line.",
+          body: "An honest portfolio also shows what is being thought through, and what I would do before writing the first line.",
           points: [
             "Framing before code: the Cadence lesson, reapplied",
             "Next step: prototype the booking flow",
@@ -781,7 +781,7 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
         {
           num: "01",
           title: "La maquette",
-          body: "Au départ, une application personnelle de planification dessinée comme une maquette détaillée : tout le cycle de productivité — calendrier, tâches, focus, habitudes, objectifs — dans un seul produit cohérent.",
+          body: "Au départ, une application personnelle de planification dessinée comme une maquette détaillée : tout le cycle de productivité (calendrier, tâches, focus, habitudes, objectifs) dans un seul produit cohérent.",
           points: [
             "20+ écrans couvrant tout le parcours, du landing au compte",
             "Tâches en 5 vues · matrice Eisenhower · focus Pomodoro",
@@ -792,7 +792,7 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
         {
           num: "02",
           title: "Système de conception",
-          body: "Un design system complet avant les écrans : tokens, composants, palette de commandes ⌘K, dates dynamiques.",
+          body: "Un système de design complet avant les écrans : jetons, composants, palette de commandes ⌘K, dates dynamiques.",
           points: [
             "25+ composants réutilisables",
             "Palette de commandes ⌘K et création rapide",
@@ -823,7 +823,7 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
         {
           num: "01",
           title: "The mockup",
-          body: "It started as a personal planning app designed as a detailed mockup: the whole productivity cycle — calendar, tasks, focus, habits, goals — in one coherent product.",
+          body: "It started as a personal planning app designed as a detailed mockup: the whole productivity cycle (calendar, tasks, focus, habits, goals) in one coherent product.",
           points: [
             "20+ screens spanning the full journey, from landing to account",
             "Tasks across 5 views · Eisenhower matrix · Pomodoro focus",
@@ -879,7 +879,7 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
         {
           num: "02",
           title: "Approche",
-          body: "Un site statique multi-pages, accessible et bilingue, sans backend — pensé mobile d'abord.",
+          body: "Un site statique multi-pages, accessible et bilingue, sans backend, pensé mobile d'abord.",
           points: [
             "Bilingue FR/EN à bascule instantanée",
             "Thème clair/sombre · mobile-first (375px → bureau)",
@@ -921,7 +921,7 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
         {
           num: "02",
           title: "Approach",
-          body: "A static multi-page site, accessible and bilingual, with no backend — built mobile-first.",
+          body: "A static multi-page site, accessible and bilingual, with no backend, built mobile-first.",
           points: [
             "Bilingual FR/EN with instant toggle",
             "Light/dark theme · mobile-first (375px → desktop)",
@@ -972,7 +972,7 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
         {
           num: "03",
           title: "État",
-          body: "Un prototype fonctionnel déployé — encore au stade prototype, sans trafic client réel.",
+          body: "Un prototype fonctionnel déployé, encore au stade prototype, sans trafic client réel.",
           results: [
             { value: "Live", label: "déployé sur Vercel" },
             { value: "2", label: "cofondateurs" },
@@ -1005,7 +1005,7 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
         {
           num: "03",
           title: "State",
-          body: "A working prototype, deployed — still at prototype stage, no real customer traffic.",
+          body: "A working prototype, deployed, still at prototype stage, no real customer traffic.",
           results: [
             { value: "Live", label: "deployed on Vercel" },
             { value: "2", label: "co-founders" },
@@ -1050,7 +1050,7 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
         },
         {
           num: "03",
-          title: "Projet de fin — CanTelcoX",
+          title: "Projet de fin: CanTelcoX",
           body: "Le projet de fin de session regroupe le tout : 5 microservices DDD, une base par service, derrière une passerelle Kong en haute disponibilité.",
           results: [
             { value: "12", label: "dépôts · monolithe → microservices" },
@@ -1093,7 +1093,7 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
         },
         {
           num: "03",
-          title: "Capstone — CanTelcoX",
+          title: "Capstone: CanTelcoX",
           body: "The capstone consolidates it all: 5 DDD microservices, a database per service, behind a high-availability Kong gateway.",
           results: [
             { value: "12", label: "repos · monolith → microservices" },

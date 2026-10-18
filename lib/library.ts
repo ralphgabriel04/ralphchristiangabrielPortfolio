@@ -227,7 +227,7 @@ export const readingPostUrl = li("7439750150459260928");
 export const selfStudy: { title: L10n; detail: L10n; href: string }[] = [
   {
     title: { fr: "Learn Git Branching", en: "Learn Git Branching" },
-    detail: { fr: "Tous les niveaux, des bases aux remotes (juil. 2026)", en: "Every level, from basics to remotes (Jul 2026)" },
+    detail: { fr: "Tous les niveaux, des bases aux dépôts distants (juil. 2026)", en: "Every level, from basics to remotes (Jul 2026)" },
     href: li("7478107681489256450"),
   },
   {
