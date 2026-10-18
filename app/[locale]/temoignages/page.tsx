@@ -43,7 +43,7 @@ function TestimonialsContent() {
       <div className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] pt-16 pb-24 md:pt-24">
         {/* Breadcrumb */}
         <Reveal>
-          <nav className="text-[12.5px] text-muted-foreground/60">
+          <nav className="text-[12.5px] text-muted-foreground">
             <Link href="/" className="hover:text-foreground transition-colors">
               {t("breadcrumbHome")}
             </Link>

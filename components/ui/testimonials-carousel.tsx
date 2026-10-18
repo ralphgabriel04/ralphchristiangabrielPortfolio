@@ -81,6 +81,11 @@ export function TestimonialsCarousel({
         setPaused(false);
         setExpandedId(null);
       }}
+      // Keyboard users get the same pause as mouse users (WCAG 2.2.2).
+      onFocusCapture={() => setPaused(true)}
+      onBlurCapture={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setPaused(false);
+      }}
     >
       {/* Pages with crossfade */}
       <div className="relative overflow-hidden">
@@ -105,6 +110,7 @@ export function TestimonialsCarousel({
                     expanded={expandedId === t.id}
                     onHoverStart={() => setExpandedId(t.id)}
                     onHoverEnd={() => setExpandedId(null)}
+                    onToggle={() => setExpandedId(expandedId === t.id ? null : t.id)}
                   />
                 </div>
               ))}

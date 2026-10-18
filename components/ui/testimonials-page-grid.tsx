@@ -79,9 +79,9 @@ export function TestimonialsPageGrid({
           <span className="h-1.5 w-1.5 rounded-full bg-accent" />
           {addCtaBadge}
         </span>
-        <h3 className="mt-2 text-[24px] font-medium tracking-tight md:text-[28px]">
+        <h2 className="mt-2 text-[24px] font-medium tracking-tight md:text-[28px]">
           {addCtaTitle}
-        </h3>
+        </h2>
         <p className="max-w-md text-[14.5px] leading-relaxed text-muted-foreground">
           {addCtaSubtitle}
         </p>
