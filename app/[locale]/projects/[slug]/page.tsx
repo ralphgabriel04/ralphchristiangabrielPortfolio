@@ -43,7 +43,11 @@ function metaDescription(text: string): string {
   if (text.length <= 160) return text;
   const first = text.split(/(?<=\.)\s/)[0] ?? text;
   if (first.length >= 70 && first.length <= 160) return first;
-  return text.slice(0, 157).replace(/\s+\S*$/, "") + "…";
+  // Otherwise cut at the last comma that keeps a full clause, and close the sentence.
+  const cut = text.slice(0, 159);
+  const comma = cut.lastIndexOf(",");
+  if (comma > 80) return cut.slice(0, comma) + ".";
+  return cut.replace(/\s+\S*$/, "") + "…";
 }
 
 export async function generateMetadata({
