@@ -20,8 +20,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: isFr ? "À propos" : "About",
     description: isFr
-      ? "Développeur full-stack et étudiant en génie logiciel à l'ÉTS, stagiaire en automatisation de processus à La Caisse (CDPQ), basé à Repentigny (Grand Montréal). Du support TI à l'automatisation, puis au développement web et mobile."
-      : "Full-stack developer and Software Engineering student at ÉTS, process automation developer intern at La Caisse (CDPQ), based in Repentigny (Greater Montréal). From IT support and automation to web and mobile development.",
+      ? "Développeur full-stack et étudiant en génie logiciel à l'ÉTS, en stage à La Caisse (CDPQ). Mon parcours, du soutien TI au développement web et mobile."
+      : "Full-stack developer and software engineering student at ÉTS, interning at La Caisse (CDPQ). My path from IT support to web and mobile development.",
     alternates: alternatesFor(locale, "/about"),
   };
 }
@@ -72,18 +72,28 @@ function AboutContent() {
 
           {/* Bio */}
           <Reveal delay={120}>
-            <div className="flex flex-col gap-6">
-              <p className="max-w-[60ch] text-sm leading-relaxed text-muted-foreground">
+            <div className="flex flex-col gap-5">
+              <p className="max-w-[62ch] text-base leading-relaxed text-muted-foreground">
                 {t("paragraphs.0")}
               </p>
-              <p className="max-w-[60ch] text-sm leading-relaxed text-muted-foreground">
+              <p className="max-w-[62ch] text-base leading-relaxed text-muted-foreground">
                 {t("paragraphs.1")}
               </p>
-              <p className="max-w-[60ch] text-sm leading-relaxed text-muted-foreground">
+              <p className="max-w-[62ch] text-base leading-relaxed text-muted-foreground">
                 {t("paragraphs.2")}
               </p>
 
-              <div className="flex flex-wrap items-center gap-3 pt-4">
+              {/* Right now (moved here from the home page, shortened) */}
+              <div className="max-w-[62ch] rounded-xl border border-border-color bg-muted p-5">
+                <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+                  <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--shipped)" }} aria-hidden="true" />
+                  {t("now.title")}
+                </div>
+                <p className="mt-2 text-[15px] leading-relaxed text-foreground">{t("now.body")}</p>
+                <p className="mt-2 font-mono text-[12px] text-muted-foreground">{t("now.updated")}</p>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-3 pt-2">
                 <Link href="/experience">
                   <Button variant="secondary">
                     {t("seeExperience")} <ArrowRight size={16} />
@@ -103,13 +113,20 @@ function AboutContent() {
       {/* Beyond Code */}
       <section className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] pb-20">
         <Reveal>
-          <h2 className="text-xl font-semibold tracking-tight">{t("beyondCode")}</h2>
-          <p className="mt-2 text-sm text-muted-foreground">{t("beyondCodeSub")}</p>
+          <div className="border-b border-border-strong pb-5">
+            <h2
+              className="text-3xl leading-[1.05] tracking-[-0.01em] md:text-[40px]"
+              style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+            >
+              {t("beyondCode")}
+            </h2>
+            <p className="mt-3 text-[15px] text-muted-foreground">{t("beyondCodeSub")}</p>
+          </div>
         </Reveal>
 
         <div className="mt-10 grid gap-6 sm:grid-cols-2">
           {/* Half-Marathon Card */}
-          <Reveal delay={60}>
+          <Reveal delay={60} className="h-full">
             <div className="group rounded-lg border border-border-color bg-muted overflow-hidden h-full flex flex-col">
               <div className="relative aspect-[16/10] overflow-hidden">
                 <Image
@@ -130,17 +147,17 @@ function AboutContent() {
                   <div className="flex flex-col items-center rounded-md bg-muted-2 px-2 py-2">
                     <Timer size={14} className="text-accent mb-1" />
                     <span className="text-xs font-semibold">{t("marathon.time")}</span>
-                    <span className="text-[10px] text-muted-foreground">{t("marathon.pace")}</span>
+                    <span className="text-[12px] text-muted-foreground">{t("marathon.pace")}</span>
                   </div>
                   <div className="flex flex-col items-center rounded-md bg-muted-2 px-2 py-2">
                     <MapPin size={14} className="text-accent mb-1" />
                     <span className="text-xs font-semibold">{t("marathon.distance")}</span>
-                    <span className="text-[10px] text-muted-foreground">Laval, QC</span>
+                    <span className="text-[12px] text-muted-foreground">Laval, QC</span>
                   </div>
                   <div className="flex flex-col items-center rounded-md bg-muted-2 px-2 py-2">
                     <Trophy size={14} className="text-accent mb-1" />
                     <span className="text-xs font-semibold">{t("marathon.rankPos")}</span>
-                    <span className="text-[10px] text-muted-foreground">{t("marathon.rankTotal")}</span>
+                    <span className="text-[12px] text-muted-foreground">{t("marathon.rankTotal")}</span>
                   </div>
                 </div>
 
@@ -174,13 +191,13 @@ function AboutContent() {
           </Reveal>
 
           {/* Personality Card — horizontal layout */}
-          <Reveal delay={120}>
+          <Reveal delay={120} className="h-full">
             <div className="rounded-lg border border-border-color bg-muted overflow-hidden h-full">
               <div className="grid grid-cols-[140px_1fr] sm:grid-cols-[200px_1fr] h-full">
                 <div className="relative min-h-[220px] overflow-hidden">
                   <Image
                     src="/images/beyond-code/graduation.jpg"
-                    alt="Graduation"
+                    alt={t("graduationAlt")}
                     fill
                     className="object-cover object-top"
                     sizes="200px"
@@ -205,11 +222,11 @@ function AboutContent() {
             </div>
           </Reveal>
 
-          {/* Chess Card — compact, between personality and ski */}
-          <Reveal delay={180}>
-            <div className="group rounded-lg border border-border-color bg-muted overflow-hidden sm:col-span-2">
-              <div className="grid grid-cols-[120px_1fr] sm:grid-cols-[160px_1fr]">
-                <div className="relative min-h-[140px] overflow-hidden">
+          {/* Chess Card — same height as the ski card (Reveal is the grid item) */}
+          <Reveal delay={180} className="h-full">
+            <div className="group h-full rounded-lg border border-border-color bg-muted overflow-hidden">
+              <div className="grid h-full grid-cols-[120px_1fr] sm:grid-cols-[160px_1fr]">
+                <div className="relative min-h-[160px] overflow-hidden">
                   <Image
                     src="/images/beyond-code/chess.png"
                     alt={t("chess.title")}
@@ -229,10 +246,10 @@ function AboutContent() {
           </Reveal>
 
           {/* Skiing Card — horizontal layout, zoom out */}
-          <Reveal delay={240}>
-            <div className="group rounded-lg border border-border-color bg-muted overflow-hidden sm:col-span-2">
-              <div className="grid grid-cols-[140px_1fr] sm:grid-cols-[180px_1fr]">
-                <div className="relative min-h-[180px] overflow-hidden">
+          <Reveal delay={240} className="h-full">
+            <div className="group h-full rounded-lg border border-border-color bg-muted overflow-hidden">
+              <div className="grid h-full grid-cols-[120px_1fr] sm:grid-cols-[160px_1fr]">
+                <div className="relative min-h-[160px] overflow-hidden">
                   <Image
                     src="/images/beyond-code/skiing.png"
                     alt={t("skiing.title")}
@@ -259,44 +276,24 @@ function AboutContent() {
       {/* GitHub Activity */}
       <section className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] pb-20">
         <Reveal>
-          <h2 className="text-xl font-semibold tracking-tight">{t("github.heading")}</h2>
-          <p className="mt-2 text-sm text-muted-foreground">{t("github.sub")}</p>
+          <div className="border-b border-border-strong pb-5">
+            <h2
+              className="text-3xl leading-[1.05] tracking-[-0.01em] md:text-[40px]"
+              style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+            >
+              {t("github.heading")}
+            </h2>
+            <p className="mt-3 text-[15px] text-muted-foreground">{t("github.sub")}</p>
+          </div>
         </Reveal>
 
+        {/* Third-party stat cards removed (2026-10-18): one rendered empty and the
+            other used an off-palette navy/purple theme. First-party pointers instead. */}
         <div className="mt-8 flex flex-col gap-6">
-          {/* Stats + Languages */}
           <Reveal delay={60}>
-            <div className="grid gap-6 sm:grid-cols-2">
-              <div className="overflow-hidden rounded-lg border border-border-color bg-muted p-1">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=ralphgabriel04&theme=tokyonight"
-                  alt={t("github.statsAlt")}
-                  className="w-full"
-                  loading="lazy"
-                  width={400}
-                  height={200}
-                />
-              </div>
-              <div className="overflow-hidden rounded-lg border border-border-color bg-muted p-1">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=ralphgabriel04&theme=tokyonight"
-                  alt={t("github.languagesAlt")}
-                  className="w-full"
-                  loading="lazy"
-                  width={400}
-                  height={200}
-                />
-              </div>
-            </div>
-          </Reveal>
-
-          {/* Highlights + CTA */}
-          <Reveal delay={180}>
-            <div className="rounded-lg border border-border-color bg-muted p-5">
+            <div className="rounded-lg border border-border-color bg-muted p-6">
               <div className="flex flex-col gap-3">
-                <div className="flex flex-col gap-2 text-sm text-muted-foreground">
+                <div className="flex max-w-[72ch] flex-col gap-2.5 text-[15px] leading-relaxed text-muted-foreground">
                   <p>{t("github.highlights.0")}</p>
                   <p>{t("github.highlights.1")}</p>
                   <p>{t("github.highlights.2")}</p>

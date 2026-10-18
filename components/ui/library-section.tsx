@@ -38,10 +38,15 @@ export function LibrarySection() {
       className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] pb-20"
     >
       <Reveal>
-        <div className="flex flex-wrap items-end justify-between gap-3">
+        <div className="flex flex-wrap items-end justify-between gap-3 border-b border-border-strong pb-5">
           <div>
-            <h2 className="text-xl font-semibold tracking-tight">{t("heading")}</h2>
-            <p className="mt-2 max-w-[62ch] text-sm text-muted-foreground">{t("sub")}</p>
+            <h2
+              className="text-3xl leading-[1.05] tracking-[-0.01em] md:text-[40px]"
+              style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+            >
+              {t("heading")}
+            </h2>
+            <p className="mt-3 max-w-[62ch] text-[15px] leading-relaxed text-muted-foreground">{t("sub")}</p>
           </div>
           <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
             {t("meta", { count: books.length })}
@@ -192,7 +197,7 @@ function FeaturedBook({
         />
       </div>
       <div className="flex min-w-0 flex-1 flex-col">
-        <span className="font-mono text-[10.5px] uppercase tracking-[0.08em] text-muted-foreground">
+        <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
           {category} · {formatReadMonth(book.read, locale)}
         </span>
         <h3 className="mt-1 text-sm font-semibold leading-snug">{book.title}</h3>

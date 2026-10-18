@@ -7,6 +7,8 @@ import {
   projectLinks,
   projectState,
   stateColor,
+  sysNumber,
+  pitchOf,
 } from "@/lib/projects";
 import { ProjectPlaceholder } from "@/components/ui/project-placeholder";
 import { Badge } from "@/components/ui/badge";
@@ -28,11 +30,11 @@ function splitMetric(s: string): { num: string; label: string } {
  */
 export function ProjectRow({
   project,
-  index,
   reverse = false,
 }: {
   project: Project;
-  index: number;
+  /** Kept for call-site compatibility; the SYS number is canonical. */
+  index?: number;
   reverse?: boolean;
 }) {
   const t = useTranslations("projects");
@@ -62,8 +64,8 @@ export function ProjectRow({
         }`}
       >
         <div className="flex flex-wrap items-center gap-3 text-xs">
-          <span className="font-mono tabular-nums text-muted-foreground/50">
-            {String(index).padStart(2, "0")}
+          <span className="font-mono tabular-nums text-accent">
+            SYS–{sysNumber(project.id)}
           </span>
           <span className="font-mono text-muted-foreground">{project.year}</span>
           <Badge>
@@ -74,23 +76,23 @@ export function ProjectRow({
         </div>
 
         <div>
-          <h3
+          <h2
             className="text-3xl leading-[1.05] tracking-[-0.01em] md:text-[40px]"
             style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
           >
             {project.name}
-          </h3>
+          </h2>
           <p className="mt-2 text-base text-muted-foreground">
             {project.tag[locale]}
           </p>
         </div>
 
         <p className="max-w-[54ch] leading-relaxed text-muted-foreground">
-          {project.summary[locale]}
+          {pitchOf(project, locale)}
         </p>
 
         <div className="flex flex-wrap gap-1.5">
-          {project.stack.slice(0, 8).map((tech) => (
+          {project.stack.slice(0, 6).map((tech) => (
             <Tag key={tech}>{tech}</Tag>
           ))}
         </div>

@@ -41,9 +41,9 @@ export function CertCard({ cert, locale, labels }: CertCardProps) {
           <time dateTime={cert.issued}>{date}</time>
         </div>
 
-        <h4 className="text-sm font-medium leading-snug transition-colors group-hover:text-accent">
+        <h3 className="text-[15px] font-medium leading-snug transition-colors group-hover:text-accent">
           {cert.title}
-        </h4>
+        </h3>
 
         <div className="flex flex-wrap gap-1.5">
           {cert.hours ? (

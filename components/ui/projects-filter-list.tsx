@@ -83,7 +83,7 @@ export function ProjectsFilterList({ projects }: { projects: Project[] }) {
       >
         {color && <PulseDot color={color} />}
         {label}
-        <span className={isActive ? "text-background/60" : "text-muted-foreground/50"}>
+        <span className={isActive ? "text-background/80" : "text-muted-foreground"}>
           {count}
         </span>
       </button>
@@ -91,7 +91,7 @@ export function ProjectsFilterList({ projects }: { projects: Project[] }) {
   }
 
   const groupLabel =
-    "shrink-0 font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground/70";
+    "shrink-0 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground";
 
   return (
     <div className="flex flex-col gap-14">
@@ -139,14 +139,14 @@ export function ProjectsFilterList({ projects }: { projects: Project[] }) {
 
       {shown.length === 0 ? (
         <p className="font-mono text-sm text-muted-foreground">
-          {t("filterAll")} — 0
+          {t("filterEmpty")}
         </p>
       ) : (
-        <div className="flex flex-col gap-16 md:gap-24">
+        <div className="flex flex-col gap-12 md:gap-16">
           {shown.map((p, i) => (
             <div
               key={p.id}
-              className="border-t border-border-color pt-16 first:border-t-0 first:pt-0 md:pt-24"
+              className="border-t border-border-color pt-12 first:border-t-0 first:pt-0 md:pt-16"
             >
               <ProjectRow project={p} index={i + 1} reverse={i % 2 === 1} />
             </div>

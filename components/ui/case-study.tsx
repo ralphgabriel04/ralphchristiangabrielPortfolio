@@ -38,7 +38,7 @@ function Sprints({ locale }: { locale: Loc }) {
           </span>
         ))}
       </div>
-      <div className="mt-3.5 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[11px] text-muted-foreground">
+      <div className="mt-3.5 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[12px] text-muted-foreground">
         {PHASES.map((p) => (
           <span key={p.en} className="flex items-center gap-1.5">
             <span
@@ -48,7 +48,7 @@ function Sprints({ locale }: { locale: Loc }) {
             {p[locale]}
           </span>
         ))}
-        <span className="text-muted-foreground/60">
+        <span className="text-muted-foreground">
           {locale === "fr"
             ? "· plan de livraison (13 cycles de 2 semaines)"
             : "· delivery plan (13 two-week cycles)"}
@@ -83,7 +83,7 @@ function Pyramid({ locale }: { locale: Loc }) {
           {t.label}
         </div>
       ))}
-      <div className="mt-1.5 font-mono text-[11px] text-muted-foreground/70">
+      <div className="mt-1.5 font-mono text-[12px] text-muted-foreground">
         {L("133 tests au total · couverture complète annoncée*", "133 tests total · full coverage as reported*")}
       </div>
     </div>
@@ -98,11 +98,11 @@ function Decisions({ items, locale }: { items: CaseDecision[]; locale: Loc }) {
       {items.map((d, i) => (
         <div key={i} className="rounded-2xl border border-border-color bg-muted p-5">
           <div className="text-[15px] font-semibold">{d.title}</div>
-          <div className="mt-2.5 font-mono text-[11.5px] text-muted-foreground">{L("Contrainte", "Constraint")}</div>
+          <div className="mt-2.5 font-mono text-[12px] text-muted-foreground">{L("Contrainte", "Constraint")}</div>
           <div className="text-[13px] text-muted-foreground">{d.cons}</div>
-          <div className="mt-2 font-mono text-[11.5px] text-accent">{L("Choix", "Choice")}</div>
+          <div className="mt-2 font-mono text-[12px] text-accent">{L("Choix", "Choice")}</div>
           <div className="text-[13px]">{d.choice}</div>
-          <div className="mt-2 font-mono text-[11.5px] text-muted-foreground">{L("Compromis", "Trade-off")}</div>
+          <div className="mt-2 font-mono text-[12px] text-muted-foreground">{L("Compromis", "Trade-off")}</div>
           <div className="text-[13px] text-muted-foreground">{d.trade}</div>
           <div className="mt-3 border-t border-border-color pt-2.5 text-[13px]" style={{ color: "var(--shipped)" }}>
             ✓ {d.effect}

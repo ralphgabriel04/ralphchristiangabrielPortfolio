@@ -9,8 +9,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: isFr ? "Projets" : "Projects",
     description: isFr
-      ? "Projets de développement web et mobile : e-commerce, apps React Native, prototypes produit, sites clients, microservices et travaux d'architecture (ÉTS). Next.js, TypeScript, Java, Python, API REST."
-      : "Web and mobile development projects: e-commerce, React Native apps, product prototypes, client sites, microservices and software-architecture coursework (ÉTS). Next.js, TypeScript, Java, Python, REST APIs.",
+      ? "Projets web et mobile : une marketplace en production, une architecture événementielle mesurée sous charge, une app mobile cofondée et des projets de l'ÉTS."
+      : "Web and mobile projects: a marketplace in production, an event-driven architecture measured under load, a co-founded mobile app and ÉTS projects.",
     alternates: alternatesFor(locale, "/projects"),
   };
 }
