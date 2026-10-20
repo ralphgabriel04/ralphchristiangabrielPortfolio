@@ -10,12 +10,9 @@ import { Instrument_Serif } from "next/font/google";
 import { routing } from "@/i18n/routing";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { SideRail } from "@/components/ui/side-rail";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { Terminal } from "@/components/ui/terminal";
-import { Boot } from "@/components/ui/boot";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
-import { CustomCursor } from "@/components/ui/custom-cursor";
 import { PlainModeProvider } from "@/components/ui/plain-mode";
 import { SITE_URL, IS_PRODUCTION, alternatesFor } from "@/lib/site";
 import "@/app/globals.css";
@@ -41,13 +38,13 @@ export async function generateMetadata({
   return {
     title: {
       default: isFr
-        ? "Ralph Christian Gabriel · Étudiant en génie logiciel"
-        : "Ralph Christian Gabriel · Software Engineering Student",
+        ? "Ralph Christian Gabriel · Développeur full-stack · ÉTS"
+        : "Ralph Christian Gabriel · Full-stack developer · ÉTS",
       template: "%s | Ralph Christian Gabriel",
     },
     description: isFr
-      ? "Étudiant en génie logiciel à l’ÉTS et stagiaire en automatisation de processus à La Caisse (CDPQ), bilingue FR/EN. Analyse, architecture, produits web et mobiles, avec réalisations documentées. Grand Montréal."
-      : "Software Engineering student at ÉTS and process automation developer intern at La Caisse (CDPQ), bilingual FR/EN. Analysis, architecture, web and mobile products, with documented work. Greater Montréal.",
+      ? "Développeur full-stack, étudiant en génie logiciel à l’ÉTS et stagiaire à La Caisse (CDPQ). Projets documentés, CV et disponibilité dès janvier 2027."
+      : "Full-stack developer, software engineering student at ÉTS and intern at La Caisse (CDPQ). Documented projects, résumé and availability from January 2027.",
     metadataBase: new URL(BASE_URL),
     alternates: alternatesFor(locale, ""),
     openGraph: {
@@ -56,8 +53,8 @@ export async function generateMetadata({
       url: `${BASE_URL}/${locale}`,
       siteName: "Ralph Christian Gabriel",
       title: isFr
-        ? "Ralph Christian Gabriel · Étudiant en génie logiciel"
-        : "Ralph Christian Gabriel · Software Engineering Student",
+        ? "Ralph Christian Gabriel · Développeur full-stack · ÉTS"
+        : "Ralph Christian Gabriel · Full-stack developer · ÉTS",
       description: isFr
         ? "Analyse, architecture et conception de produits web et mobiles. Portfolio bilingue d’un étudiant en génie logiciel à l’ÉTS, stagiaire en automatisation de processus à La Caisse (CDPQ)."
         : "Analysis, architecture, and web and mobile product design. Bilingual portfolio of a Software Engineering student at ÉTS, process automation developer intern at La Caisse (CDPQ).",
@@ -168,15 +165,12 @@ export default async function LocaleLayout({
         <Providers>
           <NextIntlClientProvider>
             <PlainModeProvider>
-            <Boot />
             <ScrollProgress />
             <Header />
-            <SideRail />
             <main id="main" className="min-h-screen">{children}</main>
             <Footer />
             <ScrollToTop />
             <Terminal />
-            <CustomCursor />
             </PlainModeProvider>
           </NextIntlClientProvider>
         </Providers>

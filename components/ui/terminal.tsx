@@ -281,9 +281,9 @@ export function Terminal() {
                 autoComplete="off"
                 spellCheck={false}
                 aria-label={L("commande", "command")}
-                className="flex-1 bg-transparent font-mono text-[13px] text-foreground outline-none placeholder:text-muted-foreground/60"
+                className="flex-1 bg-transparent font-mono text-[13px] text-foreground outline-none placeholder:text-muted-foreground"
               />
-              <span className="hidden font-mono text-[10.5px] text-muted-foreground/60 sm:inline">
+              <span className="hidden font-mono text-[10.5px] text-muted-foreground sm:inline">
                 help · projets · cv · contact
               </span>
             </form>

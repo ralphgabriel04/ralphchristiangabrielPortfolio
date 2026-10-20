@@ -6,28 +6,40 @@
     "contact": "Contact",
     "testimonials": "Testimonials",
     "book": "Book a call",
-    "available": "Available",
-    "recruiter": "Recruiter mode",
-    "systems": "Systems",
-    "path": "Path",
-    "stack": "Stack",
+    "available": "Available from January 2027",
+    "recruiter": "Recruiter view",
+    "systems": "Projects",
+    "path": "Experience",
+    "stack": "Tools",
     "tools": "Tools"
   },
   "recruteur": {
     "metaTitle": "Recruiter view",
-    "metaDesc": "One-page résumé: proof, shipped systems, path and contact. Printable.",
+    "metaDesc": "My background on one page: proof, projects, experience, education and contact details. Printable.",
     "back": "Back to home",
     "print": "Print",
-    "role": "Full-Stack Developer — Junior / Intermediate",
-    "tagline": "Process Automation Developer Intern @ La Caisse (CDPQ) · B.Eng. software engineering @ ÉTS · Greater Montréal · FR/EN",
-    "availability": "Available Jan. 2027",
+    "role": "Full-stack and process automation developer",
+    "tagline": "Software engineering student (ÉTS) · Intern at La Caisse (CDPQ) · Greater Montréal · French and English",
+    "availability": "Available from January 2027 · internship or job",
     "proofs": [
-      { "value": "~15,000", "label": "LOC in production" },
-      { "value": "30+", "label": "API endpoints" },
-      { "value": "169+", "label": "planned issues · Cadence" },
-      { "value": "2,000+", "label": "tickets resolved · 94% sat." }
+      {
+        "value": "~15,000",
+        "label": "lines of code in production (The Mad Space)"
+      },
+      {
+        "value": "2.4×",
+        "label": "faster under load (CanTelcoX, P95)"
+      },
+      {
+        "value": "7",
+        "label": "third-party APIs integrated (Stripe, Gelato, Google)"
+      },
+      {
+        "value": "2,000+",
+        "label": "support tickets resolved, 94% satisfaction"
+      }
     ],
-    "systemsLabel": "Shipped & in-progress systems",
+    "systemsLabel": "Shipped and ongoing projects",
     "pathLabel": "Path",
     "eduLabel": "Education",
     "viewCase": "Case study",
@@ -53,42 +65,56 @@
     "trigger": "30-sec summary",
     "title": "Ralph in 30 seconds",
     "roleLabel": "Target role",
-    "role": "Full-Stack Developer — Junior / Intermediate",
+    "role": "Full-stack and process automation developer",
     "specLabel": "Specialization",
-    "spec": "Bilingual FR/EN Full-Stack · React / Next.js · TypeScript · Java / Spring · PostgreSQL",
+    "spec": "Bilingual · React, Next.js, TypeScript · Java, Spring Boot · PostgreSQL · Power Platform",
     "proofsLabel": "Proof",
-    "proof1": "The Mad Space — production e-commerce marketplace",
-    "proof2": "Cadence — co-founded mobile app (Tech Lead)",
-    "proof3": "2,000+ tickets resolved · 94% satisfaction (Vidéotron)",
+    "proof1": "The Mad Space: marketplace in production, ~15,000 lines of code",
+    "proof2": "CanTelcoX: event-driven architecture, 2.4 times faster under load",
+    "proof3": "Cadence: co-founded mobile app, I own the engineering",
     "availabilityLabel": "Availability",
-    "availability": "Available from January 2027 · Greater Montréal (remote OK)",
+    "availability": "Available from January 2027 for an internship or a job · Greater Montréal (hybrid or remote)",
     "cv": "CV (PDF)",
     "email": "Email",
     "book": "Book a call",
     "close": "Close"
   },
   "hero": {
-    "kicker": "Portfolio · Process Automation Developer Intern @ La Caisse · Software Engineering (ÉTS)",
+    "kicker": "Software engineering at ÉTS · Intern at La Caisse (CDPQ)",
     "name": "Ralph Christian Gabriel",
-    "title": ["Process automation", "Full-stack developer", "Co-founder · product", "Software architecture", "ÉTS · Software Engineering", "Greater Montréal"],
-    "pitch": "Passionate, versatile and a good listener, I'm a Software Engineering student at ÉTS and a process automation developer intern at La Caisse (CDPQ). From web to mobile, I turn real needs into useful solutions, from analysis to deployment. I care as much about technical quality as about user experience and transparent collaboration with my clients. This portfolio shows my work, the way I think, and how my path evolves, project after project.",
-    "pitchPlain": "Passionate, versatile and a good listener, I'm a Software Engineering student at ÉTS and a process automation developer intern at La Caisse (CDPQ). From web to mobile, I turn real needs into useful solutions, from analysis to deployment. I care as much about technical quality as about user experience and transparent collaboration with my clients. This portfolio shows my work, the way I think, and how my path evolves, project after project.",
-    "ctaPrimary": "View projects",
+    "title": [
+      "Full-stack developer",
+      "Process automation",
+      "Software engineering student (ÉTS)",
+      "Co-founder of Cadence"
+    ],
+    "pitch": "I'm a software engineering student at ÉTS who builds web and mobile apps, from analysis to launch. Until December, I'm a process automation intern at La Caisse (CDPQ).",
+    "pitchPlain": "I build websites and web and mobile apps, from the idea to launch. I'm finishing an automation internship at La Caisse (CDPQ) and studying software engineering at ÉTS.",
+    "ctaPrimary": "See my projects",
     "ctaSecondary": "Download CV (EN)",
-    "ctaSystems": "Explore my work",
-    "ctaRecruiter": "Recruiter view — 30 s",
+    "ctaSystems": "See my projects",
+    "ctaRecruiter": "Recruiter view (30 s)",
     "ctaTerminal": "or type a command",
-    "available": "Interning @ La Caisse — available from January 2027",
+    "available": "Interning at La Caisse · available from January 2027 for an internship or a job",
     "location": "Greater Montréal · hybrid or remote",
     "metrics": [
-      { "num": "~15,000", "label": "LOC in production" },
-      { "num": "30+", "label": "API endpoints" },
-      { "num": "5", "label": "production projects shipped" }
+      {
+        "num": "~15,000",
+        "label": "lines of code in production"
+      },
+      {
+        "num": "30+",
+        "label": "API endpoints"
+      },
+      {
+        "num": "7",
+        "label": "third-party APIs integrated"
+      }
     ]
   },
   "sectionLabels": {
     "selected": "Selected projects",
-    "stack": "Tech stack",
+    "stack": "Tools",
     "about": "About",
     "experience": "Experience",
     "contact": "Contact",
@@ -97,56 +123,82 @@
     "testimonials": "Testimonials"
   },
   "home": {
-    "projectsHeading": "Recent production work.",
-    "seeAll": "See all",
+    "projectsHeading": "Selected projects.",
+    "seeAll": "All projects",
     "testimonialsKicker": "Testimonials",
-    "testimonialsHeading": "What people say.",
+    "testimonialsHeading": "What people say about my work.",
     "testimonialsHeadingPre": "What people say about my ",
     "testimonialsHeadingItalic": "work.",
-    "testimonialsSubtitle": "Feedback from people I've collaborated with on technical, academic, and professional projects.",
+    "testimonialsSubtitle": "People I've worked with: ÉTS teammates, co-founders and clients.",
     "testimonialsViewAll": "See all testimonials",
-    "statCollaborations": "successful collaborations",
-    "statVerified": "Verified and authentic testimonials",
-    "statSatisfaction": "Recommended without hesitation",
-    "stackHeading": "Tools I use day to day.",
-    "contactHeading": "Have a role to fill or a project in mind?",
-    "contactLede": "Interning at La Caisse (CDPQ) through December 2026. Available from January 2027 for Junior/Intermediate Full-Stack roles in Greater Montréal. 24h response.",
+    "statCollaborations": "testimonials",
+    "statVerified": "Testimonials published as received",
+    "statSatisfaction": "",
+    "stackHeading": "Tools and technologies.",
+    "contactHeading": "Let's work together.",
+    "contactLede": "Interning at La Caisse (CDPQ) until December 2026. Available from January 2027 for a developer internship or job in Greater Montréal. Replies within 24 hours.",
     "contactCta": "Get in touch",
     "toConfirm": "To be confirmed",
     "proofQuad": [
-      { "value": "2,000+", "label": "Tickets resolved", "source": "Support & operations*" },
-      { "value": "94%", "label": "Customer satisfaction", "source": "Support & operations*" },
-      { "value": "9", "label": "Testimonials received", "source": "Clients · colleagues · collaborators" },
-      { "value": "10+", "label": "Collaborations", "source": "Clients · teams · organisations" }
+      {
+        "value": "~15,000",
+        "label": "Lines of code in production",
+        "source": "The Mad Space · marketplace"
+      },
+      {
+        "value": "2.4×",
+        "label": "Faster under load",
+        "source": "CanTelcoX · P95, k6 tests"
+      },
+      {
+        "value": "7",
+        "label": "Third-party APIs integrated",
+        "source": "Stripe, Gelato, Google"
+      },
+      {
+        "value": "2,000+",
+        "label": "Support tickets resolved",
+        "source": "Vidéotron · 94% satisfaction"
+      }
     ],
-    "proofNote": "* Support & automation role (Vidéotron).",
-    "proofAvailable": "Available for a new mandate, project or collaboration",
-    "contactAvailable": "Available — employment or contract",
-    "contactHeadingPre": "Let's build something ",
-    "contactHeadingItalic": "that lasts.",
-    "contactSub": "A role, a contract or just an architecture question — I explain my choices and I reply fast.",
+    "proofNote": "",
+    "proofAvailable": "",
+    "contactAvailable": "Available from January 2027 · internship or job",
+    "contactHeadingPre": "Let's work ",
+    "contactHeadingItalic": "together.",
+    "contactSub": "An internship, a job, a project or a technical question: write to me, I reply within 24 hours.",
     "contactCopy": "copy",
     "contactCopied": "copied",
     "contactBook": "Book a call",
     "contactCv": "CV PDF",
-    "contactResponse": "reply within 24 h",
+    "contactResponse": "Replies within 24 hours",
     "principles": [
-      { "title": "Production first", "desc": "a system that holds up, not just one that runs locally" },
-      { "title": "Explained decisions", "desc": "for every architecture choice, I can say why — and what it cost" },
-      { "title": "Ship, measure, iterate", "desc": "before/after metrics on every project" }
-    ]
+      {
+        "title": "Ship to production",
+        "desc": "The Mad Space runs live, with real Stripe payments."
+      },
+      {
+        "title": "Explain my choices",
+        "desc": "Every case study covers my role, my decisions and the project's limits."
+      },
+      {
+        "title": "Measure",
+        "desc": "CanTelcoX: five load stages, each measured and recorded."
+      }
+    ],
+    "contactPhotoAlt": "Ralph Christian Gabriel, smiling, at La Caisse headquarters in Montréal"
   },
   "now": {
     "kicker": "Now",
-    "body": "I'm currently a process automation developer intern at La Caisse (CDPQ) through December 2026: designing Power Platform solutions (Power Apps, Power Automate, Copilot Studio) and cross-system integrations in a regulated institutional environment. Alongside my studies at ÉTS, I build my skills on my own and across disciplines. I explore different areas of software engineering, but also entrepreneurship, product strategy, leadership, and the responsibilities that come with CEO and CTO roles. To keep progressing, I rely on video courses, reading and hands-on exercises — notably on YouTube, LeetCode and DeepLearning.AI. In parallel, I build several projects I truly care about as a founder and co-founder, while taking on various client mandates. These experiences strengthen my technical and human versatility, and my ability to turn needs into concrete solutions. I'm available from January 2027 for a junior or intermediate full-stack role, or new collaborations in Greater Montréal, hybrid or remote.",
-    "updated": "Updated: 2026-09-03"
+    "body": "Process automation intern at La Caisse (CDPQ) until December 2026: Power Apps, Power Automate and Copilot Studio in a regulated environment. On the side, I'm building Cadence with my co-founder and continuing my degree at ÉTS.",
+    "updated": "Updated October 18, 2026"
   },
   "projects": {
     "heading": "Selected projects.",
     "description": "Projects spanning production work, product design and prototyping, and academic software architecture.",
     "caseStudyLink": "Case study",
     "viewLive": "View live",
-    "subtitle": "Shipped systems, products in development and prototypes. Filter by state.",
+    "subtitle": "Live products, projects in development, prototypes and school projects. Filter by state or by role.",
     "filterAll": "All",
     "filterState": "State",
     "filterType": "Role",
@@ -177,42 +229,70 @@
     "screenshotsCaption": "Project screenshots",
     "screenshotPlaceholder": "Screenshot · coming soon",
     "caseStudyComingSoon": "Project in development. Case study coming soon.",
-    "viewProject": "View project"
+    "viewProject": "View project",
+    "filterEmpty": "No project matches these filters."
   },
   "about": {
     "title": "About",
-    "heading": "I build web products people actually use.",
+    "heading": "From IT support to software development.",
     "paragraphs": [
-      "Full-stack developer based in Repentigny, Greater Montréal. Bilingual EN/FR, currently studying B.Eng. in Software Engineering at ÉTS, I have been shipping web products since 2022 — solo, in teams, and as a co-founder.",
-      "My approach: ship to production, not just demos. The Mad Space runs today with ~15,000 LOC, 30+ API endpoints, multi-currency Stripe payments (4 currencies), 7+ B2B integrations and 4 business workflows that cut order processing by 10–15 minutes.",
-      "Before product development, I resolved 2,000+ tickets at Vidéotron with 94% customer satisfaction (9.6/10) and automated ~50% of tasks via Power Automate. I learned to listen before coding, and to diagnose before proposing."
+      "I'm Ralph Christian Gabriel. I live in Repentigny, in Greater Montréal, and I study software engineering at ÉTS. I work in French and English.",
+      "I started in IT support at Vidéotron: more than 2,000 tickets resolved, and about half of the repetitive tasks automated with Power Automate. That's where I learned to listen and diagnose before proposing a fix.",
+      "Since then, I've been building web and mobile apps. The Mad Space, a print-on-demand marketplace, runs in production with Stripe payments in 4 currencies. This fall, I'm a process automation intern at La Caisse (CDPQ)."
     ],
-    "caption": "Ralph Christian Gabriel · Repentigny, QC",
-    "seeExperience": "See experience",
+    "caption": "Ralph Christian Gabriel · at La Caisse head office, Montréal, October 2026",
+    "photoAlt": "Ralph Christian Gabriel in a grey blazer in the glass atrium of La Caisse head office, Montréal",
+    "library": {
+      "heading": "What I read.",
+      "sub": "A selection of my 2026 reading. Each book fits on one page, then one idea goes into a real project. My full notes are public on LinkedIn.",
+      "meta": "{count} books · 2026",
+      "note": "My note",
+      "applied": "Applied:",
+      "shelf": "Also read in 2026",
+      "quotesTitle": "Lines I keep",
+      "methodTitle": "How I read",
+      "rule": "My rule: learning without building is just entertainment.",
+      "methodLink": "My post on the method",
+      "selfStudy": "Self-study",
+      "categories": {
+        "engineering": "Engineering",
+        "focus": "Focus",
+        "leadership": "Leadership",
+        "business": "Business",
+        "learning": "Learning",
+        "meaning": "Meaning"
+      }
+    },
+    "seeExperience": "See my experience",
     "getInTouch": "Get in touch",
     "github": {
-      "heading": "GitHub activity.",
-      "sub": "Consistent commits, real projects, open source contributions.",
+      "heading": "On GitHub.",
+      "sub": "My public repositories, from coursework to my own products.",
       "streakAlt": "GitHub contribution streak",
       "statsAlt": "GitHub statistics",
       "languagesAlt": "Most used programming languages",
       "highlights": [
-        "Currently building a SaaS coaching platform (Next.js 16, React 19, TypeScript, Supabase) and maintaining a full-stack e-commerce platform with 15,000+ LOC.",
-        "Open to collaborating on full-stack web apps, open-source developer tools, and products that integrate AI.",
-        "Ask me about Next.js, React, TypeScript, REST API design, e-commerce integrations (Stripe, Gelato), or CI/CD pipelines."
+        "Start with: CanTelcoX (event-driven architecture, 173 tests), Cadence (mobile app) and the source code of this portfolio.",
+        "Open to full-stack web projects, developer tools and products that use AI.",
+        "Topics I enjoy: Next.js, TypeScript, REST API design, payment integrations and CI/CD."
       ],
-      "cta": "View full profile on GitHub"
+      "cta": "See my GitHub profile"
     },
-    "beyondCode": "Beyond the code.",
-    "beyondCodeSub": "A few things that shape how I think and work.",
+    "beyondCode": "Outside of code.",
+    "beyondCodeSub": "What I do when I'm not coding, and what it teaches me.",
     "marathon": {
-      "title": "Half-Marathon Finisher",
+      "title": "Half marathon",
       "event": "Course des pompiers de Laval",
-      "date": "June 4, 2023",
+      "date": "June 2, 2024",
       "distance": "21.1 km",
       "time": "1:56:23",
       "pace": "5:31 min/km",
-      "rank": "511th / 1,354 overall",
+      "rank": "514th / 1,353 overall",
+      "rankPos": "514th",
+      "rankTotal": "/ 1,353",
+      "photoAlt": "Ralph at the finish of the Course des pompiers de Laval half-marathon, bib 559",
+      "certificate": "Certificate",
+      "result": "Official result",
       "desc": "I ran 21.1 km to support Laval firefighters. Months of training taught me what I also find in software development every day: consistency, trusting the process, and finishing what you start."
     },
     "chess": {
@@ -227,83 +307,163 @@
       "title": "How I work",
       "desc": "I think in systems: I go deep before going wide, I plan before I code, and I document so what I ship keeps working without me. Curious and methodical, I'm most comfortable once I understand the \"why\" before the \"how\".",
       "points": [
-        "Diagnose before proposing — a habit from IT support.",
+        "Diagnose before proposing: a habit from IT support.",
         "Plan, then move in small, verifiable steps.",
         "Document and test so the code lasts.",
         "Keep learning, and share what I figure out."
       ]
+    },
+    "graduationAlt": "Ralph Christian Gabriel at his college graduation",
+    "now": {
+      "title": "Right now",
+      "body": "Process automation intern at La Caisse (CDPQ) until December 2026: Power Apps, Power Automate and Copilot Studio in a regulated environment. On the side, I'm building Cadence with my co-founder and continuing my degree at ÉTS.",
+      "updated": "Updated October 18, 2026"
+    },
+    "gallery": {
+      "heading": "Off screen.",
+      "sub": "A few moments away from the keyboard, 2025 to 2026.",
+      "items": [
+        {
+          "caption": "Mount Royal lookout, at night",
+          "date": "August 2025",
+          "alt": "Ralph Christian Gabriel at the Mount Royal lookout at night, with Montréal lit up behind him"
+        },
+        {
+          "caption": "By the water",
+          "date": "June 2026",
+          "alt": "Ralph Christian Gabriel standing by a river in a cream outfit"
+        },
+        {
+          "caption": "A café in Sutton",
+          "date": "August 2026",
+          "alt": "Ralph Christian Gabriel sitting at a table in a café in Sutton, looking toward the window"
+        }
+      ]
     }
   },
   "experience": {
-    "heading": "Career and education.",
+    "heading": "Experience and education.",
     "proTitle": "Professional experience",
     "eduTitle": "Education",
     "certTitle": "Certifications",
+    "certMeta": "{count} verifiable certifications",
+    "certVerify": "Verify",
+    "certView": "View the full-resolution certificate",
     "items": [
       {
-        "date": "Sep. 2026 · Dec. 2026",
+        "date": "Sep. 2026 to Dec. 2026",
         "role": "Process Automation Developer Intern",
         "org": "La Caisse (CDPQ), Montréal",
         "orgUrl": "https://www.linkedin.com/posts/lacaisse_chaque-ann%C3%A9e-plus-de-200-stagiaires-se-joignent-activity-7500987406775586817-u_bJ",
-        "desc": "Business process automation and digitization on the Microsoft Power Platform (Power Apps, Power Automate, Copilot Studio) in a regulated institutional environment. Ran stakeholder requirements workshops, mapped existing processes and prioritized automation opportunities. Built system integrations: REST APIs, connectors, SharePoint lists, JSON. Testing, technical documentation and production readiness. Tracked emerging AI-for-automation tooling (Copilot, AI Builder).",
+        "desc": "Business process automation with Power Platform in a regulated environment.",
+        "points": [
+          "Design and ship business process automation solutions for one of the world's largest institutional investors, under regulated production standards.",
+          "Lead stakeholder requirements workshops, map existing processes and prioritize automation opportunities across business units.",
+          "Integrate systems via REST APIs, connectors and SharePoint lists; own testing, documentation and production readiness."
+        ],
+        "stack": "Power Apps · Power Automate · Copilot Studio · Dataverse · SharePoint · REST APIs",
         "images": [
-          { "src": "/images/experience/la-caisse-cohorte.jpg", "alt": "La Caisse intern cohort, Fall 2026, Montréal" },
-          { "src": "/images/experience/la-caisse-collectivite.jpg", "alt": "La Caisse — Actif pour la collectivité" },
-          { "src": "/images/experience/la-caisse-siege.jpg", "alt": "La Caisse head office, Montréal" }
+          {
+            "src": "/images/experience/la-caisse-ralph-atrium.jpg",
+            "alt": "Ralph at La Caisse headquarters, Montréal, October 2026"
+          },
+          {
+            "src": "/images/experience/la-caisse-cohorte.jpg",
+            "alt": "La Caisse intern cohort, fall 2026, Montréal"
+          },
+          {
+            "src": "/images/experience/la-caisse-siege.jpg",
+            "alt": "La Caisse headquarters, Montréal"
+          }
         ]
       },
       {
-        "date": "2025 · present",
-        "role": "Co-founder · Tech Lead",
-        "org": "Cadence",
-        "desc": "Co-founding a coach ↔ athlete sports-coaching mobile app with Alexandre Boisvert. Tech-Lead planning: 169+ structured issues across 13 sprints, competitive audit of 8+ apps, Loi 25 · PIPEDA · GDPR-ready compliance. Stack: Expo/React Native, TypeScript, NativeWind, Supabase. Live Next.js landing page (cadence-web-fawn.vercel.app), source on GitHub."
-      },
-      {
-        "date": "2025 · present",
-        "role": "Product Designer & Freelance Developer",
-        "org": "Parallel projects",
-        "desc": "High-fidelity design and prototyping of web and mobile products, from client brief to implementation: Wise & Wealthy (AI financial coach), Kim Dubois Photographe (portfolio site, first paying client), Vibe Montréal (smart local discovery), DPM Elevate (life-management app — calendar, tasks, habits) and BOA (private-chef & table-service booking site). Design systems, bilingual FR/EN, light/dark, targeting Next.js + TypeScript."
-      },
-      {
-        "date": "Dec. 2025 · Mar. 2026",
+        "date": "Dec. 2025 to Mar. 2026",
         "role": "Solutions Integration Developer",
         "org": "Fastercom, Montréal",
-        "desc": "Configuration and integration of TMS solutions via database setup. Google Maps integration (geocoding). Structured Test → Dev → Production deployment with GitLab CI/CD Pipelines. Stack: Spring Boot, Angular."
+        "desc": "Transport management system (TMS) integration for logistics clients.",
+        "points": [
+          "Configured and integrated TMS solutions for logistics clients through database parameterization and component adaptation.",
+          "Integrated Google Maps geocoding and third-party routing APIs for transport routing and trip optimization.",
+          "Delivered 3+ structured test, development and production releases within an Agile team."
+        ],
+        "stack": "TMS · REST APIs · Google Maps · GitLab CI/CD · Spring Boot · Angular"
       },
       {
-        "date": "2025 · present",
-        "role": "Full-Stack Software Developer (Contract)",
-        "org": "The Mad Space",
-        "desc": "Designed and shipped a print-on-demand e-commerce marketplace (~15,000 LOC, 30+ API endpoints). 10+ Prisma/PostgreSQL models, custom session-based auth, Google OAuth 2.0, i18n (2 languages), multi-currency (4). 7+ B2B integrations (Stripe, Gelato, Google Merchant Center, GA4, Google Ads). GDPR/Loi 25 compliance. Vercel/Supabase deployment, Deno Edge Functions."
+        "date": "Oct. 2025 to Mar. 2026",
+        "role": "Full-Stack Developer (Contract)",
+        "org": "The Mad Space, remote",
+        "desc": "Print-on-demand marketplace, designed and shipped end to end.",
+        "points": [
+          "Architected and shipped an end-to-end print-on-demand marketplace: ~15,000 lines of code, 30+ REST endpoints, 17 bilingual pages, multi-role authentication, 4 currencies and 20+ CI/CD deployments to production.",
+          "Automated 4 business workflows across 7 third-party APIs (Stripe, Gelato, Google Merchant Center, GA4, Google Ads), cutting order processing by 10 to 15 minutes per order.",
+          "Implemented production-grade security (OAuth 2.0 with refresh-token rotation, HMAC-signed webhooks, rate limiting, audit logs), compliant with GDPR and Quebec Laws 25 and 96."
+        ],
+        "stack": "Next.js · TypeScript · Prisma · PostgreSQL · Supabase · Stripe · Vercel"
       },
       {
-        "date": "Jan. 2022 · Oct. 2025",
-        "role": "IT Automation & Support Technician",
+        "date": "2025 to present",
+        "role": "Co-founder and Tech Lead",
+        "org": "Cadence",
+        "desc": "Sports coaching mobile app for the Quebec market.",
+        "points": [
+          "Architecting a mobile sports coaching app for the Quebec francophone market, with a landing page live on Vercel.",
+          "Ran 13 sprints and 169+ GitHub issues with strict acceptance criteria; security by design (Supabase RLS from the first sprint, OWASP Mobile audit planned)."
+        ],
+        "stack": "Expo (React Native) · TypeScript · NativeWind · Supabase · Vercel"
+      },
+      {
+        "date": "2025 to present",
+        "role": "Product design and development (freelance)",
+        "org": "Side projects",
+        "desc": "Prototypes and websites for clients, and my own products.",
+        "points": [
+          "Clients: Kim Dubois Photographe (my first paying client), BOA (private chef) and the Cornwall Rex Club of Canada.",
+          "Products: DPM Elevate (deployed planning app), Wise & Wealthy and Vibe Montréal (prototypes).",
+          "Design systems, bilingual sites, light and dark themes; production targeted in Next.js and TypeScript."
+        ]
+      },
+      {
+        "date": "Jan. 2022 to Oct. 2025",
+        "role": "IT Automation and Support Technician",
         "org": "Vidéotron, Montréal",
-        "desc": "2,000+ tickets handled (AHT 11:18, 94% sat. · 9.6/10). Automated ~50% of tasks via Power Automate (HR/IT/Finance). Documented procedures and runbooks to stabilize deployments."
+        "desc": "IT support and task automation with Power Automate.",
+        "points": [
+          "Automated about 50% of recurring HR, IT and Finance tasks with Power Automate; wrote runbooks that sped up technician onboarding.",
+          "Resolved 2,000+ support tickets (94% customer satisfaction, 9.6/10)."
+        ],
+        "stack": "Power Automate · Microsoft 365 · Level 1 and 2 support"
       }
     ],
     "education": [
-      { "date": "Oct. 2024 · present", "title": "B.Eng. Software Engineering", "org": "ÉTS, École de technologie supérieure, Montréal" },
-      { "date": "Jan. 2022 · Jan. 2024", "title": "DEC, Application Development Techniques", "org": "Collège Rosemont, Montréal" },
-      { "date": "Sep. 2019 · Feb. 2022", "title": "DEP, IT Support", "org": "CFP des Riverains" }
+      {
+        "date": "Oct. 2024 to present",
+        "title": "B.Eng. in Software Engineering (in progress)",
+        "org": "ÉTS, École de technologie supérieure, Montréal"
+      },
+      {
+        "date": "Jan. 2022 to Jan. 2024",
+        "title": "DEC in Computer Science Technology (Application Development)",
+        "org": "Collège de Rosemont, Montréal"
+      },
+      {
+        "date": "Sep. 2019 to Feb. 2022",
+        "title": "DVS in IT Support",
+        "org": "CFP des Riverains"
+      }
     ],
-    "certifications": [
-      { "title": "Responsive Web Design (300h)", "org": "freeCodeCamp", "image": "/images/certs/responsive-web-design.png" },
-      { "title": "Learn HTML", "org": "Codecademy", "image": "/images/certs/learn-html.png" },
-      { "title": "Learn Python 3", "org": "Codecademy", "image": "/images/certs/learn-python-3.png" },
-      { "title": "Intro to AI Strategy", "org": "Codecademy", "image": "/images/certs/intro-ai-strategy.png" }
-    ]
+    "certLink": "{count} verifiable certifications"
   },
   "contact": {
     "title": "Let's work together.",
-    "lede": "Interning at La Caisse (CDPQ) through December 2026. Available from January 2027 for Junior/Intermediate Full-Stack roles in Greater Montréal (remote OK). 24h response.",
-    "noFormNote": "No contact form. Direct email or Cal.com slot converts better.",
+    "lede": "Interning at La Caisse (CDPQ) until December 2026. Available from January 2027 for a developer internship or job in Greater Montréal (hybrid or remote). I reply within 24 hours.",
+    "noFormNote": "",
     "email": "Email",
     "bookCall": "Book a 15-min call",
     "cvFr": "CV PDF (FR)",
     "cvEn": "CV PDF (EN)",
-    "download": "Download"
+    "download": "Download",
+    "bookCallDesc": "A 15-minute call to talk about an internship, a job or a project."
   },
   "error": {
     "kicker": "Error",
@@ -320,24 +480,98 @@
     "contact": "Contact me"
   },
   "footer": {
-    "location": "Repentigny, QC · Available from January 2027"
+    "location": "Repentigny (Greater Montréal) · available from January 2027",
+    "navTitle": "Navigation",
+    "linksTitle": "Links",
+    "email": "Email",
+    "built": "Built with Next.js",
+    "source": "Source code"
   },
   "stack": [
-    { "cat": "Languages", "items": ["TypeScript", "JavaScript", "Java", "C#", "Python"] },
-    { "cat": "Frontend", "items": ["React", "Next.js", "Tailwind CSS", "Angular"] },
-    { "cat": "Backend", "items": ["Node.js", "Express", "Spring Boot", ".NET"] },
-    { "cat": "Database", "items": ["PostgreSQL", "Prisma", "MySQL", "Supabase", "SQLite"] },
-    { "cat": "DevOps", "items": ["Docker", "GitHub Actions", "GitLab CI/CD", "Vercel"] },
-    { "cat": "Testing", "items": ["JUnit", "Jest", "TDD"] },
-    { "cat": "Architecture", "items": ["MVC", "REST", "Observer", "Strategy", "Template Method", "DDD", "GRASP"] },
-    { "cat": "Automation", "items": ["Power Automate", "Power Apps", "Copilot Studio", "SharePoint", "Microsoft 365"] }
+    {
+      "cat": "Languages",
+      "items": [
+        "TypeScript",
+        "JavaScript",
+        "Java",
+        "C#",
+        "Python"
+      ]
+    },
+    {
+      "cat": "Frontend",
+      "items": [
+        "React",
+        "Next.js",
+        "Tailwind CSS",
+        "Angular"
+      ]
+    },
+    {
+      "cat": "Backend",
+      "items": [
+        "Node.js",
+        "Express",
+        "Spring Boot",
+        ".NET"
+      ]
+    },
+    {
+      "cat": "Database",
+      "items": [
+        "PostgreSQL",
+        "Prisma",
+        "MySQL",
+        "Supabase",
+        "SQLite"
+      ]
+    },
+    {
+      "cat": "DevOps",
+      "items": [
+        "Docker",
+        "GitHub Actions",
+        "GitLab CI/CD",
+        "Vercel"
+      ]
+    },
+    {
+      "cat": "Testing",
+      "items": [
+        "JUnit",
+        "Jest",
+        "TDD"
+      ]
+    },
+    {
+      "cat": "Architecture",
+      "items": [
+        "MVC",
+        "REST",
+        "Observer",
+        "Strategy",
+        "Template Method",
+        "DDD",
+        "GRASP"
+      ]
+    },
+    {
+      "cat": "Automation",
+      "items": [
+        "Power Automate",
+        "Power Apps",
+        "Copilot Studio",
+        "SharePoint",
+        "Microsoft 365"
+      ]
+    }
   ],
   "testimonialsPage": {
     "breadcrumbHome": "Home",
     "breadcrumbCurrent": "Testimonials",
     "headingPre": "All ",
     "headingItalic": "testimonials.",
-    "subtitle": "Discover feedback from people I've had the pleasure of collaborating with on various projects.",
+    "subtitle": "What the people I've worked with say: teammates, co-founders and clients.",
     "resultLabel": "testimonial shown",
     "resultLabelPlural": "testimonials shown",
     "emptyLabel": "No testimonials in this category yet.",
@@ -350,7 +584,7 @@
   "services": {
     "kicker": "How I can help",
     "heading": "What I can bring you.",
-    "intro": "Whether you have a site to launch, an idea to validate or a team to strengthen, here's concretely what I can do. Each example points to a real project: no promises of results, only what I've already shipped.",
+    "intro": "A site to launch, an idea to validate or a team to strengthen: here's what I can do. Every example links to a real project.",
     "labelAudience": "Who it's for",
     "labelProblem": "The need",
     "labelDeliver": "What I bring",
@@ -361,7 +595,7 @@
         "audience": "Founders, small businesses and nonprofits",
         "problem": "A site that doesn't convert, a patched-together internal tool, or no web presence at all.",
         "deliver": "A fast, accessible bilingual web app, from design through to launch. Usually on Next.js, TypeScript and PostgreSQL.",
-        "example": "The Mad Space, an e-commerce marketplace in production.",
+        "example": "The Mad Space, a marketplace in production.",
         "exampleId": "the-mad-space"
       },
       {
@@ -376,8 +610,8 @@
         "title": "Integrations and automation",
         "audience": "Teams losing time on manual tasks",
         "problem": "Data retyped by hand, payments or emails to wire up, slow processes.",
-        "deliver": "Integrations (payments, fulfillment, third-party APIs) and automation that remove the manual steps.",
-        "example": "The Mad Space, 7+ B2B integrations and automated fulfillment.",
+        "deliver": "Integrations (payments, print production and shipping, third-party APIs) and automation that remove the manual steps.",
+        "example": "The Mad Space: 7 third-party APIs integrated and orders processed automatically.",
         "exampleId": "the-mad-space"
       },
       {
@@ -389,15 +623,42 @@
         "exampleId": "dpm-elevate"
       }
     ],
-    "cta": "A project to launch, or a role to fill? Let's talk.",
+    "cta": "A project to launch or a role to fill? Let's talk.",
     "ctaButton": "Get in touch",
     "ctaBook": "Book a call"
   },
   "testimonials": [
-    { "quote": "Christian created a professional, modern website perfectly suited to my needs. His professionalism, creativity, and clear communication made the entire process smooth and efficient.", "author": "Founder", "role": "The Mad Space · 2025-present", "image": "/images/testimonial-madspace.jpg", "link": "the-mad-space" },
-    { "quote": "Ralph took charge of the team during our Testing and Maintenance course projects. He got to know each team member to assign tasks that suited them best, always keeping things fair and balanced. He was always available to answer questions, patient, and ready to help. He's someone who constantly works to improve himself and bring out the best in his teammates. Simply put, he's an excellent leader.", "author": "Jonathan Euclide Marc", "role": "Peer · ÉTS · 2026", "image": "/images/testimonial-jonathan.jpg", "link": "financej" },
-    { "quote": "Ralph stood out through his professionalism and team spirit. He was always there to support me when I was struggling, and what struck me most was his patience. No matter how complex the situation, he took the time to explain, guide, and make sure everything was properly resolved. I recommend him without hesitation.", "author": "Sunny Mélissa Gabriel", "role": "Logistics Coordinator · Groupe Contex", "image": "/images/testimonial-sunny.png" },
-    { "quote": "Ralph Christian Gabriel is an expert in his field! He helped me on numerous occasions with my computer technical issues. He is reliable and always perseveres to find solutions to problems. I greatly appreciated that he always took the time to explain the reasoning behind his plan of action. This demonstrated, in my opinion, his thoroughness but also his dedication to the satisfaction of the people he helps.", "author": "Anne Sofie Laurent", "role": "Coordinator · Canada Summer Jobs", "image": "/images/testimonial-annesofie.jpg" },
-    { "quote": "When I wanted to bring the idea of Cadence to life, Ralph was the first person I thought of to join me on this adventure. A former classmate, Ralph has always shown exceptional rigor. He quickly demonstrated the same rigor and expertise as a business partner. He approaches every problem with genuine deep thinking — he considers the architecture, anticipates issues, and delivers clean, maintainable work. What particularly impressed me is his ability to learn fast and adapt to the real constraints of a project under construction. He took on complex technical challenges autonomously while remaining a reliable thinking partner. I would recommend Ralph at any time without the slightest hesitation.", "author": "Alexandre Boisvert", "role": "Rowing Coach · Cadence Co-founder", "image": "/images/testimonial-alexandre.png" }
+    {
+      "quote": "Christian created a professional, modern website perfectly suited to my needs. His professionalism, creativity, and clear communication made the entire process smooth and efficient.",
+      "author": "Founder",
+      "role": "The Mad Space · 2025-present",
+      "image": "/images/testimonial-madspace.jpg",
+      "link": "the-mad-space"
+    },
+    {
+      "quote": "Ralph took charge of the team during our Testing and Maintenance course projects. He got to know each team member to assign tasks that suited them best, always keeping things fair and balanced. He was always available to answer questions, patient, and ready to help. He's someone who constantly works to improve himself and bring out the best in his teammates. Simply put, he's an excellent leader.",
+      "author": "Jonathan Euclide Marc",
+      "role": "Peer · ÉTS · 2026",
+      "image": "/images/testimonial-jonathan.jpg",
+      "link": "financej"
+    },
+    {
+      "quote": "Ralph stood out through his professionalism and team spirit. He was always there to support me when I was struggling, and what struck me most was his patience. No matter how complex the situation, he took the time to explain, guide, and make sure everything was properly resolved. I recommend him without hesitation.",
+      "author": "Sunny Mélissa Gabriel",
+      "role": "Logistics Coordinator · Groupe Contex",
+      "image": "/images/testimonial-sunny.png"
+    },
+    {
+      "quote": "Ralph Christian Gabriel is an expert in his field! He helped me on numerous occasions with my computer technical issues. He is reliable and always perseveres to find solutions to problems. I greatly appreciated that he always took the time to explain the reasoning behind his plan of action. This demonstrated, in my opinion, his thoroughness but also his dedication to the satisfaction of the people he helps.",
+      "author": "Anne Sofie Laurent",
+      "role": "Coordinator · Canada Summer Jobs",
+      "image": "/images/testimonial-annesofie.jpg"
+    },
+    {
+      "quote": "When I wanted to bring the idea of Cadence to life, Ralph was the first person I thought of to join me on this adventure. A former classmate, Ralph has always shown exceptional rigor. He quickly demonstrated the same rigor and expertise as a business partner. He approaches every problem with genuine deep thinking: he considers the architecture, anticipates issues, and delivers clean, maintainable work. What particularly impressed me is his ability to learn fast and adapt to the real constraints of a project under construction. He took on complex technical challenges autonomously while remaining a reliable thinking partner. I would recommend Ralph at any time without the slightest hesitation.",
+      "author": "Alexandre Boisvert",
+      "role": "Rowing Coach · Cadence Co-founder",
+      "image": "/images/testimonial-alexandre.png"
+    }
   ]
 }

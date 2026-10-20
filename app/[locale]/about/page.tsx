@@ -1,14 +1,27 @@
 import type { Metadata } from "next";
 import { alternatesFor } from "@/lib/site";
 import Image from "next/image";
-import { ProfilePhoto } from "@/components/ui/profile-photo";
 import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { ArrowRight, Mail, Timer, MapPin, Trophy, ExternalLink } from "lucide-react";
+import { ArrowRight, Mail, Timer, MapPin, Trophy, ExternalLink, Award, BadgeCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
+import { LibrarySection } from "@/components/ui/library-section";
+
+/** Personal photos for the « Hors écran » gallery, oldest first. Captions and alt text: messages about.gallery.items (same order). */
+const GALLERY = [
+  "/images/beyond-code/hors-ecran-mont-royal-2025.jpg",
+  "/images/beyond-code/hors-ecran-riviere-2026.jpg",
+  "/images/beyond-code/hors-ecran-sutton-2026.jpg",
+] as const;
+
+type GalleryItem = { caption: string; date: string; alt: string };
+
+/** Official chip-time result (Sportstats/RTRT), Course des pompiers de Laval, 2 June 2024. */
+const MARATHON_RESULT_URL = "https://track.rtrt.me/e/SS-COURSEDESPOMPIERS24#/dash/R8WN6ZCU";
+const MARATHON_CERTIFICATE = "/images/beyond-code/half-marathon-certificate.png";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -16,8 +29,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: isFr ? "À propos" : "About",
     description: isFr
-      ? "Développeur full-stack et étudiant en génie logiciel à l'ÉTS, stagiaire en automatisation de processus à La Caisse (CDPQ), basé à Repentigny (Grand Montréal). Du support TI à l'automatisation, puis au développement web et mobile."
-      : "Full-stack developer and Software Engineering student at ÉTS, process automation developer intern at La Caisse (CDPQ), based in Repentigny (Greater Montréal). From IT support and automation to web and mobile development.",
+      ? "Développeur full-stack et étudiant en génie logiciel à l'ÉTS, en stage à La Caisse (CDPQ). Mon parcours, du soutien TI au développement web et mobile."
+      : "Full-stack developer and software engineering student at ÉTS, interning at La Caisse (CDPQ). My path from IT support to web and mobile development.",
     alternates: alternatesFor(locale, "/about"),
   };
 }
@@ -35,6 +48,7 @@ export default async function AboutPage({
 
 function AboutContent() {
   const t = useTranslations("about");
+  const galleryItems = t.raw("gallery.items") as GalleryItem[];
   const tSec = useTranslations("sectionLabels");
 
   const workPoints = t.raw("personality.points") as string[];
@@ -51,11 +65,13 @@ function AboutContent() {
           <Reveal delay={60}>
             <div className="flex flex-col gap-3">
               <div className="aspect-[4/5] w-full rounded-lg border border-border-color bg-muted-2 overflow-hidden relative">
-                <ProfilePhoto
-                  alt="Ralph Christian Gabriel"
+                <Image
+                  src="/images/about/ralph-la-caisse-2026-portrait.jpg"
+                  alt={t("photoAlt")}
                   fill
                   sizes="(max-width: 768px) 100vw, 320px"
                   priority
+                  className="object-cover object-[center_25%]"
                 />
               </div>
               <span className="text-xs text-muted-foreground">
@@ -66,18 +82,28 @@ function AboutContent() {
 
           {/* Bio */}
           <Reveal delay={120}>
-            <div className="flex flex-col gap-6">
-              <p className="max-w-[60ch] text-sm leading-relaxed text-muted-foreground">
+            <div className="flex flex-col gap-5">
+              <p className="max-w-[62ch] text-base leading-relaxed text-muted-foreground">
                 {t("paragraphs.0")}
               </p>
-              <p className="max-w-[60ch] text-sm leading-relaxed text-muted-foreground">
+              <p className="max-w-[62ch] text-base leading-relaxed text-muted-foreground">
                 {t("paragraphs.1")}
               </p>
-              <p className="max-w-[60ch] text-sm leading-relaxed text-muted-foreground">
+              <p className="max-w-[62ch] text-base leading-relaxed text-muted-foreground">
                 {t("paragraphs.2")}
               </p>
 
-              <div className="flex flex-wrap items-center gap-3 pt-4">
+              {/* Right now (moved here from the home page, shortened) */}
+              <div className="max-w-[62ch] rounded-xl border border-border-color bg-muted p-5">
+                <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+                  <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--shipped)" }} aria-hidden="true" />
+                  {t("now.title")}
+                </div>
+                <p className="mt-2 text-[15px] leading-relaxed text-foreground">{t("now.body")}</p>
+                <p className="mt-2 font-mono text-[12px] text-muted-foreground">{t("now.updated")}</p>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-3 pt-2">
                 <Link href="/experience">
                   <Button variant="secondary">
                     {t("seeExperience")} <ArrowRight size={16} />
@@ -97,20 +123,27 @@ function AboutContent() {
       {/* Beyond Code */}
       <section className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] pb-20">
         <Reveal>
-          <h2 className="text-xl font-semibold tracking-tight">{t("beyondCode")}</h2>
-          <p className="mt-2 text-sm text-muted-foreground">{t("beyondCodeSub")}</p>
+          <div className="border-b border-border-strong pb-5">
+            <h2
+              className="text-3xl leading-[1.05] tracking-[-0.01em] md:text-[40px]"
+              style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+            >
+              {t("beyondCode")}
+            </h2>
+            <p className="mt-3 text-[15px] text-muted-foreground">{t("beyondCodeSub")}</p>
+          </div>
         </Reveal>
 
         <div className="mt-10 grid gap-6 sm:grid-cols-2">
           {/* Half-Marathon Card */}
-          <Reveal delay={60}>
+          <Reveal delay={60} className="h-full">
             <div className="group rounded-lg border border-border-color bg-muted overflow-hidden h-full flex flex-col">
               <div className="relative aspect-[16/10] overflow-hidden">
                 <Image
-                  src="/images/beyond-code/half-marathon-certificate.png"
-                  alt={t("marathon.event")}
+                  src="/images/beyond-code/half-marathon-finish.png"
+                  alt={t("marathon.photoAlt")}
                   fill
-                  className="object-cover object-top"
+                  className="object-cover object-[center_35%] transition-transform duration-500 group-hover:scale-105"
                   sizes="(max-width: 640px) 100vw, 50vw"
                 />
               </div>
@@ -124,35 +157,57 @@ function AboutContent() {
                   <div className="flex flex-col items-center rounded-md bg-muted-2 px-2 py-2">
                     <Timer size={14} className="text-accent mb-1" />
                     <span className="text-xs font-semibold">{t("marathon.time")}</span>
-                    <span className="text-[10px] text-muted-foreground">{t("marathon.pace")}</span>
+                    <span className="text-[12px] text-muted-foreground">{t("marathon.pace")}</span>
                   </div>
                   <div className="flex flex-col items-center rounded-md bg-muted-2 px-2 py-2">
                     <MapPin size={14} className="text-accent mb-1" />
                     <span className="text-xs font-semibold">{t("marathon.distance")}</span>
-                    <span className="text-[10px] text-muted-foreground">Laval, QC</span>
+                    <span className="text-[12px] text-muted-foreground">Laval, QC</span>
                   </div>
                   <div className="flex flex-col items-center rounded-md bg-muted-2 px-2 py-2">
                     <Trophy size={14} className="text-accent mb-1" />
-                    <span className="text-xs font-semibold">511e</span>
-                    <span className="text-[10px] text-muted-foreground">/ 1,354</span>
+                    <span className="text-xs font-semibold">{t("marathon.rankPos")}</span>
+                    <span className="text-[12px] text-muted-foreground">{t("marathon.rankTotal")}</span>
                   </div>
                 </div>
 
-                <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+                <p className="mt-3 mb-4 text-xs leading-relaxed text-muted-foreground">
                   {t("marathon.desc")}
                 </p>
+
+                <div className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-border-color pt-3 text-xs">
+                  <a
+                    href={MARATHON_CERTIFICATE}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 font-medium underline decoration-border-strong underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
+                  >
+                    <Award size={14} aria-hidden="true" />
+                    {t("marathon.certificate")}
+                  </a>
+                  <a
+                    href={MARATHON_RESULT_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 font-medium underline decoration-border-strong underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
+                  >
+                    <BadgeCheck size={14} aria-hidden="true" />
+                    {t("marathon.result")}
+                    <ExternalLink size={12} aria-hidden="true" />
+                  </a>
+                </div>
               </div>
             </div>
           </Reveal>
 
           {/* Personality Card — horizontal layout */}
-          <Reveal delay={120}>
+          <Reveal delay={120} className="h-full">
             <div className="rounded-lg border border-border-color bg-muted overflow-hidden h-full">
               <div className="grid grid-cols-[140px_1fr] sm:grid-cols-[200px_1fr] h-full">
                 <div className="relative min-h-[220px] overflow-hidden">
                   <Image
-                    src="/images/beyond-code/graduation.png"
-                    alt="Graduation"
+                    src="/images/beyond-code/graduation.jpg"
+                    alt={t("graduationAlt")}
                     fill
                     className="object-cover object-top"
                     sizes="200px"
@@ -177,11 +232,11 @@ function AboutContent() {
             </div>
           </Reveal>
 
-          {/* Chess Card — compact, between personality and ski */}
-          <Reveal delay={180}>
-            <div className="group rounded-lg border border-border-color bg-muted overflow-hidden sm:col-span-2">
-              <div className="grid grid-cols-[120px_1fr] sm:grid-cols-[160px_1fr]">
-                <div className="relative min-h-[140px] overflow-hidden">
+          {/* Chess Card — same height as the ski card (Reveal is the grid item) */}
+          <Reveal delay={180} className="h-full">
+            <div className="group h-full rounded-lg border border-border-color bg-muted overflow-hidden">
+              <div className="grid h-full grid-cols-[120px_1fr] sm:grid-cols-[160px_1fr]">
+                <div className="relative min-h-[160px] overflow-hidden">
                   <Image
                     src="/images/beyond-code/chess.png"
                     alt={t("chess.title")}
@@ -201,10 +256,10 @@ function AboutContent() {
           </Reveal>
 
           {/* Skiing Card — horizontal layout, zoom out */}
-          <Reveal delay={240}>
-            <div className="group rounded-lg border border-border-color bg-muted overflow-hidden sm:col-span-2">
-              <div className="grid grid-cols-[140px_1fr] sm:grid-cols-[180px_1fr]">
-                <div className="relative min-h-[180px] overflow-hidden">
+          <Reveal delay={240} className="h-full">
+            <div className="group h-full rounded-lg border border-border-color bg-muted overflow-hidden">
+              <div className="grid h-full grid-cols-[120px_1fr] sm:grid-cols-[160px_1fr]">
+                <div className="relative min-h-[160px] overflow-hidden">
                   <Image
                     src="/images/beyond-code/skiing.png"
                     alt={t("skiing.title")}
@@ -225,47 +280,72 @@ function AboutContent() {
         </div>
       </section>
 
+      {/* Off screen: personal photos (2025-2026), chronological */}
+      <section aria-labelledby="hors-ecran" className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] pb-20">
+        <Reveal>
+          <div className="border-b border-border-strong pb-5">
+            <h2
+              id="hors-ecran"
+              className="text-3xl leading-[1.05] tracking-[-0.01em] md:text-[40px]"
+              style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+            >
+              {t("gallery.heading")}
+            </h2>
+            <p className="mt-3 text-[15px] text-muted-foreground">{t("gallery.sub")}</p>
+          </div>
+        </Reveal>
+
+        <div className="mt-10 grid gap-6 sm:grid-cols-3">
+          {GALLERY.map((src, i) => {
+            const item = galleryItems[i];
+            if (!item) return null;
+            return (
+              <Reveal key={src} delay={60 * (i + 1)}>
+                <figure className="group overflow-hidden rounded-lg border border-border-color bg-muted">
+                  <div className="relative aspect-[4/5] overflow-hidden sm:aspect-[3/4]">
+                    <Image
+                      src={src}
+                      alt={item.alt}
+                      fill
+                      className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-[1.03]"
+                      sizes="(max-width: 640px) 100vw, 33vw"
+                    />
+                  </div>
+                  <figcaption className="flex items-baseline justify-between gap-3 px-4 py-3">
+                    <span className="text-sm font-medium text-foreground">{item.caption}</span>
+                    <span className="shrink-0 font-mono text-[12px] text-muted-foreground">{item.date}</span>
+                  </figcaption>
+                </figure>
+              </Reveal>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Reading: books, quotes, learning system */}
+      <LibrarySection />
+
       {/* GitHub Activity */}
       <section className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] pb-20">
         <Reveal>
-          <h2 className="text-xl font-semibold tracking-tight">{t("github.heading")}</h2>
-          <p className="mt-2 text-sm text-muted-foreground">{t("github.sub")}</p>
+          <div className="border-b border-border-strong pb-5">
+            <h2
+              className="text-3xl leading-[1.05] tracking-[-0.01em] md:text-[40px]"
+              style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+            >
+              {t("github.heading")}
+            </h2>
+            <p className="mt-3 text-[15px] text-muted-foreground">{t("github.sub")}</p>
+          </div>
         </Reveal>
 
+        {/* Third-party stat cards removed (2026-10-18): one rendered empty and the
+            other used an off-palette navy/purple theme. First-party pointers instead. */}
         <div className="mt-8 flex flex-col gap-6">
-          {/* Stats + Languages */}
           <Reveal delay={60}>
-            <div className="grid gap-6 sm:grid-cols-2">
-              <div className="overflow-hidden rounded-lg border border-border-color bg-muted p-1">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=ralphgabriel04&theme=tokyonight"
-                  alt={t("github.statsAlt")}
-                  className="w-full"
-                  loading="lazy"
-                  width={400}
-                  height={200}
-                />
-              </div>
-              <div className="overflow-hidden rounded-lg border border-border-color bg-muted p-1">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=ralphgabriel04&theme=tokyonight"
-                  alt={t("github.languagesAlt")}
-                  className="w-full"
-                  loading="lazy"
-                  width={400}
-                  height={200}
-                />
-              </div>
-            </div>
-          </Reveal>
-
-          {/* Highlights + CTA */}
-          <Reveal delay={180}>
-            <div className="rounded-lg border border-border-color bg-muted p-5">
+            <div className="rounded-lg border border-border-color bg-muted p-6">
               <div className="flex flex-col gap-3">
-                <div className="flex flex-col gap-2 text-sm text-muted-foreground">
+                <div className="flex max-w-[72ch] flex-col gap-2.5 text-[15px] leading-relaxed text-muted-foreground">
                   <p>{t("github.highlights.0")}</p>
                   <p>{t("github.highlights.1")}</p>
                   <p>{t("github.highlights.2")}</p>

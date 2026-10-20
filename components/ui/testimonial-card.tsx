@@ -12,6 +12,8 @@ interface TestimonialCardProps {
   expanded?: boolean;
   onHoverStart?: () => void;
   onHoverEnd?: () => void;
+  /** Click/keyboard alternative to hover (touch screens, keyboard users). */
+  onToggle?: () => void;
 }
 
 export function TestimonialCard({
@@ -21,6 +23,7 @@ export function TestimonialCard({
   expanded,
   onHoverStart,
   onHoverEnd,
+  onToggle,
 }: TestimonialCardProps) {
   const t = testimonial;
   const catLabel = categoryLabels[locale][t.category];
@@ -60,22 +63,32 @@ export function TestimonialCard({
       {/* Quote text — expands on hover */}
       <p
         ref={quoteRef}
-        className={`mt-2 flex-1 text-[15px] leading-[1.65] text-muted-foreground transition-all duration-300 ${
+        // No flex-1 when clamped: a stretched box would show a 6th, half-cut line.
+        className={`mt-2 ${dense ? "" : "flex-1"} text-[15px] leading-[1.65] text-muted-foreground transition-all duration-300 ${
           dense && !expanded ? "line-clamp-5" : ""
         } ${dense ? "" : "md:text-[15.5px]"}`}
       >
         {t.quote[locale]}
       </p>
 
-      {/* "Lire la suite" hint — only shows when clamped & not expanded */}
-      {dense && isClamped && !expanded && (
-        <span className="mt-1 text-[12px] text-accent/60 select-none">
-          {locale === "fr" ? "Survoler pour lire la suite..." : "Hover to read more..."}
-        </span>
+      {/* "Lire la suite": a real button, so it works by touch and keyboard too */}
+      {dense && isClamped && onToggle && (
+        <button
+          type="button"
+          onClick={onToggle}
+          aria-expanded={!!expanded}
+          className="mt-2 self-start text-[13px] font-medium text-accent underline-offset-4 hover:underline"
+        >
+          {expanded
+            ? locale === "fr" ? "Réduire" : "Show less"
+            : locale === "fr" ? "Lire la suite" : "Read more"}
+        </button>
       )}
 
-      {/* Separator */}
-      <div className="mt-auto pt-5 h-px w-full bg-border-color" />
+      {/* Separator: a 1px rule (a 1px div with padding painted a 21px grey bar) */}
+      <div className="mt-auto pt-5">
+        <div className="h-px w-full bg-border-color" />
+      </div>
 
       {/* Author row */}
       <div className="mt-5 flex items-center gap-3">
@@ -97,16 +110,16 @@ export function TestimonialCard({
         )}
 
         <div className="min-w-0 flex-1">
-          <p className="truncate text-[14px] font-semibold">{t.name}</p>
+          <p className="text-[14px] font-semibold leading-snug">{t.name}</p>
           {t.projectLink ? (
             <Link
               href={`/projects/${t.projectLink}`}
-              className="truncate block text-[12.5px] text-accent hover:underline"
+              className="line-clamp-2 block text-[12.5px] text-accent hover:underline"
             >
               {t.role[locale]}
             </Link>
           ) : (
-            <p className="truncate text-[12.5px] text-muted-foreground">
+            <p className="line-clamp-2 text-[12.5px] text-muted-foreground">
               {t.role[locale]}
             </p>
           )}

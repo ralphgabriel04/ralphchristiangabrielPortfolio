@@ -24,7 +24,7 @@ function EvidenceTag({ level, locale }: { level: EvidenceLevel; locale: Loc }) {
   const color = TONE[e.tone];
   return (
     <span
-      className="inline-flex items-center rounded-full border px-2 py-0.5 font-mono text-[9.5px] font-medium uppercase tracking-[0.08em]"
+      className="inline-flex items-center rounded-full border px-2 py-0.5 font-mono text-[11px] font-medium uppercase tracking-[0.08em]"
       style={{
         color,
         borderColor: `color-mix(in srgb, ${color} 38%, transparent)`,
@@ -87,14 +87,14 @@ export function CaseStudyV2View({ study, locale }: { study: CaseStudyV2; locale:
         <div className="mt-5 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-3 lg:grid-cols-4">
           {metaRows.filter(([, v]) => !!v).map(([k, v]) => (
             <div key={k}>
-              <div className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground">{k}</div>
+              <div className="font-mono text-[11px] uppercase tracking-[0.1em] text-muted-foreground">{k}</div>
               <div className="mt-1 text-[13px] font-medium">{v}</div>
             </div>
           ))}
         </div>
         <div className="mt-4 flex flex-wrap gap-1.5">
           {id.stack.map((s) => (
-            <span key={s} className="rounded-full border border-border-color px-2.5 py-1 font-mono text-[11px] text-muted-foreground">{s}</span>
+            <span key={s} className="rounded-full border border-border-color px-2.5 py-1 font-mono text-[12px] text-muted-foreground">{s}</span>
           ))}
         </div>
         <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-border-color pt-3 font-mono text-[12px]">
@@ -103,7 +103,7 @@ export function CaseStudyV2View({ study, locale }: { study: CaseStudyV2; locale:
               {l.label} <span aria-hidden="true">↗</span>
             </a>
           ))}
-          <span className="ml-auto text-muted-foreground/60">{fr ? "Mis à jour" : "Updated"} : {id.updated}</span>
+          <span className="ml-auto text-muted-foreground">{fr ? "Mis à jour" : "Updated"} : {id.updated}</span>
         </div>
       </div>
 
@@ -151,7 +151,7 @@ function Section({ section, study, locale, num }: { section: CaseSectionV2; stud
                 <EvidenceTag level={m.evidence} locale={locale} />
               </div>
               <div className="mt-1 text-[12.5px] text-muted-foreground">{m.label}</div>
-              {m.note && <div className="mt-1 text-[11px] italic text-muted-foreground/60">{m.note}</div>}
+              {m.note && <div className="mt-1 text-[12.5px] italic text-muted-foreground">{m.note}</div>}
             </div>
           ))}
         </div>
@@ -162,8 +162,8 @@ function Section({ section, study, locale, num }: { section: CaseSectionV2; stud
           {study.decisions.map((d) => (
             <div key={d.id} className="rounded-xl border border-border-color bg-muted p-5">
               <div className="flex items-center gap-2">
-                <span className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-accent">{d.id}</span>
-                <h4 className="text-[15px] font-semibold">{d.title}</h4>
+                <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-accent">{d.id}</span>
+                <h3 className="text-[15px] font-semibold">{d.title}</h3>
               </div>
               <dl className="mt-3 grid gap-2.5 text-[13px] sm:grid-cols-2">
                 {([
@@ -173,7 +173,7 @@ function Section({ section, study, locale, num }: { section: CaseSectionV2; stud
                   [fr ? "Compromis" : "Trade-off", d.tradeoff],
                 ] as const).map(([k, v]) => (
                   <div key={k}>
-                    <dt className="font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground/70">{k}</dt>
+                    <dt className="font-mono text-[11px] uppercase tracking-[0.1em] text-muted-foreground">{k}</dt>
                     <dd className="mt-0.5 leading-snug text-muted-foreground">{v}</dd>
                   </div>
                 ))}
@@ -187,7 +187,7 @@ function Section({ section, study, locale, num }: { section: CaseSectionV2; stud
         <div className="mt-4 overflow-x-auto">
           <table className="w-full min-w-[420px] border-collapse text-[13px]">
             <thead>
-              <tr className="border-b border-border-strong text-left font-mono text-[10.5px] uppercase tracking-[0.08em] text-muted-foreground">
+              <tr className="border-b border-border-strong text-left font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
                 <th className="py-2 pr-4 font-medium">{fr ? "Domaine" : "Area"}</th>
                 <th className="py-2 pr-4 font-medium">{fr ? "Moi" : "Me"}</th>
                 <th className="py-2 pr-4 font-medium">{study.responsibilities.find((r) => r.otherName)?.otherName ?? (fr ? "Autre" : "Other")}</th>
@@ -206,7 +206,7 @@ function Section({ section, study, locale, num }: { section: CaseSectionV2; stud
             </tbody>
           </table>
           {study.responsibilitiesNote && (
-            <p className="mt-2 font-mono text-[11px] text-muted-foreground/60">{study.responsibilitiesNote}</p>
+            <p className="mt-2 font-mono text-[12px] text-muted-foreground">{study.responsibilitiesNote}</p>
           )}
         </div>
       )}
@@ -225,7 +225,7 @@ function Section({ section, study, locale, num }: { section: CaseSectionV2; stud
   );
 
   const header = (
-    <h3 className="group/anchor flex items-baseline gap-2 text-xl font-semibold tracking-tight">
+    <h2 className="group/anchor flex items-baseline gap-2 text-xl font-semibold tracking-tight">
       <a
         href={`#${section.id}`}
         onClick={(e) => e.stopPropagation()}
@@ -237,11 +237,11 @@ function Section({ section, study, locale, num }: { section: CaseSectionV2; stud
       {section.title}
       <span
         aria-hidden="true"
-        className="font-mono text-[0.6em] text-muted-foreground/40 opacity-0 transition-opacity group-hover/anchor:opacity-100"
+        className="font-mono text-[0.6em] text-muted-foreground opacity-0 transition-opacity group-hover/anchor:opacity-100"
       >
         #
       </span>
-    </h3>
+    </h2>
   );
 
   if (section.collapsible) {

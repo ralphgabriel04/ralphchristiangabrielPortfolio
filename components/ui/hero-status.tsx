@@ -1,10 +1,7 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import { MapPin } from "lucide-react";
 
-/** RCG.SYS hero status line:
- *  ● Disponible — emploi ou contrat · 📍 Grand Montréal · hybride · HH h MM · MTL · GitHub ↗ · LinkedIn ↗ */
+/** Hero status line: ● availability · 📍 location · GitHub ↗ · LinkedIn ↗
+ *  (the live clock was removed after the 2026-10-18 audit: decoration, no information). */
 export function HeroStatus({
   available,
   location,
@@ -12,25 +9,6 @@ export function HeroStatus({
   available: string;
   location: string;
 }) {
-  const [time, setTime] = useState("");
-
-  useEffect(() => {
-    const tick = () => {
-      try {
-        setTime(
-          new Intl.DateTimeFormat("fr-CA", {
-            hour: "2-digit",
-            minute: "2-digit",
-            timeZone: "America/Toronto",
-          }).format(new Date()),
-        );
-      } catch {}
-    };
-    tick();
-    const id = setInterval(tick, 30000);
-    return () => clearInterval(id);
-  }, []);
-
   const Sep = () => (
     <span className="text-border-strong" aria-hidden="true">
       ·
@@ -38,8 +16,9 @@ export function HeroStatus({
   );
 
   return (
-    <div className="flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-[11.5px] text-muted-foreground">
-      <span className="inline-flex items-center gap-2">
+    <div className="flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-[12px] text-muted-foreground">
+      {/* Availability gets its own row, so no separator is left hanging at a line end. */}
+      <span className="inline-flex basis-full items-center gap-2">
         <span className="relative inline-flex h-2 w-2">
           <span
             className="absolute inline-flex h-full w-full rounded-full opacity-60 motion-safe:animate-[pulse_2.4s_ease-out_infinite]"
@@ -52,18 +31,15 @@ export function HeroStatus({
         </span>
         {available}
       </span>
-      <Sep />
       <span className="inline-flex items-center gap-1">
         <MapPin size={12} className="text-accent" />
         {location}
       </span>
-      {time && (
-        <>
-          <Sep />
-          <span>{time} · MTL</span>
-        </>
-      )}
-      <Sep />
+      <span className="hidden sm:inline">
+        <Sep />
+      </span>
+      {/* Links wrap together on narrow screens. */}
+      <span className="inline-flex items-center gap-3">
       <a
         href="https://github.com/ralphgabriel04"
         target="_blank"
@@ -80,6 +56,7 @@ export function HeroStatus({
       >
         LinkedIn <span aria-hidden="true">↗</span>
       </a>
+      </span>
     </div>
   );
 }

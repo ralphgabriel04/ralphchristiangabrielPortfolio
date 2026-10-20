@@ -27,8 +27,13 @@ export function CountUp({
       return;
     }
     const prefix = m[1] ?? "";
-    const numRaw = m[2] ?? "";
-    const suffix = m[3] ?? "";
+    const numRaw = (m[2] ?? "").trimEnd();
+    const suffix = (m[2] ?? "").slice(numRaw.length) + (m[3] ?? "");
+    // Decimals ("2,4") would be read as "24": show them as-is.
+    if (/[.,]\d{1,2}$/.test(numRaw)) {
+      setDisplay(value);
+      return;
+    }
     const target = parseInt(numRaw.replace(/[\s.,]/g, ""), 10);
     if (!Number.isFinite(target)) {
       setDisplay(value);
@@ -57,10 +62,8 @@ export function CountUp({
         const entry = entries[0];
         if (!entry) return;
         if (entry.isIntersecting) {
-          run(); // (re)start the count-up each time it scrolls into view
-        } else {
-          cancelAnimationFrame(raf);
-          setDisplay(prefix + fmt(0) + suffix); // reset to 0 so it counts up again on re-entry
+          run(); // count up once, the first time it scrolls into view
+          io.disconnect();
         }
       },
       { threshold: 0.4 },

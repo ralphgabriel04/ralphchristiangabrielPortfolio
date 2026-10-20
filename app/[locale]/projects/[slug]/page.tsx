@@ -12,6 +12,8 @@ import {
   projectGalleries,
   projectState,
   stateColor,
+  sysNumber,
+  pitchOf,
   type ProjectState,
 } from "@/lib/projects";
 import { caseStudies } from "@/lib/case-studies";
@@ -24,12 +26,6 @@ import { TrackView } from "@/components/ui/track-view";
 
 const allSlugs = projects.map((p) => p.id);
 
-// Same order as the homepage "Systèmes" grid (featured, then archive) → SYS-XX.
-const FEATURED = ["the-mad-space", "cadence", "wise-wealthy", "dpm-elevate", "vibe"];
-const ordered = [
-  ...FEATURED,
-  ...projects.map((p) => p.id).filter((id) => !FEATURED.includes(id)),
-];
 const STATE_ICON: Record<ProjectState, string> = {
   production: "●",
   development: "◐",
@@ -40,6 +36,18 @@ const STATE_ICON: Record<ProjectState, string> = {
 
 export function generateStaticParams() {
   return allSlugs.map((slug) => ({ slug }));
+}
+
+/** Search snippets show ~160 characters: keep the first sentence when the pitch is longer. */
+function metaDescription(text: string): string {
+  if (text.length <= 160) return text;
+  const first = text.split(/(?<=\.)\s/)[0] ?? text;
+  if (first.length >= 70 && first.length <= 160) return first;
+  // Otherwise cut at the last comma that keeps a full clause, and close the sentence.
+  const cut = text.slice(0, 159);
+  const comma = cut.lastIndexOf(",");
+  if (comma > 80) return cut.slice(0, comma) + ".";
+  return cut.replace(/\s+\S*$/, "") + "…";
 }
 
 export async function generateMetadata({
@@ -53,7 +61,7 @@ export async function generateMetadata({
   const isFr = locale === "fr";
   return {
     title: project.name,
-    description: project.summary[isFr ? "fr" : "en"].slice(0, 155),
+    description: metaDescription(pitchOf(project, isFr ? "fr" : "en")),
     alternates: alternatesFor(locale, `/projects/${slug}`),
   };
 }
@@ -79,7 +87,7 @@ function ProjectDetailContent({ slug }: { slug: string }) {
   const study = caseStudies[slug]?.[locale];
   const v2 = caseStudiesV2[slug]?.[locale] ?? null;
   const state = projectState(slug);
-  const sysNum = String(ordered.indexOf(slug) + 1).padStart(2, "0");
+  const sysNum = sysNumber(slug);
   const gallery = projectGalleries[slug] ?? [];
 
   const links = projectLinks[slug] ?? [];
@@ -183,7 +191,7 @@ function ProjectDetailContent({ slug }: { slug: string }) {
                 height={620}
                 priority
                 sizes="(max-width: 980px) 100vw, 980px"
-                className="w-full"
+                className="h-auto w-full"
                 unoptimized={project.media.src.endsWith(".gif")}
               />
             )}

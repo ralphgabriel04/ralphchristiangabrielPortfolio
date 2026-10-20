@@ -36,7 +36,7 @@ export function ProjectTypeBadge({
 
   const badge = (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[10.5px] font-medium uppercase tracking-[0.06em] ${className}`}
+      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[11px] font-medium uppercase tracking-[0.06em] ${className}`}
       style={{
         color,
         borderColor: `color-mix(in srgb, ${color} 38%, transparent)`,

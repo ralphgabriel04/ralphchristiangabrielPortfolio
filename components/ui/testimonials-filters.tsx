@@ -35,7 +35,7 @@ export function TestimonialsFilters({ active, onChange, locale, counts }: Testim
           >
             {categoryLabels[locale][value]}
             {count !== undefined && (
-              <span className={`text-[11.5px] tabular-nums ${isActive ? "text-background/60" : "text-muted-foreground/50"}`}>
+              <span className={`text-[11.5px] tabular-nums ${isActive ? "text-background/60" : "text-muted-foreground"}`}>
                 {count}
               </span>
             )}

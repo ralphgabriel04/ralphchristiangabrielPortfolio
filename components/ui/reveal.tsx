@@ -6,12 +6,13 @@ interface RevealProps {
   children: ReactNode;
   delay?: number;
   className?: string;
-  /** Replay the reveal every time the element re-enters the viewport (scroll up
-   *  or down). Set to false for a one-shot reveal. */
+  /** Replay the reveal every time the element re-enters the viewport. Off by
+   *  default since the 2026-10-18 audit: content that hides again on scroll-up
+   *  reads as flicker. */
   repeat?: boolean;
 }
 
-export function Reveal({ children, delay = 0, className = "", repeat = true }: RevealProps) {
+export function Reveal({ children, delay = 0, className = "", repeat = false }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
   const [shown, setShown] = useState(true); // SSR: visible by default

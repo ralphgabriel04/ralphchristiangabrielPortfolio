@@ -127,7 +127,7 @@ export function SummaryDrawer({ className = "" }: { className?: string }) {
                   <div className="text-lg font-semibold tracking-[-0.02em] text-accent">
                     {m.num}
                   </div>
-                  <div className="mt-0.5 text-[11px] leading-tight text-muted-foreground">
+                  <div className="mt-0.5 text-[12px] leading-tight text-muted-foreground">
                     {m.label}
                   </div>
                 </div>
@@ -164,7 +164,7 @@ export function SummaryDrawer({ className = "" }: { className?: string }) {
             <div className="mt-5 flex items-center gap-2 text-sm text-muted-foreground">
               <MapPin size={14} className="shrink-0 text-accent" />
               <span>
-                <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
+                <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
                   {t("availabilityLabel")}
                 </span>
                 <br />

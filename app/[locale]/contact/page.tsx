@@ -22,8 +22,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: "Contact",
     description: isFr
-      ? "Développeur full-stack et étudiant en génie logiciel à l'ÉTS, en stage à La Caisse (CDPQ) jusqu'en décembre 2026. Disponible dès janvier 2027 dans le Grand Montréal. Courriel, LinkedIn, Cal.com."
-      : "Full-stack developer and Software Engineering student at ÉTS, interning at La Caisse (CDPQ) through December 2026. Available from January 2027 in Greater Montréal. Email, LinkedIn, Cal.com.",
+      ? "Pour un stage, un poste ou un projet : développeur full-stack et étudiant à l'ÉTS, disponible dès janvier 2027 dans le Grand Montréal. Réponse en moins de 24 h."
+      : "For an internship, a job or a project: full-stack developer and ÉTS student, available from January 2027 in Greater Montréal. Reply within 24 hours.",
     alternates: alternatesFor(locale, "/contact"),
   };
 }
@@ -47,11 +47,8 @@ function ContactContent() {
     <section className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] py-20">
       <Reveal>
         <SectionHeading as="h1" kicker={tSec("contact")} title={t("title")} />
-        <p className="mt-2 mb-4 max-w-[55ch] text-sm text-muted-foreground">
+        <p className="mt-5 mb-12 max-w-[60ch] text-base leading-relaxed text-muted-foreground">
           {t("lede")}
-        </p>
-        <p className="mb-12 max-w-[55ch] text-xs text-muted-foreground italic">
-          {t("noFormNote")}
         </p>
       </Reveal>
 
@@ -63,9 +60,9 @@ function ContactContent() {
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent text-accent-foreground">
                 <Calendar size={24} />
               </div>
-              <h3 className="text-lg font-medium">{t("bookCall")}</h3>
-              <p className="max-w-[40ch] text-sm text-muted-foreground">
-                {t("lede")}
+              <h2 className="text-lg font-medium">{t("bookCall")}</h2>
+              <p className="max-w-[44ch] text-[15px] text-muted-foreground">
+                {t("bookCallDesc")}
               </p>
               <TrackedLink
                 href="https://cal.com/ralphchristiangabriel/15min"
@@ -87,7 +84,7 @@ function ContactContent() {
           <Card className="p-6 flex flex-col gap-3">
             <div className="flex items-center gap-3">
               <Mail size={18} className="text-muted-foreground" />
-              <h3 className="text-sm font-medium">{t("email")}</h3>
+              <h2 className="text-sm font-medium">{t("email")}</h2>
             </div>
             <a
               href="mailto:ralph.c.gabriel@proton.me"
@@ -103,7 +100,7 @@ function ContactContent() {
           <Card className="p-6 flex flex-col gap-3">
             <div className="flex items-center gap-3">
               <LinkedInIcon size={18} className="text-muted-foreground" />
-              <h3 className="text-sm font-medium">LinkedIn</h3>
+              <h2 className="text-sm font-medium">LinkedIn</h2>
             </div>
             <a
               href="https://linkedin.com/in/ralph-christian-gabriel-45092021b"
@@ -111,7 +108,7 @@ function ContactContent() {
               rel="noreferrer"
               className="text-sm text-accent hover:underline"
             >
-              linkedin.com/in/ralph-christian-gabriel
+              linkedin.com/in/ralph-christian-gabriel-45092021b
               <ExternalLink size={12} className="inline ml-1" />
             </a>
           </Card>
@@ -122,7 +119,7 @@ function ContactContent() {
           <Card className="p-6 flex flex-col gap-3">
             <div className="flex items-center gap-3">
               <GitHubIcon size={18} className="text-muted-foreground" />
-              <h3 className="text-sm font-medium">GitHub</h3>
+              <h2 className="text-sm font-medium">GitHub</h2>
             </div>
             <a
               href="https://github.com/ralphgabriel04"
@@ -141,7 +138,7 @@ function ContactContent() {
           <Card className="p-6 flex flex-col gap-3">
             <div className="flex items-center gap-3">
               <FileText size={18} className="text-muted-foreground" />
-              <h3 className="text-sm font-medium">CV</h3>
+              <h2 className="text-sm font-medium">CV</h2>
             </div>
             <div className="flex flex-wrap gap-2">
               <a

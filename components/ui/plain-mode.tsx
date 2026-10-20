@@ -36,8 +36,9 @@ export function PlainSwap({ tech, plain }: { tech: string; plain: string }) {
   return <>{isPlain ? plain : tech}</>;
 }
 
-/** Header toggle — plain vs technical language. Shows the current mode
- *  ("Mode technique" / "Mode simple"), like the v2 header. */
+/** Header toggle for plain language. The label names the feature and never
+ *  changes ("Langage simple"); aria-pressed and the filled style carry the state.
+ *  ("Mode technique" read like a status, so visitors could not tell what it did.) */
 export function PlainToggle({
   className = "",
   expanded = false,
@@ -47,19 +48,13 @@ export function PlainToggle({
 }) {
   const { plain, toggle } = usePlain();
   const fr = useLocale() === "fr";
-  const label = plain
-    ? fr
-      ? "Mode simple"
-      : "Simple mode"
-    : fr
-      ? "Mode technique"
-      : "Technical mode";
+  const label = fr ? "Langage simple" : "Plain language";
   return (
     <button
       type="button"
       onClick={toggle}
       aria-pressed={plain}
-      title={fr ? "Basculer langage simple / technique" : "Toggle plain / technical language"}
+      title={fr ? "Expliquer le jargon technique en mots simples" : "Explain technical jargon in plain words"}
       className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 font-mono text-xs transition-colors ${
         plain
           ? "border-accent text-accent"
@@ -81,8 +76,8 @@ export function PlainBanner() {
     <div className="flex items-center gap-2 border-l-2 border-accent pl-3 font-mono text-xs text-accent">
       <span aria-hidden="true">◍</span>
       {fr
-        ? "Mode langage simple — jargon expliqué dans le lexique en bas de page."
-        : "Plain-language mode — jargon explained in the glossary near the bottom."}
+        ? "Langage simple activé : le jargon est expliqué dans le lexique en bas de page."
+        : "Plain language on: jargon is explained in the glossary near the bottom."}
     </div>
   );
 }

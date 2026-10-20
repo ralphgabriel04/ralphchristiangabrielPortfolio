@@ -210,7 +210,7 @@ export function ProjectPlaceholder({
       <div className="flex-1 flex items-center justify-center p-4 text-foreground">
         <Viz />
       </div>
-      <span className="block px-4 pb-3 font-mono text-[10px] uppercase tracking-widest text-muted-foreground/50 text-right">
+      <span className="block px-4 pb-3 font-mono text-[10px] uppercase tracking-widest text-muted-foreground text-right">
         {label} · placeholder
       </span>
     </div>

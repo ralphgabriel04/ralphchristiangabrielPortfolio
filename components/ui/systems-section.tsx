@@ -13,13 +13,16 @@ import {
   stateColor,
   caseStudyIds,
   TYPE_ORDER,
+  FEATURED_IDS,
+  sysNumber,
+  pitchOf,
 } from "@/lib/projects";
 import { LazyVideo } from "@/components/ui/lazy-video";
 import { ProjectTypeBadge } from "@/components/ui/project-type-badge";
 import { usePlain } from "@/components/ui/plain-mode";
 import { plainSummary, techPlainOf } from "@/lib/plain";
 
-const FEATURED = ["the-mad-space", "cadence", "wise-wealthy", "dpm-elevate", "vibe"];
+const FEATURED = FEATURED_IDS;
 const ARCHIVE_INITIAL = 4;
 const ARCHIVE_STEP = 4;
 const STATE_ICON: Record<string, string> = {
@@ -44,7 +47,7 @@ function TechChip({ tech }: { tech: string }) {
 
   if (!def)
     return (
-      <span className="rounded-full border border-border-color px-2.5 py-1 font-mono text-[11px] text-muted-foreground">
+      <span className="rounded-full border border-border-color px-2.5 py-1 font-mono text-[12px] text-muted-foreground">
         {tech}
       </span>
     );
@@ -54,7 +57,7 @@ function TechChip({ tech }: { tech: string }) {
       <span
         tabIndex={0}
         data-cur
-        className="inline-block cursor-help rounded-full border border-dashed border-accent/70 px-2.5 py-1 font-mono text-[11px] text-muted-foreground transition-colors hover:border-accent hover:text-foreground focus-visible:border-accent focus-visible:text-foreground"
+        className="inline-block cursor-help rounded-full border border-dashed border-accent/70 px-2.5 py-1 font-mono text-[12px] text-muted-foreground transition-colors hover:border-accent hover:text-foreground focus-visible:border-accent focus-visible:text-foreground"
       >
         {tech}
       </span>
@@ -129,16 +132,15 @@ export function SystemsSection() {
   };
 
   const summaryOf = (p: Project) =>
-    plain && plainSummary[p.id] ? plainSummary[p.id]![locale] : p.summary[locale];
+    plain && plainSummary[p.id] ? plainSummary[p.id]![locale] : pitchOf(p, locale);
 
   const featured = FEATURED.map((id) => projects.find((p) => p.id === id)).filter(
     (p): p is Project => !!p,
   );
   const archive = projects.filter((p) => !FEATURED.includes(p.id));
-  const ordered = [...featured, ...archive];
   // Distinct role-type badges present in the archive → shown as a hoverable legend.
   const legendTypes = TYPE_ORDER.filter((ty) => archive.some((p) => projectType(p.id) === ty));
-  const sys = (p: Project) => String(ordered.indexOf(p) + 1).padStart(2, "0");
+  const sys = (p: Project) => sysNumber(p.id);
   const first = featured[0];
   const rest = featured.slice(1);
   if (!first) return null;
@@ -148,18 +150,21 @@ export function SystemsSection() {
       <span className="h-2 w-2 rounded-full bg-border-strong" />
       <span className="h-2 w-2 rounded-full bg-border-strong" />
       <span className="h-2 w-2 rounded-full bg-border-strong" />
-      <span className="ml-2 truncate font-mono text-[10.5px] text-muted-foreground">{label}</span>
+      <span className="ml-2 truncate font-mono text-[11.5px] text-muted-foreground">{label}</span>
     </div>
   );
 
-  const Media = ({ p }: { p: Project }) => {
+  // `fill`: on md+, the media fills its column (big featured card) instead of
+  // leaving an empty block under a 16:9 frame.
+  const Media = ({ p, fill = false }: { p: Project; fill?: boolean }) => {
     if (!p.media?.enabled || !p.media.src) return null;
+    const size = fill ? "aspect-video w-full md:aspect-auto md:h-full" : "aspect-video w-full";
     if (p.media.type === "video")
       return (
         <LazyVideo
           src={p.media.src}
           poster={p.media.src.replace(/\.mp4$/, "-poster.jpg")}
-          className="aspect-video w-full bg-muted-2"
+          className={`${size} bg-muted-2`}
         />
       );
     return (
@@ -168,7 +173,7 @@ export function SystemsSection() {
         src={p.media.src}
         alt={p.name}
         loading="lazy"
-        className="aspect-video w-full object-cover object-top"
+        className={`${size} object-cover object-top`}
       />
     );
   };
@@ -176,7 +181,7 @@ export function SystemsSection() {
   const Status = ({ id }: { id: string }) => {
     const s = projectState(id);
     return (
-      <span className="flex items-center gap-1.5 font-mono text-[11.5px] text-muted-foreground">
+      <span className="flex items-center gap-1.5 font-mono text-[12px] text-muted-foreground">
         <span style={{ color: stateColor[s] }}>{STATE_ICON[s]}</span>
         {t(`state.${s}`)}
       </span>
@@ -216,7 +221,7 @@ export function SystemsSection() {
     const metrics = p.metrics[locale].slice(0, 3).map(metricParts);
     return (
       <div className="flex flex-1 flex-col gap-3.5 p-6 md:p-7">
-        <div className="flex items-center justify-between gap-2 font-mono text-[11.5px]">
+        <div className="flex items-center justify-between gap-2 font-mono text-[12px]">
           <div className="flex items-center gap-2">
             <span style={{ color: "var(--accent)" }}>SYS–{sys(p)}</span>
             <ProjectTypeBadge id={p.id} />
@@ -227,17 +232,17 @@ export function SystemsSection() {
           <h3 className="text-2xl md:text-[26px]" style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}>
             {p.name}
           </h3>
-          <div className="mt-1 font-mono text-[11px] text-muted-foreground">
+          <div className="mt-1 font-mono text-[12px] text-muted-foreground">
             {p.tag[locale]} · {p.year}
           </div>
         </div>
-        <p className="max-w-[58ch] text-sm leading-relaxed text-muted-foreground">{summaryOf(p)}</p>
+        <p className="max-w-[58ch] text-[15px] leading-relaxed text-muted-foreground">{summaryOf(p)}</p>
         {metrics.length > 0 && (
           <div className="grid grid-cols-3 gap-px overflow-hidden rounded-lg border border-border-color bg-border-color">
             {metrics.map((m, i) => (
               <div key={i} className="bg-muted p-2.5">
                 <div className="font-mono text-sm font-medium text-accent">{m.v || m.l}</div>
-                {m.v && <div className="mt-0.5 text-[11px] text-muted-foreground">{m.l}</div>}
+                {m.v && <div className="mt-0.5 text-[12.5px] leading-snug text-muted-foreground">{m.l}</div>}
               </div>
             ))}
           </div>
@@ -257,9 +262,13 @@ export function SystemsSection() {
       {/* Featured bento */}
       <div className="mt-10 flex flex-col gap-4 md:mt-14">
         <GlowCard className="grid grid-cols-1 overflow-hidden rounded-2xl border border-border-color bg-muted md:grid-cols-2">
-          <div className="border-b border-border-color md:border-b-0 md:border-r">
+          <div className="flex flex-col border-b border-border-color md:border-b-0 md:border-r">
             <Chrome label={first.tag[locale]} />
-            <Media p={first} />
+            <div className="relative flex-1">
+              <div className="md:absolute md:inset-0">
+                <Media p={first} fill />
+              </div>
+            </div>
           </div>
           <Body p={first} />
         </GlowCard>
@@ -281,14 +290,14 @@ export function SystemsSection() {
         <div className="mb-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-3">
           <div className="flex flex-wrap items-center gap-2">
             <span className="mr-1 font-mono text-[11.5px] uppercase tracking-[0.14em] text-muted-foreground">
-              {locale === "fr" ? "Autres systèmes" : "Other systems"}
+              {locale === "fr" ? "Autres projets" : "Other projects"}
             </span>
             {legendTypes.map((ty) => (
               <ProjectTypeBadge key={ty} type={ty} describe />
             ))}
           </div>
-          <span className="hidden font-mono text-[11px] text-muted-foreground sm:inline">
-            {locale === "fr" ? "clique une ligne pour le détail" : "click a row for detail"}
+          <span className="hidden font-mono text-[12px] text-muted-foreground sm:inline">
+            {locale === "fr" ? "Cliquez sur une ligne pour le détail" : "Click a row for details"}
           </span>
         </div>
         <div className="overflow-hidden rounded-2xl border border-border-color">
@@ -300,6 +309,7 @@ export function SystemsSection() {
               projectLinks[p.id]?.[0]?.url;
             return (
               <div key={p.id} className="border-b border-border-color last:border-b-0">
+                <div className="md:flex md:items-center">
                 <button
                   type="button"
                   onClick={() => {
@@ -317,9 +327,9 @@ export function SystemsSection() {
                   }}
                   onMouseLeave={hidePreview}
                   aria-expanded={isOpen}
-                  className="flex w-full items-center gap-3 px-4 pt-4 pb-2 text-left transition-colors hover:bg-muted/60 md:px-6"
+                  className="flex w-full min-w-0 items-center gap-3 px-4 pt-4 pb-2 text-left transition-colors hover:bg-muted/60 md:flex-1 md:px-6 md:py-4"
                 >
-                  <span className="font-mono text-[11.5px]" style={{ color: "var(--accent)" }}>SYS–{sys(p)}</span>
+                  <span className="font-mono text-[12px]" style={{ color: "var(--accent)" }}>SYS–{sys(p)}</span>
                   <span
                     className="font-mono text-[11px] transition-transform duration-300"
                     style={{ color: isOpen ? "var(--accent)" : "var(--muted-foreground)", transform: isOpen ? "rotate(90deg)" : "none" }}
@@ -331,16 +341,16 @@ export function SystemsSection() {
                       <span className="truncate text-sm font-semibold">{p.name}</span>
                       <ProjectTypeBadge id={p.id} className="hidden shrink-0 sm:inline-flex" />
                     </span>
-                    <span className="block truncate font-mono text-[11px] text-muted-foreground">{p.tag[locale]}</span>
+                    <span className="block truncate font-mono text-[12px] text-muted-foreground">{p.tag[locale]}</span>
                   </span>
-                  <span className="hidden items-center gap-1.5 font-mono text-[11.5px] text-muted-foreground sm:flex">
+                  <span className="hidden items-center gap-1.5 font-mono text-[12px] text-muted-foreground sm:flex">
                     <span style={{ color: stateColor[s] }}>{STATE_ICON[s]}</span>
                     {p.year}
                   </span>
                 </button>
 
-                {/* Always-visible links (case study + landing/live) */}
-                <div className="flex flex-wrap items-center justify-end gap-x-4 gap-y-1 px-4 pb-3.5 font-mono text-[12.5px] font-semibold md:px-6">
+                {/* Always-visible links (case study + landing/live); same line on md+ */}
+                <div className="flex shrink-0 flex-wrap items-center justify-end gap-x-4 gap-y-1 px-4 pb-3.5 font-mono text-[12.5px] font-semibold md:py-4 md:pl-0 md:pr-6">
                   {caseStudyIds.has(p.id) && (
                     <Link
                       href={`/projects/${p.id}`}
@@ -359,6 +369,7 @@ export function SystemsSection() {
                       {t("viewLive")} <ArrowUpRight size={13} />
                     </a>
                   )}
+                </div>
                 </div>
                 <div
                   className="grid transition-[grid-template-rows] duration-500 ease-out motion-reduce:transition-none"
@@ -397,7 +408,7 @@ export function SystemsSection() {
                 className="inline-flex items-center gap-2 rounded-full border border-border-color px-5 py-2 font-mono text-[12.5px] text-muted-foreground transition-colors hover:border-border-strong hover:text-foreground"
               >
                 {locale === "fr" ? "Voir plus" : "Show more"}
-                <span className="text-muted-foreground/55">
+                <span className="text-muted-foreground">
                   +{Math.min(ARCHIVE_STEP, archive.length - visible)}
                 </span>
               </button>
@@ -406,7 +417,7 @@ export function SystemsSection() {
               <button
                 type="button"
                 onClick={() => setVisible(ARCHIVE_INITIAL)}
-                className="inline-flex items-center rounded-full px-5 py-2 font-mono text-[12.5px] text-muted-foreground/70 transition-colors hover:text-foreground"
+                className="inline-flex items-center rounded-full px-5 py-2 font-mono text-[12.5px] text-muted-foreground transition-colors hover:text-foreground"
               >
                 {locale === "fr" ? "Réduire" : "Show less"}
               </button>

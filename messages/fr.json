@@ -6,28 +6,40 @@
     "contact": "Contact",
     "testimonials": "Témoignages",
     "book": "Réserver un appel",
-    "available": "Disponible",
-    "recruiter": "Mode recruteur",
-    "systems": "Systèmes",
-    "path": "Parcours",
-    "stack": "Stack",
+    "available": "Disponible dès janvier 2027",
+    "recruiter": "Vue recruteur",
+    "systems": "Projets",
+    "path": "Expérience",
+    "stack": "Outils",
     "tools": "Outils"
   },
   "recruteur": {
     "metaTitle": "Vue recruteur",
-    "metaDesc": "Synthèse CV d'une page : preuves, systèmes livrés, parcours et contact. Imprimable.",
+    "metaDesc": "Mon parcours sur une page : preuves, projets, expérience, formation et coordonnées. Version imprimable.",
     "back": "Retour à l'accueil",
     "print": "Imprimer",
-    "role": "Développeur Full-Stack — Junior / Intermédiaire",
-    "tagline": "Stagiaire en automatisation de processus @ La Caisse (CDPQ) · B. Ing. génie logiciel @ ÉTS · Grand Montréal · FR/EN",
-    "availability": "Disponible janv. 2027",
+    "role": "Développeur full-stack et automatisation de processus",
+    "tagline": "Étudiant au baccalauréat en génie logiciel (ÉTS) · Stagiaire à La Caisse (CDPQ) · Grand Montréal · français et anglais",
+    "availability": "Disponible dès janvier 2027 · stage ou poste",
     "proofs": [
-      { "value": "~15 000", "label": "LOC en production" },
-      { "value": "30+", "label": "endpoints API" },
-      { "value": "169+", "label": "issues planifiées · Cadence" },
-      { "value": "2 000+", "label": "tickets résolus · 94 % sat." }
+      {
+        "value": "~15 000",
+        "label": "lignes de code en production (The Mad Space)"
+      },
+      {
+        "value": "2,4×",
+        "label": "plus rapide sous charge (CanTelcoX, P95)"
+      },
+      {
+        "value": "7",
+        "label": "API tierces intégrées (Stripe, Gelato, Google)"
+      },
+      {
+        "value": "2 000+",
+        "label": "billets de soutien résolus, 94 % de satisfaction"
+      }
     ],
-    "systemsLabel": "Systèmes livrés & en cours",
+    "systemsLabel": "Projets livrés et en cours",
     "pathLabel": "Parcours",
     "eduLabel": "Éducation",
     "viewCase": "Étude de cas",
@@ -53,42 +65,56 @@
     "trigger": "Résumé 30 s",
     "title": "Ralph en 30 secondes",
     "roleLabel": "Poste visé",
-    "role": "Développeur Full-Stack — Junior / Intermédiaire",
+    "role": "Développeur full-stack et automatisation de processus",
     "specLabel": "Spécialisation",
-    "spec": "Full-Stack bilingue FR/EN · React / Next.js · TypeScript · Java / Spring · PostgreSQL",
+    "spec": "Bilingue · React, Next.js, TypeScript · Java, Spring Boot · PostgreSQL · Power Platform",
     "proofsLabel": "Preuves",
-    "proof1": "The Mad Space — marketplace e-commerce en production",
-    "proof2": "Cadence — app mobile co-fondée (Tech Lead)",
-    "proof3": "2 000+ tickets résolus · 94 % satisfaction (Vidéotron)",
+    "proof1": "The Mad Space : marketplace en production, ~15 000 lignes de code",
+    "proof2": "CanTelcoX : architecture événementielle, 2,4 fois plus rapide sous charge",
+    "proof3": "Cadence : application mobile cofondée, responsable de la technique",
     "availabilityLabel": "Disponibilité",
-    "availability": "Disponible dès janvier 2027 · Grand Montréal (télétravail accepté)",
+    "availability": "Disponible dès janvier 2027 pour un stage ou un poste · Grand Montréal (hybride ou à distance)",
     "cv": "CV (PDF)",
     "email": "Courriel",
     "book": "Réserver un appel",
     "close": "Fermer"
   },
   "hero": {
-    "kicker": "Portfolio · Stagiaire en automatisation de processus @ La Caisse · Génie logiciel (ÉTS)",
+    "kicker": "Génie logiciel à l'ÉTS · Stage à La Caisse (CDPQ)",
     "name": "Ralph Christian Gabriel",
-    "title": ["Automatisation de processus", "Développeur full-stack", "Cofondateur · produit", "Architecture logicielle", "ÉTS · Génie logiciel", "Grand Montréal"],
-    "pitch": "Passionné, polyvalent et à l'écoute, je suis étudiant en génie logiciel à l'ÉTS et stagiaire en automatisation de processus à La Caisse (CDPQ). Du web au mobile, je transforme des besoins concrets en solutions utiles, de l'analyse au déploiement. J'accorde autant d'importance à la qualité technique qu'à l'expérience utilisateur et à une collaboration transparente avec mes clients. Ce portfolio présente mes réalisations, ma façon de réfléchir et l'évolution de mon parcours, projet après projet.",
-    "pitchPlain": "Passionné, polyvalent et à l'écoute, je suis étudiant en génie logiciel à l'ÉTS et stagiaire en automatisation de processus à La Caisse (CDPQ). Du web au mobile, je transforme des besoins concrets en solutions utiles, de l'analyse au déploiement. J'accorde autant d'importance à la qualité technique qu'à l'expérience utilisateur et à une collaboration transparente avec mes clients. Ce portfolio présente mes réalisations, ma façon de réfléchir et l'évolution de mon parcours, projet après projet.",
+    "title": [
+      "Développeur full-stack",
+      "Automatisation de processus",
+      "Étudiant en génie logiciel (ÉTS)",
+      "Cofondateur de Cadence"
+    ],
+    "pitch": "Étudiant en génie logiciel à l'ÉTS, je développe des applications web et mobiles, de l'analyse jusqu'à la mise en ligne. Jusqu'en décembre, je suis stagiaire en automatisation de processus à La Caisse (CDPQ).",
+    "pitchPlain": "Je crée des sites et des applications web et mobiles, de l'idée jusqu'à la mise en ligne. Je termine un stage en automatisation à La Caisse (CDPQ) et j'étudie en génie logiciel à l'ÉTS.",
     "ctaPrimary": "Voir mes projets",
     "ctaSecondary": "Télécharger CV (FR)",
-    "ctaSystems": "Explorer mes réalisations",
-    "ctaRecruiter": "Vue recruteur — 30 s",
+    "ctaSystems": "Voir mes projets",
+    "ctaRecruiter": "Vue recruteur (30 s)",
     "ctaTerminal": "ou tape une commande",
-    "available": "En stage @ La Caisse — disponible dès janvier 2027",
-    "location": "Grand Montréal · hybride ou télétravail",
+    "available": "En stage à La Caisse · disponible dès janvier 2027 pour un stage ou un poste",
+    "location": "Grand Montréal · hybride ou à distance",
     "metrics": [
-      { "num": "~15 000", "label": "LOC en production" },
-      { "num": "30+", "label": "endpoints API" },
-      { "num": "5", "label": "projets livrés en production" }
+      {
+        "num": "~15 000",
+        "label": "lignes de code en production"
+      },
+      {
+        "num": "30+",
+        "label": "points d'accès API"
+      },
+      {
+        "num": "7",
+        "label": "API tierces intégrées"
+      }
     ]
   },
   "sectionLabels": {
     "selected": "Projets sélectionnés",
-    "stack": "Stack technique",
+    "stack": "Outils",
     "about": "À propos",
     "experience": "Expérience",
     "contact": "Contact",
@@ -97,56 +123,82 @@
     "testimonials": "Témoignages"
   },
   "home": {
-    "projectsHeading": "Travail récent en production.",
-    "seeAll": "Tout voir",
+    "projectsHeading": "Projets choisis.",
+    "seeAll": "Tous les projets",
     "testimonialsKicker": "Témoignages",
     "testimonialsHeading": "Ce qu'on dit de mon travail.",
     "testimonialsHeadingPre": "Ce qu'on dit de mon ",
     "testimonialsHeadingItalic": "travail.",
-    "testimonialsSubtitle": "Des retours de personnes avec qui j'ai collaboré dans des projets techniques, académiques et professionnels.",
+    "testimonialsSubtitle": "Des personnes avec qui j'ai travaillé : coéquipiers à l'ÉTS, cofondateurs et clients.",
     "testimonialsViewAll": "Voir tous les témoignages",
-    "statCollaborations": "collaborations réussies",
-    "statVerified": "Témoignages vérifiés et authentiques",
-    "statSatisfaction": "Recommandé sans hésitation",
-    "stackHeading": "Outils que j'utilise au quotidien.",
-    "contactHeading": "Vous avez un poste à pourvoir ou un projet en tête ?",
-    "contactLede": "En stage à La Caisse (CDPQ) jusqu'en décembre 2026. Disponible dès janvier 2027 pour des postes Full-Stack Junior/Intermediate dans le Grand Montréal. Réponse sous 24h.",
+    "statCollaborations": "témoignages",
+    "statVerified": "Témoignages publiés tels quels",
+    "statSatisfaction": "",
+    "stackHeading": "Outils et technologies.",
+    "contactHeading": "Travaillons ensemble.",
+    "contactLede": "En stage à La Caisse (CDPQ) jusqu'en décembre 2026. Disponible dès janvier 2027 pour un stage ou un poste de développeur, dans le Grand Montréal. Réponse en moins de 24 h.",
     "contactCta": "Me contacter",
     "toConfirm": "À confirmer",
     "proofQuad": [
-      { "value": "2 000+", "label": "Tickets résolus", "source": "Support & opérations*" },
-      { "value": "94 %", "label": "Satisfaction client", "source": "Support & opérations*" },
-      { "value": "9", "label": "Témoignages reçus", "source": "Clients · collègues · collaborateurs" },
-      { "value": "10+", "label": "Collaborations réalisées", "source": "Clients · équipes · organisations" }
+      {
+        "value": "~15 000",
+        "label": "Lignes de code en production",
+        "source": "The Mad Space · marketplace"
+      },
+      {
+        "value": "2,4×",
+        "label": "Plus rapide sous charge",
+        "source": "CanTelcoX · P95, tests k6"
+      },
+      {
+        "value": "7",
+        "label": "API tierces intégrées",
+        "source": "Stripe, Gelato, Google"
+      },
+      {
+        "value": "2 000+",
+        "label": "Billets de soutien résolus",
+        "source": "Vidéotron · 94 % de satisfaction"
+      }
     ],
-    "proofNote": "* Rôle support & automatisation (Vidéotron).",
-    "proofAvailable": "Disponible pour un nouveau mandat, un projet ou une collaboration",
-    "contactAvailable": "Disponible — emploi ou contrat",
-    "contactHeadingPre": "Construisons quelque chose ",
-    "contactHeadingItalic": "qui tient.",
-    "contactSub": "Emploi, contrat ou simple question d'architecture — j'explique mes choix et je réponds vite.",
+    "proofNote": "",
+    "proofAvailable": "",
+    "contactAvailable": "Disponible dès janvier 2027 · stage ou poste",
+    "contactHeadingPre": "Travaillons ",
+    "contactHeadingItalic": "ensemble.",
+    "contactSub": "Un stage, un poste, un projet ou une question technique : écrivez-moi, je réponds en moins de 24 h.",
     "contactCopy": "copier",
     "contactCopied": "copié",
     "contactBook": "Réserver un appel",
     "contactCv": "CV PDF",
-    "contactResponse": "réponse sous 24 h",
+    "contactResponse": "Réponse en moins de 24 h",
     "principles": [
-      { "title": "Production d'abord", "desc": "un système qui résiste, pas juste qui marche en local" },
-      { "title": "Décisions expliquées", "desc": "pour chaque choix d'architecture, je peux dire pourquoi — et ce qu'il a coûté" },
-      { "title": "Livrer, mesurer, itérer", "desc": "des métriques avant/après sur chaque projet" }
-    ]
+      {
+        "title": "Aller jusqu'à la production",
+        "desc": "The Mad Space tourne en ligne, avec de vrais paiements Stripe."
+      },
+      {
+        "title": "Expliquer mes choix",
+        "desc": "Chaque étude de cas présente mon rôle, mes décisions et les limites du projet."
+      },
+      {
+        "title": "Mesurer",
+        "desc": "CanTelcoX : cinq paliers de charge, chacun mesuré et consigné."
+      }
+    ],
+    "contactPhotoAlt": "Ralph Christian Gabriel, souriant, au siège de La Caisse à Montréal"
   },
   "now": {
     "kicker": "En ce moment",
-    "body": "Je suis présentement stagiaire en automatisation de processus à La Caisse (CDPQ), jusqu'en décembre 2026 : conception de solutions Power Platform (Power Apps, Power Automate, Copilot Studio) et intégrations inter-systèmes en environnement institutionnel réglementé. En complément de ma formation à l'ÉTS, je développe mes compétences de manière autonome et pluridisciplinaire. J'explore différents domaines du génie logiciel, mais aussi l'entrepreneuriat, la stratégie produit, le leadership et les responsabilités associées aux rôles de CEO et de CTO. Pour progresser, je m'appuie sur des formations vidéo, des lectures et des exercices pratiques proposés notamment sur YouTube, LeetCode et DeepLearning.AI. En parallèle, je développe plusieurs projets qui me tiennent à cœur en tant que fondateur et cofondateur, tout en réalisant différents mandats clients. Ces expériences renforcent ma polyvalence technique et humaine, ainsi que ma capacité à transformer des besoins en solutions concrètes. Je suis disponible dès janvier 2027 pour un poste full-stack junior ou intermédiaire, ou de nouvelles collaborations dans le Grand Montréal, en mode hybride ou à distance.",
-    "updated": "Mis à jour : 2026-09-03"
+    "body": "Stagiaire en automatisation de processus à La Caisse (CDPQ) jusqu'en décembre 2026 : Power Apps, Power Automate et Copilot Studio, dans un milieu réglementé. En parallèle, je développe Cadence avec mon cofondateur et je poursuis mon baccalauréat à l'ÉTS.",
+    "updated": "Mis à jour le 18 octobre 2026"
   },
   "projects": {
     "heading": "Projets sélectionnés.",
     "description": "Des projets qui montrent mon travail en production, en conception produit et prototypage, et en architecture logicielle académique.",
     "caseStudyLink": "Étude de cas",
     "viewLive": "Voir en ligne",
-    "subtitle": "Systèmes livrés, produits en développement et prototypes. Filtrez par état.",
+    "subtitle": "Produits en ligne, projets en développement, prototypes et projets d'école. Filtrez par état ou par rôle.",
     "filterAll": "Tous",
     "filterState": "État",
     "filterType": "Rôle",
@@ -162,7 +214,7 @@
       "founder": "Fondateur",
       "client": "Client",
       "academic": "Scolaire",
-      "personal": "Perso"
+      "personal": "Personnel"
     },
     "typeDesc": {
       "cofounder": "Projet que j'ai cofondé : vision, décisions et technique partagées dès le départ.",
@@ -177,133 +229,241 @@
     "screenshotsCaption": "Captures d'écran du projet",
     "screenshotPlaceholder": "Capture d'écran · à venir",
     "caseStudyComingSoon": "Projet en développement. Étude de cas à venir.",
-    "viewProject": "Voir le projet"
+    "viewProject": "Voir le projet",
+    "filterEmpty": "Aucun projet ne correspond à ces filtres."
   },
   "about": {
     "title": "À propos",
-    "heading": "Je construis des produits web que des gens utilisent vraiment.",
+    "heading": "Du soutien informatique au développement logiciel.",
     "paragraphs": [
-      "Développeur full-stack basé à Repentigny, dans le Grand Montréal. Bilingue FR/EN, étudiant au B. Ing. en génie logiciel à l'ÉTS, je construis des produits web depuis 2022 — seul, en équipe, et comme cofondateur.",
-      "Mon approche : livrer en production, pas seulement en démo. The Mad Space tourne aujourd'hui avec ~15 000 LOC, 30+ endpoints API, des paiements Stripe en multi-devises (4), 7+ intégrations B2B et 4 workflows métier qui ont raccourci le traitement des commandes de 10 à 15 minutes.",
-      "Avant le développement produit, j'ai résolu plus de 2 000 tickets chez Vidéotron avec 94% de satisfaction client (9,6/10) et automatisé ~50% des tâches via Power Automate. J'ai appris à écouter avant de coder, et à diagnostiquer avant de proposer."
+      "Je m'appelle Ralph Christian Gabriel. J'habite Repentigny, dans le Grand Montréal, et j'étudie en génie logiciel à l'ÉTS. Je travaille en français et en anglais.",
+      "J'ai commencé au soutien informatique chez Vidéotron : plus de 2 000 billets résolus, et environ la moitié des tâches répétitives automatisées avec Power Automate. J'y ai appris à écouter et à diagnostiquer avant de proposer une solution.",
+      "Depuis, je développe des applications web et mobiles. The Mad Space, une marketplace d'impression à la demande, tourne en production avec des paiements Stripe en 4 devises. Cet automne, je fais un stage en automatisation de processus à La Caisse (CDPQ)."
     ],
-    "caption": "Ralph Christian Gabriel · Repentigny, QC",
-    "seeExperience": "Voir l'expérience",
+    "caption": "Ralph Christian Gabriel · au siège de La Caisse, Montréal, octobre 2026",
+    "photoAlt": "Ralph Christian Gabriel en blazer gris dans l'atrium vitré du siège de La Caisse, à Montréal",
+    "library": {
+      "heading": "Ce que je lis.",
+      "sub": "Une sélection de mes lectures de 2026. Chaque livre tient sur une page, puis une idée part dans un vrai projet. Mes notes complètes sont publiques sur LinkedIn.",
+      "meta": "{count} livres · 2026",
+      "note": "Ma note",
+      "applied": "Appliqué :",
+      "shelf": "Aussi lus en 2026",
+      "quotesTitle": "Des phrases que je garde",
+      "methodTitle": "Comment je lis",
+      "rule": "Ma règle : apprendre sans construire, c'est du divertissement.",
+      "methodLink": "Mon post sur la méthode",
+      "selfStudy": "Autoformation",
+      "categories": {
+        "engineering": "Ingénierie",
+        "focus": "Focus",
+        "leadership": "Leadership",
+        "business": "Affaires",
+        "learning": "Apprendre",
+        "meaning": "Sens"
+      }
+    },
+    "seeExperience": "Voir mon expérience",
     "getInTouch": "Me contacter",
     "github": {
-      "heading": "Activité GitHub.",
-      "sub": "Des commits réguliers, des projets concrets, des contributions open source.",
+      "heading": "Sur GitHub.",
+      "sub": "Mes dépôts publics, du code d'école à mes produits.",
       "streakAlt": "Série de contributions GitHub",
       "statsAlt": "Statistiques GitHub",
       "languagesAlt": "Langages de programmation les plus utilisés",
       "highlights": [
-        "Je développe actuellement une plateforme SaaS de coaching (Next.js 16, React 19, TypeScript, Supabase) et je maintiens une plateforme e-commerce full-stack de 15 000+ lignes de code.",
-        "Ouvert à collaborer sur des apps web full-stack, des outils open source pour développeurs et des produits qui intègrent l'IA.",
-        "Discutons de Next.js, React, TypeScript, design d'API REST, intégrations e-commerce (Stripe, Gelato) ou pipelines CI/CD."
+        "À voir en premier : CanTelcoX (architecture événementielle, 173 tests), Cadence (application mobile) et le code source de ce portfolio.",
+        "Ouvert aux projets web full-stack, aux outils pour développeurs et aux produits qui intègrent l'IA.",
+        "Sujets dont j'aime parler : Next.js, TypeScript, conception d'API REST, intégrations de paiement et CI/CD."
       ],
-      "cta": "Voir le profil complet sur GitHub"
+      "cta": "Voir mon profil GitHub"
     },
-    "beyondCode": "Au-delà du code.",
-    "beyondCodeSub": "Quelques traits qui influencent ma manière de penser et de travailler.",
+    "beyondCode": "En dehors du code.",
+    "beyondCodeSub": "Ce que je fais quand je ne code pas, et ce que ça m'apprend.",
     "marathon": {
-      "title": "Finisher demi-marathon",
+      "title": "Demi-marathon",
       "event": "Course des pompiers de Laval",
-      "date": "4 juin 2023",
+      "date": "2 juin 2024",
       "distance": "21,1 km",
       "time": "1:56:23",
       "pace": "5:31 min/km",
-      "rank": "511e / 1 354 au classement général",
+      "rank": "514e / 1 353 au classement général",
+      "rankPos": "514e",
+      "rankTotal": "/ 1 353",
+      "photoAlt": "Ralph à l'arrivée du demi-marathon de la Course des pompiers de Laval, dossard 559",
+      "certificate": "Certificat",
+      "result": "Résultat officiel",
       "desc": "J'ai couru 21,1 km pour soutenir les pompiers de Laval. Les mois d'entraînement m'ont appris ce que je retrouve chaque jour en développement : la constance, la confiance dans le processus et l'importance de finir ce qu'on commence."
     },
     "chess": {
       "title": "Joueur d'échecs",
-      "desc": "Les échecs m'obligent à anticiper, à lire les patterns et à penser plusieurs coups d'avance. C'est exactement ce que je fais quand je conçois l'architecture d'un système."
+      "desc": "Les échecs m'obligent à anticiper, à reconnaître des schémas et à penser plusieurs coups d'avance. Je fais la même chose quand je conçois l'architecture d'un système."
     },
     "skiing": {
       "title": "Skieur",
-      "desc": "Le ski, c'est mon reset. Ça me force à lire le terrain, à réagir vite et à m'engager pleinement dans chaque virage."
+      "desc": "Le ski, c'est ma façon de décrocher. Il faut lire le terrain, réagir vite et s'engager dans chaque virage."
     },
     "personality": {
       "title": "Comment je travaille",
-      "desc": "Je pense en systèmes : je vais en profondeur avant d'élargir, je planifie avant de coder, et je documente pour que ce que je livre continue de fonctionner sans moi. Curieux et méthodique, je suis plus à l'aise une fois que je comprends le « pourquoi » avant le « comment ».",
+      "desc": "Je pense en systèmes : je cherche le « pourquoi » avant le « comment », je planifie avant de coder et je documente pour que le travail continue de fonctionner sans moi.",
       "points": [
-        "Diagnostiquer avant de proposer — une habitude venue du support TI.",
+        "Diagnostiquer avant de proposer : une habitude du soutien informatique.",
         "Planifier, puis avancer par petites étapes vérifiables.",
-        "Documenter et tester pour que le code tienne dans le temps.",
+        "Documenter et tester pour que le code dure.",
         "Apprendre en continu et partager ce que je découvre."
+      ]
+    },
+    "graduationAlt": "Ralph Christian Gabriel à sa remise de diplôme collégial",
+    "now": {
+      "title": "En ce moment",
+      "body": "Stagiaire en automatisation de processus à La Caisse (CDPQ) jusqu'en décembre 2026 : Power Apps, Power Automate et Copilot Studio, dans un milieu réglementé. En parallèle, je développe Cadence avec mon cofondateur et je poursuis mon baccalauréat à l'ÉTS.",
+      "updated": "Mis à jour le 18 octobre 2026"
+    },
+    "gallery": {
+      "heading": "Hors écran.",
+      "sub": "Quelques moments loin du clavier, entre 2025 et 2026.",
+      "items": [
+        {
+          "caption": "Belvédère du Mont-Royal, la nuit",
+          "date": "août 2025",
+          "alt": "Ralph Christian Gabriel au belvédère du Mont-Royal, la nuit, avec Montréal illuminée en arrière-plan"
+        },
+        {
+          "caption": "Au bord de l'eau",
+          "date": "juin 2026",
+          "alt": "Ralph Christian Gabriel debout au bord d'une rivière, en tenue crème"
+        },
+        {
+          "caption": "Un café à Sutton",
+          "date": "août 2026",
+          "alt": "Ralph Christian Gabriel assis à une table dans un café de Sutton, le regard tourné vers la fenêtre"
+        }
       ]
     }
   },
   "experience": {
-    "heading": "Parcours et formation.",
+    "heading": "Expérience et formation.",
     "proTitle": "Expérience professionnelle",
-    "eduTitle": "Éducation",
+    "eduTitle": "Formation",
     "certTitle": "Certifications",
+    "certMeta": "{count} certifications vérifiables",
+    "certVerify": "Vérifier",
+    "certView": "Voir le certificat en pleine résolution",
     "items": [
       {
-        "date": "Sep. 2026 · Déc. 2026",
-        "role": "Stagiaire, Développeur en automatisation de processus",
+        "date": "sept. 2026 à déc. 2026",
+        "role": "Stagiaire, développeur en automatisation de processus",
         "org": "La Caisse (CDPQ), Montréal",
         "orgUrl": "https://www.linkedin.com/posts/lacaisse_chaque-ann%C3%A9e-plus-de-200-stagiaires-se-joignent-activity-7500987406775586817-u_bJ",
-        "desc": "Automatisation et numérisation de processus d'affaires sur Microsoft Power Platform (Power Apps, Power Automate, Copilot Studio) en environnement institutionnel réglementé. Animation d'ateliers de collecte de besoins, cartographie des processus existants et priorisation des opportunités d'automatisation. Intégrations inter-systèmes : API REST, connecteurs, listes SharePoint, JSON. Tests, documentation technique et préparation à la mise en production. Veille sur l'IA appliquée à l'automatisation (Copilot, AI Builder).",
+        "desc": "Automatisation de processus d'affaires avec Power Platform, dans un milieu réglementé.",
+        "points": [
+          "Je conçois et livre des solutions d'automatisation de processus pour l'un des plus grands investisseurs institutionnels au monde, dans un milieu réglementé.",
+          "J'anime des ateliers de collecte de besoins, je cartographie les processus et je priorise les occasions d'automatisation par unité d'affaires.",
+          "J'intègre les systèmes par API REST, connecteurs et listes SharePoint, et je suis responsable des tests, de la documentation et de la mise en production."
+        ],
+        "stack": "Power Apps · Power Automate · Copilot Studio · Dataverse · SharePoint · API REST",
         "images": [
-          { "src": "/images/experience/la-caisse-cohorte.jpg", "alt": "Cohorte de stagiaires de La Caisse, automne 2026, Montréal" },
-          { "src": "/images/experience/la-caisse-collectivite.jpg", "alt": "La Caisse — Actif pour la collectivité" },
-          { "src": "/images/experience/la-caisse-siege.jpg", "alt": "Siège social de La Caisse, Montréal" }
+          {
+            "src": "/images/experience/la-caisse-ralph-atrium.jpg",
+            "alt": "Ralph au siège de La Caisse, Montréal, octobre 2026"
+          },
+          {
+            "src": "/images/experience/la-caisse-cohorte.jpg",
+            "alt": "Cohorte de stagiaires de La Caisse, automne 2026, Montréal"
+          },
+          {
+            "src": "/images/experience/la-caisse-siege.jpg",
+            "alt": "Siège social de La Caisse, Montréal"
+          }
         ]
       },
       {
-        "date": "2025 · présent",
-        "role": "Cofondateur · Tech Lead",
-        "org": "Cadence",
-        "desc": "Co-fondation d'une application mobile de coaching sportif (coach ↔ athlète) avec Alexandre Boisvert. Planification en Tech Lead : 169+ issues structurées sur 13 sprints, audit concurrentiel de 8+ apps, conformité Loi 25 · PIPEDA · GDPR-ready. Stack : Expo/React Native, TypeScript, NativeWind, Supabase. Landing page Next.js en ligne (cadence-web-fawn.vercel.app), code source sur GitHub."
-      },
-      {
-        "date": "2025 · présent",
-        "role": "Concepteur produit & Développeur freelance",
-        "org": "Projets en parallèle",
-        "desc": "Conception et prototypage haute-fidélité de produits web et mobiles, du brief client à l'implémentation : Wise & Wealthy (coach financier IA), Kim Dubois Photographe (site vitrine, premier client payant), Vibe Montréal (découverte locale intelligente), DPM Elevate (application de gestion de vie — calendrier, tâches, habitudes) et BOA (site de réservation chef privé & service à table). Design systems, bilingue FR/EN, clair/sombre, cible Next.js + TypeScript."
-      },
-      {
-        "date": "Déc. 2025 · Mars 2026",
-        "role": "Développeur Intégrateur de Solutions",
+        "date": "déc. 2025 à mars 2026",
+        "role": "Développeur en intégration de solutions",
         "org": "Fastercom, Montréal",
-        "desc": "Paramétrage et intégration de solutions TMS via configuration en base de données. Intégration Google Maps (géocodage). Déploiement structuré Test → Dev → Production avec GitLab et CI/CD Pipelines. Stack : Spring Boot, Angular."
+        "desc": "Intégration de systèmes de gestion du transport (TMS) pour des clients en logistique.",
+        "points": [
+          "Configuré et intégré des solutions TMS pour des clients en logistique, par paramétrage de bases de données et adaptation de composants.",
+          "Intégré le géocodage Google Maps et des API tierces de calcul d'itinéraires pour optimiser les trajets.",
+          "Livré plus de 3 déploiements structurés (test, développement, production) au sein d'une équipe Agile."
+        ],
+        "stack": "TMS · API REST · Google Maps · GitLab CI/CD · Spring Boot · Angular"
       },
       {
-        "date": "2025 · présent",
-        "role": "Développeur logiciel Full-Stack (Contractuel)",
-        "org": "The Mad Space",
-        "desc": "Conception et développement complet d'une marketplace e-commerce print-on-demand (~15 000 LOC, 30+ endpoints API). 10+ modèles Prisma/PostgreSQL, auth custom session-based, OAuth 2.0 Google, i18n (2 langues), multi-devises (4). 7+ intégrations B2B (Stripe, Gelato, Google Merchant Center, GA4, Google Ads). Conformité GDPR/Loi 25. Déploiement Vercel/Supabase, Edge Functions Deno."
+        "date": "oct. 2025 à mars 2026",
+        "role": "Développeur full-stack (contrat)",
+        "org": "The Mad Space, à distance",
+        "desc": "Marketplace d'impression à la demande, conçue et livrée de bout en bout.",
+        "points": [
+          "Conçu et livré de bout en bout une marketplace d'impression à la demande : ~15 000 lignes de code, 30+ points d'accès REST, 17 pages bilingues, authentification multirôle, 4 devises et 20+ déploiements CI/CD en production.",
+          "Automatisé 4 flux d'affaires reliant 7 API tierces (Stripe, Gelato, Google Merchant Center, GA4, Google Ads), ce qui retire 10 à 15 minutes de traitement par commande.",
+          "Mis en place une sécurité de niveau production (OAuth 2.0 avec rotation des jetons, webhooks signés HMAC, limitation de débit, journaux d'audit), conforme au RGPD et aux lois 25 et 96."
+        ],
+        "stack": "Next.js · TypeScript · Prisma · PostgreSQL · Supabase · Stripe · Vercel"
       },
       {
-        "date": "Jan. 2022 · Oct. 2025",
-        "role": "Technicien en Automatisation & Support TI",
+        "date": "2025 à aujourd'hui",
+        "role": "Cofondateur et responsable technique",
+        "org": "Cadence",
+        "desc": "Application mobile de coaching sportif pour le marché québécois.",
+        "points": [
+          "Je conçois une application mobile de coaching sportif pour le marché francophone du Québec, avec une page d'accueil web en ligne sur Vercel.",
+          "Mené 13 sprints et 169+ tickets GitHub avec des critères d'acceptation stricts ; sécurité dès la conception (RLS Supabase dès le premier sprint, audit OWASP Mobile prévu)."
+        ],
+        "stack": "Expo (React Native) · TypeScript · NativeWind · Supabase · Vercel"
+      },
+      {
+        "date": "2025 à aujourd'hui",
+        "role": "Conception produit et développement (pigiste)",
+        "org": "Projets en parallèle",
+        "desc": "Prototypes et sites pour des clients, et mes propres produits.",
+        "points": [
+          "Clients : Kim Dubois Photographe (mon premier client payant), BOA (chef privé) et le Club du Rex de Cornouailles du Canada.",
+          "Produits : DPM Elevate (application de planification déployée), Wise & Wealthy et Vibe Montréal (prototypes).",
+          "Systèmes de design, sites bilingues, thèmes clair et sombre ; mise en production visée en Next.js et TypeScript."
+        ]
+      },
+      {
+        "date": "janv. 2022 à oct. 2025",
+        "role": "Technicien en automatisation et soutien TI",
         "org": "Vidéotron, Montréal",
-        "desc": "2 000+ tickets traités (AHT 11:18, 94% sat. · 9,6/10). Automatisation ~50% des tâches via Power Automate (RH/TI/Finances). Documentation procédures et runbooks pour stabiliser les déploiements."
+        "desc": "Soutien TI et automatisation de tâches avec Power Automate.",
+        "points": [
+          "Automatisé environ 50 % des tâches récurrentes RH, TI et Finances avec Power Automate ; rédigé des guides d'exploitation qui ont accéléré l'intégration des techniciens.",
+          "Résolu plus de 2 000 billets de soutien (94 % de satisfaction client, 9,6/10)."
+        ],
+        "stack": "Power Automate · Microsoft 365 · soutien de niveaux 1 et 2"
       }
     ],
     "education": [
-      { "date": "Oct. 2024 · présent", "title": "B. Ing. Génie logiciel", "org": "ÉTS, École de technologie supérieure, Montréal" },
-      { "date": "Jan. 2022 · Jan. 2024", "title": "DEC Techniques de Développement d'Applications", "org": "Collège Rosemont, Montréal" },
-      { "date": "Sep. 2019 · Fév. 2022", "title": "DEP Soutien informatique", "org": "CFP des Riverains" }
+      {
+        "date": "oct. 2024 à aujourd'hui",
+        "title": "Baccalauréat en génie logiciel (en cours)",
+        "org": "ÉTS, École de technologie supérieure, Montréal"
+      },
+      {
+        "date": "janv. 2022 à janv. 2024",
+        "title": "DEC en techniques de l'informatique (développement d'applications)",
+        "org": "Collège de Rosemont, Montréal"
+      },
+      {
+        "date": "sept. 2019 à févr. 2022",
+        "title": "DEP en soutien informatique",
+        "org": "CFP des Riverains"
+      }
     ],
-    "certifications": [
-      { "title": "Responsive Web Design (300h)", "org": "freeCodeCamp", "image": "/images/certs/responsive-web-design.png" },
-      { "title": "Learn HTML", "org": "Codecademy", "image": "/images/certs/learn-html.png" },
-      { "title": "Learn Python 3", "org": "Codecademy", "image": "/images/certs/learn-python-3.png" },
-      { "title": "Intro to AI Strategy", "org": "Codecademy", "image": "/images/certs/intro-ai-strategy.png" }
-    ]
+    "certLink": "{count} certifications vérifiables"
   },
   "contact": {
     "title": "Travaillons ensemble.",
-    "lede": "En stage à La Caisse (CDPQ) jusqu'en décembre 2026. Disponible dès janvier 2027 pour des postes Full-Stack Junior/Intermediate dans le Grand Montréal (remote acceptable). Réponse sous 24h.",
-    "noFormNote": "Pas de formulaire. Un courriel direct ou un créneau Cal.com convertit mieux.",
+    "lede": "En stage à La Caisse (CDPQ) jusqu'en décembre 2026. Disponible dès janvier 2027 pour un stage ou un poste de développeur, dans le Grand Montréal (hybride ou à distance). Je réponds en moins de 24 h.",
+    "noFormNote": "",
     "email": "Courriel",
     "bookCall": "Réserver un appel (15 min)",
     "cvFr": "CV PDF (FR)",
     "cvEn": "CV PDF (EN)",
-    "download": "Télécharger"
+    "download": "Télécharger",
+    "bookCallDesc": "Un appel de 15 minutes pour parler d'un stage, d'un poste ou d'un projet."
   },
   "error": {
     "kicker": "Erreur",
@@ -320,24 +480,98 @@
     "contact": "Me contacter"
   },
   "footer": {
-    "location": "Repentigny, QC · Disponible dès janvier 2027"
+    "location": "Repentigny (Grand Montréal) · disponible dès janvier 2027",
+    "navTitle": "Navigation",
+    "linksTitle": "Liens",
+    "email": "Courriel",
+    "built": "Fait avec Next.js",
+    "source": "Code source"
   },
   "stack": [
-    { "cat": "Languages", "items": ["TypeScript", "JavaScript", "Java", "C#", "Python"] },
-    { "cat": "Frontend", "items": ["React", "Next.js", "Tailwind CSS", "Angular"] },
-    { "cat": "Backend", "items": ["Node.js", "Express", "Spring Boot", ".NET"] },
-    { "cat": "Database", "items": ["PostgreSQL", "Prisma", "MySQL", "Supabase", "SQLite"] },
-    { "cat": "DevOps", "items": ["Docker", "GitHub Actions", "GitLab CI/CD", "Vercel"] },
-    { "cat": "Testing", "items": ["JUnit", "Jest", "TDD"] },
-    { "cat": "Architecture", "items": ["MVC", "REST", "Observer", "Strategy", "Template Method", "DDD", "GRASP"] },
-    { "cat": "Automatisation", "items": ["Power Automate", "Power Apps", "Copilot Studio", "SharePoint", "Microsoft 365"] }
+    {
+      "cat": "Langages",
+      "items": [
+        "TypeScript",
+        "JavaScript",
+        "Java",
+        "C#",
+        "Python"
+      ]
+    },
+    {
+      "cat": "Frontend",
+      "items": [
+        "React",
+        "Next.js",
+        "Tailwind CSS",
+        "Angular"
+      ]
+    },
+    {
+      "cat": "Backend",
+      "items": [
+        "Node.js",
+        "Express",
+        "Spring Boot",
+        ".NET"
+      ]
+    },
+    {
+      "cat": "Bases de données",
+      "items": [
+        "PostgreSQL",
+        "Prisma",
+        "MySQL",
+        "Supabase",
+        "SQLite"
+      ]
+    },
+    {
+      "cat": "DevOps",
+      "items": [
+        "Docker",
+        "GitHub Actions",
+        "GitLab CI/CD",
+        "Vercel"
+      ]
+    },
+    {
+      "cat": "Tests",
+      "items": [
+        "JUnit",
+        "Jest",
+        "TDD"
+      ]
+    },
+    {
+      "cat": "Architecture",
+      "items": [
+        "MVC",
+        "REST",
+        "Observer",
+        "Strategy",
+        "Template Method",
+        "DDD",
+        "GRASP"
+      ]
+    },
+    {
+      "cat": "Automatisation",
+      "items": [
+        "Power Automate",
+        "Power Apps",
+        "Copilot Studio",
+        "SharePoint",
+        "Microsoft 365"
+      ]
+    }
   ],
   "testimonialsPage": {
     "breadcrumbHome": "Accueil",
     "breadcrumbCurrent": "Témoignages",
     "headingPre": "Tous les ",
     "headingItalic": "témoignages.",
-    "subtitle": "Découvrez les retours de personnes avec qui j'ai eu le plaisir de collaborer sur différents projets.",
+    "subtitle": "Ce que disent les personnes avec qui j'ai travaillé : coéquipiers, cofondateurs et clients.",
     "resultLabel": "témoignage affiché",
     "resultLabelPlural": "témoignages affichés",
     "emptyLabel": "Aucun témoignage dans cette catégorie pour le moment.",
@@ -350,7 +584,7 @@
   "services": {
     "kicker": "Comment je peux aider",
     "heading": "Ce que je peux vous apporter.",
-    "intro": "Que vous ayez un site à lancer, une idée à valider ou une équipe à renforcer, voici concrètement ce que je sais faire. Chaque exemple pointe vers un projet réel : pas de promesses de résultats, seulement ce que j'ai déjà livré.",
+    "intro": "Un site à lancer, une idée à valider ou une équipe à renforcer : voici ce que je sais faire. Chaque exemple renvoie à un projet réel.",
     "labelAudience": "Pour qui",
     "labelProblem": "Le besoin",
     "labelDeliver": "Ce que j'apporte",
@@ -359,9 +593,9 @@
       {
         "title": "Sites et applications web",
         "audience": "Entrepreneurs, PME et OSBL",
-        "problem": "Un site qui ne convertit pas, un outil interne bricolé, ou pas de présence web du tout.",
+        "problem": "Un site qui n'attire pas de clients, un outil interne bricolé, ou pas de présence web du tout.",
         "deliver": "Une application web bilingue, rapide et accessible, du design jusqu'à la mise en ligne. Souvent sur Next.js, TypeScript et PostgreSQL.",
-        "example": "The Mad Space, une marketplace e-commerce en production.",
+        "example": "The Mad Space, une marketplace en production.",
         "exampleId": "the-mad-space"
       },
       {
@@ -376,8 +610,8 @@
         "title": "Intégrations et automatisation",
         "audience": "Équipes qui perdent du temps sur des tâches manuelles",
         "problem": "Des données recopiées à la main, des paiements ou des courriels à brancher, des processus qui traînent.",
-        "deliver": "Des intégrations (paiements, fulfillment, APIs tierces) et de l'automatisation qui enlèvent les étapes manuelles.",
-        "example": "The Mad Space, plus de 7 intégrations B2B et un fulfillment automatisé.",
+        "deliver": "Des intégrations (paiements, production et expédition, API tierces) et de l'automatisation qui retirent les étapes manuelles.",
+        "example": "The Mad Space : 7 API tierces intégrées et des commandes traitées automatiquement.",
         "exampleId": "the-mad-space"
       },
       {
@@ -389,15 +623,42 @@
         "exampleId": "dpm-elevate"
       }
     ],
-    "cta": "Un projet à lancer, ou un poste à combler ? Parlons-en.",
+    "cta": "Un projet à lancer ou un poste à pourvoir ? Parlons-en.",
     "ctaButton": "Me contacter",
     "ctaBook": "Réserver un appel"
   },
   "testimonials": [
-    { "quote": "Christian a créé un site web professionnel, moderne et parfaitement adapté à mes besoins. Sa rigueur, sa créativité et sa capacité à communiquer clairement tout au long du projet ont grandement facilité la collaboration.", "author": "Fondateur", "role": "The Mad Space · 2025-présent", "image": "/images/testimonial-madspace.jpg", "link": "the-mad-space" },
-    { "quote": "Ralph a pris en charge l'équipe lors de nos projets pour le cours de Test et Maintenance. Il a appris à connaître les membres de l'équipe pour leur attribuer les tâches leur correspondant le mieux, avec un bon équilibre et un principe d'équité. Il était toujours disponible pour répondre aux questions, patient et prêt à aider. C'est un travailleur qui cherche toujours à s'améliorer et sortir le meilleur de ses coéquipiers. C'est un excellent leader.", "author": "Jonathan Euclide Marc", "role": "Collègue · ÉTS · 2026", "image": "/images/testimonial-jonathan.jpg", "link": "financej" },
-    { "quote": "Ralph s'est démarqué par son professionnalisme et son esprit d'équipe. Il était toujours présent pour me soutenir lorsque je me retrouvais en difficulté, et ce qui m'a le plus marqué, c'est sa patience. Peu importe la complexité de la situation, il prenait le temps d'expliquer, d'accompagner et de s'assurer que tout était bien résolu. Je le recommande sans réserve.", "author": "Sunny Mélissa Gabriel", "role": "Coordonnatrice logistique · Groupe Contex", "image": "/images/testimonial-sunny.png" },
-    { "quote": "Ralph Christian Gabriel est un expert dans son domaine! Il m'a aidé à de nombreuses reprises pour mes problèmes techniques à l'ordinateur. Il est fiable et persévère toujours pour trouver des solutions aux problèmes. J'ai grandement apprécié le fait qu'il prenait toujours le temps d'expliquer le pourquoi du comment derrière son plan d'action. Ceci démontrait selon moi sa rigueur, mais aussi son dévouement pour la satisfaction des personnes qu'il aide.", "author": "Anne Sofie Laurent", "role": "Coordonnatrice · Emploi Été Canada", "image": "/images/testimonial-annesofie.jpg" },
-    { "quote": "Lorsque j'ai voulu concrétiser l'idée de Cadence, Ralph a été la première personne à qui j'ai pensé pour m'accompagner dans cette aventure. Ancien partenaire de classe, Ralph a toujours su montrer une rigueur hors du commun. Il a rapidement montré la même rigueur et expertise en tant que partenaire d'affaires. Il aborde chaque problème avec une vraie réflexion approfondie, il réfléchit à l'architecture, anticipe les problèmes, et livre un travail propre et maintenable. Ce qui m'a particulièrement impressionné, c'est sa capacité à apprendre vite et à s'adapter aux contraintes réelles d'un projet en construction. Il a su prendre en charge des défis techniques complexes de façon autonome, tout en restant un partenaire de réflexion fiable. Je recommanderais Ralph à tout moment sans aucune hésitation.", "author": "Alexandre Boisvert", "role": "Entraîneur d'aviron · Cofondateur Cadence", "image": "/images/testimonial-alexandre.png" }
+    {
+      "quote": "Christian a créé un site web professionnel, moderne et parfaitement adapté à mes besoins. Sa rigueur, sa créativité et sa capacité à communiquer clairement tout au long du projet ont grandement facilité la collaboration.",
+      "author": "Fondateur",
+      "role": "The Mad Space · 2025-présent",
+      "image": "/images/testimonial-madspace.jpg",
+      "link": "the-mad-space"
+    },
+    {
+      "quote": "Ralph a pris en charge l'équipe lors de nos projets pour le cours de Test et Maintenance. Il a appris à connaître les membres de l'équipe pour leur attribuer les tâches leur correspondant le mieux, avec un bon équilibre et un principe d'équité. Il était toujours disponible pour répondre aux questions, patient et prêt à aider. C'est un travailleur qui cherche toujours à s'améliorer et sortir le meilleur de ses coéquipiers. C'est un excellent leader.",
+      "author": "Jonathan Euclide Marc",
+      "role": "Collègue · ÉTS · 2026",
+      "image": "/images/testimonial-jonathan.jpg",
+      "link": "financej"
+    },
+    {
+      "quote": "Ralph s'est démarqué par son professionnalisme et son esprit d'équipe. Il était toujours présent pour me soutenir lorsque je me retrouvais en difficulté, et ce qui m'a le plus marqué, c'est sa patience. Peu importe la complexité de la situation, il prenait le temps d'expliquer, d'accompagner et de s'assurer que tout était bien résolu. Je le recommande sans réserve.",
+      "author": "Sunny Mélissa Gabriel",
+      "role": "Coordonnatrice logistique · Groupe Contex",
+      "image": "/images/testimonial-sunny.png"
+    },
+    {
+      "quote": "Ralph Christian Gabriel est un expert dans son domaine! Il m'a aidé à de nombreuses reprises pour mes problèmes techniques à l'ordinateur. Il est fiable et persévère toujours pour trouver des solutions aux problèmes. J'ai grandement apprécié le fait qu'il prenait toujours le temps d'expliquer le pourquoi du comment derrière son plan d'action. Ceci démontrait selon moi sa rigueur, mais aussi son dévouement pour la satisfaction des personnes qu'il aide.",
+      "author": "Anne Sofie Laurent",
+      "role": "Coordonnatrice · Emploi Été Canada",
+      "image": "/images/testimonial-annesofie.jpg"
+    },
+    {
+      "quote": "Lorsque j'ai voulu concrétiser l'idée de Cadence, Ralph a été la première personne à qui j'ai pensé pour m'accompagner dans cette aventure. Ancien partenaire de classe, Ralph a toujours su montrer une rigueur hors du commun. Il a rapidement montré la même rigueur et expertise en tant que partenaire d'affaires. Il aborde chaque problème avec une vraie réflexion approfondie, il réfléchit à l'architecture, anticipe les problèmes, et livre un travail propre et maintenable. Ce qui m'a particulièrement impressionné, c'est sa capacité à apprendre vite et à s'adapter aux contraintes réelles d'un projet en construction. Il a su prendre en charge des défis techniques complexes de façon autonome, tout en restant un partenaire de réflexion fiable. Je recommanderais Ralph à tout moment sans aucune hésitation.",
+      "author": "Alexandre Boisvert",
+      "role": "Entraîneur d'aviron · Cofondateur Cadence",
+      "image": "/images/testimonial-alexandre.png"
+    }
   ]
 }

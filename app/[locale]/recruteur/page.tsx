@@ -10,6 +10,7 @@ import {
   projectState,
   stateColor,
   caseStudyIds,
+  sysNumber,
 } from "@/lib/projects";
 import { PrintButton } from "@/components/ui/print-button";
 import { ProfilePhoto } from "@/components/ui/profile-photo";
@@ -25,8 +26,8 @@ export async function generateMetadata({
   return {
     title: isFr ? "Vue recruteur" : "Recruiter view",
     description: isFr
-      ? "Synthèse CV d'une page : preuves, systèmes livrés, parcours et contact."
-      : "One-page résumé: proof, shipped systems, path and contact.",
+      ? "Résumé d'une page pour recruteurs : poste visé, disponibilité, résultats chiffrés, projets livrés, expérience et coordonnées de Ralph Christian Gabriel."
+      : "One-page summary for recruiters: target role, availability, measured results, shipped projects, experience and contact details for Ralph Christian Gabriel.",
     alternates: alternatesFor(locale, "/recruteur"),
   };
 }
@@ -142,7 +143,7 @@ function RecruiterContent() {
         {t("systemsLabel")}
       </h2>
       <div className="mt-3 overflow-hidden rounded-xl border border-border-color">
-        {sys.map((p, i) => {
+        {sys.map((p) => {
           const live = projectLinks[p.id]?.find((l) => l.type === "live")?.url;
           return (
             <div
@@ -151,7 +152,7 @@ function RecruiterContent() {
             >
               <span className="flex items-center gap-2 font-mono text-[11px]" style={{ color: "var(--accent)" }}>
                 <span className="h-1.5 w-1.5 rounded-full" style={{ background: stateColor[projectState(p.id)] }} />
-                SYS–0{i + 1}
+                SYS–{sysNumber(p.id)}
               </span>
               <div className="min-w-0">
                 <div className="text-sm font-medium">{p.name}</div>
@@ -183,7 +184,8 @@ function RecruiterContent() {
           <div className="mt-3 flex flex-col gap-2.5">
             {items.map((e, i) => (
               <div key={i} className="text-[13px] leading-relaxed">
-                <span className="font-mono text-[11px] text-muted-foreground">{e.date}</span> —{" "}
+                <span className="font-mono text-[11px] text-muted-foreground">{e.date}</span>
+                <br />
                 <strong className="font-semibold">{e.role}</strong>, {e.org}
               </div>
             ))}
@@ -196,7 +198,9 @@ function RecruiterContent() {
           <div className="mt-3 flex flex-col gap-2.5">
             {education.map((e, i) => (
               <div key={i} className="text-[13px] leading-relaxed text-muted-foreground">
-                <span className="font-mono text-[11px]">{e.date}</span> — {e.title}, {e.org}
+                <span className="font-mono text-[11px]">{e.date}</span>
+                <br />
+                <span className="text-foreground">{e.title}</span>, {e.org}
               </div>
             ))}
           </div>

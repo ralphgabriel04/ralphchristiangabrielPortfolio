@@ -11,8 +11,8 @@ export function Footer() {
   const tA = useTranslations("a11y");
 
   return (
-    <footer className="border-t border-border-color px-[var(--page-pad)] py-12 text-[13px] text-muted-foreground print:hidden">
-      <div className="mx-auto max-w-[var(--max-content)]">
+    <footer className="border-t border-border-color py-12 text-[13px] text-muted-foreground print:hidden">
+      <div className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)]">
         <div className="grid gap-8 sm:grid-cols-3">
           {/* Branding */}
           <div className="flex flex-col gap-3">
@@ -20,12 +20,12 @@ export function Footer() {
               <span className="inline-flex h-7 min-w-9 items-center justify-center rounded-[6px] border border-border-strong px-1.5 font-mono text-[11px] font-medium tracking-[-0.04em] text-foreground">RCG</span>
               <span className="font-mono text-[13px] text-muted-foreground">rcgabriel<span className="text-foreground">.dev</span></span>
             </Link>
-            <span className="font-mono text-xs">{t("location")}</span>
+            <span className="max-w-[34ch] text-balance font-mono text-xs">{t("location")}</span>
           </div>
 
           {/* Navigation */}
           <nav aria-label={tA("footerNav")} className="flex flex-col gap-2">
-            <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-1">Navigation</span>
+            <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-1">{t("navTitle")}</span>
             <Link href="/projects" className="text-muted-foreground hover:text-foreground transition-colors">
               {locale === "fr" ? "Projets" : "Projects"}
             </Link>
@@ -45,7 +45,7 @@ export function Footer() {
 
           {/* Links */}
           <nav aria-label={locale === "fr" ? "Liens externes" : "External links"} className="flex flex-col gap-2">
-            <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-1">{locale === "fr" ? "Liens" : "Links"}</span>
+            <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-1">{t("linksTitle")}</span>
             <a href="https://github.com/ralphgabriel04" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors" target="_blank" rel="noreferrer">
               <GitHubIcon size={14} /> GitHub
             </a>
@@ -53,7 +53,7 @@ export function Footer() {
               <LinkedInIcon size={14} /> LinkedIn
             </a>
             <a href="mailto:ralph.c.gabriel@proton.me" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
-              <Mail size={14} /> Email
+              <Mail size={14} /> {t("email")}
             </a>
             <a href="https://cal.com/ralphchristiangabriel/15min" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors" target="_blank" rel="noreferrer">
               <Calendar size={14} /> Cal.com
@@ -73,14 +73,14 @@ export function Footer() {
             <span className="opacity-60">⌘K</span>
           </TerminalTrigger>
           <span className="font-mono text-xs text-muted-foreground">
-            Built with Next.js ·{" "}
+            {t("built")} ·{" "}
             <a
               href="https://github.com/ralphgabriel04/ralphchristiangabrielPortfolio"
               target="_blank"
               rel="noreferrer"
               className="hover:text-foreground transition-colors"
             >
-              Source
+              {t("source")}
             </a>
           </span>
         </div>
