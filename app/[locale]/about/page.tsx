@@ -10,6 +10,15 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
 import { LibrarySection } from "@/components/ui/library-section";
 
+/** Personal photos for the « Hors écran » gallery, oldest first. Captions and alt text: messages about.gallery.items (same order). */
+const GALLERY = [
+  "/images/beyond-code/hors-ecran-mont-royal-2025.jpg",
+  "/images/beyond-code/hors-ecran-riviere-2026.jpg",
+  "/images/beyond-code/hors-ecran-sutton-2026.jpg",
+] as const;
+
+type GalleryItem = { caption: string; date: string; alt: string };
+
 /** Official chip-time result (Sportstats/RTRT), Course des pompiers de Laval, 2 June 2024. */
 const MARATHON_RESULT_URL = "https://track.rtrt.me/e/SS-COURSEDESPOMPIERS24#/dash/R8WN6ZCU";
 const MARATHON_CERTIFICATE = "/images/beyond-code/half-marathon-certificate.png";
@@ -39,6 +48,7 @@ export default async function AboutPage({
 
 function AboutContent() {
   const t = useTranslations("about");
+  const galleryItems = t.raw("gallery.items") as GalleryItem[];
   const tSec = useTranslations("sectionLabels");
 
   const workPoints = t.raw("personality.points") as string[];
@@ -267,6 +277,48 @@ function AboutContent() {
               </div>
             </div>
           </Reveal>
+        </div>
+      </section>
+
+      {/* Off screen: personal photos (2025-2026), chronological */}
+      <section aria-labelledby="hors-ecran" className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] pb-20">
+        <Reveal>
+          <div className="border-b border-border-strong pb-5">
+            <h2
+              id="hors-ecran"
+              className="text-3xl leading-[1.05] tracking-[-0.01em] md:text-[40px]"
+              style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+            >
+              {t("gallery.heading")}
+            </h2>
+            <p className="mt-3 text-[15px] text-muted-foreground">{t("gallery.sub")}</p>
+          </div>
+        </Reveal>
+
+        <div className="mt-10 grid gap-6 sm:grid-cols-3">
+          {GALLERY.map((src, i) => {
+            const item = galleryItems[i];
+            if (!item) return null;
+            return (
+              <Reveal key={src} delay={60 * (i + 1)}>
+                <figure className="group overflow-hidden rounded-lg border border-border-color bg-muted">
+                  <div className="relative aspect-[4/5] overflow-hidden sm:aspect-[3/4]">
+                    <Image
+                      src={src}
+                      alt={item.alt}
+                      fill
+                      className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-[1.03]"
+                      sizes="(max-width: 640px) 100vw, 33vw"
+                    />
+                  </div>
+                  <figcaption className="flex items-baseline justify-between gap-3 px-4 py-3">
+                    <span className="text-sm font-medium text-foreground">{item.caption}</span>
+                    <span className="shrink-0 font-mono text-[12px] text-muted-foreground">{item.date}</span>
+                  </figcaption>
+                </figure>
+              </Reveal>
+            );
+          })}
         </div>
       </section>
 

@@ -185,7 +185,8 @@
         "title": "Mesurer",
         "desc": "CanTelcoX : cinq paliers de charge, chacun mesuré et consigné."
       }
-    ]
+    ],
+    "contactPhotoAlt": "Ralph Christian Gabriel, souriant, au siège de La Caisse à Montréal"
   },
   "now": {
     "kicker": "En ce moment",
@@ -317,6 +318,27 @@
       "title": "En ce moment",
       "body": "Stagiaire en automatisation de processus à La Caisse (CDPQ) jusqu'en décembre 2026 : Power Apps, Power Automate et Copilot Studio, dans un milieu réglementé. En parallèle, je développe Cadence avec mon cofondateur et je poursuis mon baccalauréat à l'ÉTS.",
       "updated": "Mis à jour le 18 octobre 2026"
+    },
+    "gallery": {
+      "heading": "Hors écran.",
+      "sub": "Quelques moments loin du clavier, entre 2025 et 2026.",
+      "items": [
+        {
+          "caption": "Belvédère du Mont-Royal, la nuit",
+          "date": "août 2025",
+          "alt": "Ralph Christian Gabriel au belvédère du Mont-Royal, la nuit, avec Montréal illuminée en arrière-plan"
+        },
+        {
+          "caption": "Au bord de l'eau",
+          "date": "juin 2026",
+          "alt": "Ralph Christian Gabriel debout au bord d'une rivière, en tenue crème"
+        },
+        {
+          "caption": "Un café à Sutton",
+          "date": "août 2026",
+          "alt": "Ralph Christian Gabriel assis à une table dans un café de Sutton, le regard tourné vers la fenêtre"
+        }
+      ]
     }
   },
   "experience": {

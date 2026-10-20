@@ -185,7 +185,8 @@
         "title": "Measure",
         "desc": "CanTelcoX: five load stages, each measured and recorded."
       }
-    ]
+    ],
+    "contactPhotoAlt": "Ralph Christian Gabriel, smiling, at La Caisse headquarters in Montréal"
   },
   "now": {
     "kicker": "Now",
@@ -317,6 +318,27 @@
       "title": "Right now",
       "body": "Process automation intern at La Caisse (CDPQ) until December 2026: Power Apps, Power Automate and Copilot Studio in a regulated environment. On the side, I'm building Cadence with my co-founder and continuing my degree at ÉTS.",
       "updated": "Updated October 18, 2026"
+    },
+    "gallery": {
+      "heading": "Off screen.",
+      "sub": "A few moments away from the keyboard, 2025 to 2026.",
+      "items": [
+        {
+          "caption": "Mount Royal lookout, at night",
+          "date": "August 2025",
+          "alt": "Ralph Christian Gabriel at the Mount Royal lookout at night, with Montréal lit up behind him"
+        },
+        {
+          "caption": "By the water",
+          "date": "June 2026",
+          "alt": "Ralph Christian Gabriel standing by a river in a cream outfit"
+        },
+        {
+          "caption": "A café in Sutton",
+          "date": "August 2026",
+          "alt": "Ralph Christian Gabriel sitting at a table in a café in Sutton, looking toward the window"
+        }
+      ]
     }
   },
   "experience": {

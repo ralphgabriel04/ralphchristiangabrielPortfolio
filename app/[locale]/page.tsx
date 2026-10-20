@@ -1,5 +1,6 @@
 import { useTranslations, useLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
+import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { ArrowRight, ArrowDown, ArrowUpRight, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -557,12 +558,15 @@ function ContactSection() {
                 </ul>
               </div>
 
-              {/* Right — portrait */}
+              {/* Right: smiling La Caisse headshot (oct. 2026), so the hero studio portrait is not shown twice. */}
               <figure className="hidden self-start overflow-hidden rounded-2xl border border-border-color bg-muted-2 lg:block">
-                <ProfilePhoto
-                  alt="Ralph Christian Gabriel"
-                  className="aspect-[4/5] w-full"
+                <Image
+                  src="/images/about/ralph-la-caisse-2026-headshot-sourire.jpg"
+                  alt={tHome("contactPhotoAlt")}
+                  width={1000}
+                  height={1250}
                   sizes="300px"
+                  className="aspect-[4/5] w-full object-cover"
                 />
               </figure>
             </div>
