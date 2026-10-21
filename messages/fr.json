@@ -261,7 +261,8 @@
         "business": "Affaires",
         "learning": "Apprendre",
         "meaning": "Sens"
-      }
+      },
+      "toRead": "Sur ma liste de lecture"
     },
     "seeExperience": "Voir mon expérience",
     "getInTouch": "Me contacter",
@@ -338,7 +339,8 @@
           "date": "août 2026",
           "alt": "Ralph Christian Gabriel assis à une table dans un café de Sutton, le regard tourné vers la fenêtre"
         }
-      ]
+      ],
+      "seeAll": "Voir les {count} photos"
     }
   },
   "experience": {

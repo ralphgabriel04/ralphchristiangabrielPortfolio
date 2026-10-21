@@ -4,6 +4,7 @@ import { ArrowUpRight, BookOpen } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import {
   books,
+  toRead,
   quotes,
   readingSteps,
   readingPostUrl,
@@ -89,6 +90,24 @@ export function LibrarySection() {
                     <span className="mt-0.5 block truncate text-xs text-muted-foreground">{b.author}</span>
                   </span>
                 </a>
+              </li>
+            ))}
+          </ul>
+
+          {/* Not read yet: on the reading list (no LinkedIn note, not counted above) */}
+          <h3 className="mt-8 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
+            {t("toRead")}
+          </h3>
+          <ul className="mt-4 grid gap-x-6 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
+            {toRead.map((b) => (
+              <li key={b.slug} className="flex items-center gap-3 rounded-md border border-dashed border-border-color p-1.5">
+                <span className={`relative h-[54px] w-[36px] shrink-0 overflow-hidden rounded-[2px] ${COVER_SHADOW}`}>
+                  <Image src={b.cover} alt="" fill sizes="36px" className="object-cover" />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="line-clamp-2 text-sm font-medium leading-snug">{b.title}</span>
+                  <span className="mt-0.5 block truncate text-xs text-muted-foreground">{b.author}</span>
+                </span>
               </li>
             ))}
           </ul>

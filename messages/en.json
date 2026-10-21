@@ -261,7 +261,8 @@
         "business": "Business",
         "learning": "Learning",
         "meaning": "Meaning"
-      }
+      },
+      "toRead": "On my reading list"
     },
     "seeExperience": "See my experience",
     "getInTouch": "Get in touch",
@@ -338,7 +339,8 @@
           "date": "August 2026",
           "alt": "Ralph Christian Gabriel sitting at a table in a café in Sutton, looking toward the window"
         }
-      ]
+      ],
+      "seeAll": "See all {count} photos"
     }
   },
   "experience": {
