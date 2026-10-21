@@ -2,7 +2,7 @@ import { useTranslations, useLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
-import { ArrowRight, ArrowDown, ArrowUpRight, Download } from "lucide-react";
+import { ArrowRight, ArrowDown, ArrowUpRight, Download, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
 import { SystemsSection } from "@/components/ui/systems-section";
@@ -19,6 +19,7 @@ import { TestimonialsCarousel } from "@/components/ui/testimonials-carousel";
 import { testimonials, categoryLabels } from "@/lib/testimonials";
 import { certifications as certList, formatCertDate } from "@/lib/certifications";
 import { books } from "@/lib/library";
+import { demos } from "@/lib/demos";
 import { galleryCount, galleryGroups, gallerySrc, type GalleryPhoto } from "@/lib/gallery";
 
 const SERIF = { fontFamily: "var(--font-instrument-serif), Georgia, serif" } as const;
@@ -65,6 +66,15 @@ function HomeContent() {
         <Reveal>
           <div className="relative z-[1] mx-auto grid max-w-[var(--max-content)] items-center gap-10 px-[var(--page-pad)] lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-14">
             <div>
+              {/* Mobile and tablet: the portrait column is hidden, so a small portrait opens the hero. */}
+              <Image
+                src="/images/gallery/la-caisse-portrait-2026.jpg"
+                alt="Ralph Christian Gabriel"
+                width={72}
+                height={72}
+                priority
+                className="mb-6 h-[72px] w-[72px] rounded-2xl border border-border-color object-cover object-[50%_12%] shadow-sm lg:hidden"
+              />
               {/* Kicker */}
               <div className="flex items-center gap-3">
                 <span className="h-px w-8 bg-accent" />
@@ -252,6 +262,29 @@ function ProjectsSection() {
         </Reveal>
 
         <SystemsSection />
+
+        {/* Demos: several projects can be tried right on this site */}
+        <Reveal>
+          <Link
+            href="/demos"
+            className="group mt-10 flex flex-col gap-4 rounded-2xl border border-border-color bg-muted p-5 transition-colors hover:border-border-strong sm:flex-row sm:items-center sm:justify-between md:p-6"
+          >
+            <span className="flex items-center gap-4">
+              <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
+                <Play size={18} aria-hidden="true" />
+              </span>
+              <span>
+                <span className="block text-[16px] font-semibold">{tHome("demoCalloutTitle")}</span>
+                <span className="mt-0.5 block text-[14.5px] text-muted-foreground">
+                  {tHome("demoCalloutDesc", { count: demos.length })}
+                </span>
+              </span>
+            </span>
+            <span className="inline-flex shrink-0 items-center gap-1 text-sm font-semibold text-accent group-hover:underline">
+              {tHome("demoCalloutLink")} <ArrowRight size={14} aria-hidden="true" />
+            </span>
+          </Link>
+        </Reveal>
 
         <div className="mt-10 flex justify-center sm:hidden">
           <Link href="/projects" className="inline-flex items-center gap-1 text-sm font-medium text-accent">

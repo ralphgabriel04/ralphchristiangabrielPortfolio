@@ -49,6 +49,7 @@ export function Header() {
   // (Systèmes, Stack, Parcours) only reached home sections and hid the About page.
   const links = [
     { href: "/projects", label: t("projects") },
+    { href: "/demos", label: t("demos") },
     { href: "/experience", label: t("experience") },
     { href: "/about", label: t("about") },
     { href: "/contact", label: t("contact") },
@@ -89,16 +90,16 @@ export function Header() {
       />
       <div className="relative mx-auto flex h-16 max-w-[var(--max-hero)] items-center justify-between gap-4 px-[var(--page-pad)]">
         {/* Left: Logo + Desktop Nav */}
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-6 lg:gap-4 xl:gap-6">
           <Link href="/" className="inline-flex items-center gap-2.5 p-1">
             <span className="inline-flex h-7 min-w-9 items-center justify-center rounded-[6px] border border-border-strong px-1.5 font-mono text-[11px] font-medium tracking-[-0.04em]">
               RCG
             </span>
-            <span className="hidden max-w-[150px] truncate font-mono text-[13px] text-muted-foreground sm:inline xl:max-w-[220px]">
+            <span className="hidden max-w-[150px] truncate font-mono text-[13px] text-muted-foreground sm:inline lg:hidden xl:inline xl:max-w-[220px]">
               {headerPath}
             </span>
           </Link>
-          <nav className="hidden items-center gap-6 lg:flex" aria-label={tA("primaryNav")}>
+          <nav className="hidden items-center gap-4 lg:flex xl:gap-6" aria-label={tA("primaryNav")}>
             {links.map((l) => {
               const active = isActive(l.href);
               return (
@@ -121,13 +122,13 @@ export function Header() {
 
         {/* Right: desktop cluster (collapses as one on mobile) + Theme + Mobile menu */}
         <div className="flex items-center gap-3">
-          <div className="hidden items-center gap-3 lg:flex">
+          <div className="hidden items-center gap-2 lg:flex xl:gap-3">
             <PlainToggle />
 
             <button
               onClick={switchLocale}
               aria-label={locale === "fr" ? "Switch to English" : "Passer en français"}
-              className="inline-flex items-center rounded-full border border-border-strong px-3 py-1.5 font-mono text-xs text-muted-foreground transition-colors hover:border-accent hover:text-accent"
+              className="inline-flex items-center whitespace-nowrap rounded-full border border-border-strong px-3 py-1.5 font-mono text-xs text-muted-foreground transition-colors hover:border-accent hover:text-accent"
             >
               {locale === "fr" ? "FR → EN" : "EN → FR"}
             </button>
@@ -156,7 +157,7 @@ export function Header() {
             <Link
               href="/recruteur"
               data-mag
-              className="inline-flex items-center rounded-full bg-accent px-3.5 py-1.5 text-xs font-semibold text-[color:var(--accent-foreground)] transition-opacity hover:opacity-90"
+              className="inline-flex items-center whitespace-nowrap rounded-full bg-accent px-3.5 py-1.5 text-xs font-semibold text-[color:var(--accent-foreground)] transition-opacity hover:opacity-90"
             >
               {t("recruiter")}
             </Link>

@@ -11,7 +11,8 @@
     "systems": "Projects",
     "path": "Experience",
     "stack": "Tools",
-    "tools": "Tools"
+    "tools": "Tools",
+    "demos": "Demos"
   },
   "recruteur": {
     "metaTitle": "Recruiter view",
@@ -206,7 +207,10 @@
     "beyondLifeKicker": "Beyond code",
     "beyondLifeTitle": "Sport and interests",
     "beyondLifeDesc": "A half marathon in 1:56, chess and skiing: what sport teaches me about work.",
-    "beyondLifeLink": "See the About page"
+    "beyondLifeLink": "See the About page",
+    "demoCalloutTitle": "Try my apps, right here",
+    "demoCalloutDesc": "{count} prototypes to try without an account: Wise & Wealthy, Vibe Montréal, BOA, a Tron game and more.",
+    "demoCalloutLink": "Open the demos"
   },
   "now": {
     "kicker": "Now",

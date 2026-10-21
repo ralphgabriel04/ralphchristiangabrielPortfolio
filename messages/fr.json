@@ -11,7 +11,8 @@
     "systems": "Projets",
     "path": "Expérience",
     "stack": "Outils",
-    "tools": "Outils"
+    "tools": "Outils",
+    "demos": "Démos"
   },
   "recruteur": {
     "metaTitle": "Vue recruteur",
@@ -206,7 +207,10 @@
     "beyondLifeKicker": "En dehors du code",
     "beyondLifeTitle": "Sport et passions",
     "beyondLifeDesc": "Un demi-marathon en 1 h 56, les échecs et le ski : ce que le sport m'apprend sur le travail.",
-    "beyondLifeLink": "Voir la page À propos"
+    "beyondLifeLink": "Voir la page À propos",
+    "demoCalloutTitle": "Testez mes applications, ici même",
+    "demoCalloutDesc": "{count} prototypes à essayer sans compte : Wise & Wealthy, Vibe Montréal, BOA, un jeu Tron et plus.",
+    "demoCalloutLink": "Ouvrir les démos"
   },
   "now": {
     "kicker": "En ce moment",

@@ -5,7 +5,8 @@ import { useLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
-import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Play } from "lucide-react";
+import { demoIds } from "@/lib/demos";
 import {
   projects,
   projectLinks,
@@ -166,6 +167,19 @@ function ProjectDetailContent({ slug }: { slug: string }) {
           </>
         )}
       </Reveal>
+
+      {/* Try it: the prototype runs on /demos */}
+      {demoIds.has(slug) && (
+        <Reveal delay={80}>
+          <Link
+            href={`/demos#${slug}`}
+            className="mt-6 inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/5 px-4 py-2 text-sm font-semibold text-accent transition-colors hover:bg-accent/10"
+          >
+            <Play size={14} aria-hidden="true" /> {fr ? "Tester l'application ici" : "Try the app here"}{" "}
+            <ArrowRight size={14} aria-hidden="true" />
+          </Link>
+        </Reveal>
+      )}
 
       {/* Media */}
       {project.media?.enabled && project.media.src && (
