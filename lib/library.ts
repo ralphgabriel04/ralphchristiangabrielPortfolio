@@ -144,8 +144,6 @@ export const books: Book[] = [
     },
   },
   // Also read in 2026 (shelf)
-  { slug: "clean-architecture", title: "Clean Architecture", author: "Robert C. Martin", read: "2026-05", category: "engineering", cover: cover("clean-architecture"), post: li("7461075443341881345") },
-  { slug: "pragmatic-programmer", title: "The Pragmatic Programmer", author: "David Thomas & Andrew Hunt", read: "2026-05", category: "engineering", cover: cover("pragmatic-programmer"), post: li("7462162601754492928") },
   { slug: "death-march", title: "Death March", author: "Edward Yourdon", read: "2026-06", category: "engineering", cover: cover("death-march"), post: li("7468323194177794048") },
   { slug: "the-12-week-mba", title: "The 12-Week MBA", author: "Bjorn Billhardt & Nathan Kracklauer", read: "2026-05", category: "business", cover: cover("the-12-week-mba"), post: li("7459980713090719744") },
   { slug: "how-to-make-a-few-billion-dollars", title: "How to Make a Few Billion Dollars", author: "Brad Jacobs", read: "2026-05", category: "business", cover: cover("how-to-make-a-few-billion-dollars"), post: li("7460350657531695104") },
@@ -157,6 +155,15 @@ export const books: Book[] = [
   { slug: "fine-art-of-small-talk", title: "The Fine Art of Small Talk", author: "Debra Fine", read: "2026-04", category: "leadership", cover: cover("fine-art-of-small-talk"), post: li("7446889548892016641") },
   { slug: "steve-jobs", title: "Steve Jobs", author: "Walter Isaacson", read: "2026-04", category: "leadership", cover: cover("steve-jobs"), post: li("7445085098980294656") },
   { slug: "mans-search-for-meaning", title: "Man's Search for Meaning", author: "Viktor E. Frankl", read: "2026-04", category: "meaning", cover: cover("mans-search-for-meaning"), post: li("7447984222096703488") },
+];
+
+/**
+ * Not read yet: on Ralph's reading list (he confirmed on 2026-10-20 that he has not read them).
+ * No LinkedIn link on purpose, and not counted in the books read.
+ */
+export const toRead: { slug: string; title: string; author: string; cover: string }[] = [
+  { slug: "clean-architecture", title: "Clean Architecture", author: "Robert C. Martin", cover: cover("clean-architecture") },
+  { slug: "pragmatic-programmer", title: "The Pragmatic Programmer", author: "David Thomas & Andrew Hunt", cover: cover("pragmatic-programmer") },
 ];
 
 export type Quote = { text: L10n; author: string; source: string };

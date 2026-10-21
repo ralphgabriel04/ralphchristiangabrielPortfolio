@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
 import { LibrarySection } from "@/components/ui/library-section";
+import { galleryCount } from "@/lib/gallery";
 
 /** Personal photos for the « Hors écran » gallery, oldest first. Captions and alt text: messages about.gallery.items (same order). */
 const GALLERY = [
@@ -320,6 +321,15 @@ function AboutContent() {
             );
           })}
         </div>
+
+        <Reveal delay={240}>
+          <Link
+            href="/photos"
+            className="mt-8 inline-flex items-center gap-1.5 text-sm font-semibold text-accent hover:underline"
+          >
+            {t("gallery.seeAll", { count: galleryCount })} <ArrowRight size={14} />
+          </Link>
+        </Reveal>
       </section>
 
       {/* Reading: books, quotes, learning system */}
