@@ -44,6 +44,14 @@ const baseSecurityHeaders = [
 
 const cspHeader = { key: "Content-Security-Policy", value: contentSecurityPolicy };
 
+// Static prototypes shown inside /demos: framing allowed by this site only.
+// Every other route keeps X-Frame-Options DENY.
+const DEMO_DIRS = ["wise-wealthy", "vibe", "boa-traiteur", "gti350", "kim-dubois", "crcc"];
+const frameableHeaders = [
+  { key: "X-Frame-Options", value: "SAMEORIGIN" },
+  { key: "Content-Security-Policy", value: "frame-ancestors 'self'" },
+];
+
 const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "md", "mdx"],
   turbopack: {
@@ -51,6 +59,8 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     const rules = [{ source: "/:path*", headers: baseSecurityHeaders }];
+    // Later rules win for the same key: SAMEORIGIN replaces DENY on the demo prototypes.
+    rules.push(...DEMO_DIRS.map((d) => ({ source: `/${d}/:path*`, headers: frameableHeaders })));
     // The strict CSP is applied ONLY to the locale-prefixed Next app pages
     // (/fr, /en, /fr/*, /en/*). The static Claude-Design mockups live at
     // top-level dirs (/vibe, /wise-wealthy, /kim-dubois, …) and load Google

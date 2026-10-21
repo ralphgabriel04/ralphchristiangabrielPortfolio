@@ -4,7 +4,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useLocale } from "next-intl";
 import { useRouter, usePathname } from "@/i18n/navigation";
 import { useTheme } from "next-themes";
-import { projects } from "@/lib/projects";
+import { projects, FEATURED_IDS, sysNumber } from "@/lib/projects";
+import { demos } from "@/lib/demos";
+import { certifications } from "@/lib/certifications";
+import { books } from "@/lib/library";
 import { trackEvent } from "@/lib/analytics";
 
 /** Open (or toggle) the RCG.SYS terminal from anywhere (header, footer, hero). */
@@ -26,8 +29,8 @@ const COL = {
 
 const EMAIL = "ralph.c.gabriel@proton.me";
 const CAL = "cal.com/ralphchristiangabriel/15min";
-/** `etude N` → these case studies, in order. */
-const STUDIES = ["the-mad-space", "cadence", "cantelcox"] as const;
+/** `etude N` opens the featured case studies in SYS order: 01 The Mad Space, 02 CanTelcoX, 03 Cadence. */
+const STUDIES = FEATURED_IDS;
 
 const STACK: [string, string[]][] = [
   ["Frontend", ["TypeScript", "React", "Next.js", "Tailwind", "React Native"]],
@@ -55,7 +58,7 @@ export function Terminal() {
 
   const welcome = useCallback(
     (): Line[] => [
-      { v: "RCG.SYS v2.0 — " + L("terminal du portfolio", "portfolio terminal"), c: COL.def },
+      { v: "RCG.SYS v2.1 · " + L("terminal du portfolio", "portfolio terminal"), c: COL.def },
       { v: L("tape `help` pour la liste des commandes", "type `help` for the command list"), c: COL.def },
     ],
     [L],
@@ -122,22 +125,37 @@ export function Terminal() {
       const push = (arr: Line[]) => setLines((p) => [...p, echo, ...arr]);
 
       if (cmd === "help") {
-        push([out("help · whoami · projets · etude 01|02|03 · stack · parcours · contact · temoignages · cv · recruteur · theme · fr|en · clear · sudo hire")]);
+        push([
+          out("whoami · projets · etude 01|02|03 · demos · stack · parcours · certifs"),
+          out("apropos · photos · lectures · temoignages · contact · cv · recruteur"),
+          out("theme · fr|en · clear · sudo hire", COL.info),
+        ]);
       } else if (cmd === "whoami") {
-        push([out(L(
-          "Ralph Christian Gabriel — stagiaire en automatisation de processus @ La Caisse (CDPQ), dev full-stack junior/intermédiaire, B. Ing. génie logiciel @ ÉTS. FR/EN. Grand Montréal.",
-          "Ralph Christian Gabriel — process automation developer intern @ La Caisse (CDPQ), junior/intermediate full-stack dev, B.Eng. software engineering @ ÉTS. FR/EN. Greater Montréal.",
-        ))]);
+        push([
+          out("Ralph Christian Gabriel", COL.ink),
+          out(L("Développeur full-stack et automatisation de processus.", "Full-stack and process automation developer.")),
+          out(L(
+            "Étudiant en génie logiciel à l'ÉTS, stagiaire à La Caisse (CDPQ) jusqu'en décembre 2026.",
+            "Software engineering student at ÉTS, intern at La Caisse (CDPQ) until December 2026.",
+          )),
+          out(L("Disponible dès janvier 2027 · Grand Montréal · FR/EN", "Available from January 2027 · Greater Montréal · FR/EN"), COL.ok),
+        ]);
       } else if (cmd === "projets" || cmd === "projects" || cmd === "ls") {
-        const rows = projects.slice(0, 5).map((p, i) =>
-          out(`SYS–0${i + 1}  ${p.name} — ${p.tag[fr ? "fr" : "en"]}`, COL.def),
-        );
-        push([...rows, out(L("+ 4 autres · tape `etude 01` pour ouvrir une étude", "+ 4 more · type `etude 01` to open a study"), COL.info)]);
+        const shown = projects.slice(0, 7);
+        const rows = shown.map((p) => out(`SYS-${sysNumber(p.id)}  ${p.name} · ${p.tag[fr ? "fr" : "en"]}`, COL.def));
+        const more = projects.length - shown.length;
+        push([
+          ...rows,
+          out(L(
+            `+ ${more} autres · \`etude 01\` ouvre une étude · \`demos\` pour en tester`,
+            `+ ${more} more · \`etude 01\` opens a study · \`demos\` to try some`,
+          ), COL.info),
+        ]);
       } else if (/^(etude|study|open)\b/.test(cmd) || /^0?[123]$/.test(cmd)) {
         const m = cmd.match(/([123])\s*$/);
         if (m) {
-          const id = STUDIES[Number(m[1]) - 1];
-          push([out(L(`ouverture de SYS–0${m[1]} …`, `opening SYS–0${m[1]} …`), COL.ok)]);
+          const id = STUDIES[Number(m[1]) - 1] ?? STUDIES[0];
+          push([out(L(`ouverture de SYS-0${m[1]} …`, `opening SYS-0${m[1]} …`), COL.ok)]);
           setTimeout(() => {
             close();
             router.push(`/projects/${id}`);
@@ -150,6 +168,38 @@ export function Terminal() {
         setTimeout(() => {
           close();
           router.push("/experience");
+        }, 320);
+      } else if (cmd === "demos" || cmd === "demo" || cmd === "tester" || cmd === "try") {
+        push([
+          ...demos.map((x) => out(`▸ ${x.name} · ${x.kind[fr ? "fr" : "en"]}`)),
+          out(L("ouverture des démos …", "opening the demos …"), COL.ok),
+        ]);
+        setTimeout(() => {
+          close();
+          router.push("/demos");
+        }, 450);
+      } else if (cmd === "certifs" || cmd === "certifications" || cmd === "certs") {
+        push([
+          ...certifications.map((c) => out(`✓ ${c.title} · ${c.issuer} · ${c.issued.slice(0, 4)}`, COL.ok)),
+          out(L("détails et liens de vérification : `parcours`", "details and verification links: `path`"), COL.info),
+        ]);
+      } else if (cmd === "apropos" || cmd === "about") {
+        push([out(L("ouverture de la page À propos …", "opening the About page …"), COL.ok)]);
+        setTimeout(() => {
+          close();
+          router.push("/about");
+        }, 320);
+      } else if (cmd === "photos") {
+        push([out(L("ouverture des photos …", "opening the photos …"), COL.ok)]);
+        setTimeout(() => {
+          close();
+          router.push("/photos");
+        }, 320);
+      } else if (cmd === "lectures" || cmd === "livres" || cmd === "books" || cmd === "reading") {
+        push([out(L(`${books.length} livres lus en 2026 · ouverture …`, `${books.length} books read in 2026 · opening …`), COL.ok)]);
+        setTimeout(() => {
+          close();
+          router.push("/about#lectures");
         }, 320);
       } else if (cmd === "contact") {
         push([
@@ -187,13 +237,13 @@ export function Terminal() {
         return;
       } else if (cmd === "sudo hire" || cmd === "hire") {
         push([
-          out(L("Accès accordé ✓ — bonne décision.", "Access granted ✓ — good call."), COL.ok),
+          out(L("Accès accordé ✓ Bonne décision.", "Access granted ✓ Good call."), COL.ok),
           out(L(`→ ${EMAIL} · réponse sous 24 h`, `→ ${EMAIL} · reply within 24 h`)),
         ]);
       } else if (cmd === "konami" || cmd === "rg") {
-        push([out("▲▲▼▼◀▶◀▶BA — ✓", COL.accent)]);
+        push([out("▲▲▼▼◀▶◀▶BA ✓", COL.accent)]);
       } else {
-        push([out(L("commande inconnue : ", "unknown command: ") + cmd + L(" — tape `help`", " — type `help`"), COL.warn)]);
+        push([out(L("commande inconnue : ", "unknown command: ") + cmd + L(" · tape `help`", " · type `help`"), COL.warn)]);
       }
     },
     [L, fr, locale, resolvedTheme, setTheme, router, pathname, close],
@@ -248,7 +298,7 @@ export function Terminal() {
             <div className="flex items-center gap-2.5 border-b border-border-color px-4 py-3">
               <span className="h-2.5 w-2.5 rounded-full" style={{ background: "var(--accent)" }} />
               <span className="font-mono text-xs text-muted-foreground">
-                rg@portfolio — {L("terminal", "terminal")}
+                rg@portfolio · {L("terminal", "terminal")}
               </span>
               <button
                 type="button"
@@ -284,7 +334,7 @@ export function Terminal() {
                 className="flex-1 bg-transparent font-mono text-[13px] text-foreground outline-none placeholder:text-muted-foreground"
               />
               <span className="hidden font-mono text-[10.5px] text-muted-foreground sm:inline">
-                help · projets · cv · contact
+                help · projets · demos · cv · contact
               </span>
             </form>
           </div>

@@ -9,7 +9,7 @@ const projects = allProjects.map((p) => p.id);
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const locales = ["fr", "en"];
-  const pages = ["", "/about", "/experience", "/contact", "/projects", "/temoignages", "/recruteur", "/photos"];
+  const pages = ["", "/about", "/experience", "/contact", "/projects", "/temoignages", "/recruteur", "/photos", "/demos"];
 
   const entries: MetadataRoute.Sitemap = [];
 
