@@ -114,7 +114,13 @@ export function Terminal() {
 
   const run = useCallback(
     (raw: string) => {
-      const cmd = raw.trim().toLowerCase();
+      // Accents and extra spaces are ignored: « étude 02 », « Démos », « à propos » and « thème » all work.
+      const cmd = raw
+        .trim()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s+/g, " ");
       const echo: Line = { v: "$ " + raw, c: COL.ink };
       const out = (v: string, c = COL.def): Line => ({ v, c });
       if (!cmd) {
@@ -183,7 +189,7 @@ export function Terminal() {
           ...certifications.map((c) => out(`✓ ${c.title} · ${c.issuer} · ${c.issued.slice(0, 4)}`, COL.ok)),
           out(L("détails et liens de vérification : `parcours`", "details and verification links: `path`"), COL.info),
         ]);
-      } else if (cmd === "apropos" || cmd === "about") {
+      } else if (cmd === "apropos" || cmd === "a propos" || cmd === "about") {
         push([out(L("ouverture de la page À propos …", "opening the About page …"), COL.ok)]);
         setTimeout(() => {
           close();
@@ -243,7 +249,7 @@ export function Terminal() {
       } else if (cmd === "konami" || cmd === "rg") {
         push([out("▲▲▼▼◀▶◀▶BA ✓", COL.accent)]);
       } else {
-        push([out(L("commande inconnue : ", "unknown command: ") + cmd + L(" · tape `help`", " · type `help`"), COL.warn)]);
+        push([out(L("commande inconnue : ", "unknown command: ") + raw.trim() + L(" · tape `help`", " · type `help`"), COL.warn)]);
       }
     },
     [L, fr, locale, resolvedTheme, setTheme, router, pathname, close],
