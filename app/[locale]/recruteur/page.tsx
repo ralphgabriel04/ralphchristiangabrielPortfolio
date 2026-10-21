@@ -13,7 +13,7 @@ import {
   sysNumber,
 } from "@/lib/projects";
 import { PrintButton } from "@/components/ui/print-button";
-import { ProfilePhoto } from "@/components/ui/profile-photo";
+import Image from "next/image";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/icons";
 
 export async function generateMetadata({
@@ -76,11 +76,15 @@ function RecruiterContent() {
 
       {/* Identity */}
       <header className="mt-7 flex items-center gap-5">
-        <ProfilePhoto
+        {/* Static headshot (La Caisse, Oct. 2026): a CV page reads better without a cycling avatar. */}
+        <Image
+          src="/images/about/ralph-la-caisse-2026-headshot.jpg"
           alt="Ralph Christian Gabriel"
-          className="h-[74px] w-[74px] overflow-hidden rounded-2xl border border-border-strong"
+          width={480}
+          height={600}
           priority
           sizes="74px"
+          className="h-[74px] w-[74px] shrink-0 rounded-2xl border border-border-strong object-cover object-[center_28%]"
         />
         <div>
           <h1

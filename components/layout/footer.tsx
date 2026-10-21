@@ -32,6 +32,9 @@ export function Footer() {
             <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">
               {locale === "fr" ? "À propos" : "About"}
             </Link>
+            <Link href="/photos" className="text-muted-foreground hover:text-foreground transition-colors">
+              Photos
+            </Link>
             <Link href="/experience" className="text-muted-foreground hover:text-foreground transition-colors">
               {locale === "fr" ? "Expérience" : "Experience"}
             </Link>
