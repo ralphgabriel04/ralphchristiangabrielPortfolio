@@ -44,7 +44,8 @@
     "eduLabel": "Education",
     "viewCase": "Case study",
     "demo": "Demo",
-    "cv": "CV PDF"
+    "cv": "CV PDF",
+    "certLabel": "Certifications"
   },
   "a11y": {
     "skipToContent": "Skip to content",
@@ -110,7 +111,11 @@
         "num": "7",
         "label": "third-party APIs integrated"
       }
-    ]
+    ],
+    "portraitPause": "Pause the photo slideshow",
+    "portraitPlay": "Resume the photo slideshow",
+    "portraitShow": "Show photo",
+    "portraitGroup": "Photos of Ralph Christian Gabriel"
   },
   "sectionLabels": {
     "selected": "Selected projects",
@@ -186,7 +191,22 @@
         "desc": "CanTelcoX: five load stages, each measured and recorded."
       }
     ],
-    "contactPhotoAlt": "Ralph Christian Gabriel, smiling, at La Caisse headquarters in Montréal"
+    "contactPhotoAlt": "Ralph Christian Gabriel, smiling, at La Caisse headquarters in Montréal",
+    "beyondKicker": "More to explore",
+    "beyondHeading": "Beyond the code.",
+    "beyondIntro": "My photos, my reading and my interests each have their own page on this site. Here is a preview.",
+    "beyondPhotosKicker": "Photos · {count}",
+    "beyondPhotosTitle": "In pictures",
+    "beyondPhotosDesc": "La Caisse, school, sport and the outdoors, from 2023 to 2026.",
+    "beyondPhotosLink": "See all {count} photos",
+    "beyondBooksKicker": "Reading · {count} books in 2026",
+    "beyondBooksTitle": "What I read",
+    "beyondBooksDesc": "My 2026 books, what I keep from them and where I apply it.",
+    "beyondBooksLink": "See my reading",
+    "beyondLifeKicker": "Beyond code",
+    "beyondLifeTitle": "Sport and interests",
+    "beyondLifeDesc": "A half marathon in 1:56, chess and skiing: what sport teaches me about work.",
+    "beyondLifeLink": "See the About page"
   },
   "now": {
     "kicker": "Now",

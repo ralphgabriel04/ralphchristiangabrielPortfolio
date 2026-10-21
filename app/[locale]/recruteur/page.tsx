@@ -15,6 +15,7 @@ import {
 import { PrintButton } from "@/components/ui/print-button";
 import Image from "next/image";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/icons";
+import { certifications, formatCertDate } from "@/lib/certifications";
 
 export async function generateMetadata({
   params,
@@ -195,20 +196,42 @@ function RecruiterContent() {
             ))}
           </div>
         </section>
-        <section>
-          <h2 className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-            {t("eduLabel")}
-          </h2>
-          <div className="mt-3 flex flex-col gap-2.5">
-            {education.map((e, i) => (
-              <div key={i} className="text-[13px] leading-relaxed text-muted-foreground">
-                <span className="font-mono text-[11px]">{e.date}</span>
-                <br />
-                <span className="text-foreground">{e.title}</span>, {e.org}
-              </div>
-            ))}
-          </div>
-        </section>
+        <div className="flex flex-col gap-8">
+          <section>
+            <h2 className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+              {t("eduLabel")}
+            </h2>
+            <div className="mt-3 flex flex-col gap-2.5">
+              {education.map((e, i) => (
+                <div key={i} className="text-[13px] leading-relaxed text-muted-foreground">
+                  <span className="font-mono text-[11px]">{e.date}</span>
+                  <br />
+                  <span className="text-foreground">{e.title}</span>, {e.org}
+                </div>
+              ))}
+            </div>
+          </section>
+          <section>
+            <h2 className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+              {t("certLabel")}
+            </h2>
+            <ul className="mt-3 flex flex-col gap-1.5">
+              {certifications.map((c) => (
+                <li key={c.slug} className="text-[13px] leading-relaxed text-muted-foreground">
+                  <a
+                    href={c.verifyUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-foreground underline decoration-border-strong underline-offset-4 hover:text-accent hover:decoration-accent"
+                  >
+                    {c.title}
+                  </a>
+                  , {c.issuer} · <span className="whitespace-nowrap font-mono text-[11px]">{formatCertDate(c.issued, locale)}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        </div>
       </div>
     </article>
   );

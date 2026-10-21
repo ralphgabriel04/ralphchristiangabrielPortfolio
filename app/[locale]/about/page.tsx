@@ -122,7 +122,7 @@ function AboutContent() {
       </section>
 
       {/* Beyond Code */}
-      <section className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] pb-20">
+      <section id="en-dehors-du-code" className="mx-auto max-w-[var(--max-content)] scroll-mt-24 px-[var(--page-pad)] pb-20">
         <Reveal>
           <div className="border-b border-border-strong pb-5">
             <h2

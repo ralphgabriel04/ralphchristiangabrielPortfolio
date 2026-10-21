@@ -44,7 +44,8 @@
     "eduLabel": "Éducation",
     "viewCase": "Étude de cas",
     "demo": "Démo",
-    "cv": "CV PDF"
+    "cv": "CV PDF",
+    "certLabel": "Certifications"
   },
   "a11y": {
     "skipToContent": "Aller au contenu",
@@ -110,7 +111,11 @@
         "num": "7",
         "label": "API tierces intégrées"
       }
-    ]
+    ],
+    "portraitPause": "Mettre en pause le défilement des photos",
+    "portraitPlay": "Reprendre le défilement des photos",
+    "portraitShow": "Afficher la photo",
+    "portraitGroup": "Photos de Ralph Christian Gabriel"
   },
   "sectionLabels": {
     "selected": "Projets sélectionnés",
@@ -186,7 +191,22 @@
         "desc": "CanTelcoX : cinq paliers de charge, chacun mesuré et consigné."
       }
     ],
-    "contactPhotoAlt": "Ralph Christian Gabriel, souriant, au siège de La Caisse à Montréal"
+    "contactPhotoAlt": "Ralph Christian Gabriel, souriant, au siège de La Caisse à Montréal",
+    "beyondKicker": "À découvrir aussi",
+    "beyondHeading": "Au-delà du code.",
+    "beyondIntro": "Mes photos, mes lectures et mes passions ont chacune leur page sur ce site. En voici un aperçu.",
+    "beyondPhotosKicker": "Photos · {count}",
+    "beyondPhotosTitle": "En images",
+    "beyondPhotosDesc": "La Caisse, les études, le sport et le plein air, de 2023 à 2026.",
+    "beyondPhotosLink": "Voir les {count} photos",
+    "beyondBooksKicker": "Lectures · {count} livres en 2026",
+    "beyondBooksTitle": "Ce que je lis",
+    "beyondBooksDesc": "Mes livres de 2026, ce que j'en retiens et où je l'applique.",
+    "beyondBooksLink": "Voir mes lectures",
+    "beyondLifeKicker": "En dehors du code",
+    "beyondLifeTitle": "Sport et passions",
+    "beyondLifeDesc": "Un demi-marathon en 1 h 56, les échecs et le ski : ce que le sport m'apprend sur le travail.",
+    "beyondLifeLink": "Voir la page À propos"
   },
   "now": {
     "kicker": "En ce moment",

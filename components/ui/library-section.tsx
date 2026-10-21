@@ -36,7 +36,7 @@ export function LibrarySection() {
   return (
     <section
       id="lectures"
-      className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] pb-20"
+      className="mx-auto max-w-[var(--max-content)] scroll-mt-24 px-[var(--page-pad)] pb-20"
     >
       <Reveal>
         <div className="flex flex-wrap items-end justify-between gap-3 border-b border-border-strong pb-5">

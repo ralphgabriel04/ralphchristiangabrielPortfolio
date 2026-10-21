@@ -14,10 +14,12 @@ import { HeroCanvas } from "@/components/ui/hero-canvas";
 import { CountUp } from "@/components/ui/count-up";
 import { PlainBanner, Lexicon, PlainSwap } from "@/components/ui/plain-mode";
 import { stackGroups, usedIn } from "@/lib/stack";
-import { ProfilePhoto } from "@/components/ui/profile-photo";
+import { HeroPortrait } from "@/components/ui/hero-portrait";
 import { TestimonialsCarousel } from "@/components/ui/testimonials-carousel";
 import { testimonials, categoryLabels } from "@/lib/testimonials";
-import { certifications as certList } from "@/lib/certifications";
+import { certifications as certList, formatCertDate } from "@/lib/certifications";
+import { books } from "@/lib/library";
+import { galleryCount, galleryGroups, gallerySrc, type GalleryPhoto } from "@/lib/gallery";
 
 const SERIF = { fontFamily: "var(--font-instrument-serif), Georgia, serif" } as const;
 
@@ -40,6 +42,7 @@ export default async function HomePage({
 function HomeContent() {
   const t = useTranslations("hero");
   const tSum = useTranslations("summary");
+  const locale = useLocale();
 
   const heroName = t("name");
   const nameParts = heroName.split(" ");
@@ -115,21 +118,15 @@ function HomeContent() {
 
             {/* Portrait — right column (lg+) */}
             <div className="hidden lg:block">
-              <figure className="relative overflow-hidden rounded-2xl border border-border-color bg-muted-2 shadow-md">
-                <ProfilePhoto
-                  alt="Ralph Christian Gabriel"
-                  className="aspect-[20/21] w-full"
-                  priority
-                  sizes="300px"
-                />
-                <figcaption className="absolute inset-x-0 bottom-0 flex items-center px-3 py-2.5 font-mono text-[11px] text-foreground dark:bg-gradient-to-t dark:from-background/90 dark:to-transparent">
-                  {/* Light theme: compact chip (no wash-out fade). Dark: gradient. */}
-                  <span className="inline-flex items-center gap-2 rounded-md bg-background/80 px-2 py-1 shadow-sm backdrop-blur-sm dark:bg-transparent dark:p-0 dark:shadow-none dark:backdrop-blur-none">
-                    <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--shipped)" }} />
-                    RCG.SYS · Montréal
-                  </span>
-                </figcaption>
-              </figure>
+              <HeroPortrait
+                locale={locale}
+                labels={{
+                  pause: t("portraitPause"),
+                  play: t("portraitPlay"),
+                  show: t("portraitShow"),
+                  group: t("portraitGroup"),
+                }}
+              />
             </div>
           </div>
         </Reveal>
@@ -152,6 +149,9 @@ function HomeContent() {
 
       {/* ── Testimonials ── */}
       <TestimonialsSection />
+
+      {/* ── Beyond the code: previews of the photos, reading and interests pages ── */}
+      <BeyondSection />
 
       {/* ── Services (client path) ── */}
       <ServicesSection />
@@ -371,18 +371,57 @@ function ParcoursSection() {
                   </div>
                 ))}
 
-                {certList.length > 0 && (
-                  <Link
-                    href="/experience#certifications"
-                    className="mt-2 inline-flex items-center gap-1.5 self-start text-sm font-medium text-accent hover:underline"
-                  >
-                    {t("certLink", { count: certList.length })} <ArrowRight size={14} />
-                  </Link>
-                )}
               </div>
             </Reveal>
           </div>
         </div>
+
+        {/* Certifications: the 6 certificates, previewed here, detailed on the Experience page */}
+        {certList.length > 0 && (
+          <Reveal delay={120}>
+            <div className="mt-14 border-t border-border-color pt-8">
+              <div className="flex flex-wrap items-baseline justify-between gap-3">
+                <h3 className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+                  {t("certTitle")}
+                </h3>
+                <Link
+                  href="/experience#certifications"
+                  className="inline-flex items-center gap-1 text-sm font-medium text-accent hover:underline"
+                >
+                  {t("certLink", { count: certList.length })} <ArrowRight size={14} />
+                </Link>
+              </div>
+              <ul className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+                {certList.map((c) => (
+                  <li key={c.slug}>
+                    <Link
+                      href="/experience#certifications"
+                      className="group flex h-full flex-col overflow-hidden rounded-lg border border-border-color bg-muted transition-colors duration-200 hover:border-border-strong"
+                    >
+                      <span className="relative block aspect-[16/10] border-b border-border-color bg-muted-2">
+                        <Image
+                          src={c.card}
+                          alt=""
+                          fill
+                          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 180px"
+                          className="object-contain transition-transform duration-500 group-hover:scale-[1.04] motion-reduce:transition-none"
+                        />
+                      </span>
+                      <span className="flex flex-1 flex-col gap-1.5 p-3">
+                        <span className="text-[13px] font-medium leading-snug transition-colors group-hover:text-accent">
+                          {c.title}
+                        </span>
+                        <span className="mt-auto font-mono text-[11px] text-muted-foreground">
+                          {c.issuer} · {formatCertDate(c.issued, locale)}
+                        </span>
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
+        )}
 
         <div className="mt-10 sm:hidden">
           <Link href="/experience" className="inline-flex items-center gap-1 text-sm font-medium text-accent">
@@ -447,6 +486,138 @@ function TestimonialsSection() {
           <Link href="/temoignages" className="inline-flex items-center gap-1 text-sm font-medium text-accent">
             {tHome("testimonialsViewAll")} <ArrowRight size={14} />
           </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** Photos picked for the home preview of the /photos page (one per theme, all portraits of Ralph). */
+const BEYOND_PHOTOS = ["bord-de-l-eau-2026", "finissant-diplome-2024", "mont-royal-2025", "sutton-2026"] as const;
+
+/**
+ * "Au-delà du code": previews of what lives on other pages (photos, reading, life outside
+ * work), so visitors know it exists. Each card is one link to its page (stretched link).
+ */
+function BeyondSection() {
+  const tHome = useTranslations("home");
+  const allPhotos = galleryGroups.flatMap((g) => g.photos);
+  const preview = BEYOND_PHOTOS.map((slug) => allPhotos.find((p) => p.slug === slug)).filter(
+    (p): p is GalleryPhoto => Boolean(p),
+  );
+  const covers = books.filter((b) => b.featured).slice(0, 4);
+
+  const cards = [
+    {
+      href: "/photos",
+      path: "~/photos",
+      kicker: tHome("beyondPhotosKicker", { count: galleryCount }),
+      title: tHome("beyondPhotosTitle"),
+      desc: tHome("beyondPhotosDesc"),
+      link: tHome("beyondPhotosLink", { count: galleryCount }),
+      visual: (
+        <div className="grid h-full grid-cols-2 grid-rows-2 gap-1">
+          {preview.map((p) => (
+            <div key={p.slug} className="relative overflow-hidden">
+              <Image
+                src={gallerySrc(p.slug)}
+                alt=""
+                fill
+                sizes="(max-width: 1024px) 50vw, 180px"
+                className="object-cover object-[center_30%] transition-transform duration-500 group-hover:scale-[1.04] motion-reduce:transition-none"
+              />
+            </div>
+          ))}
+        </div>
+      ),
+    },
+    {
+      href: "/about#lectures",
+      path: "~/about#lectures",
+      kicker: tHome("beyondBooksKicker", { count: books.length }),
+      title: tHome("beyondBooksTitle"),
+      desc: tHome("beyondBooksDesc"),
+      link: tHome("beyondBooksLink"),
+      visual: (
+        <div className="flex h-full items-center justify-center gap-2 px-4">
+          {covers.map((b) => (
+            <span
+              key={b.slug}
+              className="relative aspect-[2/3] w-[72px] shrink-0 overflow-hidden rounded-[3px] shadow-[0_1px_2px_rgba(25,24,17,0.14),0_12px_24px_-14px_rgba(25,24,17,0.5)] transition-transform duration-300 group-hover:-translate-y-1 motion-reduce:transition-none"
+            >
+              <Image src={b.cover} alt={b.title} fill sizes="72px" className="object-cover" />
+            </span>
+          ))}
+        </div>
+      ),
+    },
+    {
+      href: "/about#en-dehors-du-code",
+      path: "~/about",
+      kicker: tHome("beyondLifeKicker"),
+      title: tHome("beyondLifeTitle"),
+      desc: tHome("beyondLifeDesc"),
+      link: tHome("beyondLifeLink"),
+      visual: (
+        <div className="grid h-full grid-cols-[1.35fr_1fr] grid-rows-2 gap-1">
+          <div className="relative row-span-2 overflow-hidden">
+            <Image
+              src="/images/beyond-code/half-marathon-finish.png"
+              alt=""
+              fill
+              sizes="(max-width: 1024px) 60vw, 220px"
+              className="object-cover object-[center_30%] transition-transform duration-500 group-hover:scale-[1.04] motion-reduce:transition-none"
+            />
+          </div>
+          <div className="relative overflow-hidden">
+            <Image src="/images/beyond-code/chess.png" alt="" fill sizes="(max-width: 1024px) 40vw, 140px" className="object-cover" />
+          </div>
+          <div className="relative overflow-hidden">
+            <Image
+              src="/images/beyond-code/skiing.png"
+              alt=""
+              fill
+              sizes="(max-width: 1024px) 40vw, 140px"
+              className="object-cover object-[center_60%]"
+            />
+          </div>
+        </div>
+      ),
+    },
+  ];
+
+  return (
+    <section id="sec-au-dela" className="scroll-mt-24 border-t border-border-color">
+      <div className="mx-auto max-w-[var(--max-content)] px-[var(--page-pad)] py-20 md:py-24">
+        <Reveal>
+          <SectionTitle kicker={tHome("beyondKicker")} title={tHome("beyondHeading")} />
+          <p className="mt-6 max-w-[60ch] text-[15px] leading-relaxed text-muted-foreground md:text-base">
+            {tHome("beyondIntro")}
+          </p>
+        </Reveal>
+
+        <div className="mt-10 grid gap-6 lg:grid-cols-3">
+          {cards.map((c, i) => (
+            <Reveal key={c.href} delay={60 * (i + 1)} className="h-full">
+              <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border-color bg-muted transition-colors duration-200 hover:border-border-strong">
+                <div className="h-[220px] overflow-hidden border-b border-border-color bg-muted-2">{c.visual}</div>
+                <div className="flex flex-1 flex-col p-5">
+                  <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">{c.kicker}</span>
+                  <h3 className="mt-2 text-[17px] font-semibold leading-snug">{c.title}</h3>
+                  <p className="mt-1.5 text-[15px] leading-relaxed text-muted-foreground">{c.desc}</p>
+                  <div className="mt-auto flex items-center justify-between gap-3 pt-5">
+                    <Link
+                      href={c.href}
+                      className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent after:absolute after:inset-0 after:content-[''] group-hover:underline"
+                    >
+                      {c.link} <ArrowRight size={14} />
+                    </Link>
+                    <span className="font-mono text-[12px] text-muted-foreground">{c.path}</span>
+                  </div>
+                </div>
+              </article>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>
