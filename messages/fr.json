@@ -266,6 +266,12 @@
     ],
     "caption": "Ralph Christian Gabriel · au siège de La Caisse, Montréal, octobre 2026",
     "photoAlt": "Ralph Christian Gabriel en blazer gris dans l'atrium vitré du siège de La Caisse, à Montréal",
+    "poster": {
+      "src": "/images/about/a-propos-affiche-fr.jpg",
+      "alt": "Affiche « À propos » : Ralph Christian Gabriel, souriant, en veston gris et chemise marine. Du soutien informatique au développement logiciel. 22 ans ; étudiant en génie logiciel à l'ÉTS ; développeur full-stack ; stagiaire en automatisation à La Caisse (CDPQ) ; instructeur de code chez Codeurs Nova ; bilingue français et anglais, Grand Montréal.",
+      "caption": "En bref, en une image",
+      "open": "Agrandir l'affiche"
+    },
     "library": {
       "heading": "Ce que je lis.",
       "sub": "Une sélection de mes lectures de 2026. Chaque livre tient sur une page, puis une idée part dans un vrai projet. Mes notes complètes sont publiques sur LinkedIn.",
