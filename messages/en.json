@@ -266,6 +266,12 @@
     ],
     "caption": "Ralph Christian Gabriel · at La Caisse head office, Montréal, October 2026",
     "photoAlt": "Ralph Christian Gabriel in a grey blazer in the glass atrium of La Caisse head office, Montréal",
+    "poster": {
+      "src": "/images/about/a-propos-affiche-en.jpg",
+      "alt": "About me poster: Ralph Christian Gabriel, smiling, in a grey blazer and navy shirt. From IT support to software development. 22 years old; software engineering student at ÉTS; full-stack developer; automation intern at La Caisse (CDPQ); coding instructor at Codeurs Nova; bilingual French and English, Greater Montréal.",
+      "caption": "In short, in one image",
+      "open": "Enlarge the poster"
+    },
     "library": {
       "heading": "What I read.",
       "sub": "A selection of my 2026 reading. Each book fits on one page, then one idea goes into a real project. My full notes are public on LinkedIn.",

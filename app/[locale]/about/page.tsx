@@ -61,24 +61,30 @@ function AboutContent() {
           <SectionHeading as="h1" kicker={tSec("about")} title={t("heading")} />
         </Reveal>
 
-        <div className="mt-12 grid gap-12 md:grid-cols-[280px_1fr] lg:grid-cols-[320px_1fr]">
-          {/* Photo */}
+        <div className="mt-12 grid gap-12 md:grid-cols-[340px_1fr] lg:grid-cols-[440px_1fr]">
+          {/* "About me" poster (FR/EN), first thing on the page; opens full size in a new tab */}
           <Reveal delay={60}>
-            <div className="flex flex-col gap-3">
-              <div className="aspect-[4/5] w-full rounded-lg border border-border-color bg-muted-2 overflow-hidden relative">
+            <figure className="flex flex-col gap-3">
+              <a
+                href={t("poster.src")}
+                target="_blank"
+                rel="noopener"
+                aria-label={t("poster.open")}
+                className="group relative block aspect-[1122/1402] w-full overflow-hidden rounded-lg border border-border-color bg-muted-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+              >
                 <Image
-                  src="/images/about/ralph-la-caisse-2026-portrait.jpg"
-                  alt={t("photoAlt")}
+                  src={t("poster.src")}
+                  alt={t("poster.alt")}
                   fill
-                  sizes="(max-width: 768px) 100vw, 320px"
+                  sizes="(max-width: 767px) 100vw, (max-width: 1023px) 340px, 440px"
                   priority
-                  className="object-cover object-[center_25%]"
+                  className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-[1.02]"
                 />
-              </div>
-              <span className="text-xs text-muted-foreground">
-                {t("caption")}
-              </span>
-            </div>
+              </a>
+              <figcaption className="text-xs text-muted-foreground">
+                {t("poster.caption")} · {t("poster.open")}
+              </figcaption>
+            </figure>
           </Reveal>
 
           {/* Bio */}
