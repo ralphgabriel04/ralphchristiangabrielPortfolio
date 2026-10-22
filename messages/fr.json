@@ -129,6 +129,11 @@
     "testimonials": "Témoignages"
   },
   "home": {
+    "briefKicker": "En bref",
+    "briefHeading": "Qui je suis, en une image.",
+    "briefBody": "L'essentiel avant de parcourir mes projets : ce que j'étudie, où je travaille et ce que je fais concrètement.",
+    "briefFacts": ["22 ans", "Étudiant en génie logiciel · ÉTS", "Développeur full-stack", "Stagiaire en automatisation · La Caisse (CDPQ)", "Instructeur de code · Codeurs Nova", "Bilingue FR/EN · Grand Montréal"],
+    "briefCta": "Lire mon parcours",
     "projectsHeading": "Projets choisis.",
     "seeAll": "Tous les projets",
     "testimonialsKicker": "Témoignages",

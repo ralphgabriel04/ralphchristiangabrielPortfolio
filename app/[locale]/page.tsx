@@ -143,6 +143,8 @@ function HomeContent() {
       </section>
 
       {/* ── Proof ── */}
+      <BriefSection />
+
       <ProofQuad />
 
       {/* ── Projects ── */}
@@ -204,6 +206,64 @@ function SectionTitle({
 }
 
 type ProofItem = { value: string; label: string; source: string };
+
+/** "In short": the About poster (FR/EN, validated by Ralph on 2026-10-21) right under the hero,
+ *  with the same six facts as readable text and a link to the About page. */
+function BriefSection() {
+  const tHome = useTranslations("home");
+  const tAbout = useTranslations("about");
+  const facts = tHome.raw("briefFacts") as string[];
+  const posterSrc = tAbout("poster.src");
+
+  return (
+    <section id="sec-en-bref" className="scroll-mt-24 border-t border-border-color">
+      <div className="mx-auto grid max-w-[var(--max-content)] items-center gap-10 px-[var(--page-pad)] py-14 md:py-16 lg:grid-cols-[400px_minmax(0,1fr)] lg:gap-14">
+        <Reveal>
+          <figure className="mx-auto flex w-full max-w-[420px] flex-col gap-3 lg:max-w-none">
+            <a
+              href={posterSrc}
+              target="_blank"
+              rel="noopener"
+              aria-label={tAbout("poster.open")}
+              className="group relative block aspect-[1122/1402] w-full overflow-hidden rounded-2xl border border-border-color bg-muted-2 shadow-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+            >
+              <Image
+                src={posterSrc}
+                alt={tAbout("poster.alt")}
+                fill
+                sizes="(max-width: 1023px) min(420px, 100vw), 400px"
+                className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-[1.02]"
+              />
+            </a>
+            <figcaption className="text-xs text-muted-foreground">{tAbout("poster.open")}</figcaption>
+          </figure>
+        </Reveal>
+
+        <Reveal delay={80}>
+          <div>
+            <SectionTitle kicker={tHome("briefKicker")} title={tHome("briefHeading")} />
+            <p className="mt-6 max-w-[56ch] text-lg leading-relaxed text-muted-foreground">{tHome("briefBody")}</p>
+            <ul className="mt-6 grid gap-x-8 gap-y-3 sm:grid-cols-2">
+              {facts.map((f) => (
+                <li key={f} className="flex items-start gap-3 text-[15px] font-medium text-foreground">
+                  <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-8">
+              <Link href="/about">
+                <Button variant="secondary">
+                  {tHome("briefCta")} <ArrowRight size={16} />
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
 
 /** Developer proof first: four measured facts, each with its source. */
 function ProofQuad() {

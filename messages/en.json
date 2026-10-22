@@ -129,6 +129,11 @@
     "testimonials": "Testimonials"
   },
   "home": {
+    "briefKicker": "In short",
+    "briefHeading": "Who I am, in one image.",
+    "briefBody": "The essentials before you browse my projects: what I study, where I work and what I actually do.",
+    "briefFacts": ["22 years old", "Software engineering student · ÉTS", "Full-stack developer", "Automation intern · La Caisse (CDPQ)", "Coding instructor · Codeurs Nova", "Bilingual FR/EN · Greater Montréal"],
+    "briefCta": "Read my story",
     "projectsHeading": "Selected projects.",
     "seeAll": "All projects",
     "testimonialsKicker": "Testimonials",
