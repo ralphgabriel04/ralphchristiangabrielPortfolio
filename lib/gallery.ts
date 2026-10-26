@@ -80,7 +80,7 @@ export const galleryGroups: GalleryGroup[] = [
   },
   {
     id: "anne-sofie",
-    title: { fr: "Avec Anne Sofie", en: "With Anne Sofie" },
+    title: { fr: "Avec ma copine", en: "With my girlfriend" },
     intro: { fr: "Avec ma copine, Anne Sofie Laurent, et quelques souvenirs à deux.", en: "With my girlfriend, Anne Sofie Laurent, and a few memories together." },
     photos: couplePhotos,
   },
