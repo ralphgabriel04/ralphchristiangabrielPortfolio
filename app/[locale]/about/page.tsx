@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { alternatesFor } from "@/lib/site";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { ArrowRight, Mail, Timer, MapPin, Trophy, ExternalLink, Award, BadgeCheck } from "lucide-react";
@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
 import { LibrarySection } from "@/components/ui/library-section";
-import { galleryCount } from "@/lib/gallery";
+import { galleryCount, couplePhotos, gallerySrc } from "@/lib/gallery";
 
 /** Personal photos for the « Hors écran » gallery, oldest first. Captions and alt text: messages about.gallery.items (same order). */
 const GALLERY = [
@@ -49,6 +49,7 @@ export default async function AboutPage({
 
 function AboutContent() {
   const t = useTranslations("about");
+  const lang = useLocale() === "fr" ? "fr" : "en";
   const galleryItems = t.raw("gallery.items") as GalleryItem[];
   const tSec = useTranslations("sectionLabels");
 
@@ -301,6 +302,36 @@ function AboutContent() {
             <p className="mt-3 text-[15px] text-muted-foreground">{t("gallery.sub")}</p>
           </div>
         </Reveal>
+
+
+        <article id="anne-sofie" aria-labelledby="anne-sofie-heading" className="mt-10 scroll-mt-24 border-b border-border-color pb-10">
+          <Reveal>
+            <div className="grid items-start gap-8 md:grid-cols-[1fr_1.1fr] md:gap-10">
+              <div className="md:col-start-2 md:row-start-1">
+                <p className="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">{t("couple.kicker")}</p>
+                <h3 id="anne-sofie-heading" className="mt-3 text-3xl leading-tight md:text-[36px]" style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}>{t("couple.heading")}</h3>
+                <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">{t("couple.intro")}</p>
+                <p className="mt-5 max-w-[48ch] text-base leading-relaxed text-foreground">{t("couple.message")}</p>
+                <p className="mt-4 text-sm font-medium">{t("couple.signature")}</p>
+                <Link href="/photos#anne-sofie" className="mt-5 inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-accent hover:underline">{t("couple.seePhotos")} <ArrowRight size={14} aria-hidden="true" /></Link>
+              </div>
+              <figure className="overflow-hidden rounded-lg border border-border-color bg-muted md:col-start-1 md:row-start-1 md:row-span-2">
+                <a href={gallerySrc(couplePhotos[0].slug)} target="_blank" rel="noreferrer" className="block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent">
+                  <Image src={gallerySrc(couplePhotos[0].slug)} alt={couplePhotos[0].alt[lang]} width={couplePhotos[0].w} height={couplePhotos[0].h} sizes="(max-width: 767px) 100vw, 480px" className="h-auto w-full" />
+                </a>
+                <figcaption className="flex flex-wrap justify-between gap-1 px-4 py-3 text-[13px]"><span>{couplePhotos[0].caption[lang]}</span><span className="font-mono text-xs text-muted-foreground">{couplePhotos[0].date[lang]}</span></figcaption>
+              </figure>
+              <div className="grid grid-cols-2 gap-4 md:col-start-2 md:row-start-2">
+                {couplePhotos.slice(1).map((photo) => <figure key={photo.slug} className="overflow-hidden rounded-lg border border-border-color bg-muted">
+                  <a href={gallerySrc(photo.slug)} target="_blank" rel="noreferrer" className="block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent">
+                    <Image src={gallerySrc(photo.slug)} alt={photo.alt[lang]} width={photo.w} height={photo.h} sizes="(max-width: 767px) 50vw, 260px" className="h-auto w-full" />
+                  </a>
+                  <figcaption className="px-3 py-2 text-[12px] leading-relaxed"><span className="block font-medium">{photo.caption[lang]}</span><span className="font-mono text-muted-foreground">{photo.date[lang]}</span></figcaption>
+                </figure>)}
+              </div>
+            </div>
+          </Reveal>
+        </article>
 
         <div className="mt-10 grid gap-6 sm:grid-cols-3">
           {GALLERY.map((src, i) => {
