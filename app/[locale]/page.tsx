@@ -645,8 +645,8 @@ function BeyondSection() {
       ),
     },
     {
-      href: "/about#en-dehors-du-code",
-      path: "~/about",
+      href: "/about#anne-sofie",
+      path: "~/about#anne-sofie",
       kicker: tHome("beyondLifeKicker"),
       title: tHome("beyondLifeTitle"),
       desc: tHome("beyondLifeDesc"),
@@ -655,7 +655,7 @@ function BeyondSection() {
         <div className="grid h-full grid-cols-[1.35fr_1fr] grid-rows-2 gap-1">
           <div className="relative row-span-2 overflow-hidden">
             <Image
-              src="/images/beyond-code/half-marathon-finish.png"
+              src="/images/gallery/anne-sofie-ralph-saint-valentin-2026.jpg"
               alt=""
               fill
               sizes="(max-width: 1024px) 60vw, 220px"

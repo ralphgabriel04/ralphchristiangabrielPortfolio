@@ -132,7 +132,14 @@
     "briefKicker": "In short",
     "briefHeading": "Who I am, in one image.",
     "briefBody": "The essentials before you browse my projects: what I study, where I work and what I actually do.",
-    "briefFacts": ["22 years old", "Software engineering student · ÉTS", "Full-stack developer", "Automation intern · La Caisse (CDPQ)", "Coding instructor · Codeurs Nova", "Bilingual FR/EN · Greater Montréal"],
+    "briefFacts": [
+      "22 years old",
+      "Software engineering student · ÉTS",
+      "Full-stack developer",
+      "Automation intern · La Caisse (CDPQ)",
+      "Coding instructor · Codeurs Nova",
+      "Bilingual FR/EN · Greater Montréal"
+    ],
     "briefCta": "Read my story",
     "projectsHeading": "Selected projects.",
     "seeAll": "All projects",
@@ -203,15 +210,15 @@
     "beyondIntro": "My photos, my reading and my interests each have their own page on this site. Here is a preview.",
     "beyondPhotosKicker": "Photos · {count}",
     "beyondPhotosTitle": "In pictures",
-    "beyondPhotosDesc": "La Caisse, school, sport and the outdoors, from 2023 to 2026.",
+    "beyondPhotosDesc": "La Caisse, studies, sport and memories with Anne Sofie.",
     "beyondPhotosLink": "See all {count} photos",
     "beyondBooksKicker": "Reading · {count} books in 2026",
     "beyondBooksTitle": "What I read",
     "beyondBooksDesc": "My 2026 books, what I keep from them and where I apply it.",
     "beyondBooksLink": "See my reading",
     "beyondLifeKicker": "Beyond code",
-    "beyondLifeTitle": "Sport and interests",
-    "beyondLifeDesc": "A half marathon in 1:56, chess and skiing: what sport teaches me about work.",
+    "beyondLifeTitle": "Off screen",
+    "beyondLifeDesc": "Life with my girlfriend, Anne Sofie Laurent, memories together, sport and my other interests.",
     "beyondLifeLink": "See the About page",
     "demoCalloutTitle": "Try my apps, right here",
     "demoCalloutDesc": "{count} prototypes to try without an account: Wise & Wealthy, Vibe Montréal, BOA, a Tron game and more.",
@@ -357,7 +364,7 @@
     },
     "gallery": {
       "heading": "Off screen.",
-      "sub": "A few moments away from the keyboard, 2025 to 2026.",
+      "sub": "Life together, days out and a few moments away from the keyboard.",
       "items": [
         {
           "caption": "Mount Royal lookout, at night",
@@ -376,6 +383,14 @@
         }
       ],
       "seeAll": "See all {count} photos"
+    },
+    "couple": {
+      "kicker": "Life together",
+      "heading": "With Anne Sofie.",
+      "intro": "I share my life with my girlfriend, Anne Sofie Laurent.",
+      "message": "Anne Sofie, every day with you makes me happier. I love our evenings out, our little adventures and the simple moments we share. Thank you for being by my side. I love you.",
+      "signature": "Ralph",
+      "seePhotos": "See our photos"
     }
   },
   "experience": {

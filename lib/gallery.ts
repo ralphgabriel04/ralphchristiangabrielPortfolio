@@ -1,9 +1,8 @@
 /**
- * Photo gallery (/photos): every usable photo of Ralph gathered on 2026-10-17 from his
+ * Photo gallery (/photos): A selection of photos of Ralph gathered on 2026-10-17 from his
  * Proton originals (La Caisse, Oct. 2026), Instagram and LinkedIn posts (2023-2026).
  * Dates are the month of the shoot or of the post. Files: public/images/gallery/<slug>.jpg
- * (1600 px max, EXIF removed). Left out on purpose: large group photos (his rule), couple
- * and family photos, a shirtless photo, screenshots, and near-identical frames.
+ * (1600 px max, EXIF removed). Left out on purpose: large group photos (his rule), family photos, a shirtless photo, screenshots, and near-identical frames.
  */
 type L10n = { fr: string; en: string };
 
@@ -11,6 +10,61 @@ export type GalleryPhoto = { slug: string; w: number; h: number; date: L10n; cap
 export type GalleryGroup = { id: string; title: L10n; intro: L10n; photos: GalleryPhoto[] };
 
 export const gallerySrc = (slug: string) => `/images/gallery/${slug}.jpg`;
+
+/** Couple photos selected from Ralph's Instagram posts and collaborations. */
+export const couplePhotos: [GalleryPhoto, GalleryPhoto, GalleryPhoto] = [
+  {
+    "slug": "anne-sofie-ralph-saint-valentin-2026",
+    "w": 1200,
+    "h": 1600,
+    "date": {
+      "fr": "févr. 2026",
+      "en": "Feb. 2026"
+    },
+    "caption": {
+      "fr": "La Saint-Valentin ensemble",
+      "en": "Valentine’s Day together"
+    },
+    "alt": {
+      "fr": "Anne Sofie Laurent embrasse Ralph Christian Gabriel sur la joue devant un miroir",
+      "en": "Anne Sofie Laurent kisses Ralph Christian Gabriel on the cheek in front of a mirror"
+    }
+  },
+  {
+    "slug": "anne-sofie-ralph-sortie-2026",
+    "w": 1200,
+    "h": 1600,
+    "date": {
+      "fr": "juin 2026",
+      "en": "June 2026"
+    },
+    "caption": {
+      "fr": "Au bord de l’eau, ensemble",
+      "en": "By the water, together"
+    },
+    "alt": {
+      "fr": "Anne Sofie Laurent et Ralph Christian Gabriel se tiennent côte à côte au bord d’une rivière, elle en robe marine et lui en tenue crème",
+      "en": "Anne Sofie Laurent and Ralph Christian Gabriel stand side by side by a river, her in a navy dress and him in a cream outfit"
+    }
+  },
+  {
+    "slug": "anne-sofie-sutton-2026",
+    "w": 1212,
+    "h": 1600,
+    "date": {
+      "fr": "août 2026",
+      "en": "Aug. 2026"
+    },
+    "caption": {
+      "fr": "Anne Sofie, à Sutton",
+      "en": "Anne Sofie in Sutton"
+    },
+    "alt": {
+      "fr": "Anne Sofie Laurent sourit, assise sur une banquette en bois dans un café à Sutton",
+      "en": "Anne Sofie Laurent smiles, sitting on a wooden bench in a café in Sutton"
+    }
+  }
+];
 
 export const galleryGroups: GalleryGroup[] = [
   {
@@ -23,6 +77,12 @@ export const galleryGroups: GalleryGroup[] = [
       { slug: "la-caisse-headshot-2026", w: 1280, h: 1600, date: { fr: "oct. 2026", en: "Oct. 2026" }, caption: { fr: "Portrait professionnel", en: "Professional headshot" }, alt: { fr: "Portrait de Ralph Christian Gabriel souriant, chandail rayé et cravate", en: "Headshot of Ralph Christian Gabriel smiling, in a striped sweater and tie" } },
       { slug: "la-caisse-ambassadeur-2026", w: 1287, h: 1019, date: { fr: "oct. 2026", en: "Oct. 2026" }, caption: { fr: "Ambassadeur du programme P.A.S.", en: "P.A.S. program ambassador" }, alt: { fr: "Carte d'ambassadeur de La Caisse au nom de Ralph Christian Gabriel, Solutions numériques et analytique, Automatisation des processus", en: "La Caisse ambassador card for Ralph Christian Gabriel, Digital Solutions and Analytics, Process Automation" } },
     ],
+  },
+  {
+    id: "anne-sofie",
+    title: { fr: "Avec Anne Sofie", en: "With Anne Sofie" },
+    intro: { fr: "Avec ma copine, Anne Sofie Laurent, et quelques souvenirs à deux.", en: "With my girlfriend, Anne Sofie Laurent, and a few memories together." },
+    photos: couplePhotos,
   },
   {
     id: "portraits",

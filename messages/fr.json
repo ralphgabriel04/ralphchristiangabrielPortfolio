@@ -132,7 +132,14 @@
     "briefKicker": "En bref",
     "briefHeading": "Qui je suis, en une image.",
     "briefBody": "L'essentiel avant de parcourir mes projets : ce que j'étudie, où je travaille et ce que je fais concrètement.",
-    "briefFacts": ["22 ans", "Étudiant en génie logiciel · ÉTS", "Développeur full-stack", "Stagiaire en automatisation · La Caisse (CDPQ)", "Instructeur de code · Codeurs Nova", "Bilingue FR/EN · Grand Montréal"],
+    "briefFacts": [
+      "22 ans",
+      "Étudiant en génie logiciel · ÉTS",
+      "Développeur full-stack",
+      "Stagiaire en automatisation · La Caisse (CDPQ)",
+      "Instructeur de code · Codeurs Nova",
+      "Bilingue FR/EN · Grand Montréal"
+    ],
     "briefCta": "Lire mon parcours",
     "projectsHeading": "Projets choisis.",
     "seeAll": "Tous les projets",
@@ -203,15 +210,15 @@
     "beyondIntro": "Mes photos, mes lectures et mes passions ont chacune leur page sur ce site. En voici un aperçu.",
     "beyondPhotosKicker": "Photos · {count}",
     "beyondPhotosTitle": "En images",
-    "beyondPhotosDesc": "La Caisse, les études, le sport et le plein air, de 2023 à 2026.",
+    "beyondPhotosDesc": "La Caisse, les études, le sport et des souvenirs avec Anne Sofie.",
     "beyondPhotosLink": "Voir les {count} photos",
     "beyondBooksKicker": "Lectures · {count} livres en 2026",
     "beyondBooksTitle": "Ce que je lis",
     "beyondBooksDesc": "Mes livres de 2026, ce que j'en retiens et où je l'applique.",
     "beyondBooksLink": "Voir mes lectures",
     "beyondLifeKicker": "En dehors du code",
-    "beyondLifeTitle": "Sport et passions",
-    "beyondLifeDesc": "Un demi-marathon en 1 h 56, les échecs et le ski : ce que le sport m'apprend sur le travail.",
+    "beyondLifeTitle": "Hors écran",
+    "beyondLifeDesc": "Ma vie avec Anne Sofie Laurent, ma copine, nos souvenirs à deux, le sport et mes passions.",
     "beyondLifeLink": "Voir la page À propos",
     "demoCalloutTitle": "Testez mes applications, ici même",
     "demoCalloutDesc": "{count} prototypes à essayer sans compte : Wise & Wealthy, Vibe Montréal, BOA, un jeu Tron et plus.",
@@ -357,7 +364,7 @@
     },
     "gallery": {
       "heading": "Hors écran.",
-      "sub": "Quelques moments loin du clavier, entre 2025 et 2026.",
+      "sub": "La vie à deux, les sorties et quelques moments loin du clavier.",
       "items": [
         {
           "caption": "Belvédère du Mont-Royal, la nuit",
@@ -376,6 +383,14 @@
         }
       ],
       "seeAll": "Voir les {count} photos"
+    },
+    "couple": {
+      "kicker": "La vie à deux",
+      "heading": "Avec Anne Sofie.",
+      "intro": "Je partage ma vie avec ma copine, Anne Sofie Laurent.",
+      "message": "Anne Sofie, chaque jour avec toi me rend plus heureux. J’aime nos sorties, nos petites aventures et les moments tout simples qu’on partage. Merci d’être à mes côtés. Je t’aime.",
+      "signature": "Ralph",
+      "seePhotos": "Voir nos photos"
     }
   },
   "experience": {
