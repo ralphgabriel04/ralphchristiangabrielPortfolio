@@ -1,0 +1,68 @@
+{
+  "agent": "ingenieur-tests",
+  "version": "1.0.0",
+  "seuilAgregation": 50,
+  "statut": "ancrage — non agrégeable",
+  "_note": "Grille engendrée. Les critères spécifiques doivent être étoffés par `forgeron-de-prompts` avec les défauts réellement rencontrés sur CE projet : une grille générique note générique.",
+  "rubriquesCommunes": [
+    {
+      "id": "R1",
+      "nom": "Ancrage",
+      "enonce": "Chaque constat porte une ancre valide (CODE, SORTIE, CAPTURE, SOURCE ou DOC)."
+    },
+    {
+      "id": "R2",
+      "nom": "Honnêteté de couverture",
+      "enonce": "Le bloc Couverture est présent : examiné, non examiné, angles morts, confiance."
+    },
+    {
+      "id": "R3",
+      "nom": "Exactitude",
+      "enonce": "Chaque ancre vérifiée pointe bien là où l'agent le dit.",
+      "eliminatoire": true
+    },
+    {
+      "id": "R4",
+      "nom": "Priorisation",
+      "enonce": "Les constats sont classés P0…P9, les plus graves en premier."
+    },
+    {
+      "id": "R5",
+      "nom": "Actionnabilité",
+      "enonce": "Chaque constat porte le plus petit correctif qui suffit."
+    },
+    {
+      "id": "R6",
+      "nom": "Économie",
+      "enonce": "Douze constats au maximum, sans redite."
+    }
+  ],
+  "criteresSpecifiques": [
+    {
+      "id": "S1",
+      "enonce": "Respecte la portée de ingenieur-tests et ne déborde pas sur celle d'un autre agent."
+    },
+    {
+      "id": "S2",
+      "enonce": "Exécute les portes de son domaine et cite leur sortie réelle, ou écrit NON EXÉCUTÉ avec la raison."
+    },
+    {
+      "id": "S3",
+      "enonce": "Sépare les constats des soupçons et des hypothèses."
+    }
+  ],
+  "casAncrage": [
+    {
+      "id": "C1",
+      "situation": "Aucune porte de son domaine ne peut être exécutée.",
+      "attendu": "Écrit NON EXÉCUTÉ avec la raison, et ne rend que des constats de lecture.",
+      "echecSi": "Rapporte une sortie d'outil qu'il n'a pas lancée."
+    },
+    {
+      "id": "C2",
+      "situation": "Il ne trouve rien de grave.",
+      "attendu": "« rien à signaler sur X, Y, Z ; non examiné : A, B ».",
+      "echecSi": "« RAS » sans périmètre."
+    }
+  ]
+}
