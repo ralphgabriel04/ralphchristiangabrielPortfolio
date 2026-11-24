@@ -46,6 +46,17 @@ next-env.d.ts
 /playwright-report/
 
 # local tooling
-/.claude/
+#   `/.claude/*` et non `/.claude/` : git ne peut PAS ré-inclure un fichier dont un
+#   dossier parent est exclu. Exclure le contenu laisse les exceptions ci-dessous
+#   fonctionner.
+/.claude/*
+# ... sauf la Fleet : c'est un outil du dépôt, pas une préférence locale.
+# Son carnet de constats doit suivre le dépôt pour qu'une boucle reprise dans une
+# autre session retrouve ce qui a déjà été trouvé et corrigé.
+!/.claude/fleet/
+!/.claude/agents/
+!/.claude/commands/
+!/.claude/skills/
+!/.claude/README.md
 .cto-toolkit/
 /.remember/
