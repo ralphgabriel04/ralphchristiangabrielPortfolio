@@ -1564,7 +1564,7 @@ const wwFr: CaseStudyV2 = {
     "Le modèle freemium et les prix sont proposés, non validés par le marché.",
   ],
   links: [
-    { label: "Liste d'attente (aperçu)", url: "/centstep/index.html", kind: "demo" },
+    { label: "Liste d'attente (aperçu)", url: "/centstep", kind: "demo" },
     { label: "Prototype de l'app (ancien nom)", url: "/wise-wealthy/index.html", kind: "demo" },
     { label: "Mes finances", url: "/wise-wealthy/Finances.dc.html", kind: "demo" },
   ],
@@ -1620,7 +1620,7 @@ const wwEn: CaseStudyV2 = {
     "The freemium model and pricing are proposed, not market-validated.",
   ],
   links: [
-    { label: "Waitlist (preview)", url: "/centstep/index.html", kind: "demo" },
+    { label: "Waitlist (preview)", url: "/centstep", kind: "demo" },
     { label: "App prototype (former name)", url: "/wise-wealthy/index.html", kind: "demo" },
     { label: "Mes finances", url: "/wise-wealthy/Finances.dc.html", kind: "demo" },
   ],

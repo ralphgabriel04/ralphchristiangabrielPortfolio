@@ -489,7 +489,7 @@ export const projectLinks: Record<string, { label: string; url: string; type: "g
     { label: "Maquette (design)", url: "/dpm-elevate/index.html", type: "demo" },
   ],
   "centstep": [
-    { label: "Liste d'attente (aperçu)", url: "/centstep/index.html", type: "live" },
+    { label: "Liste d'attente (aperçu)", url: "/centstep", type: "live" },
     { label: "Prototype de l'app (sous l'ancien nom)", url: "/wise-wealthy/index.html", type: "demo" },
     { label: "Mes finances", url: "/wise-wealthy/Finances.dc.html", type: "demo" },
     { label: "Version Kids", url: "/wise-wealthy/Wise%20%26%20Wealthy%20Kids.dc.html", type: "demo" },

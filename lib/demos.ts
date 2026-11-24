@@ -33,7 +33,7 @@ export const demos: Demo[] = [
   {
     id: "centstep",
     name: "Centstep",
-    src: "/centstep/index.html",
+    src: "/centstep",
     poster: "/images/demos/centstep.jpg",
     kind: { fr: "Liste d'attente · coach financier (anciennement Wise & Wealthy)", en: "Waitlist · financial coach (formerly Wise & Wealthy)" },
     device: "desktop",
