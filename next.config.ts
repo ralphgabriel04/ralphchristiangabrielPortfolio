@@ -55,6 +55,10 @@ const frameableHeaders = [
 const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "md", "mdx"],
   // Wise & Wealthy was renamed Centstep (Nov. 2026): old case-study links keep working.
+  // Clean URL for the Centstep waitlist preview: /centstep serves the static page.
+  async rewrites() {
+    return [{ source: "/centstep", destination: "/centstep/index.html" }];
+  },
   async redirects() {
     return [
       { source: "/:locale(fr|en)/projects/wise-wealthy", destination: "/:locale/projects/centstep", permanent: true },
