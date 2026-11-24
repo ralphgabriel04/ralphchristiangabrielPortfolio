@@ -23,7 +23,7 @@ type Labels = {
 /**
  * Demo playground: one tab per prototype, a poster with a launch button, then the
  * prototype itself in a same-origin iframe. Nothing heavy loads before the visitor
- * clicks. The URL hash (#wise-wealthy) preselects a demo, so case studies can link here.
+ * clicks. The URL hash (#centstep) preselects a demo, so case studies can link here.
  */
 export function DemoPlayground({ demos, locale, labels }: { demos: Demo[]; locale: string; labels: Labels }) {
   const lang = locale === "fr" ? "fr" : "en";

@@ -221,7 +221,7 @@
     "beyondLifeDesc": "Ma vie avec Anne Sofie Laurent, ma copine, nos souvenirs à deux, le sport et mes passions.",
     "beyondLifeLink": "Voir la page À propos",
     "demoCalloutTitle": "Testez mes applications, ici même",
-    "demoCalloutDesc": "{count} prototypes à essayer sans compte : Wise & Wealthy, Vibe Montréal, BOA, un jeu Tron et plus.",
+    "demoCalloutDesc": "{count} prototypes à essayer sans compte : Centstep, Vibe Montréal, BOA, un jeu Tron et plus.",
     "demoCalloutLink": "Ouvrir les démos"
   },
   "now": {
@@ -471,7 +471,7 @@
         "desc": "Prototypes et sites pour des clients, et mes propres produits.",
         "points": [
           "Clients : Kim Dubois Photographe (mon premier client payant), BOA (chef privé) et le Club du Rex de Cornouailles du Canada.",
-          "Produits : DPM Elevate (application de planification déployée), Wise & Wealthy et Vibe Montréal (prototypes).",
+          "Produits : DPM Elevate (application de planification déployée), Centstep, anciennement Wise & Wealthy, et Vibe Montréal (prototypes).",
           "Systèmes de design, sites bilingues, thèmes clair et sombre ; mise en production visée en Next.js et TypeScript."
         ]
       },
@@ -655,8 +655,8 @@
         "audience": "Fondateurs et porteurs d'idées",
         "problem": "Une idée difficile à faire voir à des clients, des associés ou des investisseurs.",
         "deliver": "Un prototype interactif et cliquable qui rend l'idée testable, puis une base de code prête pour la suite.",
-        "example": "Wise & Wealthy, un concept devenu une maquette complète et testable.",
-        "exampleId": "wise-wealthy"
+        "example": "Centstep (anciennement Wise & Wealthy), un concept devenu une maquette complète et testable, puis une liste d'attente animée.",
+        "exampleId": "centstep"
       },
       {
         "title": "Intégrations et automatisation",

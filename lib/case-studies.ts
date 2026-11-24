@@ -540,7 +540,7 @@ export const caseStudies: Record<string, { fr: CaseStudy; en: CaseStudy }> = {
     },
   },
 
-  "wise-wealthy": {
+  "centstep": {
     fr: {
       meta: [
         { k: "Rôle", v: "Concepteur & développeur" },
