@@ -126,25 +126,25 @@ export const projects: Project[] = [
     media: { enabled: true, type: "video", src: "/media/dpm-elevate.mp4" }
   },
   {
-    id: "wise-wealthy",
+    id: "centstep",
     year: "2026",
-    status: { fr: "Concept · Prototype interactif", en: "Concept · High-fidelity prototype" },
-    name: "Wise & Wealthy",
+    status: { fr: "Prototype · Liste d'attente en ligne", en: "Prototype · Waitlist live" },
+    name: "Centstep",
     pitch: {
-      fr: "Coach financier assisté par l'IA pour les 18 à 35 ans. Prototype interactif d'une vingtaine d'écrans, appuyé sur un modèle d'affaires complet.",
-      en: "An AI-assisted money coach for 18 to 35 year-olds. A clickable prototype of about twenty screens, built on a full business model.",
+      fr: "Coach financier assisté par l'IA pour les jeunes adultes du Québec (anciennement Wise & Wealthy). Prototype d'une vingtaine d'écrans, modèle d'affaires complet et liste d'attente animée avec décompte et parrainage.",
+      en: "An AI-assisted money coach for young adults in Québec (formerly Wise & Wealthy). A clickable prototype of about twenty screens, a full business model and an animated waitlist with a countdown and referrals.",
     },
-    tag: { fr: "Coach financier IA · Prototype mobile", en: "AI financial coach · Mobile prototype" },
-    stack: ["React 18", "JavaScript", "CSS", "Claude Design", "Claude Code"],
+    tag: { fr: "Coach financier IA · Prototype mobile et liste d'attente", en: "AI financial coach · Mobile prototype and waitlist" },
+    stack: ["React 18", "HTML/CSS/JS", "Supabase", "Deno", "Resend", "Claude Design", "Claude Code"],
     summary: {
-      fr: "Concept et prototype interactif de Wise & Wealthy, un coach financier personnel, assisté par l'IA, qui rend l'éducation financière plus accessible aux 18–35 ans peu à l'aise avec la finance. Le produit est pensé à partir d'un modèle d'affaires complet (12 pages : étude de marché, Business Model Canvas, analyse concurrentielle YNAB/Rocket Money/Wealthsimple, MVP, indicateurs) et d'un PRD de découverte, et se positionne à l'opposé des apps de trading : éducation, vulgarisation et accompagnement plutôt que spéculation. La maquette mobile couvre une vingtaine d'écrans et d'états : parcours d'accueil guidé, tableau de bord (revenus, dépenses, épargne, « série de clarté », action du jour), assistant conversationnel « Wiz », budget et budget setup, objectifs d'épargne, mini-leçons + flashcards + exercices, actualité financière vulgarisée, notifications, profil, confidentialité et paywall freemium. Identité rassurante et non intimidante (mascotte Wiz, verts apaisants, Bricolage Grotesque + Plus Jakarta Sans), bilingue FR/EN, thème clair/sombre. Plus qu'une seule app, c'est une petite suite : l'app adulte ; « Mes finances », surface de suivi avancée (Transactions, Prévu vs réel, Cashflow, Abonnements, Dettes, import banque/CSV) qui incarne le palier premium ; « Wise & Wealthy Kids », déclinaison ludique pour enfants (tirelire, pièces, étoiles, jalons) ; « Espace Famille », espace parents avec code PIN à 4 chiffres et profils enfants ; et Wiz, la mascotte réutilisable (6 humeurs) qui unifie le tout. Positionnement assumé : éducation financière, pas de conseil réglementé, orienté confiance et protection des données (Loi 25).",
-      en: "Concept and interactive prototype of Wise & Wealthy, an AI-assisted personal financial coach that makes financial literacy more approachable for 18–35 year-olds who aren't comfortable with finance. The product is grounded in a full business model (12 pages: market study, Business Model Canvas, competitive analysis of YNAB/Rocket Money/Wealthsimple, MVP, KPIs) and a discovery PRD, and is positioned as the opposite of trading apps: education, plain-language guidance and coaching rather than speculation. The mobile mockup spans around twenty screens and states, guided onboarding, dashboard (income, expenses, savings, a \"clarity streak\", daily action), conversational \"Wiz\" assistant, budget and budget setup, savings goals, mini-lessons + flashcards + exercises, simplified financial news, notifications, profile, privacy and a freemium paywall. A reassuring, non-intimidating identity (Wiz mascot, calming greens, Bricolage Grotesque + Plus Jakarta Sans), bilingual FR/EN, light/dark theme. More than a single app, it's a small suite: the adult app; \"Mes finances\", an advanced tracking surface (Transactions, Planned vs actual, Cashflow, Subscriptions, Debts, bank/CSV import) embodying the premium tier; \"Wise & Wealthy Kids\", a playful variant for children (piggy bank, coins, stars, milestones); \"Family Space\", a parent area with a 4-digit PIN and child profiles; and Wiz, the reusable mascot (6 moods) that unifies it all. A deliberate stance: financial education, not regulated advice, built around trust and data protection (Loi 25)."
+      fr: "Centstep (anciennement Wise & Wealthy, renommé en novembre 2026) est un coach financier personnel, assisté par l'IA, qui rend l'éducation financière plus accessible aux jeunes adultes du Québec peu à l'aise avec la finance. Je le cofonde avec Sao Saint-Vil et Mathis Labonté. Le nouveau nom dit l'idée : chaque sou (cent) monte une marche (step). La mascotte Wiz a laissé place à un sou de 1 ¢ doré qui monte des marches, et le coach de l'app s'appelle maintenant Centstep. Le produit repose sur un modèle d'affaires complet (12 pages : étude de marché, Business Model Canvas, analyse concurrentielle YNAB/Rocket Money/Wealthsimple, MVP, indicateurs) et un PRD de découverte, et se positionne à l'opposé des apps de trading : éducation, vulgarisation et accompagnement plutôt que spéculation. Le prototype mobile, réalisé sous l'ancien nom, couvre une vingtaine d'écrans et d'états : accueil guidé, tableau de bord, assistant conversationnel, budget, objectifs d'épargne, mini-leçons, actualité financière vulgarisée, profil, confidentialité et paywall freemium, plus « Mes finances » (palier premium), une déclinaison Kids et un Espace Famille. Nouveauté : la liste d'attente de lancement, une page animée où la mascotte monte un escalier qui porte le décompte (jours, heures, minutes, secondes), avec thème clair et sombre complets, démos des fonctionnalités en boucle, bouton pause (WCAG 2.2.2) et respect de prefers-reduced-motion. Elle prévoit le parrainage (+5 places par ami inscrit), un courriel de confirmation et une conformité LCAP (consentement explicite, désabonnement en un clic) et Loi 25 (courriel seulement, suppression sur demande). Le back-end (Supabase : Postgres avec RLS et Edge Functions; Resend pour les courriels) est écrit et testé localement, pas encore déployé. Positionnement assumé : éducation financière, pas de conseil réglementé, orienté confiance et protection des données.",
+      en: "Centstep (formerly Wise & Wealthy, renamed in November 2026) is an AI-assisted personal financial coach that makes financial literacy more approachable for young adults in Québec who aren't comfortable with finance. I'm co-founding it with Sao Saint-Vil and Mathis Labonté. The new name carries the idea: every penny (cent) climbs a step. The Wiz mascot gave way to a golden 1¢ coin that climbs stairs, and the in-app coach is now called Centstep. The product rests on a full business model (12 pages: market study, Business Model Canvas, competitive analysis of YNAB/Rocket Money/Wealthsimple, MVP, KPIs) and a discovery PRD, and is positioned as the opposite of trading apps: education, plain-language guidance and coaching rather than speculation. The mobile prototype, built under the former name, spans around twenty screens and states: guided onboarding, dashboard, conversational assistant, budget, savings goals, mini-lessons, simplified financial news, profile, privacy and a freemium paywall, plus \"Mes finances\" (premium tier), a Kids variant and a Family Space. New: the launch waitlist, an animated page where the mascot climbs a staircase that carries the countdown (days, hours, minutes, seconds), with full light and dark themes, looping feature demos, a pause button (WCAG 2.2.2) and prefers-reduced-motion support. It includes referrals (+5 places per friend who signs up), a confirmation email, and compliance with Canada's anti-spam law (explicit consent, one-click unsubscribe) and Québec's Loi 25 (email only, deletion on request). The back end (Supabase: Postgres with RLS and Edge Functions; Resend for email) is written and tested locally, not yet deployed. A deliberate stance: financial education, not regulated advice, built around trust and data protection."
     },
     metrics: {
-      fr: ["20+ écrans et états", "5 surfaces dans une même suite", "12 pages de modèle d'affaires", "Bilingue FR/EN · clair/sombre"],
-      en: ["20+ screens and states", "5 surfaces in one suite", "12 pages of business model", "Bilingual FR/EN · light/dark"]
+      fr: ["20+ écrans et états", "1 liste d'attente animée · décompte et parrainage", "12 pages de modèle d'affaires", "Bilingue FR/EN · clair/sombre"],
+      en: ["20+ screens and states", "1 animated waitlist · countdown and referrals", "12 pages of business model", "Bilingual FR/EN · light/dark"]
     },
-    media: { enabled: true, type: "video", src: "/media/wise-wealthy.mp4" }
+    media: { enabled: true, type: "video", src: "/media/centstep.mp4" }
   },
   {
     id: "kim-dubois",
@@ -320,7 +320,7 @@ const PROJECT_ORDER = [
   "cantelcox",
   "cadence",
   "dpm-elevate",
-  "wise-wealthy",
+  "centstep",
   "vibe",
   "kim-dubois",
   "boa-traiteur",
@@ -353,7 +353,7 @@ export const projectStates: Record<string, ProjectState> = {
   "cadence": "development",
   "vibe": "prototype",
   "dpm-elevate": "development",
-  "wise-wealthy": "prototype",
+  "centstep": "prototype",
   "kim-dubois": "prototype",
   "boa-traiteur": "prototype",
   "crcc": "prototype",
@@ -393,7 +393,7 @@ export const projectTypes: Record<string, ProjectType> = {
   "cadence": "cofounder", // co-founded with Alexandre
   "vibe": "cofounder",
   "dpm-elevate": "founder", // sole founder — personal venture
-  "wise-wealthy": "cofounder",
+  "centstep": "cofounder",
   "kim-dubois": "client", // first paying client
   "boa-traiteur": "client", // client mandate (chef Max)
   "crcc": "client", // nonprofit redesign mandate
@@ -425,7 +425,7 @@ export const caseStudyIds = new Set([
   "cadence",
   "vibe",
   "dpm-elevate",
-  "wise-wealthy",
+  "centstep",
   "kim-dubois",
   "boa-traiteur",
   "crcc",
@@ -443,7 +443,7 @@ export const projectRoles: Record<string, { fr: string; en: string }> = {
   "cadence": { fr: "Cofondateur · responsable technique", en: "Co-founder · Tech lead" },
   "vibe": { fr: "Cofondateur · conception produit et prototypage", en: "Co-founder · Product design and prototyping" },
   "dpm-elevate": { fr: "Fondateur · Design & Prototypage", en: "Founder · Design & Prototyping" },
-  "wise-wealthy": { fr: "Conception produit · Modèle d'affaires & Prototypage", en: "Product Design · Business Model & Prototyping" },
+  "centstep": { fr: "Cofondateur · Conception produit, prototypage et liste d'attente", en: "Co-founder · Product design, prototyping and waitlist" },
   "kim-dubois": { fr: "Freelance · Design, Prototypage & Relation client", en: "Freelance · Design, Prototyping & Client Relations" },
   "boa-traiteur": { fr: "Freelance · Design produit, Prototypage & Relation client", en: "Freelance · Product Design, Prototyping & Client Relations" },
   "crcc": { fr: "Design & Prototypage (Refonte)", en: "Design & Prototyping (Redesign)" },
@@ -488,12 +488,12 @@ export const projectLinks: Record<string, { label: string; url: string; type: "g
     { label: "GitHub", url: "https://github.com/ralphgabriel04/dpm-calendar", type: "github" },
     { label: "Maquette (design)", url: "/dpm-elevate/index.html", type: "demo" },
   ],
-  "wise-wealthy": [
-    { label: "Maquette live (app adulte)", url: "/wise-wealthy/index.html", type: "live" },
+  "centstep": [
+    { label: "Liste d'attente (aperçu)", url: "/centstep/index.html", type: "live" },
+    { label: "Prototype de l'app (sous l'ancien nom)", url: "/wise-wealthy/index.html", type: "demo" },
     { label: "Mes finances", url: "/wise-wealthy/Finances.dc.html", type: "demo" },
-    { label: "Wise & Wealthy Kids", url: "/wise-wealthy/Wise%20%26%20Wealthy%20Kids.dc.html", type: "demo" },
+    { label: "Version Kids", url: "/wise-wealthy/Wise%20%26%20Wealthy%20Kids.dc.html", type: "demo" },
     { label: "Espace Famille", url: "/wise-wealthy/Espace%20Famille.dc.html", type: "demo" },
-    { label: "App adulte: ancienne version (archive V7)", url: "/wise-wealthy/Wise%20%26%20Wealthy%20(archive%20V7).dc.html", type: "demo" },
   ],
   "crcc": [
     { label: "Maquette live", url: "/crcc/index.html", type: "live" },
@@ -532,14 +532,22 @@ export const projectGalleries: Record<string, { src: string; caption: { fr: stri
       caption: { fr: "Explorer: version web / bureau", en: "Explore: web / desktop version" },
     },
   ],
-  "wise-wealthy": [
+  "centstep": [
+    {
+      src: "/media/centstep-waitlist-clair.jpg",
+      caption: { fr: "Liste d'attente : la mascotte monte le décompte", en: "Waitlist: the mascot climbs the countdown" },
+    },
+    {
+      src: "/media/centstep-waitlist-sombre.jpg",
+      caption: { fr: "Liste d'attente en thème sombre", en: "Waitlist in dark theme" },
+    },
     {
       src: "/media/ww-screen-1.jpg",
-      caption: { fr: "Onboarding : le coach Wiz t'accueille", en: "Onboarding: meet your coach Wiz" },
+      caption: { fr: "Prototype (ancien nom) : l'accueil guidé", en: "Prototype (former name): guided onboarding" },
     },
     {
       src: "/media/ww-screen-2.jpg",
-      caption: { fr: "Wiz, ton coach financier de poche", en: "Wiz, your pocket money coach" },
+      caption: { fr: "Prototype (ancien nom) : le coach de poche", en: "Prototype (former name): the pocket coach" },
     },
     {
       src: "/media/ww-screen-3.jpg",
@@ -551,7 +559,7 @@ export const projectGalleries: Record<string, { src: string; caption: { fr: stri
     },
     {
       src: "/media/wise-wealthy-kids.mp4",
-      caption: { fr: "Wise & Wealthy Kids : app ludique pour enfants", en: "Wise & Wealthy Kids: playful app for children" },
+      caption: { fr: "Version Kids (ancien nom) : app ludique pour enfants", en: "Kids version (former name): playful app for children" },
     },
     {
       src: "/media/wise-wealthy-famille.mp4",

@@ -46,7 +46,7 @@ const cspHeader = { key: "Content-Security-Policy", value: contentSecurityPolicy
 
 // Static prototypes shown inside /demos: framing allowed by this site only.
 // Every other route keeps X-Frame-Options DENY.
-const DEMO_DIRS = ["wise-wealthy", "vibe", "boa-traiteur", "gti350", "kim-dubois", "crcc"];
+const DEMO_DIRS = ["centstep", "wise-wealthy", "vibe", "boa-traiteur", "gti350", "kim-dubois", "crcc"];
 const frameableHeaders = [
   { key: "X-Frame-Options", value: "SAMEORIGIN" },
   { key: "Content-Security-Policy", value: "frame-ancestors 'self'" },
@@ -54,6 +54,13 @@ const frameableHeaders = [
 
 const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "md", "mdx"],
+  // Wise & Wealthy was renamed Centstep (Nov. 2026): old case-study links keep working.
+  async redirects() {
+    return [
+      { source: "/:locale(fr|en)/projects/wise-wealthy", destination: "/:locale/projects/centstep", permanent: true },
+      { source: "/projects/wise-wealthy", destination: "/projects/centstep", permanent: true },
+    ];
+  },
   turbopack: {
     root: resolve(__dirname),
   },

@@ -31,28 +31,28 @@ export type Demo = {
 
 export const demos: Demo[] = [
   {
-    id: "wise-wealthy",
-    name: "Wise & Wealthy",
-    src: "/wise-wealthy/index.html",
-    poster: "/images/demos/wise-wealthy.jpg",
-    kind: { fr: "Application mobile · coach financier", en: "Mobile app · financial coach" },
-    device: "mobile",
-    minutes: 3,
+    id: "centstep",
+    name: "Centstep",
+    src: "/centstep/index.html",
+    poster: "/images/demos/centstep.jpg",
+    kind: { fr: "Liste d'attente · coach financier (anciennement Wise & Wealthy)", en: "Waitlist · financial coach (formerly Wise & Wealthy)" },
+    device: "desktop",
+    minutes: 2,
     steps: {
       fr: [
-        "Suivez l'accueil guidé (Continuer), puis choisissez Explorer sans compte.",
-        "Découvrez le tableau de bord : série de clarté, action du jour, météo financière.",
-        "Parcourez dépenses, épargne et objectifs, guidé par le coach Wiz.",
+        "Regardez la mascotte monter l'escalier du décompte, puis basculez en thème sombre en haut à droite.",
+        "Faites défiler jusqu'aux fonctionnalités : la conversation avec le coach et les graphiques jouent en boucle.",
+        "Entrez un courriel fictif et cochez la case pour voir la confirmation, votre rang et le lien de parrainage.",
       ],
       en: [
-        "Go through the guided onboarding (Continue), then choose Explore without an account.",
-        "Discover the dashboard: clarity streak, action of the day, financial weather.",
-        "Browse expenses, savings and goals, guided by the Wiz coach.",
+        "Watch the mascot climb the countdown stairs, then switch to the dark theme at the top right.",
+        "Scroll to the features: the coach chat and the charts play in a loop.",
+        "Enter a made-up email and tick the box to see the confirmation, your rank and the referral link.",
       ],
     },
     note: {
-      fr: "Prototype interactif : l'assistant est simulé, aucune donnée n'est enregistrée.",
-      en: "Interactive prototype: the assistant is simulated and no data is saved.",
+      fr: "Aperçu : aucun courriel n'est enregistré ni envoyé, le rang affiché est un exemple. Le prototype de l'app, réalisé sous l'ancien nom, est dans l'étude de cas.",
+      en: "Preview: no email is saved or sent, and the rank shown is an example. The app prototype, built under the former name, is in the case study.",
     },
   },
   {

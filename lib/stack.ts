@@ -15,7 +15,7 @@ export const stackGroups: StackGroup[] = [
 /** Hover/focus tooltip: where each tech was actually used. */
 export const usedIn: Record<string, { fr: string; en: string }> = {
   "TypeScript": { fr: "The Mad Space · Cadence · DPM Elevate", en: "The Mad Space · Cadence · DPM Elevate" },
-  "React": { fr: "The Mad Space · Wise & Wealthy", en: "The Mad Space · Wise & Wealthy" },
+  "React": { fr: "The Mad Space · Centstep", en: "The Mad Space · Centstep" },
   "Next.js": { fr: "The Mad Space · DPM Elevate · ce portfolio", en: "The Mad Space · DPM Elevate · this portfolio" },
   "React Native": { fr: "Cadence (Expo)", en: "Cadence (Expo)" },
   "Tailwind CSS": { fr: "The Mad Space · DPM · ce portfolio", en: "The Mad Space · DPM · this portfolio" },
