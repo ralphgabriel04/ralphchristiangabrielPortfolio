@@ -17,8 +17,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: isFr ? "Démos" : "Demos",
     description: isFr
-      ? "Testez mes applications sans compte : Wise & Wealthy, Vibe Montréal, BOA, un jeu Tron et d'autres prototypes, directement dans la page."
-      : "Try my apps without an account: Wise & Wealthy, Vibe Montréal, BOA, a Tron game and other prototypes, right in the page.",
+      ? "Testez mes applications sans compte : Centstep, Vibe Montréal, BOA, un jeu Tron et d'autres prototypes, directement dans la page."
+      : "Try my apps without an account: Centstep, Vibe Montréal, BOA, a Tron game and other prototypes, right in the page.",
     alternates: alternatesFor(locale, "/demos"),
   };
 }

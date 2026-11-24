@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Centstep · Liste d'attente</title>
+<meta name="description" content="Centstep, ton coach financier. Inscris-toi à la liste d'attente et sois parmi les premiers à l'essayer.">
+<meta property="og:title" content="Centstep arrive bientôt">
+<meta property="og:description" content="Chaque sou monte une marche. Inscris-toi à la liste d'attente.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Sora:wght@600;700;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/centstep-app-icone.png">
+<link rel="apple-touch-icon" href="assets/centstep-app-icone.png">
+<meta property="og:image" content="https://rcgabriel.dev/centstep/assets/centstep-logo-vertical.png">
+<style>
+/* VOICE: chaleureux, direct, rassurant; une app d'argent qui ne fait pas peur.
+   IDEA: un escalier. Le decompte est pose sur les marches; le sou dore attend en haut.
+   PICTURE: grand escalier vert en SVG, chiffres du decompte sur les contremarches, sou qui monte a l'inscription.
+   COLOUR and TYPE: vert profond dominant, menthe en soutien, or du sou en accent; Sora pour les titres, Inter pour le texte.
+   LAYOUT: titre et formulaire a gauche, escalier a droite; sous 600 px : titre, escalier, formulaire. */
+:root{color-scheme:light;--gold:#9bd23c;--gold-ink:#10240f;
+  --bg:#eef5ea;--panel:#ffffff;--ink:#0f2a20;--soft:#4a6457;--line:#cfe0d4;
+  --step1:#2f6b51;--step2:#3a7d5f;--step3:#4a9070;--step4:#5ca381;--err:#a12a1f;
+  --final-bg:#dcebd3;--final-ink:#0f2a20;--final-soft:#2f4a3c}
+:root[data-theme=dark]{color-scheme:dark;
+  --bg:#11281a;--panel:#183623;--ink:#f3efe2;--soft:#c9d8cf;--line:#24513f;
+  --step1:#1f4f3b;--step2:#28604a;--step3:#327259;--step4:#3d8468;--err:#ff9d8f;
+  --final-bg:#0b1d12;--final-ink:#ffffff;--final-soft:#f7f4ea}
+body{transition:background-color var(--d-base,200ms) ease,color var(--d-base,200ms) ease}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;overflow-x:clip}
+a{color:inherit}
+.wrap{max-width:1240px;margin:0 auto;padding:0 max(5vw,16px)}
+header{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:20px 0}
+.brand{white-space:nowrap;display:flex;align-items:center;gap:10px;font:800 22px/1 Sora,sans-serif;text-decoration:none}
+.brand svg{width:32px;height:32px}
+.demo{font-size:13px;color:var(--soft);border:1px solid var(--line);border-radius:999px;padding:4px 12px}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(24px,4vw,56px);align-items:center;padding:clamp(16px,3vw,40px) 0 clamp(40px,6vw,80px)}
+h1{font:800 clamp(34px,5vw,52px)/1.05 Sora,sans-serif;margin:0 0 16px;text-wrap:balance}
+.lead{font-size:17px;color:var(--soft);max-width:34em;margin:0 0 28px}
+.when{font-size:15px;color:var(--soft);margin:0 0 6px}
+form{display:grid;gap:14px;max-width:460px}
+label{font-weight:500;font-size:15px}
+input[type=text],input[type=email]{width:100%;font:16px Inter,sans-serif;padding:13px 14px;min-height:48px;border-radius:12px;border:1.5px solid var(--line);background:var(--panel);color:var(--ink)}
+input:focus-visible,button:focus-visible,.check input:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.check{display:grid;grid-template-columns:24px 1fr;gap:10px;align-items:start;font-size:14px;color:var(--soft);font-weight:400}
+.check input{width:22px;height:22px;margin:2px 0 0;accent-color:var(--gold)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+button{font:700 17px Inter,sans-serif;min-height:52px;border:0;border-radius:14px;background:var(--gold);color:var(--gold-ink);cursor:pointer;padding:0 22px}
+button[disabled]{opacity:.6;cursor:progress}
+.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line);min-height:44px;font-size:15px}
+.msg{min-height:22px;font-size:14px;color:var(--err);margin:0}
+.fig{position:relative;aspect-ratio:1/1;width:100%}
+
+.stage{position:absolute;inset:0;container-type:inline-size;cursor:pointer;border-radius:24px;overflow:hidden}
+.stage video{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;background:var(--bg);-webkit-mask-image:linear-gradient(to right,transparent,#000 4%,#000 96%,transparent),linear-gradient(to bottom,transparent,#000 4%,#000 96%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(to right,transparent,#000 4%,#000 96%,transparent),linear-gradient(to bottom,transparent,#000 4%,#000 96%,transparent);mask-composite:intersect}
+.cd{position:absolute;inset:0;pointer-events:none}
+.stp{position:absolute;left:calc(var(--l)*1%);top:calc(var(--t)*1%);width:14.3%;height:calc((82.8 - var(--t))*1%);display:flex;justify-content:center;padding-top:1.6cqw;box-sizing:border-box}
+.cd .num{font:800 clamp(14px,5.2cqw,34px)/1 Sora,sans-serif;color:#f7f4ea;font-variant-numeric:tabular-nums;text-shadow:0 1px 2px rgba(0,0,0,.35)}
+.cd .unit{position:absolute;left:calc(var(--l)*1%);top:84.6%;width:14.3%;text-align:center;font:600 clamp(9px,2.15cqw,14px)/1.2 Inter,sans-serif;color:var(--soft);white-space:nowrap}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.done{display:none;max-width:460px}
+.done.on{display:block}
+.place{font:800 clamp(48px,9vw,76px)/1 Sora,sans-serif;margin:4px 0 8px;font-variant-numeric:tabular-nums}
+.share{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 8px}
+.share code{flex:1 1 220px;background:var(--panel);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font-size:14px;overflow-wrap:anywhere}
+.band{padding:clamp(36px,5vw,72px) 0;border-top:1px solid var(--line)}
+h2{font:800 clamp(26px,3.2vw,34px)/1.1 Sora,sans-serif;margin:0 0 28px;text-wrap:balance}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.card{background:var(--panel);border-radius:18px;padding:24px}
+.card h3{font:600 19px/1.25 Sora,sans-serif;margin:0 0 8px}
+.card p{margin:0;color:var(--soft)}
+details{border-bottom:1px solid var(--line);padding:16px 0;max-width:760px}
+summary{cursor:pointer;font-weight:600;font-size:17px;min-height:28px}
+details p{color:var(--soft);margin:10px 0 0}
+footer{padding:32px 0 48px;color:var(--soft);font-size:14px}
+.brand img{width:186px;height:auto;display:block}@media(max-width:600px){.brand img{width:150px}}
+.brand .word{font:900 22px/1 Montserrat,Sora,sans-serif;letter-spacing:.01em}.brand .word span{color:var(--gold)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px;padding:0;list-style:none}
+.chips a{display:inline-block;font-size:14px;font-weight:600;padding:8px 13px;border-radius:999px;background:var(--panel);border:1px solid var(--line);text-decoration:none}
+.sub{color:var(--soft);margin:-16px 0 28px;max-width:42em}
+.fgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.fcard{background:var(--panel);border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:8px}
+.fcard h3{font:700 21px/1.2 Sora,sans-serif;margin:0}
+.fcard p{margin:0 0 8px;color:var(--soft)}
+.hero-card{grid-column:1/-1;flex-direction:row;gap:32px;align-items:center}
+.hero-card .ftext{flex:1 1 0}.hero-card h3{font-size:clamp(24px,3vw,30px)}
+.hero-card .ftext img{width:150px;height:auto;margin-top:8px}
+.tag{align-self:flex-start;font-size:13px;font-weight:700;color:var(--gold-ink);background:var(--gold);border-radius:999px;padding:3px 10px}
+.ui{margin-top:auto;background:var(--bg);border-radius:14px;padding:14px;font-size:14px}
+.chat{flex:1.1 1 0;display:flex;flex-direction:column;gap:10px;padding:18px}
+.b{max-width:88%;padding:10px 14px;border-radius:16px;line-height:1.4}
+.b.me{align-self:flex-end;background:var(--gold);color:var(--gold-ink);border-bottom-right-radius:4px;font-weight:600}
+.bot{display:flex;gap:8px;align-items:flex-end;max-width:92%}.bot img{width:30px;height:auto;flex:none}
+.bot .b{background:var(--panel);border-bottom-left-radius:4px;max-width:none}
+.bot .tip{border:1.5px dashed var(--line)}
+.bars .row{display:grid;grid-template-columns:7.5em minmax(0,1fr) auto;gap:10px;align-items:center;padding:5px 0}
+.bars i,.track i{display:block;height:10px;border-radius:99px;background:var(--step3);width:var(--w)}
+.bars b,.gh b{font-variant-numeric:tabular-nums;white-space:nowrap}
+.goal+.goal{margin-top:12px}.gh{display:flex;justify-content:space-between;margin-bottom:6px}
+.track{background:var(--line);border-radius:99px}.track i{background:var(--gold)}
+.goal small,.kpis small,.lesson small{color:var(--soft)}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.kpis div{display:flex;flex-direction:column}
+.kpis b{font:700 clamp(17px,2vw,22px)/1.2 Sora,sans-serif;white-space:nowrap}.kpis .up{color:var(--step4)}
+.lesson{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}.lesson:last-child{border:0}
+@media(max-width:860px){.fgrid{grid-template-columns:minmax(0,1fr)}.hero-card{flex-direction:column;align-items:stretch}}
+.demo{text-align:right}
+/* THEME. Clair par defaut (Q-15), sombre au choix, memorise. Logo fond fonce en mode sombre (IDENTITE-VISUELLE). */
+.hright{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.theme-toggle{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border-radius:999px;background:var(--panel);color:var(--ink);border:1px solid var(--line);font:600 14px Inter,sans-serif;cursor:pointer}
+.theme-toggle svg{width:18px;height:18px}
+.theme-toggle .moon,:root[data-theme=dark] .theme-toggle .sun{display:none}:root[data-theme=dark] .theme-toggle .moon{display:inline}
+.lg-dark{display:none!important}:root[data-theme=dark] .lg-light{display:none!important}:root[data-theme=dark] .lg-dark{display:block!important}
+:root[data-theme=dark] .mascot,:root[data-theme=dark] #mascot{filter:drop-shadow(0 0 1.5px #f7f4ea) drop-shadow(0 0 1.5px #f7f4ea) drop-shadow(0 0 1px #f7f4ea)}
+
+@media(max-width:600px){.theme-toggle .tlabel{display:none}.theme-toggle{padding:0 12px}}
+@media(max-width:600px){.demo{font-size:12px;padding:3px 10px}.hero{grid-template-columns:minmax(0,1fr)}.fig{order:3}.copy{display:contents}.copy>.intro{order:1}.copy>.act{order:2}.chips{display:none}}
+
+/* MOTION. Regles : interface 120 a 280 ms (cible maison <= 280 ms; NN/g 100-500 ms);
+   celebration unique <= 700 ms, jamais en boucle; seulement transform et opacity (web.dev);
+   aucun mouvement de plus de 5 s sans bouton pause (WCAG 2.2.2); tout coupe sous prefers-reduced-motion. */
+:root{--d-fast:120ms;--d-base:200ms;--d-slow:280ms;
+  --e-std:cubic-bezier(.2,0,0,1);--e-in:cubic-bezier(.05,.7,.1,1);--e-out:cubic-bezier(.3,0,.8,.15);--e-spring:cubic-bezier(.34,1.56,.64,1)}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes grow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes drop{0%{opacity:0;transform:translateY(-70px)}55%{opacity:1;transform:translateY(0) scale(1.04,.94)}75%{transform:translateY(-6px) scale(.98,1.03)}100%{transform:none}}
+@keyframes bob{0%,100%{transform:none}50%{transform:translateY(-6px)}}
+@keyframes hop{0%{transform:none}45%{transform:translateY(-34px) rotate(-6deg)}80%{transform:translateY(0) scale(1.05,.93)}100%{transform:none}}
+@keyframes poke{0%,100%{transform:none}40%{transform:translateY(-10px) rotate(4deg)}}
+@keyframes tick{from{opacity:.35;transform:translateY(-6px)}to{opacity:1;transform:none}}
+@keyframes pop{0%{opacity:0;transform:translateY(8px) scale(.96)}100%{opacity:1;transform:none}}
+@keyframes dot{0%,80%,100%{opacity:.3;transform:none}40%{opacity:1;transform:translateY(-3px)}}
+@keyframes coin{0%{opacity:1;transform:translate(0,0) rotate(0) scale(.6)}100%{opacity:0;transform:translate(var(--x),var(--y)) rotate(var(--r)) scale(1)}}
+html.js .in{opacity:0;animation:rise var(--d-slow) var(--e-in) forwards;animation-delay:calc(var(--i)*60ms)}
+.backlink{margin:14px 0 0;background:none;border:0;padding:8px 0;min-height:44px;color:var(--ink);font:600 14px Inter,sans-serif;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.num.tick{animation:tick var(--d-base) var(--e-in)}
+html.js .rv{opacity:0;transform:translateY(16px);transition:opacity var(--d-slow) var(--e-in),transform var(--d-slow) var(--e-in);transition-delay:calc(var(--i,0)*50ms)}
+html.js .rv.seen{opacity:1;transform:none}
+html.js .bars i,html.js .track i{transform:scaleX(0);transform-origin:left;transition:transform 480ms var(--e-in);transition-delay:calc(var(--j,0)*70ms + 120ms)}
+html.js .bars.play i,html.js .goals.play .track i{transform:scaleX(1)}
+html.js .chat .cmsg{opacity:0}
+.chat .cmsg.on{animation:pop var(--d-slow) var(--e-in) forwards}
+.chat{transition:opacity var(--d-slow) var(--e-out)}.chat.fade{opacity:0}
+html.js .lessons .lesson{opacity:0;transform:translateX(-10px)}
+html.js .lessons.play .lesson{animation:slidein var(--d-slow) var(--e-in) forwards;animation-delay:calc(var(--j,0)*160ms + 100ms)}
+@keyframes slidein{to{opacity:1;transform:none}}
+.typing{display:none}.typing.on{display:flex;animation:pop var(--d-base) var(--e-in)}
+.dots{display:inline-flex;gap:4px;padding:4px 2px}.dots i{width:6px;height:6px;border-radius:50%;background:var(--soft);animation:dot 900ms ease-in-out infinite}
+.dots i:nth-child(2){animation-delay:150ms}.dots i:nth-child(3){animation-delay:300ms}
+button{transition:transform var(--d-fast) var(--e-std),box-shadow var(--d-base) var(--e-std),background-color var(--d-base) var(--e-std)}
+button:active{transform:scale(.98)}
+.chips a{transition:transform var(--d-fast) var(--e-std),border-color var(--d-base) var(--e-std)}
+@media(hover:hover) and (pointer:fine){
+  #go:hover{transform:translateY(-1px);box-shadow:0 6px 18px -6px rgba(155,210,60,.7)}
+  .chips a:hover{transform:translateY(-1px);border-color:var(--gold)}
+  .fcard{transition:transform var(--d-base) var(--e-std),box-shadow var(--d-base) var(--e-std)}
+  .fcard.seen:hover{transform:translateY(-3px);box-shadow:0 14px 30px -18px rgba(0,0,0,.45)}}
+#go.busy{position:relative;color:transparent}
+#go.busy::after{content:"";position:absolute;inset:0;margin:auto;width:20px;height:20px;border-radius:50%;border:3px solid var(--gold-ink);border-right-color:transparent;animation:spin 700ms linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#f.out{animation:rise var(--d-base) var(--e-out) reverse forwards}
+.done.on{animation:rise var(--d-slow) var(--e-in)}
+.ghost.ok{border-color:var(--gold)}
+details p{animation:rise var(--d-base) var(--e-in)}
+.fig{overflow:visible}
+.burst{position:absolute;left:0;top:0;width:0;height:0;pointer-events:none}
+.burst span{position:absolute;width:16px;height:16px;margin:-8px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe08a,#e3b23c 55%,#a8761a);box-shadow:inset 0 0 0 2px #b9861f;animation:coin 700ms var(--e-in) forwards}
+.motion-toggle{position:absolute;right:0;bottom:-52px;font:600 13px Inter,sans-serif;min-height:44px;padding:0 14px;border-radius:999px;background:var(--panel);color:var(--soft);border:1px solid var(--line)}
+.motion-toggle:hover{color:var(--ink)}
+:root[data-motion=off] *,:root[data-motion=off] *::before,:root[data-motion=off] *::after{animation:none!important;transition:none!important}
+:root[data-motion=off] .in,:root[data-motion=off] .rv,:root[data-motion=off] .chat .cmsg{opacity:1!important;transform:none!important}
+:root[data-motion=off] .bars i,:root[data-motion=off] .track i,:root[data-motion=off] .lessons .lesson{transform:none!important;opacity:1!important}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}
+  html.js .in,html.js .rv,html.js .chat .cmsg{opacity:1;transform:none}
+  html.js .bars i,html.js .track i{transform:none}html.js .lessons .lesson{opacity:1;transform:none}}
+
+.micro{margin:-2px 0 0;font-size:13.5px;color:var(--soft);text-align:center}
+.proof{margin:0;font-size:14px;font-weight:600;text-align:center}
+.ogrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.ocard{background:var(--panel);border-radius:20px;padding:24px;border:1px solid var(--line)}
+.ocard h3{font:700 19px/1.25 Sora,sans-serif;margin:8px 0 6px}.ocard p{margin:0;color:var(--soft)}
+.onum{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--gold);color:var(--gold-ink);font:800 16px Sora,sans-serif}
+.steps{list-style:none;counter-reset:st;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.steps li{counter-increment:st;position:relative;padding:20px 20px 20px 72px;background:var(--panel);border-radius:20px;border:1px solid var(--line);display:flex;flex-direction:column;gap:4px}
+.steps li::before{content:counter(st);position:absolute;left:20px;top:18px;width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:var(--step3);color:#fff;font:800 16px Sora,sans-serif}
+.steps b{font:700 18px/1.25 Sora,sans-serif}.steps span{color:var(--soft)}
+.sharebtns{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 14px}
+.sharebtns a{min-height:44px;display:inline-flex;align-items:center;padding:0 14px;border-radius:999px;border:1.5px solid var(--line);background:var(--panel);text-decoration:none;font-weight:600;font-size:14px}
+.sharebtns a:hover{border-color:var(--gold)}
+.final{background:var(--final-bg)}
+.finalwrap{display:flex;align-items:center;gap:32px;color:var(--final-ink)}
+.finalwrap img{width:300px;height:auto;flex:none}
+.finalwrap h2{color:var(--final-ink);margin:0 0 8px}.finalwrap p{margin:0 0 20px;color:var(--final-soft);font-size:17px}
+.cta{display:inline-flex;align-items:center;min-height:52px;padding:0 24px;border-radius:14px;background:var(--gold);color:var(--gold-ink);font-weight:700;font-size:17px;text-decoration:none}
+.footlogo{width:140px;height:auto;margin:0 0 12px;display:block}.foot p{margin:0 0 6px}.foot a{color:inherit}.fine{font-size:13px}
+@media(max-width:860px){.ogrid,.steps{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){.finalwrap{flex-direction:column;text-align:center;gap:12px}.finalwrap img{width:240px}}
+
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add("js");</script>
+<div class="wrap">
+  <header class="in" style="--i:0">
+    <a class="brand" href="#" aria-label="Centstep, accueil"><img class="lg-light" src="assets/centstep-logo.png" alt="Centstep" width="186" height="58"><img class="lg-dark" src="assets/centstep-logo-sombre.png" alt="Centstep" width="186" height="55"></a>
+    <div class="hright"><span class="demo" id="demoTag" hidden>Aperçu, rien n'est enregistré</span>
+    <button class="theme-toggle" id="themeBtn" type="button" aria-pressed="false"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span class="tlabel">Thème sombre</span></button></div>
+  </header>
+
+  <section class="hero">
+    <div class="copy">
+      <div class="intro">
+        <p class="when in" style="--i:0" id="whenLine">Lancement visé : bientôt</p>
+        <h1 class="in" style="--i:1">Gère ton argent sans stress, une marche à la fois.</h1>
+        <p class="lead in" style="--i:2">Centstep est le coach financier des jeunes adultes du Québec : un coach IA qui t'explique l'argent sans jargon, un budget simple et des objectifs clairs. Réserve ta place pour l'essayer avant tout le monde.</p>
+        <ul class="chips in" style="--i:3" aria-label="Fonctionnalités"><li><a href="#fonctions">Coach IA</a></li><li><a href="#fonctions">Budget</a></li><li><a href="#fonctions">Objectifs</a></li><li><a href="#fonctions">Tableau de bord</a></li><li><a href="#fonctions">Mini-leçons</a></li></ul>
+      </div>
+      <div class="act">
+        <div id="inscription"></div><form id="f" class="in" style="--i:4" novalidate>
+          
+          <div><label for="em">Courriel</label>
+            <input id="em" name="email" type="email" autocomplete="email" inputmode="email" required></div>
+          <label class="check"><input id="ok" type="checkbox" required>
+            <span id="consentText">J'accepte de recevoir des courriels de Centstep sur le lancement et l'accès anticipé. Je peux me désabonner en tout temps.</span></label>
+          <div class="hp" aria-hidden="true"><label for="website">Site Web</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
+          <button id="go" type="submit">Réserver ma place</button>
+          <p class="micro">Gratuit · Sans engagement · Désabonnement en un clic</p>
+          <p class="proof" id="proof" hidden></p>
+          <p class="msg" id="msg" role="alert"></p>
+        </form>
+        <div class="done" id="done" aria-live="polite">
+          <p class="when">C'est confirmé. Ta place dans la file :</p>
+          <p class="place">n° <span id="pos">0</span></p>
+          <p style="margin:0;color:var(--soft)" id="totalLine"></p>
+          <p style="margin:18px 0 0;font-weight:600">Monte dans la file : chaque ami inscrit avec ton lien te fait gagner 5 places.</p>
+          <div class="share"><code id="link"></code><button class="ghost" id="copy" type="button">Copier le lien</button></div>
+          <div class="sharebtns" aria-label="Partager mon lien">
+            <a id="shSms" href="#">Texto</a><a id="shWa" href="#" target="_blank" rel="noopener">WhatsApp</a><a id="shFb" href="#" target="_blank" rel="noopener">Facebook</a><a id="shX" href="#" target="_blank" rel="noopener">X</a><a id="shMail" href="#">Courriel</a>
+          </div>
+          <p style="margin:0;font-size:14px;color:var(--soft)">Un courriel de confirmation est en route. Vérifie aussi tes courriels indésirables.</p>
+          <button class="backlink" id="backBtn" type="button">Modifier mon courriel ou inscrire une autre adresse</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="fig">
+      <div class="stage" role="img" aria-label="Centstep, la mascotte en forme de sou doré, arrive en marchant et monte l'escalier vert marche par marche; le décompte avant le lancement est inscrit sur les marches">
+        <video id="climbVid" muted playsinline loop preload="auto" poster="assets/centstep-montee-clair-fin.jpg" aria-hidden="true"></video>
+        <div class="cd" aria-hidden="true">
+          <div class="stp" style="--l:28.65;--t:73.46;--i:0"><b class="num" id="cS">00</b></div>
+          <div class="stp" style="--l:42.88;--t:64.62;--i:1"><b class="num" id="cM">00</b></div>
+          <div class="stp" style="--l:57.31;--t:55.77;--i:2"><b class="num" id="cH">00</b></div>
+          <div class="stp" style="--l:71.92;--t:47.12;--i:3"><b class="num" id="cD">000</b></div>
+          <span class="unit" style="--l:28.65">secondes</span><span class="unit" style="--l:42.88">minutes</span><span class="unit" style="--l:57.31">heures</span><span class="unit" style="--l:71.92">jours</span>
+        </div>
+      </div>
+      <div class="burst" id="burst" aria-hidden="true"></div>
+      <button class="motion-toggle" id="motionBtn" type="button" aria-pressed="false">Mettre les animations en pause</button>
+    </div>
+  </section>
+</div>
+
+<section class="band"><div class="wrap">
+  <h2 class="rv">Ce que tu obtiens en t'inscrivant</h2>
+  <div class="ogrid">
+    <div class="ocard rv"><span class="onum">1</span><h3>Accès avant tout le monde</h3><p>Les inscrits essaient Centstep en premier, par vagues, selon leur rang dans la file.</p></div>
+    <div class="ocard rv"><span class="onum">2</span><h3>Monte dans la file</h3><p>Chaque ami qui s'inscrit avec ton lien te fait gagner 5 places. Tu vois ton rang en tout temps.</p></div>
+    <div class="ocard rv"><span class="onum">3</span><h3>Des nouvelles, rien d'autre</h3><p>Seulement des courriels sur le lancement. Aucune publicité, et tu te désabonnes en un clic.</p></div>
+  </div>
+</div></section>
+
+<section class="band howto"><div class="wrap">
+  <h2 class="rv">Comment ça marche</h2>
+  <ol class="steps">
+    <li class="rv"><b>Réserve ta place</b><span>Entre ton courriel. Ça prend 10 secondes.</span></li>
+    <li class="rv"><b>Partage ton lien</b><span>Chaque ami inscrit te fait monter de 5 places.</span></li>
+    <li class="rv"><b>Reçois ton accès</b><span>On t'écrit dès que ta vague ouvre, avant le lancement public.</span></li>
+  </ol>
+</div></section>
+
+<section class="band feat" id="fonctions"><div class="wrap">
+  <h2 class="rv">Tout ce qu'il faut pour gérer ton argent, dans une seule app</h2>
+  <p class="sub rv">Cinq outils pensés pour les débutants, en français d'ici. Les écrans ci-dessous sont des exemples avec des données fictives.</p>
+  <div class="fgrid">
+    <article class="fcard hero-card rv">
+      <div class="ftext"><span class="tag">Coach IA</span><h3>Pose tes questions d'argent à Centstep</h3>
+        <p>CELI, crédit, dette, épargne : ton coach répond simplement, sans jargon, et s'appuie sur ton propre budget pour te donner des pistes concrètes.</p>
+        <img class="mascot" src="assets/centstep-reflexion.png" alt="Centstep, la mascotte, réfléchit à ta question" width="150" height="205"></div>
+      <div class="ui chat" aria-label="Exemple de conversation avec le coach">
+        <div class="b me cmsg">C'est quoi un CELI ?</div>
+        <div class="bot typing" aria-hidden="true"><img src="assets/centstep-icone.png" alt=""><div class="b"><span class="dots"><i></i><i></i><i></i></span></div></div>
+        <div class="bot cmsg"><img src="assets/centstep-icone.png" alt=""><div class="b">Un compte où ton argent grandit à l'abri de l'impôt, et tu peux retirer en tout temps. Veux-tu voir combien tu pourrais y mettre ce mois-ci ?</div></div>
+        <div class="bot cmsg"><img src="assets/centstep-icone.png" alt=""><div class="b tip">Tes dépenses de loisirs ont monté de 18 %. En baissant de 20 $ par mois, tu économises 240 $ par an.</div></div>
+      </div>
+    </article>
+    <article class="fcard rv">
+      <span class="tag">Budget</span><h3>Ton budget en 5 minutes</h3>
+      <p>Revenus et dépenses par catégorie : tu vois tout de suite où va ton argent.</p>
+      <div class="ui bars" aria-label="Exemple de budget">
+        <div class="row"><span>Logement</span><i style="--w:100%"></i><b>900 $</b></div>
+        <div class="row"><span>Alimentation</span><i style="--w:39%"></i><b>350 $</b></div>
+        <div class="row"><span>Transport</span><i style="--w:20%"></i><b>180 $</b></div>
+        <div class="row"><span>Loisirs</span><i style="--w:18%"></i><b>160 $</b></div>
+      </div>
+    </article>
+    <article class="fcard rv">
+      <span class="tag">Objectifs</span><h3>Une marche à la fois vers tes objectifs</h3>
+      <p>Fonds d'urgence, voyage, dette : chaque dépôt te rapproche du but, et Centstep célèbre avec toi.</p>
+      <div class="ui goals" aria-label="Exemple d'objectifs">
+        <div class="goal"><div class="gh"><span>Fonds d'urgence</span><b>60 %</b></div><div class="track"><i style="--w:60%"></i></div><small>600 $ sur 1 000 $</small></div>
+        <div class="goal"><div class="gh"><span>Voyage</span><b>35 %</b></div><div class="track"><i style="--w:35%"></i></div><small>875 $ sur 2 500 $</small></div>
+      </div>
+    </article>
+    <article class="fcard rv">
+      <span class="tag">Tableau de bord</span><h3>Ton mois d'un coup d'œil</h3>
+      <p>Revenus, dépenses et épargne, comparés au mois dernier.</p>
+      <div class="ui kpis" aria-label="Exemple de tableau de bord">
+        <div><small>Revenus</small><b data-to="2400">2 400 $</b></div><div><small>Dépenses</small><b data-to="1750">1 750 $</b></div><div><small>Épargne</small><b class="up" data-to="650">650 $</b></div>
+      </div>
+    </article>
+    <article class="fcard rv">
+      <span class="tag">Mini-leçons</span><h3>Apprends en 3 minutes</h3>
+      <p>Des leçons courtes sur le budget, le crédit, le CELI, le REER et l'investissement.</p>
+      <div class="ui lessons" aria-label="Exemples de leçons">
+        <div class="lesson"><span>Le CELI, simplement</span><small>3 min</small></div>
+        <div class="lesson"><span>Comment marche ton crédit</span><small>4 min</small></div>
+        <div class="lesson"><span>Ton premier fonds d'urgence</span><small>3 min</small></div>
+      </div>
+    </article>
+  </div>
+</div></section>
+
+
+<section class="band"><div class="wrap">
+  <h2 class="rv">Pensé pour toi, construit pour mériter ta confiance</h2>
+  <div class="ogrid">
+    <div class="ocard rv"><h3>Pour qui</h3><p>Les jeunes adultes du Québec qui veulent mieux gérer leur argent, même sans rien y connaître.</p></div>
+    <div class="ocard rv"><h3>Tes données</h3><p>On demande seulement ton courriel. Il n'est jamais vendu ni partagé, et tu peux le faire supprimer en tout temps (Loi 25).</p></div>
+    <div class="ocard rv"><h3>Sans jargon, sans jugement</h3><p>Centstep explique, encourage et célèbre tes progrès. C'est de l'éducation financière, pas des conseils de placement.</p></div>
+  </div>
+</div></section>
+
+<section class="band"><div class="wrap">
+  <h2 class="rv">Questions fréquentes</h2>
+  <details class="rv"><summary>Quand Centstep sera-t-il disponible ?</summary><p>La date visée est affichée en haut de la page. La date exacte sera confirmée par courriel aux inscrits en premier, et les premières places de la file ouvrent avant les autres.</p></details>
+  <details class="rv"><summary>Sur quels téléphones ?</summary><p>Centstep est prévu pour iPhone et Android, en français.</p></details>
+  <details class="rv"><summary>Est-ce que c'est gratuit ?</summary><p>L'inscription à la liste d'attente est gratuite et ne t'engage à rien. L'app aura une version gratuite et une version premium; les prix seront annoncés aux inscrits avant le lancement.</p></details>
+  <details class="rv" id="donnees"><summary>Qu'est-ce que vous faites avec mon courriel ?</summary><p>On l'utilise seulement pour t'écrire au sujet du lancement de Centstep. On ne le vend pas et on ne le partage pas. Tu peux te désabonner en un clic dans chaque courriel.</p></details>
+  <details class="rv"><summary>Comment faire supprimer mes données ?</summary><p>Écris à bonjour@centstep.money. On supprime ton courriel et ton prénom de la liste et on te le confirme.</p></details>
+  <details class="rv"><summary>Centstep remplace-t-il un conseiller financier ?</summary><p>Non. Centstep offre de l'éducation financière générale et ne remplace pas un conseiller financier autorisé.</p></details>
+</div></section>
+<section class="band final"><div class="wrap finalwrap rv">
+  <img class="lg-light" src="assets/centstep-logo.png" alt="Centstep" width="300" height="93"><img class="lg-dark" src="assets/centstep-logo-sombre.png" alt="Centstep" width="300" height="89">
+  <div><h2>Ta première marche commence ici.</h2>
+  <p>Réserve ta place gratuitement et sois parmi les premiers à essayer Centstep.</p>
+  <a class="cta" href="#inscription">Réserver ma place</a></div>
+</div></section>
+
+
+<footer><div class="wrap foot"><img class="footlogo lg-light" src="assets/centstep-logo-vertical.png" alt="Centstep" width="140" height="96"><img class="footlogo lg-dark" src="assets/centstep-logo-sombre.png" alt="Centstep" width="200" height="59" style="width:200px">
+  <p><b>Centstep</b> · <a href="mailto:bonjour@centstep.money">bonjour@centstep.money</a> · <a href="#donnees">Confidentialité</a> · Fait au Québec</p>
+  <p class="fine">Centstep offre de l'éducation financière générale et ne remplace pas un conseiller financier autorisé.</p>
+</div></footer>
+
+<script>
+{
+  // Configuration : remplir functionUrl au deploiement. Vide = mode apercu (rien n'est envoye).
+  const CONFIG = {
+    functionUrl: "",                               // ex. https://<projet>.supabase.co/functions/v1/join-waitlist
+    launchDate: "2027-03-01T00:00:00-05:00",       // date provisoire, a confirmer
+    provisional: true,
+    siteUrl: "https://centstep.money",
+    countFrom: 100                                  // compteur affiché seulement s'il est réel et au moins égal à ce seuil
+  };
+
+  const $ = (id) => document.getElementById(id);
+  const demo = !CONFIG.functionUrl;
+  if (demo) $("demoTag").hidden = false;
+  else fetch(CONFIG.functionUrl).then((r) => r.json()).then((d) => {
+    if (d && d.total >= CONFIG.countFrom) { $("proof").textContent = new Intl.NumberFormat("fr-CA").format(d.total) + " personnes ont déjà réservé leur place."; $("proof").hidden = false; }
+  }).catch(() => {});
+
+  const launch = new Date(CONFIG.launchDate);
+  const fmtI = new Intl.DateTimeFormat("fr-CA", { day: "numeric", month: "long", year: "numeric", timeZone: "America/Toronto" });
+  const fmt = { format: (d) => fmtI.format(d).replace(/^1 /, "1er ") };
+  $("whenLine").textContent = CONFIG.provisional
+    ? "Lancement visé : " + fmt.format(launch) + " (date provisoire)"
+    : "Lancement le " + fmt.format(launch);
+
+  const pad = (n, l = 2) => String(n).padStart(l, "0");
+  function tick() {
+    let s = Math.max(0, Math.floor((launch - Date.now()) / 1000));
+    const d = Math.floor(s / 86400); s -= d * 86400;
+    const h = Math.floor(s / 3600); s -= h * 3600;
+    const m = Math.floor(s / 60); s -= m * 60;
+    if (window.csPaused) return;
+    [["cD", pad(d, 3)], ["cH", pad(h)], ["cM", pad(m)], ["cS", pad(s)]].forEach(([id, v]) => {
+      const el = $(id);
+      if (el.textContent !== v) { el.textContent = v; el.classList.remove("tick"); void el.offsetWidth; el.classList.add("tick"); }
+    });
+  }
+  tick(); const timer = setInterval(tick, 1000);
+
+  const params = new URLSearchParams(location.search);
+  const ref = (params.get("ref") || "").toLowerCase().replace(/[^a-z0-9]/g, "").slice(0, 12);
+  const source = (params.get("src") || "").slice(0, 40);
+
+  function showDone(r) {
+    window.csSwap ? window.csSwap() : ($("f").style.display = "none", $("done").classList.add("on"));
+    $("pos").textContent = r.position;
+    $("totalLine").textContent = r.alreadyJoined
+      ? "Tu étais déjà inscrit. " + r.total + " personnes attendent avec toi."
+      : r.total + " personnes attendent Centstep avec toi.";
+    $("link").textContent = r.shareUrl;
+    const msg = "Je viens de réserver ma place pour Centstep, une app québécoise pour gérer ton argent sans stress. Inscris-toi avec mon lien : ";
+    const u = encodeURIComponent(r.shareUrl), t = encodeURIComponent(msg);
+    $("shSms").href = "sms:?&body=" + t + u;
+    $("shWa").href = "https://wa.me/?text=" + t + u;
+    $("shFb").href = "https://www.facebook.com/sharer/sharer.php?u=" + u;
+    $("shX").href = "https://twitter.com/intent/tweet?text=" + t + "&url=" + u;
+    $("shMail").href = "mailto:?subject=" + encodeURIComponent("Réserve ta place pour Centstep") + "&body=" + t + u;
+    // Cent descend d'une marche vers toi et celebre ton inscription.
+    window.csCelebrate && window.csCelebrate(r.position);
+    window.csPushDone && window.csPushDone();
+  }
+
+  $("copy").addEventListener("click", async () => {
+    try { await navigator.clipboard.writeText($("link").textContent); $("copy").textContent = "Lien copié"; $("copy").classList.add("ok"); }
+    catch { $("copy").textContent = "Sélectionne le lien pour le copier"; }
+  });
+
+  $("f").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = $("em").value.trim();
+    $("msg").textContent = "";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { $("msg").textContent = "Entre un courriel valide, par exemple prenom@exemple.com."; $("em").focus(); return; }
+    if (!$("ok").checked) { $("msg").textContent = "Coche la case pour accepter de recevoir les courriels de lancement."; $("ok").focus(); return; }
+    $("go").disabled = true; $("go").textContent = "Un instant…";
+    const payload = { email, consent: true, consentText: $("consentText").textContent.trim(), ref, source, website: $("website").value };
+    try {
+      if (demo) {
+        await new Promise((r) => setTimeout(r, 500));
+        const code = Math.random().toString(36).slice(2, 10);
+        showDone({ position: 128, total: 128, alreadyJoined: false, shareUrl: CONFIG.siteUrl + "/?ref=" + code });
+        return;
+      }
+      const res = await fetch(CONFIG.functionUrl, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || "serveur");
+      showDone(data);
+    } catch (err) {
+      $("msg").textContent = err.message === "courriel" ? "Ce courriel ne semble pas valide." : "L'inscription n'a pas fonctionné. Réessaie dans un instant.";
+    } finally {
+      $("go").disabled = false; $("go").textContent = "Réserver ma place";
+    }
+  });
+}
+</script>
+<script>
+{
+  document.querySelectorAll('a[href="#inscription"]').forEach((a) => a.addEventListener("click", (e) => {
+    e.preventDefault(); const em = document.getElementById("em");
+    document.getElementById("f").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" });
+    if (em && document.getElementById("f").style.display !== "none") setTimeout(() => em.focus({ preventScroll: true }), 350);
+  }));
+}
+</script>
+<script>
+{
+  const $ = (id) => document.getElementById(id);
+  const root = document.documentElement;
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)");
+  const still = () => reduce.matches || root.dataset.motion === "off";
+
+  // Bouton pause (WCAG 2.2.2) : coupe les animations et fige le decompte; memorise le choix.
+  const btn = $("motionBtn");
+  function setPaused(p) {
+    root.dataset.motion = p ? "off" : "on";
+    window.csPaused = p;
+    btn.setAttribute("aria-pressed", String(p));
+    btn.textContent = p ? "Relancer les animations" : "Mettre les animations en pause";
+    try { localStorage.setItem("cs-motion", p ? "off" : "on"); } catch (e) {}
+    if (window.csRefreshDemos) window.csRefreshDemos();
+    if (p && window.csSettle) window.csSettle();
+  }
+  let saved = null; try { saved = localStorage.getItem("cs-motion"); } catch (e) {}
+  setPaused(saved === "off");
+  btn.addEventListener("click", () => setPaused(!window.csPaused));
+
+  // Apparition au defilement, en cascade dans chaque groupe.
+  document.querySelectorAll(".fgrid,.ogrid,.steps,.band .wrap").forEach((g) => {
+    [...g.querySelectorAll(":scope > .rv")].forEach((el, i) => el.style.setProperty("--i", i % 6));
+  });
+  document.querySelectorAll(".bars .row i, .goal .track i").forEach((el, i, all) => {
+    const sib = [...el.closest(".ui").querySelectorAll("i")]; el.style.setProperty("--j", sib.indexOf(el));
+  });
+  // Rejouer au defilement : chaque bloc rejoue son entree quand il revient a l'ecran.
+  // Fonctionnalites : demo en boucle tant que la carte est visible (pause globale = WCAG 2.2.2).
+  const nf = new Intl.NumberFormat("fr-CA");
+  document.querySelectorAll(".lessons .lesson").forEach((el, i) => el.style.setProperty("--j", i));
+  const loops = new Map();
+  function clearLoop(card) { (loops.get(card) || []).forEach(clearTimeout); loops.set(card, []); }
+  function later(card, fn, ms) { const t = setTimeout(fn, ms); loops.get(card).push(t); }
+  function resetDemo(card) {
+    clearLoop(card);
+    card.querySelectorAll(".ui.bars,.ui.goals,.ui.lessons").forEach((u) => u.classList.remove("play"));
+    const chat = card.querySelector(".chat");
+    if (chat) { chat.classList.remove("fade"); chat.querySelectorAll(".cmsg,.typing").forEach((m) => m.classList.remove("on")); }
+    card.querySelectorAll("[data-to]").forEach((n) => { n.textContent = "0 $"; });
+  }
+  function finalState(card) {
+    card.querySelectorAll(".ui.bars,.ui.goals,.ui.lessons").forEach((u) => u.classList.add("play"));
+    card.querySelectorAll(".chat .cmsg").forEach((m) => m.classList.add("on"));
+    card.querySelectorAll("[data-to]").forEach((n) => { n.textContent = nf.format(+n.dataset.to) + " $"; });
+  }
+  function runDemo(card) {
+    resetDemo(card);
+    if (still()) { finalState(card); return; }
+    const chat = card.querySelector(".chat");
+    if (chat) {
+      const cycle = () => {
+        const msgs = chat.querySelectorAll(".cmsg"), typing = chat.querySelector(".typing");
+        chat.classList.remove("fade"); msgs.forEach((m) => m.classList.remove("on"));
+        msgs[0].classList.add("on");
+        later(card, () => typing.classList.add("on"), 350);
+        later(card, () => { typing.classList.remove("on"); msgs[1].classList.add("on"); }, 1250);
+        later(card, () => msgs[2].classList.add("on"), 1650);
+        later(card, () => chat.classList.add("fade"), 6200);
+        later(card, cycle, 6600);
+      };
+      cycle(); return;
+    }
+    const uis = card.querySelectorAll(".ui.bars,.ui.goals,.ui.lessons"), nums = card.querySelectorAll("[data-to]");
+    const cycle = () => {
+      uis.forEach((u) => { u.classList.remove("play"); void u.offsetWidth; u.classList.add("play"); });
+      nums.forEach((n) => countUp(n));
+      later(card, () => uis.forEach((u) => u.classList.remove("play")), 4400);
+      later(card, cycle, 5200);
+    };
+    cycle();
+  }
+  window.csRefreshDemos = () => document.querySelectorAll(".fcard.seen").forEach(runDemo);
+
+  // Heros : l'escalier et la mascotte rejouent leur entree quand on remonte.
+  const hero = document.querySelector(".hero");
+  let heroLeft = false;
+  function replayHero() {
+    if ($("done").classList.contains("on")) return;
+    playVid();
+  }
+
+  // Montee de la mascotte : video en boucle (une par theme, fond assorti); le bouton pause l'arrete sur la derniere image.
+  const V = $("climbVid");
+  const vidFile = (end) => "assets/centstep-montee-" + (root.dataset.theme === "dark" ? "sombre" : "clair") + (end ? "-fin.jpg" : ".mp4");
+  function showEnd() {
+    V.pause();
+    const go = () => { V.currentTime = Math.max(0, V.duration - 0.05); };
+    V.readyState >= 1 ? go() : V.addEventListener("loadedmetadata", go, { once: true });
+  }
+  function playVid() {
+    if (still()) return showEnd();
+    const go = () => { V.currentTime = 0; const pr = V.play(); if (pr) pr.catch(showEnd); };
+    V.readyState >= 1 ? go() : V.addEventListener("loadedmetadata", go, { once: true });
+  }
+  window.csVidTheme = () => {
+    const t = V.currentTime || 0, wasPlaying = !V.paused && !V.ended, fresh = !V.getAttribute("src");
+    V.poster = vidFile(true); V.src = vidFile(false); V.load();
+    V.addEventListener("loadedmetadata", () => {
+      if (fresh) return playVid();
+      if (wasPlaying && !still()) { V.currentTime = t; V.play().catch(showEnd); } else showEnd();
+    }, { once: true });
+  };
+  window.csSettle = showEnd;
+  window.csReplayVid = playVid;
+  document.querySelector(".stage").addEventListener("click", () => { if (!$("done").classList.contains("on")) playVid(); });
+
+  const io = "IntersectionObserver" in window ? new IntersectionObserver((entries) => {
+    entries.forEach((en) => {
+      const el = en.target;
+      if (el === hero) {
+        if (!en.isIntersecting) heroLeft = true;
+        else if (heroLeft && en.intersectionRatio > 0.25) { heroLeft = false; replayHero(); }
+        return;
+      }
+      if (en.isIntersecting && en.intersectionRatio >= 0.18) {
+        if (el.classList.contains("seen")) return;
+        el.classList.add("seen");
+        if (el.classList.contains("fcard")) runDemo(el);
+        else el.querySelectorAll("[data-to]").forEach((n) => countUp(n));
+      } else if (!en.isIntersecting) {
+        el.classList.remove("seen");
+        if (el.classList.contains("fcard")) { resetDemo(el); if (still()) finalState(el); }
+      }
+    });
+  }, { threshold: [0, 0.18, 0.3] }) : null;
+  if (io && hero) io.observe(hero);
+  document.querySelectorAll(".rv").forEach((el) => io ? io.observe(el) : (el.classList.add("seen"), el.classList.contains("fcard") && finalState(el)));
+
+  function countUp(el, to = +el.dataset.to, suffix = " $", ms = 600) {
+    if (still()) { el.textContent = nf.format(to) + suffix; return; }
+    const t0 = performance.now();
+    const step = (t) => {
+      const k = Math.min(1, (t - t0) / ms), e = 1 - Math.pow(1 - k, 3);
+      el.textContent = nf.format(Math.round(to * e)) + suffix;
+      if (k < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  // Theme clair / sombre, memorise.
+  const tb = $("themeBtn");
+  function setTheme(t) {
+    root.dataset.theme = t;
+    tb.setAttribute("aria-pressed", String(t === "dark"));
+    tb.querySelector(".tlabel").textContent = t === "dark" ? "Thème clair" : "Thème sombre";
+    tb.setAttribute("aria-label", t === "dark" ? "Passer au thème clair" : "Passer au thème sombre");
+    window.csVidTheme && window.csVidTheme();
+  }
+  setTheme("light");
+  tb.addEventListener("click", () => setTheme(root.dataset.theme === "dark" ? "light" : "dark"));
+
+  // Retour au formulaire : bouton dans la confirmation et bouton Precedent du navigateur.
+  function backToForm() {
+    if (!$("done").classList.contains("on")) return;
+    $("done").classList.remove("on"); f.style.display = ""; f.classList.remove("out");
+    $("em").value = ""; $("ok").checked = false; $("msg").textContent = "";
+    $("copy").textContent = "Copier le lien"; $("copy").classList.remove("ok");
+    window.csReplayVid && window.csReplayVid();
+    $("em").focus({ preventScroll: true });
+    f.scrollIntoView({ block: "center", behavior: still() ? "auto" : "smooth" });
+  }
+  let pushed = false;
+  window.csPushDone = () => { try { history.pushState({ cs: "done" }, "", "#confirmation"); pushed = true; } catch (e) { pushed = false; } };
+  addEventListener("popstate", () => backToForm());
+  $("backBtn").addEventListener("click", () => { if (pushed && history.state && history.state.cs === "done") { pushed = false; history.back(); } else backToForm(); });
+
+  // Envoi : bouton occupe, puis bascule formulaire -> confirmation.
+  const go = $("go"), f = $("f");
+  new MutationObserver(() => go.classList.toggle("busy", go.disabled)).observe(go, { attributes: true, attributeFilter: ["disabled"] });
+  window.csSwap = () => {
+    const show = () => { f.style.display = "none"; f.classList.remove("out"); $("done").classList.add("on"); };
+    if (still()) return show();
+    f.classList.add("out"); setTimeout(show, 200);
+  };
+
+  // Celebration unique (moins de 1 s) : le sou saute une marche, change de pose, pluie de sous, rang qui defile.
+  window.csCelebrate = (position) => {
+    countUp($("pos"), position, "", 600);
+    if (still()) return;
+    setTimeout(() => {
+      const box = document.querySelector(".fig").getBoundingClientRect();
+      const burst = $("burst"); burst.innerHTML = "";
+      burst.style.left = (box.width * 0.795) + "px"; burst.style.top = (box.height * 0.33) + "px";
+      for (let i = 0; i < 14; i++) {
+        const a = (Math.PI * 2 * i) / 14 + Math.random() * 0.3, r = 70 + Math.random() * 60;
+        const s = document.createElement("span");
+        s.style.setProperty("--x", Math.cos(a) * r + "px"); s.style.setProperty("--y", Math.sin(a) * r - 30 + "px");
+        s.style.setProperty("--r", (Math.random() * 360 - 180) + "deg"); s.style.animationDelay = Math.random() * 80 + "ms";
+        burst.appendChild(s);
+      }
+      setTimeout(() => (burst.innerHTML = ""), 900);
+    }, 420);
+  };
+}
+</script>
+
+</body>
+</html>
